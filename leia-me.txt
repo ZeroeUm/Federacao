@@ -1,6 +1,0 @@
-Senhores, sugiro que cada um faça um clone do repositorio em sua maquina pessoal, crie uma branch com seu nome e sempre 
-commit dentro dessa branch durante o final de semana um de nós faz um marge de todas as branchs no master
-
-Felipe - - - 
-
-teste a finalizar
