@@ -1,0 +1,1071 @@
+Exporting package to 'C:\Users\felipe\Desktop\SISGAI.xml'
+Retrieving data for export: diagram elements
+Retrieving data for export: links
+Retrieving data for export: constraints
+Retrieving data for export: attribute tagged values
+Retrieving data for export: operation tagged values
+Retrieving data for export: operation parameter tagged values
+Retrieving data for export: connector tagged values
+Completed data retrieval
+Pre-processing export tree...
+Completed pre-processing
+Processing package: SISGAI
+Element:0: Alunos
+Element:1: Análise do Problema
+Element:2: Modelos de negócio
+Element:3: Analise do Software
+Element:4: Sistema Gerenciador de Atividades Internas
+Element:5: Diagramas de clases
+Element:6: BPMN
+Element:7: Analise do sistema
+Element:8: Workshop de Caracteristicas
+Element:9: Projeto do Sistema
+Processing package: Diagramas de clases
+Element:10: Diagrama de classe de design
+Element:11: Diagrama de Classe
+Processing package: Diagrama de Classe
+Element:12: Endereco
+Element:13: Item
+Element:14: Aluno
+Element:15: Filial
+Element:16: Usuário
+Element:17: Instrutor
+Element:18: Graduação
+Element:19: Modalidade
+Element:20: Coordenador
+Element:21: Federado
+Element:22: DetalheNotas
+Element:23: Conteudo
+Element:24: Fornecedor
+Element:25: Pedido
+Element:26: Prontuario
+Element:27: EventoGraduação
+Element:28: Notificação
+Element:29: Administrador
+Diagram: Diagrama de Classe
+Processing package: Diagrama de classe de design
+Diagram: Diagrama de classe de design
+Processing package: Alunos
+Element:30: 
+Diagram: Alunos
+Processing package: Analise do sistema
+Element:31: Requisitos do sistema
+Diagram: Analise do sistema
+Processing package: Requisitos do sistema
+Element:32: R0028 - O sistema DEVE gerar automaticamente um login e senha de acesso para cada federado a partir das informações inseridas no cadastro dele.
+Element:33: R0044 - O sistema DEVE armazenar historico de noticias enviadas ao alunos
+Element:34: R0041 - O sistema DEVE enviar email a cada 3 mês ao coordenador  informando quantos alunos tornaram-se inativos no periodo, separando-os por filial 
+Element:35: R0037 - O sistema DEVE, enviar email a cada mês para o administrador informando quantos alunos foram matriculados na federação, separando-os por modalidade
+Element:36: R0030 - O sistema DEVE, na validação de usuário no momento de login, permitir que o usuário erre sua senha somente 3 vezes.
+Element:37: R0010 - O sistema DEVE permitir ao Aluno acesso ao cronograma de eventos a serem realizados pela Federação.
+Element:38: R0049 - O sistema DEVE bloquear acesso ao usuario que errar a senha 3 vezes seguidas ao tentar acessar o sistema
+Element:39: R0006 - O sistema DEVE permitir ao Administrador gerar gráficos comparativos entre duas ou mais Graduações diferentes, com a quantidade de participantes e a quantidade de participantes por faixa.
+Element:40: R0022 - O sistema DEVE permitir ao Coordenador controle sobre as atividades realizadas de sua modalidade.
+Element:41: R0048 - O sistema DEVE permitir que o usuário redefina a senha de acesso.
+Element:42: R0013 - O sistema DEVE permitir aos instrutores que cadastrem novos alunos.
+Element:43: R0014 - O sistema DEVE permitir aos instrutores acesso ao histórico de notas de seus Alunos.
+Element:44: R0045 - O sistema DEVE ter acesso ao servidor de email onde o mesmo pode visualizar as mensagens enviadas a federação de sua autoria e acompanhar as respostas
+Element:45: R0004 - O sistema DEVE enviar um e-mail automático aos aniversariantes dos dias com uma mala direta parabenizando os Federados com uma mensagem.
+Element:46: R0039 - O sistema DEVE enviar email a cada professor apos a realização da graduação com uma relação de alunos que não participaram da graduação questionando se os alunos da relação estão ativos ou inativos.
+Element:47: R0017 - O sistema DEVE gerar listas de chamadas para graduações a serem realizadas pela Federação, separando os participantes por categoria (graduação).
+Element:48: R0008 - O sistema DEVE permitir ao Aluno consultar histórico pessoal de notas.
+Element:49: R0012 - O sistema DEVE permitir aos Instrutores acesso a inofrmações cadastrais de seus Alunos.
+Element:50: R0021 - O sistema DEVE permitir que o Coordenador controle dados referentes a cada Filial de sua modalidade.
+Element:51: R0016 - O sistema DEVE permitir aos Coordenadores a geração de Certificados de graduação de faixa aos Alunos.
+Element:52: R0034 - O sistema DEVE, assim que um aluno inativo tornar-se ativo, revalidar o login dele.
+Element:53: R0011 - O sistema DEVE permitir que o Aluno consulte seu histórico de atividades realizadas na federação.
+Element:54: R0026 - O sistema DEVE, ao termino de uma graduação de faixa, enviar e-mails aos participantes da graduação de faixa as notas recebidas por ele na avaliação.
+Element:55: R0024 - O sistema DEVE gerar ao Administrador relação de Filiais onde a Federação atua separando-as por Modalidade.
+Element:56: R0050 - O sistema DEVE permitir que o Administrador altere o status do pedido de faixas para uma graduação exceto se o status for de finalizado.
+Element:57: R0001 - O sistema DEVE permitir ao Administrador verificar o histórico de Notas dos Federados pertencentes a Federação.
+Element:58: R0005 - O sistema DEVE permitir ao Administrador um controle sobre os banco de dados da Federação, podendo alterar, incluir e excluir todas as informações contidas nele.
+Element:59: R0020 - O sistema DEVE gerar ao Coordenador relação de filiais por Modalidade.
+Element:60: R0035 - O sistema DEVE, assim que um aluno inativo tornar-se ativo, enviar um e-mail automático informando o aluno seu usuário de acesso e uma nova senha.
+Element:61: R0040 - O sistema DEVE enviar email a cada 3 mês ao administrador informando quantos alunos tornaram-se inativos no periodo, separando-os por modalidade.
+Element:62: R0023 - O sistema DEVE permitir ao Instrutor controle sobre situação dos Alunos nas Filiais que atua, classificando-os entre ativo e inativo.
+Element:63: R0009 - O sistema DEVE conter em usa interface, na parte superior, um desenho representando a graduação atual do usuário dentro de sua modalidade.
+Element:64: R0019 - O sistema DEVE gerar ao Coordenador relação de Professores por Filial.
+Element:65: R0003 - O sistema DEVE permitir ao Administrador verificar os dados pessoais dos Federados pertencentes a Federação.
+Element:66: R0031 - O sistema DEVE, após a matrícula de um novo aluno, enviar um e-mail informando ao aluno quais são o login e senha de acesso ao sistema.
+Element:67: R0018 - O sistema DEVE gerar uma relação de participantes de cada pré-avaliações a serem realizadas nas filiais pelo Coordenador, separando os Alunos por graduação.
+Element:68: R0043 - O sistema DEVE gerar um gráfico mostrando ao coordenadador quantos alunos tornaram-se inativos e quantos foram federados separando-os por filial a partir de um período escolhido por ele.
+Element:69: R0015 - O sistema DEVE permitir aos Coordenadores receber a quantidade exata de faixas necessarias para que a Federação possa realizar uma graduação de faixa.
+Element:70: R0027 - O sistema DEVE, ao termino de uma graduação de faixa, enviar e-mails aos instrutores, que tiveram alunos avaliados, uma relação com as notas recebidas por seus alunos na avaliação, classificando-os por filial e por faixa.
+Element:71: R0046 - O sistema DEVE na tela inicial de cada usuario a foto e o nome do membro da federação
+Element:72: R0038 - O sistema DEVE enviar email a cada mês para cada coordenador informando quanto alunos foram matriculados na federação separando-os por Filial e/ou professor
+Element:73: R0033 - O sistema DEVE enviar um e-mail ao aluno informando que ele foi considerado inativo na Federação, perdendo o acesso através de seu login e senha.
+Element:74: R0042 - O sistema DEVE gerar um gráfico mostrando ao administrador quantos alunos tornaram-se inativos e quantos foram federados separando-os por modalidade a partir de um período escolhido por ele.
+Element:75: R0036 - O sistema DEVE, armazenar e manter senhas dos federados criptografadas.
+Element:76: R0002 - O sistema DEVE permitir ao Administrador verificar o histórico de Graduação dos Federados pertencentes a Federação.
+Element:77: R0025 - O sistema DEVE gerar ao Administrador relação de Alunos ativos e inativos por Modalidade e por Graduação.
+Element:78: R0032 - O sistema DEVE invalidar automaticamente o acesso de um aluno ao sistema caso ele tenha seu status na Federação alterado para inativo.
+Element:79: R0047 - O sistema DEVE enviar um e-mail informado data e local da realização da graduação de faixa aos participantes.
+Element:80: R0029 - O sistema DEVE permitir que os usuários troquem a senha.
+Element:81: R0007 - O sistema DEVE permitir ao Administrador gerar chaves para as competições organizadas pela federação, tendo como base a quantidade de participantes e a relação dos mesmos separados em categorias.
+Diagram: Requisitos do sistema
+Processing package: BPMN
+Element:82: Graduação
+Element:83: 
+Element:84: Filial
+Element:85: IntermediateEvent
+Element:86: matricula realizada
+Element:87: 
+Element:88: 
+Element:89: Matricular aluno
+Element:90: 
+Element:91: Aluno
+Element:92: recebe resposta ao convite
+Element:93: ficha de inscrição + necessidades
+Element:94: aluno cadastrado no evento
+Element:95: Receber dados
+Element:96: convite de graduação
+Element:97: 
+Element:98: 
+Element:99: receber dados para inscrição
+Element:100: solicitar graduação de faixa preta
+Element:101: 
+Element:102: StartEvent
+Diagram: BPMN - Graduação de faixa preta - Filial (Caminho Feliz)
+Processing package: Modelos de negócio
+Element:103: Modelo Conceitual
+Element:104: Regras de negócio
+Element:105: Processos de Negócio
+Element:106: Ciclos de vida
+Diagram: Modelos de negócio
+Processing package: Ciclos de vida
+Element:107: Graduação de faixa preta na Liga Nacional
+Element:108: Graduação de faixa preta
+Element:109: Graduação
+Element:110: Aluno Faixa Preta
+Element:111: Graduação de faixa preta
+Element:112: Relação de Alunos Participantes
+Element:113: Aluno Faixa Colorida
+Element:114: Relaçao para Graduação de Faixa preta
+Element:115: Relação de Alunos Graduados
+Diagram: Ciclos de vida
+Processing package: Aluno Faixa Colorida
+Element:116: Coordenador pré-avalia aluno e informa Federação e Alunos sobre o resultado
+Element:117: Convidado para Participar da Graduação de Faixa
+Element:118: Federação recebe nota de pré-avaliação
+Element:119: Matriculado
+Element:120: Filial solicita a participação de alunos em graduação à federação
+Element:121: Professor faz convite ao aluno para participação em graduação
+Element:122: Aluno entrega ficha preenchida mais as exigências necessárias para a sua inscrição
+Element:123: Tem Pre-Avaliacao Agendada
+Element:124: Dados Completos
+Element:125: Graduação Confirmada pelo Aluno
+Element:126: Aluno informa dados pessoais ao professor
+Element:127: 
+Element:128: Aluno envia resposta ao professor
+Element:129: Confirmado para Graduacao
+Element:130: Federação trata solicitação de graduação
+Diagram: Aluno Faixa Colorida
+Processing package: Aluno Faixa Preta
+Element:131: Solicitação Realizada à Federação
+Element:132: Matriculado
+Element:133: Aluno entrega ficha mais as exigências 
+Element:134: Aluno informa dados pessoais ao professor
+Element:135: Filial solicita a participação de alunos em graduação de faixa Preta à federação
+Element:136: Confirmado para Graduacao
+Element:137: Convidado para Participar da Graduação de Faixa
+Element:138: Dados Completos
+Element:139: 
+Element:140: Aluno envia reposta ao convite
+Element:141: Aluno informa dados pessoais ao professor
+Element:142: Professor faz convite a aluno para participação em graduação de faixa Preta
+Element:143: Aluno entrega ficha preenchida junto com os requisitos requisitos
+Diagram: Aluno Faixa Preta
+Processing package: Graduação
+Element:144: Listado Graduação
+Element:145: Federação realiza cerimônia de Graduação de faixa e atualiza histórico dos alunos, entrgando faixa e certificado
+Element:146: Aluno informa presença ao seu professor
+Element:147: Aluno Graduação
+Element:148: 
+Diagram: Graduação
+Processing package: Graduação de faixa preta
+Element:149: Recebe faixa preta
+Element:150: 
+Element:151: Fornecedor entrega faixas pretas para graduação de faixa preta
+Element:152: Coordenador recepciona candidato 
+Element:153: Avaliado
+Element:154: Mestre avalia candidato e informa resultado
+Element:155: Listado para Graduação 
+Element:156: Tem teste realizado
+Element:157: Federação recebe faixas pretas para graduação de faixa preta
+Element:158: Candidato realiza testes necessários
+Diagram: Graduação de faixa preta
+Processing package: Graduação de faixa preta
+Element:159: 
+Element:160: Coordenador recepciona candidato 
+Element:161: Mestre avalia candidato e informa resultado
+Element:162: Tem teste realizado
+Element:163: 
+Element:164: Candidato realiza testes necessários
+Element:165: Listado para graduação
+Diagram: Graduação de faixa preta
+Processing package: Graduação de faixa preta na Liga Nacional
+Element:166: Credenciado na Liga Nacional
+Element:167: Candidato realiza testes necessários
+Element:168: 
+Element:169: Aluno é recepcionado por seu Coordenador na Liga Nacional
+Element:170: Listado para Graduação
+Element:171: Avaliado
+Element:172: Liga Nacional analisa resultados e informa Federação
+Element:173: Liga Nacional emite certificados e credenciamentos dos candidatos e entrega para federação
+Element:174: Tem teste realizado
+Diagram: Graduação de faixa preta na Liga Nacional
+Processing package: Relação de Alunos Graduados
+Element:175: Tem cadastro na federação e histórico atualizado e certifica aluno de sua graduação
+Element:176: Fornecedor entrega faixas solicitadas
+Element:177: 
+Element:178: Federação cadastra novos alunos não federados, atualiza histórico pessoal de participantes e emite certificado de alunos 
+Element:179: Tem Faixa solicitada
+Element:180: Coordenador envia resultados das pré-avaliações realizadas
+Element:181: Tem Relação de Alunos Graduados Atualizados
+Diagram: Relação de Alunos Graduados
+Processing package: Relação de Alunos Participantes
+Element:182: Federação trata solicitação de graduação
+Element:183: Trata alunos não federados
+Element:184: Federação cadastra novos alunos não federados, atualiza histórico pessoal de participantes e emite certificado de alunos 
+Element:185: 
+Element:186: Federação recebe relação de alunos graduados mais inscrições de novos alunos
+Element:187: Faixa Solicitada
+Element:188: Recebido relação mais inscrições
+Diagram: Relação de Alunos Participantes
+Processing package: Relaçao para Graduação de Faixa preta
+Element:189: Analisado Antecedentes
+Element:190: Faixa Solicitada
+Element:191: Federação trata solicitação de graduação de faixa preta
+Element:192: Tratada solicitação para graduação
+Element:193: Federação recebe inscrições de alunos para graduação de faixa preta
+Element:194: 
+Diagram: Relaçao para Graduação de Faixa preta
+Processing package: Modelo Conceitual
+Element:195: Liga Nacional Faixa Preta
+Element:196: Federação Faixa Preta
+Element:197: Federação Faixa Colorida
+Element:198: Filial Faixa Preta
+Element:199: Filial Faixa Colorida
+Diagram: Modelo Conceitual
+Processing package: Federação Faixa Colorida
+Element:200: Federação Faixa Colorida III
+Element:201: Federação Faixa Colorida II
+Element:202: Federação Faixa Colorida I
+Processing package: Federação Faixa Colorida I
+Element:203: Faixa Solicitada
+Element:204: Historico
+Element:205: Modalidade
+Element:206: Relacao de Alunos para Graduação
+Element:207: Filial
+Element:208: Federação
+Element:209: Fornecedor
+Element:210: Alunos
+Element:211: Coordenador
+Element:212: Aluno não Federado
+Element:213: Pedido
+Element:214: Federado
+Diagram: Federação Faixa Colorida
+Processing package: Federação Faixa Colorida II
+Element:215: Alunos não federados
+Element:216: Aluno
+Element:217: Relação de alunos graduados
+Element:218: Certificado
+Element:219: Faixas Entregues
+Element:220: Aluno
+Element:221: Faixas Solicitadas
+Element:222: Fornecedor
+Element:223: Federados
+Diagram: Federação Faixa Colorida II
+Processing package: Federação Faixa Colorida III
+Element:224: Certificado
+Element:225: Aluno
+Element:226: Faixa Preta
+Element:227: Federado
+Element:228: Lista de Presença
+Element:229: Faixa
+Element:230: Faixa Colorida
+Element:231: Certificado de Faixa Preta
+Element:232: Carteirinha
+Element:233: Graduação
+Element:234: Histórico
+Diagram: Federação Faixa Colorida III
+Processing package: Federação Faixa Preta
+Element:235: Federação Faixa Preta II
+Element:236: Federação Faixa Preta I
+Processing package: Federação Faixa Preta I
+Element:237: Histórico
+Element:238: Fornecedor
+Element:239: Modalidade
+Element:240: Antecedentes
+Element:241: Federado
+Element:242: Relação para Graduação de faixa preta
+Element:243: pedido
+Element:244: Faixas Solicitadas
+Diagram: Federação Faixa Preta I
+Processing package: Federação Faixa Preta II
+Element:245: Graduação de Faixa Preta
+Element:246: Faixas Entregues
+Element:247: Resultado
+Element:248: Faixas Recebidas
+Diagram: Federação Faixa Preta II
+Processing package: Filial Faixa Colorida
+Element:249: Ficha de Inscrição
+Element:250: Aluno
+Element:251: Agenda de Pré-Avaliação
+Diagram: Filial Faixa Colorida
+Processing package: Filial Faixa Preta
+Element:252: Aluno
+Element:253: Ficha de Inscrição
+Diagram: Filial Faixa Preta
+Processing package: Liga Nacional Faixa Preta
+Element:254: Liga Nacional Faixa Preta I
+Element:255: Liga Nacional Faixa Preta II
+Processing package: Liga Nacional Faixa Preta I
+Element:256: Graduação de Faixa Preta
+Element:257: Resultado
+Diagram: Liga Nacional Faixa Preta I
+Processing package: Liga Nacional Faixa Preta II
+Element:258: Certificado
+Element:259: Carteirinha
+Element:260: Graduação de Faixa Preta
+Diagram: Liga Nacional Faixa Preta II
+Processing package: Processos de Negócio
+Element:261: $diagram://{3C425155-98DB-4f02-BF86-464512C920A0}
+Element:262: $diagram://{5F9DF58C-09DE-4080-9009-29F7AE1CE2FD}
+Element:263: $diagram://{60E9BDF3-B6F4-4fa8-B665-2EA6F93CAA90}
+Element:264: $diagram://{F918220D-06A2-4fd5-A2A9-5D1293FEB737}
+Element:265: $diagram://{658A77CD-8E8F-4be6-97C4-0C806ED7576D}
+Element:266: graduação faixa colorida federação
+Element:267: Processos de Negócio
+Element:268: graduação faixa preta
+Element:269: graduação faixa colorida filial
+Element:270: $diagram://{17D617D0-0DD1-46f4-8553-92AE019E001F}
+Element:271: $diagram://{DD58BC58-B60D-4901-A832-2BA2DFC3A8C8}
+Element:272: graduação faixa preta filial
+Element:273: $diagram://{F96B0F95-13B4-49ee-858D-86FC84AD7529}
+Element:274: $diagram://{6730EA21-6981-40fc-894D-67810ADB8339}
+Diagram: Processos de Negócio
+Processing package: graduação faixa colorida federação
+Element:275: graduação faixa colorida federação parte 1
+Element:276: graduação faixa colorida federação parte 2
+Element:277: graduação faixa colorida federação parte 3
+Processing package: graduação faixa colorida federação parte 1
+Element:278: Relação de alunos participantes
+Element:279: Histórico
+Element:280: Receber relação e inscrição de alunos para graduação
+Element:281: Faixas solicitadas
+Element:282: Modalidade
+Element:283: Federado
+Element:284: Coordenador
+Element:285: Tratar solicitação de graduação
+Element:286: Alunos não federados
+Element:287: Filial
+Element:288: Fornecedor de faixas
+Element:289: Fornecedor
+Element:290: Coordenador
+Diagram: graduação faixa colorida federação parte 1
+Processing package: graduação faixa colorida federação parte 2
+Element:291: Fornecedor
+Element:292: Certificado
+Element:293: Relação de alunos graduados
+Element:294: Faixa Entregues
+Element:295: Faixas solicitadas
+Element:296: Fornecedor
+Element:297: Coordenador
+Element:298: Atualizar relação de alunos graduados
+Element:299: Emitir certificado
+Element:300: Alunos não federados
+Element:301: Federado
+Element:302: Receber faixas pretas
+Diagram: graduação faixa colorida federação parte 2
+Processing package: graduação faixa colorida federação parte 3
+Element:303: DataStore1
+Element:304: Federado
+Element:305: Graduação
+Element:306: Realizar cerimônia
+Element:307: Histórico
+Element:308: Receber certificado e carterinha
+Element:309: Aluno
+Element:310: Recepcionar alunos
+Element:311: Federado
+Element:312: Carterinha
+Element:313: Aluno
+Element:314: Certificado de faixa preta
+Element:315: Certificado
+Element:316: Faixas
+Element:317: DataStore2
+Element:318: Liga Nacional
+Element:319: Lista de presença
+Diagram: graduação faixa colorida federação parte 3
+Processing package: graduação faixa colorida filial
+Element:320: Matricular aluno
+Element:321: Agendar pré-avaliação
+Element:322: 7a. avisar impedimento de aluno
+Element:323: Convidar aluno para graduação de faixa
+Element:324: Receber resposta ao convite
+Element:325: Solicitar graduação de alunos
+Element:326: ficha de aluno
+Element:327: Avisar aluno sobre a data da pré-avaliação
+Element:328: aluno
+Element:329: Receber dados para inscrição
+Element:330: Aluno
+Element:331: agenda pré-avaliação
+Element:332: Pré-avaliar o aluno
+Element:333: Federação
+Element:334: Aluno
+Element:335: Aluno
+Diagram: graduação faixa colorida filial
+Processing package: graduação faixa preta
+Element:336: graduação faixa preta liga nacional parte 4
+Element:337: graduação faixa preta federação parte 1
+Element:338: graduação faixa preta liga nacional parte 3
+Element:339: graduação faixa preta federação parte 2
+Processing package: graduação faixa preta federação parte 1
+Element:340: Federado
+Element:341: Antecendentes
+Element:342: Histórico
+Element:343: Faixas solicitadas
+Element:344: Fornecedor
+Element:345: Avaliar aptidões
+Element:346: Fornecedor de faixas
+Element:347: Modalidade
+Element:348: Filial
+Element:349: Relação para Graduação de faixa preta
+Element:350: Receber relação de graduação de faixa preta
+Diagram: graduação faixa preta federação parte 1
+Processing package: graduação faixa preta federação parte 2
+Element:351: Recepcionar aluno
+Element:352: Realizar testes
+Element:353: Aluno
+Element:354: Avaliar resultados
+Element:355: Resultados
+Element:356: Graduação de faixa preta
+Diagram: graduação faixa preta federação parte 2
+Processing package: graduação faixa preta liga nacional parte 3
+Element:357: Federação
+Element:358: Graduação de faixa preta na Liga Nacional
+Element:359: Resultado
+Element:360: Recepcionar aluno
+Element:361: Realizar teses
+Element:362: Aluno
+Element:363: Analisar resultados
+Diagram: graduação faixa preta liga nacional parte 3
+Processing package: graduação faixa preta liga nacional parte 4
+Element:364: Certificado
+Element:365: Graduação de faixa preta
+Element:366: Emitir certificado e carterinha
+Element:367: Federação
+Element:368: Carterinha
+Diagram: graduação faixa preta liga nacional parte 4
+Processing package: graduação faixa preta filial
+Element:369: Convidar aluno para graduação
+Element:370: Matricular aluno
+Element:371: Solicitar graduação de faixa preta
+Element:372: Federação
+Element:373: Aluno Faixa Preta
+Element:374: Aluno
+Element:375: Ficha de inscrição
+Element:376: Aluno
+Element:377: Receber dados para inscrição
+Element:378: Receber reposta ao convite
+Diagram: graduação faixa preta filial
+Processing package: Regras de negócio
+Element:379: RN0015 - Na cerimonia de faixa preta, também é entregue ao participante carterinha e certificados emitidos pela Liga Nacional.
+Element:380: RN0001 - Data e local no convite de graduação ao aluno.
+
+Element:381: RN0014 - Para poder trocar de dan, o candidato deve esperar, em anos, o número do dan atual dele.
+Element:382: RN0023 - As faixas pretas são pedidas de maneira personalizada, sendo que ela vem personalizda com a quantidade de Dan do participante além de vir com o nome dele bordado na faixa.
+Element:383: RN0019 - Os alunos podem ser inscritos em graduações de faixa até uma semana antes da realização da graduação.
+Element:384: RN0003 - Separar os alunos em grupos de 8 para a realização da cerimonia e para receber a faixa.
+Element:385: RN0018 - Um dos requisitos para a graduação de faixa preta é a elaboração e entreaga de uma dissertação.
+Element:386: RN0016 - Novos alunos tornam-se federeados somente após a realização da pré-avaliação.
+Element:387: RN0024 - Somente Instrutores e coordenadores tem acesso a listagem de Filiais
+
+
+Element:388: RN0004 - No pedido ao fornecedor, sempre é feito com a quantidade de 3 faixas à mais do que o necessário para cada tipo de faixa do pedido.
+Element:389: RN0012 - São realizados 2 eventos de graduação de faixas pretas por ano, com intervalo de 6 meses entre elas.
+Element:390: RN0002 - Enviar dados do coordenador à filial.
+
+Element:391: RN0013 - Quando é enviado o pedido de graduação de faixa preta, um dos requisitos é o envio do atestado de antecedentes criminais (candidatos maiores de idade).
+Element:392: RN0008 - Solicitação de faixa é realizada antes da pré-avaliação
+Element:393: RN0021 - Alunos que não entregarem os requisitos necessários para graduação até o prazo estipulado por seu professor não poderão participar da graduação tendo sua inscrição cancelada.
+Element:394: RN0017 - Para cada dan de faixa preta é necessário uma carga horária de atividades pré-estabelicidas pela federação, para saber a carga multiplica-se o próximo dan do candidato por 100 horas.
+Element:395: RN0010 - Para graduação de faixa preta a carência de tempo é de 6 meses do último exame de graduação.
+Element:396: RN0005 - Caso a nota do aluno seja uma nota acima de 9,51 na avaliação ele recebe uma dupla promoção.
+Element:397: RN0009 - A cerimônia de entrega de faixa preta é somente um juramento junto com a entrega da faixa nova.
+Element:398: RN0020 - Na cerimônia os alunos federados faixa colorida realizam apenas o movimento de sua faixa de graduação atual.
+Element:399: RN0007 - Caso a nota do aluno seja menor que 5,00 ele é reprovado tecnicamente.
+Element:400: RN0006 - Caso a nota do aluno seja maior que 5,00 e menor que 6,00, o aluno recebe uma nova oportunidade de avaliação que será realizada pelo professor responsável até uma semana depois da data do exame de graduação.
+Element:401: RN0022 - Apesar das ceimônias de faixa colorida e de faixa preta poderem ser realizadas no mesmo dia e local, elas ocorrem uma após a outra com um intervalo de 15 minutos entre elas.
+Element:402: RN0011 - São realizados 4 eventos de graduação de faixa colorida por ano, com intervalo de 3 meses entre elas.
+Diagram: Regras de negócio
+Processing package: Projeto do Sistema
+Element:403: Atores
+Element:404: Arquitetura do sistema
+Diagram: Projeto do Sistema
+Processing package: Arquitetura do sistema
+Element:405: Sistema Gerenciador de Atividades Internas
+Element:406: geração de e-mails
+Element:407: Subsistema Controlador de Acesso
+Element:408: manuntenção de dados cadastrados
+Element:409: manuntenção de dados da modalidade
+Element:410: analise de dados de filial e de alunos
+Element:411: Subsistema Gerenciador de Modalidade
+Element:412: Subsistema Gerenciador de Atividade por Filial
+Element:413: analise de dados da modalidade
+Element:414: manuntenção de dados cadastrados
+Element:415: acesso ao sistema
+Element:416: acesso ao sistema
+Element:417: acesso ao sistema
+Element:418: Subsistema de Administração
+Element:419: Subsistema de Gestão de E-mails
+Element:420: manuntenção de dados pessoais e de situação
+Element:421: acesso ao sistema
+Diagram: Arquitetura do sistema
+Processing package: Atores
+Element:422: Administrador
+Element:423: Coordenador
+Element:424: Aluno
+Element:425: Servidor de E-mail
+Element:426: Instrutor
+Element:427: Professor
+Element:428: Mestre
+Diagram: Atores
+Processing package: Análise do Problema
+Element:429: fronteira sistemica
+Element:430: causas raizes do problema
+Element:431: stakeholders
+Element:432: restrições
+Element:433: declaração do problema
+Diagram: cinco passos
+Processing package: causas raizes do problema
+Element:434: causas raízes do problema
+Processing package: declaração do problema
+Element:435: declaração do problema - instrutor
+Element:436: 
+Element:437: 
+Element:438: declaração do problema - federação
+Element:439: declaração do problema - alunos
+Element:440: declaração do problema - coordenador
+Element:441: 
+Element:442: 
+Diagram: declaração do problema - federação
+Diagram: declaração do problema - mestre
+Diagram: declaração do problema - professor
+Diagram: declaração do problema - aluno
+Processing package: fronteira sistemica
+Element:443: Sistema gerenciador de atividades internas
+Element:444: Mestre
+Element:445: Instrutor
+Element:446: Aluno
+Element:447: Servidor de E-mail
+Element:448: Professor
+Element:449: Coordenador
+Element:450: Fronteira sistemica
+Element:451: Administrador
+Diagram: fronteira sistemica
+Processing package: restrições
+Element:452: restrições
+Processing package: stakeholders
+Element:453: stakeholders
+Processing package: Analise do Software
+Element:454: Subsistema de Administração
+Element:455: Subsistema Controlador de Acesso
+Element:456: Subsistema de Gestão de E-mails
+Element:457: Subsistema Gerenciador de Atividades por Filial
+Element:458: Subsistema Gerenciador de Modalidade
+Diagram: Analise do Software
+Processing package: Subsistema Controlador de Acesso
+Element:459: Requisitos de Software
+Element:460: Dicionário de Dados
+Element:461: Mensagens
+Element:462: Realização dos Casos de Uso
+Element:463: Casos de Uso
+Element:464: Storyboard
+Diagram: Subsistema Controlador de Acesso
+Processing package: Casos de Uso
+Element:465: Usuário
+Element:466: Instrutor
+Element:467: invalidar acesso ao sistema de usuários inativos
+Element:468: mudar senha de acesso ao sistema
+Element:469: gerar acesso ao novo aluno matriculado
+Diagram: Casos de Uso - Subsistema Controlador de Acesso
+Processing package: Dicionário de Dados
+Diagram: Dicionário de Dados
+Processing package: Mensagens
+Element:470: MSG0003 - Você errou 3 vezes sua senha temporariamente ela está bloqueada.
+Element:471: MSG0006 - A senha está errada.
+Element:472: MSG0004  - Você errou sua senha X vezes.
+Element:473: MSG0007 - Formato de senha invalido.
+Element:474: MSG0001 - Você não tem permissão para acessar essa pagina.
+Element:475: MSG0002 - Login ou senha inválido(s).
+Element:476: MSG0008 - A senha não pode ser iqual a anterior
+Element:477: MSG0009 - Senha Alterada com sucesso.
+Element:478: MSG0005 - O sistema está fora do ar.
+Diagram: Mensagens
+Processing package: Realização dos Casos de Uso
+Element:479: mudar senha de acesso ao sistema
+Diagram: Realização dos Casos de Uso
+Processing package: mudar senha de acesso ao sistema
+Diagram: mudar senha de acesso ao sistema
+Processing package: Requisitos de Software
+Diagram: Requisitos de Software
+Processing package: Storyboard
+Element:480: Alterar senha
+Processing package: Alterar senha
+Element:481: Senha Anterior
+Element:482: Alterar Senha
+Element:483: Nova Senha
+Element:484: 
+Element:485: Login
+Element:486: 
+Element:487: 
+Element:488: Menu
+Element:489: Entrar
+Element:490: Repita a nova senha
+Element:491: Alterar Senha
+Element:492: senha Antiga
+Element:493: Alterar Senha
+Element:494: 
+Element:495: confirmar
+Element:496: Senha
+Element:497: Alterar Senha
+Element:498: 
+Element:499: Login de acesso
+Element:500: senha
+Element:501: 
+Diagram: Storyboard
+Processing package: Subsistema de Administração
+Element:502: Storyboard
+Element:503: Casos de Uso
+Element:504: Dicionario de Dados
+Element:505: Requisitos de Software
+Element:506: Mensagens
+Element:507: Realização dos Casos de Uso
+Diagram: Subsistema de Administração
+Processing package: Casos de Uso
+Element:508: manter pedidos de compra de faixas para graduação de faixa
+Element:509: manter mensagem de mala direta para aniversariantes
+Element:510: gerar relatório de instrutores
+Element:511: manter notificações
+Element:512: verificar histórico de federado
+Element:513: gerar relatório comarativo entre novos alunos e alunos inativos
+Element:514: gerar relatório de modalidade
+Element:515: manter dados de filiais
+Element:516: manter dados cadastrais de federados
+Element:517: gerar relatório comparativo entre duas graduações realizadas
+Element:518: gerar relatório de alunos
+Diagram: Casos de Uso - Subsistema de Administração
+Processing package: Dicionario de Dados
+Element:519: DD302 - Manter pedidos de compra de faixas para graduação de faixa
+Element:520: DD305 - Manter notificações
+Element:521: DD304 - Manter dados de filiais
+Element:522: DD303 - Manter dados cadastrais de federados
+Element:523: DD306 - Manter mensagem de mala direta para aniversariantes
+Element:524: DD301 - Verificar histórico de federado
+Diagram: Dicionario de Dados
+Processing package: Mensagens
+Element:525: MSG3001 - Limpando consulta realizada, preparando para nova consulta.
+Element:526: MSG3009 - A ação não pode ser realizada no pedido finalizado via sistema.
+Element:527: MSG3017 - Forneça a mensagem a ser enviada pela notificação.
+Element:528: MSG3006 - Dados recebidos e gravados com sucesso. Direcionado para página inicial administrativa.
+Element:529: MSG3008 - Alteração de dados do federado realizada com sucesso. Direcionado para a página inicial administrativa.
+Element:530: MSG3012 - Alteração de status do pedido realizado e salvo. Direcionando para página inicial administrativa.
+Element:531: MSG3004 - Selecione um(a) aluno(a) da filial escolhida para que as informações referentes a ele(a) apareçam.
+Element:532: MSG3014 - Alteração de dados da filial realizada com sucesso. Direcionando para a página inicial administrativa.
+Element:533: MSG3013 - Selecione uma filial para visualizar as informações referentes a ela.
+Element:534: MSG3016 - Necessário que escolha os destinatários da notificação.
+Element:535: MSG3011 - Alteração de informações do pedido realizadas e salvas. Direcionando para página inicial administrativa.
+Element:536: MSG3015 - Notificação salva e enviada aos destinatários. Direcionando para página inicial administrativa.
+Element:537: MSG3007 - Dados obrigatórios faltando. Por favor, forneça tais informações.
+Element:538: MSG3020 - Mensagem de mala-direta à aniversariantes alterada com sucesso. Direcionadno para página inicial administrativa.
+Element:539: MSG3019 - Notificação deletada do banco de dados. Direcionado para página inicial administrativa.
+Element:540: MSG3010 - Informações obrigatórias do pedido faltando. Por favor, forneça tais informações.
+Element:541: MSG3005 - Preparando impressão, após o processo será direcionado à tela inicial.
+Element:542: MSG3018 - Deseja realmente excluir a notificação selecionada?
+Element:543: MSG3003 - Selecione a filial do instrutor para continuar com a pesquisa.
+Element:544: MSG3002 - Selecione o instrutor para prosseguir com a pesquisa.
+Diagram: Mensagens
+Processing package: Realização dos Casos de Uso
+Diagram: Realização dos Casos de Uso
+Processing package: Requisitos de Software
+Diagram: Requisitos de Software
+Processing package: Storyboard
+Diagram: Storyboard
+Processing package: Subsistema de Gestão de E-mails
+Element:545: Casos de Uso
+Element:546: Dicionário de Dados
+Element:547: Requisitos deSoftware
+Element:548: Storyboard
+Element:549: Mensagens
+Element:550: Realização dos Casos de Uso
+Diagram: Subsistema de Gestão de E-mails
+Processing package: Casos de Uso
+Element:551: enviar notas de graduação aos instrutores que tiveram alunos avaliados
+Element:552: enviar, aos instrutores, relação de alunos que não participaram da graduação questionando a situação deles
+Element:553: enviar, ao administrador, relatório de alunos que tornaram-se inativos nos últimos 3 meses, separando-os por modalidade
+Element:554: enviar mala direta no dia de aniversário dos federados
+Element:555: enviar, ao coordenador, relatório de alunos que tornaram-se inativos nos últimos 3 meses, separando-os por filial
+Element:556: enviar e-mail de boas vindas aos alunos matriculados
+Element:557: enviar notificações
+Element:558: enviar notificação a aluno que teve situação alterada
+Element:559: enviar notas de graduação aos participantes
+Diagram: Casos de Uso - Subsistema de Gestão de E-mails
+Processing package: Dicionário de Dados
+Processing package: Mensagens
+Element:560: MSG4001 - 
+Diagram: Mensagens
+Processing package: Realização dos Casos de Uso
+Diagram: Realização dos Casos de Uso
+Processing package: Requisitos deSoftware
+Diagram: Requisitos deSoftware
+Processing package: Storyboard
+Diagram: Storyboard
+Processing package: Subsistema Gerenciador de Atividades por Filial
+Element:561: Realização dos Casos de Uso
+Element:562: Dicionário de Dados
+Element:563: Requisitos de Software
+Element:564: Mensagens
+Element:565: Storyboard
+Element:566: Casos de Uso
+Diagram: Subsistema Gerenciador de Atividades
+Processing package: Casos de Uso
+Element:567: consultar cronograma de eventos da federação
+Element:568: verificar histórico de atividades realizadas
+Element:569: manter dados pessoais dos alunos
+Element:570: verificar notificações enviadas 
+Element:571: manter dados de filiais
+Element:572: cadastrar novos alunos
+Element:573: consultar histórico de notas
+Element:574: solicitar participação de aluno em graduação
+Diagram: Casos de Uso - Subsistema Gerenciador de Atividades
+Processing package: Dicionário de Dados
+Element:575: DD02 - Editar Ficha de Inscrição na Federação Paulista de Artes Marciais Interestilos
+Element:576: DD001 - Matricular novo aluno
+Element:577: Storyboard Geral
+Element:578: DD03 - Solicitação de Graduação de Faixa
+Diagram: Dicionário de Dados
+Processing package: Mensagens
+Element:579: MSG1015 - Solicitação preparada, verifique os alunos selecionados. Se a relação estiver OK, clique em Enviar. Se precisar mudar a relação clique em Voltar.
+Element:580: MSG1004 - Por favor, forneça o sobrenome da mãe do aluno.
+Element:581: MSG1014 - Fora do período de inscrição para graduação.
+Element:582: MSG1019 - Alteração de dados cancelada. Redirecionando para a tela inicial.
+Element:583: MSG1003 - Por favor, forneça o nome da mãe do aluno.
+Element:584: MSG1006 - Por favor, forneça seleciona a filial que o aluno atuará.
+Element:585: MSG1016 - Solicitação salva. Retorne para a tela de solicitação para enviar a solicitação.
+Element:586: MSG1008 - Por favor, forneça a graduação atual do aluno.
+Element:587: MSG1009 - Por favor, forneça um e-mail para contato com aluno.
+Element:588: MSG1013 - Matrícula cancelada, redirecionando para tela inicial.
+Element:589: MSG1017 - Solicitação não enviada. Redirecionando para tela de solicitação.
+Element:590: MSG1002 - Por favor, forneça o sobrenome do aluno.
+Element:591: MSG1011 - Por favor, forneça escolha a escolaridade do aluno.
+Element:592: MSG1018 - Solicitação enviada. Redirecionando para a tela inicial.
+Element:593: MSG1005 - Por favor, forneça a data de nascimento do aluno.
+Element:594: MSG1020 - Alteração de dados do aluno confirmada. Redirecionando para tela inicial.
+Element:595: MSG1012 - Matricula realizada com sucesso. Redirecionando a tela inicial.
+Element:596: MSG1007 - Por favor, forneça telefone para contato com o aluno.
+Element:597: MSG1010 - Por favor, forneça um e-mail valido no formato "email@dominio.com" ou "email@dominio.com.br".
+Diagram: Mensagens
+Processing package: Realização dos Casos de Uso
+Element:598: solicitar participação de aluno em graduação
+Element:599: manter dados pessoais dos alunos
+Element:600: Cadastrar novo aluno
+Diagram: Realização dos Casos de Uso
+Processing package: Cadastrar novo aluno
+Element:601: $diagram://{C8E676F3-329C-4133-8D7A-B6B81CDDE1CA}
+Element:602: cadastrar novos alunos
+Element:603: $diagram://{CEFE3092-8F6D-4c9e-848D-4D83FD241DC0}
+Diagram: Cadastrar novo aluno
+Processing package: manter dados pessoais dos alunos
+Element:604: $diagram://{D2BF1612-C94D-4d59-9AA3-8A0447DDFA72}
+Element:605: manter dados pessoais dos alunos
+Diagram: manter dados pessoais dos alunos
+Processing package: solicitar participação de aluno em graduação
+Element:606: solicitar participação de aluno em graduação
+Element:607: $diagram://{0F5DA617-6505-4843-BC0F-4747D137CEED}
+Diagram: solicitar participação de aluno em graduação
+Processing package: Requisitos de Software
+Element:608: SRS1002 - O Sistema DEVE permitir inscrições em graduações apenas quando houver uma graduação em aberto.
+Element:609: SRS1003 - O Sistema DEVE permitir inscrições em graduações até uma semana antes da data da cerimonia.
+Element:610: SRS1001 - O Sistema DEVE permitir que o Instrutor matricule alunos a qualquer momento.
+
+Element:611: SRS1004 - O Sistema DEVE, no cadastro e manutenção de dados do aluno, informar quais são os campos obrigatórios.
+Diagram: Requisitos de Software
+Processing package: Storyboard
+Element:612: Área de Manutenção de Dados do Aluno
+Element:613: Matricular novo aluno
+Element:614: Editar Ficha de Inscrição na Federação Paulista de Artes Marciais Interestilos
+Element:615: Área Principal do Instrutor
+Element:616: Resultado de Exame de Faixa
+Element:617: Solicitação de Graduação de Faixa
+Element:618: Formulário de Requerimento de Preta
+Element:619: Filiação de nova filial
+Diagram: Storyboard
+Processing package: Área de Manutenção de Dados do Aluno
+Element:620: Filial
+Element:621: Incluir Aluno
+Element:622: Relação de Alunos
+Element:623: Editar
+Element:624: Logoff
+Element:625: Relação de alunos
+Element:626: Área de Manutenção de Dados do Aluno
+Diagram: Área de Manutenção de Dados do Aluno
+Processing package: Área Principal do Instrutor
+Element:627: Notícias
+Element:628: UI Control
+Element:629: Notícias do Coordenador
+Element:630: Menu de Acesso
+Element:631: Faixa do Federado
+Element:632: Notícias da Federação
+Element:633: Foto
+Element:634: Nome do Instrutor
+Element:635: Área Manutenção de Dados do Aluno
+Element:636: Solicitar Graduação de Faixa Para Aluno
+Element:637: Notícias do Coordenação
+Element:638: Notícias da Federação
+Element:639: Área Principal do Instrutor
+Diagram: Área Principal do Instrutor
+Processing package: Editar Ficha de Inscrição na Federação Paulista de Artes Marciais Interestilos
+Element:640: Status
+Element:641: RG
+Element:642: Academia
+Element:643: Cidade/UF
+Element:644: Capoeira
+Element:645: MMA
+Element:646: Editar Ficha de inscrição na Federação Paulista de Artes Marciais - Interestilos
+Element:647: Fax
+Element:648: Modalidade
+Element:649: e-mail
+Element:650: Salvar
+Element:651: Inativo
+Element:652: Academia
+Element:653: Sobrenome da Mãe
+Element:654: Cancelar
+Element:655: Sobrenome do Pai
+Element:656: Nome da Mãe
+Element:657: Estado
+Element:658: Filiação - Pai e Mãe
+Element:659: Telefone Comercial
+Element:660: Escolaridade
+Element:661: Nome do Pai
+Element:662: Sobrenome
+Element:663: Academia
+Element:664: Tempo de Prática
+Element:665: Celular
+Element:666: Takewondo
+Element:667: Judô
+Element:668: Telefone
+Element:669: Kapap krav maga
+Element:670: Profissão
+Element:671: Nacionalidade
+Element:672: CEP
+Element:673: Data de Nascimento
+Element:674: Ativo
+Element:675: Endereço
+Element:676: Bairro
+Element:677: Nome
+Element:678: Faixa Atual
+Element:679: Filial
+Element:680: Academia
+Element:681: Hapkido
+Diagram: Editar Ficha de inscrição na Federação Paulista de Artes Marciais - Interestilos
+Processing package: Filiação de nova filial
+Element:682: Nº de Reg
+Element:683: Continuar>>
+Element:684: Termos de Compromisso 
+Element:685: CEP
+Element:686: Termos de Compromisso
+Element:687: responsável pela Academia/Associação
+Element:688: Deseja imprimir os termo de compromisso?
+Element:689: 
+Element:690: Endereço da Entidade
+Element:691: Site
+Element:692: Eu
+Element:693: Academia/Associação
+Element:694: Fechar
+Element:695: Termo de Compromisso
+Element:696: Concordo com o termo acima
+Element:697: Instrutor Representante
+Element:698: Telefone
+Element:699: violação estarei assumindo todos os atos, inclusive a punição prevista pelo estatuto.
+Element:700: Celular
+Element:701: Estado/UF
+Element:702: Continuar >>
+Element:703: Cancelar
+Element:704: Cancelar
+Element:705: Ficha de inscrição da Filiação na Federação Paulista de Artes Marciais Interestilos
+Element:706: Instrutor Representante
+Element:707: Imprimir
+Element:708: Afirmo estar ciente de que o meio de comunicação oficial da FEPAMI é via internet e correio eletrônico.
+Element:709: Academia/Associação
+Element:710: Bairro
+Element:711: e-mail
+Element:712: 
+Element:713: Fax
+Element:714: solicito o nosso registro e filiação junto à Federação Paulista de Artes Marciais Interestilos, comprometendo-me a respeitar o estatuto, todos os regulamentos e resoluções assim como os exames de graduação, campeonatos, sendo que em caso de qualquer 
+Element:715: Cidade
+Diagram: Ficha de inscrição da Filiação na Federação Paulista de Artes Marciais Interestilos
+Processing package: Formulário de Requerimento de Preta
+Element:716: Assinatura do Requerente
+Element:717:   Registro FEPAMI nº
+Element:718:   e-mail
+Element:719: Registro
+Element:720: Formulário de Requerimento de Preta
+Element:721:   Bairro
+Element:722:   RG
+Element:723:                           PARA FAIXA PRETA -            º DAN
+Element:724:   Cel
+Element:725:   Data de Nascimento
+Element:726: FORMULÁRIO DE REQUERIMENTO DE PRETA
+Element:727: Data
+Element:728:         Anexar um currículo com as experiências na modalidade (ano de início / título / trabalhos / data de graduação)
+Element:729: Dados de Aluno
+Element:730: - Entregar o trabalho (Dissertação);
+Element:731: Exame de Faixa Preta
+Element:732:   Profissão
+Element:733: - Cabelo e unhas aparados;
+Element:734: - 2 fotos;
+Element:735: Requisitos para Diploma da FEPAMI
+Element:736:   Tempo de prática
+Element:737: - Cópia de RG ou Certidão de Nascimento.
+Element:738:   Cidade
+Element:739: - Comprovação da graduação anterior;
+Element:740:   Idade
+Element:741: Requisitos para Exame de Faixa preta
+Element:742:   Nacionalidade
+Element:743:   CPF
+Element:744: (Anexo Pagamento de R$:                    )
+Element:745: Anexo
+Element:746:   Endereço
+Element:747: Assinatura do Responsável
+Element:748: Cheque
+Element:749:   Academia
+Element:750: Financeiro
+Element:751:   Tel Com
+Element:752: Nome
+Element:753: - Atestado de Antecedente Criminal;
+Element:754: Dinheiro
+Element:755: Federação Paulista de Artes Marciais
+Element:756:   Cep
+Element:757: Diploma
+Element:758: - A partir do 2º Dan, anexar a cópia da graduação anterior.
+Element:759: - Uniforme limpo com emblemas costurados;
+Element:760: Formulário de requerimento de Preta
+Element:761:   Tel Res
+Element:762: - Taxa de requerimento;
+Element:763:        Através desta, respeitosamente, registro a minha graduação e filiação e aceito desde já as regras que a regem, sem qualquer exceção.
+Element:764: - Saber todo o conteúdo da graduação;
+Element:765:   Instrutor/Mestre
+Diagram: Formulário de Requerimento de Preta
+Processing package: Matricular novo aluno
+Element:766: Sobrenome
+Element:767: Tempo de Prática
+Element:768: Escolaridade
+Element:769: Fax
+Element:770: Capoeira
+Element:771: Hapkido
+Element:772: Kapap krav maga
+Element:773: Telefone Comercial
+Element:774: Takewondo
+Element:775: Modalidade
+Element:776: Nome da Mãe
+Element:777: e-mail
+Element:778: CEP
+Element:779: Ficha de inscrição na Federação Paulista de Artes Marciais - Interestilos
+Element:780: Academia
+Element:781: Nome
+Element:782: Endereço
+Element:783: Academia
+Element:784: Filiação - Pai e Mãe
+Element:785: Faixa Atual
+Element:786: Filial
+Element:787: Cidade
+Element:788: Cancelar
+Element:789: Telefone
+Element:790: Filial
+Element:791: RG
+Element:792: Nacionalidade
+Element:793: Nome do Pai
+Element:794: Sobrenome do Pai
+Element:795: Celular
+Element:796: Profissão
+Element:797: Salvar
+Element:798: MMA
+Element:799: Estado/UF
+Element:800: Judô
+Element:801: Bairro
+Element:802: Data de Nascimento
+Element:803: Sobrenome da Mãe
+Diagram: Ficha de inscrição na Federação Paulista de Artes Marciais - Interestilos
+Processing package: Resultado de Exame de Faixa
+Element:804: Resultados de Exame de Faixa
+Element:805: Voltar
+Element:806: Resultado de Exame de Faixa
+Element:807: Resutado de Exame de Faixa
+Element:808: Resultado de Exame de Faixa
+Element:809: Escolha a Faixa
+Element:810: Imprimir
+Diagram: Resultado de Exame de Faixa
+Processing package: Solicitação de Graduação de Faixa
+Element:811: Selecionar
+Element:812: Solicitar Participação
+Element:813: Voltar
+Element:814: UI Control
+Element:815: UI Control
+Element:816: UI Control
+Element:817: Solicitação de Graduação de Faixa
+Element:818: UI Control
+Element:819: Filial
+Element:820: Enviar
+Element:821: Relação de alunos que participarão da Graduação de Faixa
+Element:822: Aguardar requisitos do Aluno
+Element:823: UI Control
+Diagram: Solicitação de Graduação de Faixa
+Processing package: Subsistema Gerenciador de Modalidade
+Element:824: Requisitos de Software
+Element:825: Caso de uso
+Element:826: Mensagens
+Element:827: Realização de Casos de Uso
+Element:828: Storyboard
+Element:829: Dicionário de Dados
+Diagram: Subsistema Gerenciador de Modalidade
+Processing package: Caso de uso
+Element:830: verificar relação de participantes de graduação
+Element:831: emitir certificado aos participantes da graduação
+Element:832: emitir lista de presença da graduação
+Element:833: verificar relação de professores
+Element:834: enviar relação de faixas necessárias para graduação
+Element:835: manter lista de filiais
+Element:836: emitir prontuário de notas para pré-avaliação
+Element:837: enviar notificações aos instrutores
+Element:838: enviar notificações aos alunos
+Element:839: manter relação de participantes de graduação
+Element:840: verificar notificações enviadas pela Federação
+Diagram: Casos de Uso - Subsistema Gerenciador de Modalidade
+Processing package: Dicionário de Dados
+Diagram: Dicionário de Dados
+Processing package: Mensagens
+Element:841: MSG2001 - 
+Diagram: Mensagens
+Processing package: Realização de Casos de Uso
+Element:842: verificar lista de filiais
+Diagram: Realização de Casos de Uso
+Processing package: verificar lista de filiais
+Diagram: verificar lista de filiais
+Processing package: Requisitos de Software
+Diagram: Requisitos de Software
+Processing package: Storyboard
+Diagram: Storyboard
+Processing package: Workshop de Caracteristicas
+Element:843: Definição de Baselines
+Element:844: Lista de Caracteristicas
+Diagram: Workshop de Caracteristicas
+Processing package: Sistema Gerenciador de Atividades Internas
+Element:845: $diagram://{EA74FF91-8D8C-40c4-892E-DDB59C65F148}
+Element:846: Modelos de Negocio
+Element:847: $diagram://{760090E2-1E3B-4524-9033-DAC91AC4453B}
+Element:848: $diagram://{816C2A51-EC41-4738-8E73-FBA55E731EE8}
+Diagram: Sistema Gerenciador de Atividades Internas
+Adding State-Tables
+Formatting output XML...please wait
+XMI Document Export Complete!
