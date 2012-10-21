@@ -29,7 +29,7 @@
 class CI_Trackback {
 
 	var $time_format	= 'local';
-	var $charset		= 'UTF-8';
+	var $charset		= 'ISO-8859-1';
 	var $data			= array('url' => '', 'title' => '', 'excerpt' => '', 'blog_name' => '', 'charset' => '');
 	var $convert_ascii	= TRUE;
 	var $response		= '';
@@ -180,7 +180,7 @@ class CI_Trackback {
 	 */
 	function send_error($message = 'Incomplete Information')
 	{
-		echo "<?xml version=\"1.0\" encoding=\"utf-8\"?".">\n<response>\n<error>1</error>\n<message>".$message."</message>\n</response>";
+		echo "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?".">\n<response>\n<error>1</error>\n<message>".$message."</message>\n</response>";
 		exit;
 	}
 
@@ -197,7 +197,7 @@ class CI_Trackback {
 	 */
 	function send_success()
 	{
-		echo "<?xml version=\"1.0\" encoding=\"utf-8\"?".">\n<response>\n<error>0</error>\n</response>";
+		echo "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?".">\n<response>\n<error>0</error>\n</response>";
 		exit;
 	}
 

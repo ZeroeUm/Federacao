@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= "http://localhost/cod2/";
+$config['base_url']	= "http://localhost/chr/Federacao/";
 
 /*
 |--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ $config['language']	= 'pt-br';
 | that require a character set to be provided.
 |
 */
-$config['charset'] = 'UTF-8';
+$config['charset'] = 'ISO-8859-1';
 
 /*
 |--------------------------------------------------------------------------

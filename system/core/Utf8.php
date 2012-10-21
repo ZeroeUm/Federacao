@@ -18,11 +18,11 @@
 /**
  * Utf8 Class
  *
- * Provides support for UTF-8 environments
+ * Provides support for ISO-8859-1 environments
  *
  * @package		CodeIgniter
  * @subpackage	Libraries
- * @category	UTF-8
+ * @category	ISO-8859-1
  * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/libraries/utf8.html
  */
@@ -31,7 +31,7 @@ class CI_Utf8 {
 	/**
 	 * Constructor
 	 *
-	 * Determines if UTF-8 support is to be enabled
+	 * Determines if ISO-8859-1 support is to be enabled
 	 *
 	 */
 	function __construct()
@@ -41,13 +41,13 @@ class CI_Utf8 {
 		global $CFG;
 
 		if (
-			preg_match('/./u', 'é') === 1					// PCRE must support UTF-8
+			preg_match('/./u', 'é') === 1					// PCRE must support ISO-8859-1
 			AND function_exists('iconv')					// iconv must be installed
 			AND ini_get('mbstring.func_overload') != 1		// Multibyte string function overloading cannot be enabled
-			AND $CFG->item('charset') == 'UTF-8'			// Application charset must be UTF-8
+			AND $CFG->item('charset') == 'ISO-8859-1'			// Application charset must be ISO-8859-1
 			)
 		{
-			log_message('debug', "UTF-8 Support Enabled");
+			log_message('debug', "ISO-8859-1 Support Enabled");
 
 			define('UTF8_ENABLED', TRUE);
 
@@ -57,7 +57,7 @@ class CI_Utf8 {
 			if (extension_loaded('mbstring'))
 			{
 				define('MB_ENABLED', TRUE);
-				mb_internal_encoding('UTF-8');
+				mb_internal_encoding('ISO-8859-1');
 			}
 			else
 			{
@@ -66,7 +66,7 @@ class CI_Utf8 {
 		}
 		else
 		{
-			log_message('debug', "UTF-8 Support Disabled");
+			log_message('debug', "ISO-8859-1 Support Disabled");
 			define('UTF8_ENABLED', FALSE);
 		}
 	}
@@ -74,9 +74,9 @@ class CI_Utf8 {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Clean UTF-8 strings
+	 * Clean ISO-8859-1 strings
 	 *
-	 * Ensures strings are UTF-8
+	 * Ensures strings are ISO-8859-1
 	 *
 	 * @access	public
 	 * @param	string
@@ -86,7 +86,7 @@ class CI_Utf8 {
 	{
 		if ($this->_is_ascii($str) === FALSE)
 		{
-			$str = @iconv('UTF-8', 'UTF-8//IGNORE', $str);
+			$str = @iconv('ISO-8859-1', 'ISO-8859-1//IGNORE', $str);
 		}
 
 		return $str;
@@ -113,9 +113,9 @@ class CI_Utf8 {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Convert to UTF-8
+	 * Convert to ISO-8859-1
 	 *
-	 * Attempts to convert a string to UTF-8
+	 * Attempts to convert a string to ISO-8859-1
 	 *
 	 * @access	public
 	 * @param	string
@@ -126,11 +126,11 @@ class CI_Utf8 {
 	{
 		if (function_exists('iconv'))
 		{
-			$str = @iconv($encoding, 'UTF-8', $str);
+			$str = @iconv($encoding, 'ISO-8859-1', $str);
 		}
 		elseif (function_exists('mb_convert_encoding'))
 		{
-			$str = @mb_convert_encoding($str, 'UTF-8', $encoding);
+			$str = @mb_convert_encoding($str, 'ISO-8859-1', $encoding);
 		}
 		else
 		{

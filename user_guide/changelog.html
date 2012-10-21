@@ -16,7 +16,7 @@
 <meta name='author' content='ExpressionEngine Dev Team' />
 <meta name='description' content='CodeIgniter User Guide' />
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Change Log : CodeIgniter User Guide</title>
 
 </head>
@@ -185,7 +185,7 @@ Change Log
 <ul>
 	<li>Security
 		<ul>
-			<li>An improvement was made to the MySQL and MySQLi drivers to prevent exposing a potential vector for SQL injection on sites using multi-byte character sets in the database client connection.  <p>An incompatibility in PHP versions &lt; 5.2.3 and MySQL &lt; 5.0.7 with <em>mysql_set_charset()</em> creates a situation where using multi-byte  character sets on these environments may potentially expose a SQL injection attack vector.  Latin-1, UTF-8, and other "low ASCII" character sets are unaffected on all environments.</p>  <p class="critical">If you are running or considering running a multi-byte character set for your database connection, please pay close attention to the server environment you are deploying on to ensure you are not vulnerable.</p></li>
+			<li>An improvement was made to the MySQL and MySQLi drivers to prevent exposing a potential vector for SQL injection on sites using multi-byte character sets in the database client connection.  <p>An incompatibility in PHP versions &lt; 5.2.3 and MySQL &lt; 5.0.7 with <em>mysql_set_charset()</em> creates a situation where using multi-byte  character sets on these environments may potentially expose a SQL injection attack vector.  Latin-1, ISO-8859-1, and other "low ASCII" character sets are unaffected on all environments.</p>  <p class="critical">If you are running or considering running a multi-byte character set for your database connection, please pay close attention to the server environment you are deploying on to ensure you are not vulnerable.</p></li>
 		</ul>
 	</li>
 	<li>General Changes
@@ -1105,7 +1105,7 @@ Hg Tag: 1.6.1</p>
 	<li>Added some additional mime types in application/config/mimes.php.</li>
 	<li>Added filename_security() method to <a href="./libraries/input.html">Input library</a>.</li>
 	<li>Added some additional arguments to the <a href="./helpers/inflector_helper.html">Inflection helper</a> singular() to compensate for words ending in "s".  Also added a force parameter to pluralize().</li>
-	<li>Added $config['charset'] to the config file.  Default value is 'UTF-8', used in some string handling functions.</li>
+	<li>Added $config['charset'] to the config file.  Default value is 'ISO-8859-1', used in some string handling functions.</li>
 	<li>Fixed MSSQL insert_id().</li>
 	<li>Fixed a logic error in the DB trans_status() function.  It was incorrectly returning TRUE on failure and FALSE on success.</li>
 	<li>Fixed a bug that was allowing multiple load attempts on extended classes.</li>

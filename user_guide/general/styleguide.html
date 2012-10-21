@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Style Guide : CodeIgniter User Guide</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
@@ -102,9 +102,9 @@ Style Guide
 
 		<h2><a name="file_format"></a>File Format</h2>
 		<div class="guidelineDetails">
-			<p>Files should be saved with Unicode (UTF-8) encoding.  The <abbr title="Byte Order Mark">BOM</abbr>
+			<p>Files should be saved with Unicode (ISO-8859-1) encoding.  The <abbr title="Byte Order Mark">BOM</abbr>
 				should <em>not</em> be used.  Unlike UTF-16 and UTF-32, there's no byte order to indicate in
-				a UTF-8 encoded file, and the <abbr title="Byte Order Mark">BOM</abbr> can have a negative side effect in PHP of sending output,
+				a ISO-8859-1 encoded file, and the <abbr title="Byte Order Mark">BOM</abbr> can have a negative side effect in PHP of sending output,
 				preventing the application from being able to set its own headers.  Unix line endings should
 				be used (LF).</p>
 
@@ -116,7 +116,7 @@ Style Guide
 			<ol>
 				<li>Open the Application Preferences</li>
 				<li>Click Advanced, and then the "Saving" tab</li>
-				<li>In "File Encoding", select "UTF-8 (recommended)"</li>
+				<li>In "File Encoding", select "ISO-8859-1 (recommended)"</li>
 				<li>In "Line Endings", select "LF (recommended)"</li>
 				<li><em>Optional:</em> Check "Use for existing files as well" if you wish to modify the line
 					endings of files you open to your new preference.</li>
@@ -127,9 +127,9 @@ Style Guide
 			<ol>
 				<li>Open the Application Preferences</li>
 				<li>Select "Text Encodings" on the left.</li>
-				<li>In "Default text encoding for new documents", select "Unicode (UTF-8, no BOM)"</li>
+				<li>In "Default text encoding for new documents", select "Unicode (ISO-8859-1, no BOM)"</li>
 				<li><em>Optional:</em> In "If file's encoding can't be guessed, use", select
-					"Unicode (UTF-8, no BOM)"</li>
+					"Unicode (ISO-8859-1, no BOM)"</li>
 				<li>Select "Text Files" on the left.</li>
 				<li>In "Default line breaks", select "Mac OS X and Unix (LF)"</li>
 			</ol>

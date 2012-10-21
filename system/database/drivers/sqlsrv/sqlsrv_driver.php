@@ -55,8 +55,8 @@ class CI_DB_sqlsrv_driver extends CI_DB {
 	 */
 	function db_connect($pooling = false)
 	{
-		// Check for a UTF-8 charset being passed as CI's default 'utf8'.
-		$character_set = (0 === strcasecmp('utf8', $this->char_set)) ? 'UTF-8' : $this->char_set;
+		// Check for a ISO-8859-1 charset being passed as CI's default 'utf8'.
+		$character_set = (0 === strcasecmp('utf8', $this->char_set)) ? 'ISO-8859-1' : $this->char_set;
 
 		$connection = array(
 			'UID'				=> empty($this->username) ? '' : $this->username,
