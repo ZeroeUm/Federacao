@@ -1,7 +1,3 @@
-</div> 
-
-</section>
-
-    </body>
-
-</html>
+</div>
+</div>
+</body>

@@ -14,7 +14,7 @@ class administrador extends CI_Controller{
    
     function notificacoes(){
          $this->load->view('header');
-        $this->load->view('administrador/notificacoes');
+         $this->load->view('devel');
         $this->load->view('footer');
     }
     

@@ -14,25 +14,25 @@ class alunos extends CI_Controller{
     
    function notas(){
        $this->load->view('header');
-        $this->load->view('alunos/notas');
+         $this->load->view('alunos/notas');
         $this->load->view('footer');
    }
    
    function eventos(){
        $this->load->view('header');
-        $this->load->view('alunos/eventos');
+        $this->load->view('devel');
         $this->load->view('footer');
    }
    
    function historico(){
        $this->load->view('header');
-        $this->load->view('alunos/historico');
+         $this->load->view('devel');
         $this->load->view('footer');
    }
    
    function modalidade(){
        $this->load->view('header');
-        $this->load->view('alunos/modalidade');
+        $this->load->view('devel');
         $this->load->view('footer');
    }
 }
