@@ -58,7 +58,8 @@
 
             </li>
 
-
+            
+            <li><a href="<?php echo site_url(); ?>"><i class="icon icon-home"></i> <span>Home</span> </a></li>
             <li class="submenu">
                 <a href="#"><i class="icon icon-pause"></i> <span>Alunos</span> </a>
                 <ul>
