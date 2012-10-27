@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>404 Page Not Found</title>
+<title>pagina não encontrada</title>
 <style type="text/css">
 
 ::selection{ background-color: #E13300; color: white; }
@@ -15,11 +15,7 @@ body {
 	color: #4F5155;
 }
 
-a {
-	color: #003399;
-	background-color: transparent;
-	font-weight: normal;
-}
+
 
 h1 {
 	color: #444;
@@ -52,11 +48,21 @@ p {
 	margin: 12px 15px 12px 15px;
 }
 </style>
+
+<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/style.css" />
+        
 </head>
 <body>
-	<div id="container">
-		<h1><?php echo $heading; ?></h1>
-		<?php echo $message; ?>
-	</div>
+    
+        <header id="header">
+               
+                
+            
+        </header> <!-- end of header bar -->
+        <div style="margin-left: 25%;"><h2>não foi possivel encontrar essa pagina</h2>
+            <a href="/" class="btn">Voltar</a>
+        </div>
 </body>
 </html>

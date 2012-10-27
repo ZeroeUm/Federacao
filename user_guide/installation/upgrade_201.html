@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Upgrading from 2.0.0 to 2.0.1 : CodeIgniter User Guide</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
@@ -79,12 +79,12 @@ Upgrading from 2.0.0 to 2.0.1
 	If submitting to the default controller was the expected behavior it will need to be changed from:
 </p>
 
-<code>echo form_open(); //&lt;form action="" method="post" accept-charset="utf-8"></code>
+<code>echo form_open(); //&lt;form action="" method="post" accept-charset="ISO-8859-1"></code>
 
 <p>to use either a / or <kbd>base_url()</kbd>:</p>
 
-<code>echo form_open('/'); //&lt;form action="http://example.com/index.php/" method="post" accept-charset="utf-8"><br/>
-echo form_open(base_url()); //&lt;form action="http://example.com/" method="post" accept-charset="utf-8"></code>
+<code>echo form_open('/'); //&lt;form action="http://example.com/index.php/" method="post" accept-charset="ISO-8859-1"><br/>
+echo form_open(base_url()); //&lt;form action="http://example.com/" method="post" accept-charset="ISO-8859-1"></code>
 
 </div>
 <!-- END CONTENT -->

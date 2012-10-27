@@ -48,7 +48,7 @@ class CI_Xmlrpc {
 	var $xmlrpcerr		= array();	// Response numbers
 	var $xmlrpcstr		= array();  // Response strings
 
-	var $xmlrpc_defencoding = 'UTF-8';
+	var $xmlrpc_defencoding = 'ISO-8859-1';
 	var $xmlrpcName			= 'XML-RPC for CodeIgniter';
 	var $xmlrpcVersion		= '1.1';
 	var $xmlrpcerruser		= 800; // Start of user errors

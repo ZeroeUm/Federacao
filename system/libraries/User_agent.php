@@ -537,7 +537,7 @@ class CI_User_agent {
 	 * @access	public
 	 * @return	bool
 	 */
-	public function accept_charset($charset = 'utf-8')
+	public function accept_charset($charset = 'ISO-8859-1')
 	{
 		return (in_array(strtolower($charset), $this->charsets(), TRUE));
 	}

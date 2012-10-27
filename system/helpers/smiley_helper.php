@@ -110,7 +110,7 @@ EOF;
 
 		if ($inline)
 		{
-			return '<script type="text/javascript" charset="utf-8">/*<![CDATA[ */'.$r.'// ]]></script>';
+			return '<script type="text/javascript" charset="ISO-8859-1">/*<![CDATA[ */'.$r.'// ]]></script>';
 		}
 		else
 		{

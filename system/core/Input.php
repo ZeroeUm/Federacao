@@ -92,7 +92,7 @@ class CI_Input {
 		global $SEC;
 		$this->security =& $SEC;
 
-		// Do we need the UTF-8 class?
+		// Do we need the ISO-8859-1 class?
 		if (UTF8_ENABLED === TRUE)
 		{
 			global $UNI;
@@ -685,7 +685,7 @@ class CI_Input {
 			$str = stripslashes($str);
 		}
 
-		// Clean UTF-8 if supported
+		// Clean ISO-8859-1 if supported
 		if (UTF8_ENABLED === TRUE)
 		{
 			$str = $this->uni->clean_string($str);
@@ -732,7 +732,7 @@ class CI_Input {
 			exit('Disallowed Key Characters.');
 		}
 
-		// Clean UTF-8 if supported
+		// Clean ISO-8859-1 if supported
 		if (UTF8_ENABLED === TRUE)
 		{
 			$str = $this->uni->clean_string($str);

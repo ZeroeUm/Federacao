@@ -501,7 +501,7 @@ class CI_Security {
 	 * @param	string
 	 * @return	string
 	 */
-	public function entity_decode($str, $charset='UTF-8')
+	public function entity_decode($str, $charset='ISO-8859-1')
 	{
 		if (stristr($str, '&') === FALSE)
 		{

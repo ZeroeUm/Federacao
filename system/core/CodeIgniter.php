@@ -145,12 +145,12 @@
 
 /*
  * ------------------------------------------------------
- *  Instantiate the UTF-8 class
+ *  Instantiate the ISO-8859-1 class
  * ------------------------------------------------------
  *
- * Note: Order here is rather important as the UTF-8
+ * Note: Order here is rather important as the ISO-8859-1
  * class needs to be used very early on, but it cannot
- * properly determine if UTf-8 can be supported until
+ * properly determine if ISO-8859-1 can be supported until
  * after the Config class is instantiated.
  *
  */
