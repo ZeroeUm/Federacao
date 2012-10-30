@@ -14,7 +14,7 @@ class coordenador extends CI_Controller{
     
     function professores(){
         $this->load->view('header');
-        $this->load->view('devel');
+        $this->load->view('coordenador/modalidades');
         $this->load->view('footer');
     }
     
