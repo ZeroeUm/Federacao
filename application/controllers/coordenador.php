@@ -12,10 +12,25 @@
  */
 class coordenador extends CI_Controller{
     
+    
+    
     function professores(){
-        $this->load->view('header');
-        $this->load->view('coordenador/modalidades');
-        $this->load->view('footer');
+        
+      $this->load->model('FilialModel');
+      $this->load->view('header');
+      $this->data['dados'] = $this->FilialModel->get_filiais();
+       
+     
+      if($this->input->post()){
+      $this->data['filial'] = $this->input->post('filial');
+      $this->load->view('coordenador/modalidades',$this->data);
+      $this->load->view('footer');
+      }else{
+      $this->data['filial'] = "Nenhuma filial selecionada";
+      $this->load->view('coordenador/modalidades',$this->data);
+      $this->load->view('footer');
+      }
+      
     }
     
     function filiais(){
