@@ -77,6 +77,7 @@
                     <li class="icn_add_user"><a href="<?php echo site_url('instrutores/novoaluno'); ?>">Cadastrar novo aluno na Federação</a></li>
                     <li class="icn_tags"><a href="<?php echo site_url('instrutores/inscricao'); ?>">Inscrever alunos em Graduação de Faixa</a></li>
                     <li class="icn_categories"><a href="<?php echo site_url('instrutores/manutencao'); ?>">Manuteção de participantes em Graduação de Faixa</a></li>
+                    <li class="icn_folder"><a href="<?php echo site_url('instrutores/evento') ?>">Verificar notas de graduação de faixa</a></li>
 
                 </ul>
             </li>
@@ -90,6 +91,8 @@
                     <li class="icn_new_article"><a href="<?php echo site_url('coordenador/prontuario'); ?>">Emitir prontuário de notas para pré-avaliação</a></li>
                     <li class="icn_categories"><a href="<?php echo site_url('coordenador/modalidade'); ?>">Manutenção do currículo da modalidade</a></li>
                     <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/graduados'); ?>">Verificar relação de participantes em Graduação</a></li>
+                    <li class="icn_new_article"><a href="<?php echo site_url('coordenador/eventos') ?>">Criar evento de graduação</a></li>
+                    <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/notas')?>">Lançar Notas</a></li>
 
                 </ul>
             </li>

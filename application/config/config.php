@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= "http://localhost/chr/Federacao/";
+$config['base_url']	= "http://localhost/Federacao";
 
 /*
 |--------------------------------------------------------------------------
