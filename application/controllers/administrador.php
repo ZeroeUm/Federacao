@@ -1,16 +1,17 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of administrador
  *
- * @author felipe
+ * @author Humberto
  */
 class administrador extends CI_Controller {
+    
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Administrador_model','administrador');
+    }
 
     function notificacoes() 
     {

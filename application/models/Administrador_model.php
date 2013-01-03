@@ -154,12 +154,11 @@ class Administrador_model extends CI_Model
         $query = $this->db->query($sql,$id);
         return $query->result_query();
     }
-    
     // fim
     
     //CRU - tabela de filiais
     /*
-     | @param array associativo com as informações a serem inseridas no banco, onde as posições do array devem ser os campos da tabela e os valores as novas informações a serem inseridas
+     * @param array associativo com as informações a serem inseridas no banco, onde as posições do array devem ser os campos da tabela e os valores as novas informações a serem inseridas
      */
     public function InserirFilial($dados = array())
     {
@@ -175,8 +174,8 @@ class Administrador_model extends CI_Model
     }
     
     /*
-     | @param identificador da filial que terá seus dados alterados
-     | @return dados da filial que vai ser alterada
+     * @param identificador da filial que terá seus dados alterados
+     * @return dados da filial que vai ser alterada
      */
     public function AlterarDadoasFilial($id)// metódo para puxar informações para página de alteração
     {
