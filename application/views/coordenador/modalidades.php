@@ -1,5 +1,4 @@
-teste
-
+<h3>Modalidades</h3>
 <div class="span12">
     <div class="widget-box">
         <div class="widget-title">
