@@ -23,7 +23,8 @@ class administrador extends CI_Controller {
     function federados() 
     {
         $this->load->view('header');
-        $this->load->view('devel');
+        $dados['instrutores'] = $this->administrador->MntFedInstrutor();
+        $this->load->view('administrador/manterFederados',$dados);
         $this->load->view('footer');
     }
 

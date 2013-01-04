@@ -12,9 +12,13 @@ class Administrador_model extends CI_Model
      */
     public function MntFedInstrutor()
     {
-        $sql = "CALL prMntFedInstrutor()";
-        $query = $this->db->query($sql);
-        return $query->result_array();
+        return $this->db
+                    ->select("registro as id, nome")
+                    ->from("federado")
+                    ->where("tipo_federado >=",2)
+                    ->order_by("nome","asc")
+                    ->get()
+                    ->result();
     }
     
     /*
@@ -23,9 +27,13 @@ class Administrador_model extends CI_Model
      */
     public function MntFedFilial($intrutor)
     {
-        $sql = "CALL prMntFedFilial(?)";
-        $query = $this->db->query($sql,$instrutor);
-        return $query->result_array();
+        return $this->db
+                    ->select("idFilial as id, nome")
+                    ->from("filial")
+                    ->where("instrutor =",$instrutor)
+                    ->order_by("nome","asc")
+                    ->get()
+                    ->result();
     }
     
     /*
@@ -34,9 +42,15 @@ class Administrador_model extends CI_Model
      */
     public function MntFedFederado($filial,$status)
     {
-        $sql = "CALL prMntFedFederados(?,?)";
-        $query = $this->db->query($sql,array($filial,$status));
-        return $query->result_array();
+        return $this->db
+                    ->select("federado.registro, federado.nome")
+                    ->from("federado")
+                    ->join("matricula","federado.registro = matricula.registro","inner")
+                    ->where("matricula.id_filial",$filial)
+                    ->where("federado.status",$status)
+                    ->order_by("federado.nome","asc")
+                    ->get()
+                    ->result();
     }
     
     /*
@@ -45,9 +59,27 @@ class Administrador_model extends CI_Model
      */
     public function MntFedDados($federado)
     {
-       $sql = "CALL prMntFedDados(?)";
-       $query = $this->db->query($sql,$federado);
-       return $query->result_array();
+       return $this->db
+                    ->select(
+                             "federado.nome AS nome,
+                              federado.data_nascimento AS dtNasc,
+                              federado.telefone AS telefone,
+                              federado.email AS email,
+                              federado.celular AS celular,
+                              federado.sexo AS sexo,
+                              escolaridade.descricao AS escolaridade,
+                              nacionalidade.nacionalidade AS nacionalidade,
+                              graduacao.faixa AS faixa"
+                            )
+                    ->from("federado")
+                    ->join("escolaridade","federado.escolaridade = escolaridade.id","inner")
+                    ->join("nacionalidade","federado.nacionalidade = nacionalidade.id","inner")
+                    ->join("graduacao_federado","federado.registro = graduacao_federado.federado","inner")
+                    ->join("graduacao","graduacao_federado.modalidade = graduacao.modalidade AND graduacao_federado.grau = graduacao.grau","inner")
+                    ->where("federado.registro",$federado)
+                    ->where("graduacao_federado.status",1)
+                    ->get()
+                    ->result();
     }
     // fim metódos para Manter dados de Federados
     
@@ -59,7 +91,7 @@ class Administrador_model extends CI_Model
     public function AlterarDadosFederado($federado)// metódo para puxar informações para página de alteração
     {
         $query = $this->db->get_where('federado',array('registro' => $federado));
-        return $query->result_array();
+        return $query->result();
     }
     
     /*
@@ -73,7 +105,7 @@ class Administrador_model extends CI_Model
     /*
      * @param identificador do federado a ter as informações alteradas junto com as alterações em um array
      */
-    public function AlterarDadosFederado($registro,$dados = array())
+    public function AtualizarDadosFederado($registro,$dados = array())
     {
         $this->db->update('federado',$dados,array('registro' => $registro));
     }
@@ -87,9 +119,40 @@ class Administrador_model extends CI_Model
      */
     public function NotifEmail($criterio)
     {
-        $sql = "CALL prNotifEmail(?)";
-        $query = $this->db->query($sql,$criterio);
-        return $query->result_array();
+        $where = array();
+        if($criterio == 1)
+        {
+            $this->db->where("tipo_federado",1);
+        }
+        else if($criterio == 2)
+        {
+            $this->db->where("tipo_federado",2);
+        }
+        else if($criterio == 3)
+        {
+            $this->db->where("tipo_federado",3);
+        }
+        else if($criterio == 5)
+        {
+            $this->db->where("tipo_federado",1);
+            $this->db->where("tipo_federado",2);
+        }
+        else if($criterio == 6)
+        {
+            $this->db->where("tipo_federado",1);
+            $this->db->where("tipo_federado",3);
+        }
+        else if($criterio == 7)
+        {
+            $this->db->where("tipo_federado",2);
+            $this->db->where("tipo_federado",3);
+        }
+        return $this->db
+                    ->select("nome, email")
+                    ->from("federado")
+                    ->order_by("nome","asc")
+                    ->get()
+                    ->result();
     }
     
     // metódo para pegar o histórico de notas do federado no banco de dados
@@ -99,9 +162,13 @@ class Administrador_model extends CI_Model
      */
     public function HistFederado($federado)
     {
-        $sql = "CALL prHistFed(?)";
-        $query = $this->db->query($sql,$federado);
-        return $query->result_array();
+        return $this->db
+                    ->select("registro_federado as federado,id_evento as evento, arquivo")
+                    ->from("prontuario")
+                    ->where("registro_federado",$federado)
+                    ->order_by("id_evento","desc")
+                    ->get()
+                    ->result();
     }
     
     // CRU tabela de endereço
@@ -128,7 +195,7 @@ class Administrador_model extends CI_Model
     public function AlterarEndereco($registro)// metódo para puxar informações para página de alteração
     {
         $query = $this->db->get_where('endereco',array('registro' => $registro));
-        return $query->result_array();
+        return $query->result();
     }
         
     //fim CRU tabela de endereços
@@ -139,9 +206,12 @@ class Administrador_model extends CI_Model
      */
     public function MntFilial()
     {
-        $sql = "CALL prFiliais()";
-        $query = $this->db->query($sql);
-        return $query->result_query();
+        return $this->db
+                    ->select("idFilial as id, nome")
+                    ->from("filial")
+                    ->order_by("nome","asc")
+                    ->get()
+                    ->result();
     }
     
     /*
@@ -149,10 +219,30 @@ class Administrador_model extends CI_Model
      | @return informações para apresentar na tela de pesquisa de filiais
      */    
     public function MntFilialDados($id)
-    {
-        $sql = "CALL prFilialDados(?)";
-        $query = $this->db->query($sql,$id);
-        return $query->result_query();
+    {   
+        return $this->db
+                    ->select
+                        (
+                            "filial.idFilial AS id,
+                            filial.nome AS nome,
+                            filial.telefone AS telefone,
+                            filial.fax AS fax,
+                            filial.email AS email,
+                            filial.site AS site,
+                            filial.representante AS representante,
+                            federado.nome AS instrutor,
+                            endereco.logradouro AS logradouro,
+                            endereco.numero AS numero,
+                            endereco.bairro AS bairro,
+                            endereco.cidade AS cidade,
+                            endereco.uf AS uf"
+                         )
+                    ->from("filial")
+                    ->join("federado","filial.instrutor = federado.registro","inner")
+                    ->join("endereco","filial.endereco = endereco.registro","inner")
+                    ->where("idFilial",$id)
+                    ->get()
+                    ->result();
     }
     // fim
     
@@ -180,7 +270,7 @@ class Administrador_model extends CI_Model
     public function AlterarDadoasFilial($id)// metódo para puxar informações para página de alteração
     {
         $query = $this->db->get_where('filial',array('idFilial' => $id));
-        return $query->result_array();
+        return $query->result();
     }
     //fim CRU - tabela de filiais
         
