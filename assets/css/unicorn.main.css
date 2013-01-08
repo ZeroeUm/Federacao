@@ -99,7 +99,7 @@ a:hover {
 }
 #user-nav > ul > li > a > i, #sidebar li a i {
 	vertical-align: top;
-	background-image: url('/assets/images//glyphicons-halflings-white.png');
+	background-image: url('/assets/images/glyphicons-halflings-white.png');
 	opacity: .5;
 	margin-top: 2px;
 }

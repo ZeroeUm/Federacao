@@ -27,24 +27,6 @@ class administrador extends CI_Controller {
         $this->load->view('administrador/manterFederados',$dados);
         $this->load->view('footer');
     }
-    
-    function getFiliais(){
-        $instrutor = $this->uri->segment(3);
-        $filiais = $this->administrador->MntFedFilial($instrutor);
-        
-        if(empty($filiais))
-            return '{"Nome": "Nenhuma filial associada ao instrutor escolhido" }';
-        
-        $arrFiliais = array();
-        
-        foreach($filiais as $filial)
-            $arrFiliais[] = '{"id":' . $filial->id . ',"nome":"' . $filial->nome. '"}';
-        
-        echo '[' . implode(",",$arrFiliais) . ']';
-        
-        
-        return;
-    }
 
     function pedidos() 
     {
