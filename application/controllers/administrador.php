@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Description of administrador
  *
@@ -10,7 +9,6 @@ class administrador extends CI_Controller {
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Administrador_model','administrador');
     }
 
     function notificacoes() 
@@ -22,10 +20,18 @@ class administrador extends CI_Controller {
 
     function federados() 
     {
+        $this->load->model('Administrador_model','administrador');
         $this->load->view('header');
         $dados['instrutores'] = $this->administrador->MntFedInstrutor();
         $this->load->view('administrador/manterFederados',$dados);
         $this->load->view('footer');
+    }
+    
+    function getFiliais($instrutor)
+    {
+        $this->load->model('Administrador_model','administrador');
+        header('Content-Type: application/x-json; charset=utf-8');
+        echo(json_encode($this->administrador->MntFedFilial($instrutor)));
     }
 
     function pedidos() 

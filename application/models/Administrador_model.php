@@ -25,7 +25,7 @@ class Administrador_model extends CI_Model
      * @param instrutor responsável por filiais
      * @return filiais que o instrutor escolhido é responsável
      */
-    public function MntFedFilial($intrutor)
+    public function MntFedFilial($instrutor)
     {
         return $this->db
                     ->select("idFilial as id, nome")

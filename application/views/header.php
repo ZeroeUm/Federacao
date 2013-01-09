@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/unicorn.grey.css" class="skin-color">
         <link rel="stylesheet" type="text/css" href="chrome-extension://pbcgnkmbeodkmiijjfnliicelkjfcldg/content/css/gmail.css">
         <script src="<?php echo base_url(); ?>assets/js/excanvas.min.js"></script>
-        <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/jquery-1.8.2.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/jquery.ui.custom.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/jquery.flot.min.js"></script>
@@ -18,7 +18,7 @@
         <script src="<?php echo base_url(); ?>assets/js/jquery.peity.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/fullcalendar.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/unicorn.js"></script>
-        <script src="<?php echo base_url(); ?>assets/js/unicorn.dashboard.js"></script>
+        <!--<script src="<?php// echo base_url(); ?>assets/js/unicorn.dashboard.js"></script>-->
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
     </head>
 
@@ -31,16 +31,6 @@
         </div>
         <div id="user-nav" class="navbar navbar-inverse">
             <ul class="nav btn-group">
-                <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-user"></i> <span class="text">Profile</span></a></li>
-                <li class="btn btn-inverse dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">Messages</span> <span class="label label-important">5</span> <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a class="sAdd" title="" href="#">new message</a></li>
-                        <li><a class="sInbox" title="" href="#">inbox</a></li>
-                        <li><a class="sOutbox" title="" href="#">outbox</a></li>
-                        <li><a class="sTrash" title="" href="#">trash</a></li>
-                    </ul>
-                </li>
-
                 <li class="btn btn-inverse"><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
             </ul>
         </div>
