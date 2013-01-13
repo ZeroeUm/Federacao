@@ -31,7 +31,12 @@ class administrador extends CI_Controller {
     {
         $this->load->model('Administrador_model','administrador');
         header('Content-Type: application/x-json; charset=utf-8');
-        echo(json_encode($this->administrador->MntFedFilial($instrutor)));
+        $filiais = $this->administrador->MntFedFilial($instrutor);
+        for($i = 0;$i < count($filiais);$i++)
+        {
+            $filiais[$i]["nome"] = htmlentities($filiais[$i]["nome"]);
+        }        
+        echo(json_encode($filiais));
     }
 
     function pedidos() 

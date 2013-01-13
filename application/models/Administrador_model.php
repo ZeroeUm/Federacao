@@ -33,7 +33,7 @@ class Administrador_model extends CI_Model
                     ->where("instrutor =",$instrutor)
                     ->order_by("nome","asc")
                     ->get()
-                    ->result();
+                    ->result_array();
     }
     
     /*

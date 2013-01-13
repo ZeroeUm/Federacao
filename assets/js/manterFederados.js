@@ -3,18 +3,20 @@
  */
 $(document).ready(function(){
     $('#instrutores').change(function (){
-        $("#filiais > option").remove();
         var instrutor = $("#instrutores").val();
         $.ajax({
             type: "POST",
+            data: "instrutor="+instrutor,
             url: "getFiliais/"+instrutor,
-            sucess: function(filiais)
+            datatype: 'json',
+            success: function(filiais)
             {
-                $.each(filiais,function(id,nome){
-                    var option = $('<option />')
-                    option.val(id);
-                    option.text(nome);
-                    $("#filiais").append(option);
+                $("#filiais").empty();
+                $.each(filiais,function(filial,prop){
+//                    var opt = $('<option />');
+//                    opt.attr("value",prop.id);
+//                    opt.attr("label",prop.nome);
+                    $('#filiais').append(new Option($('<div/>').html(prop.nome).text(),prop.id) );
                 })
             }
         })
