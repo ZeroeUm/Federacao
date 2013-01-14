@@ -62,7 +62,7 @@ class Administrador_model extends CI_Model
        return $this->db
                     ->select(
                              "federado.nome AS nome,
-                              federado.data_nascimento AS dtNasc,
+                              federado.data_nasc AS dtNasc,
                               federado.telefone AS telefone,
                               federado.email AS email,
                               federado.celular AS celular,
@@ -88,7 +88,7 @@ class Administrador_model extends CI_Model
      * @param federado que se deseja alterar as informações
      * #return todas as informações guardadas na tabela de federados
      */
-    public function AlterarDadosFederado($federado)// metódo para puxar informações para página de alteração
+    public function DadosFederado($federado)// metódo para puxar informações para página de alteração
     {
         $query = $this->db->get_where('federado',array('registro' => $federado));
         return $query->result_array();

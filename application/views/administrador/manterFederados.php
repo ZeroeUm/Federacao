@@ -16,7 +16,7 @@ echo form_label("Filiais","filiais");
 echo form_dropdown("filiais",array("#" => "Escolha um instrutor"),"#",'id="filiais" class="span3"');
 
 echo form_label("Situação","situacao");
-echo form_dropdown("situacao",array("#" => "Escolha uma filial",0 => "Inativo", 1 => "Ativo"),"#",'disabled id="situacao" class="span2"');
+echo form_dropdown("situacao",array("#" => "Escolha uma filial"),"#",'disabled id="situacao" class="span2"');
 
 echo form_label("Federados","federados");
 echo form_dropdown("federados",array("#" => "Escolha uma situação"),"#",'id="federados" class="span3"');
@@ -32,6 +32,10 @@ echo form_input($nome);
 $data = array('id' => 'dataNasc', 'name' => 'dataNasc', 'maxlength' => '10', 'size' => '10', 'readonly' => 'readonly');
 echo form_label("Data de nascimento","dataNasc");
 echo form_input($data);
+
+$idade = array('id' => 'idade', 'name' => 'idade', 'maxlength' => '3', 'size' => '3', 'readonly' => 'readonly', 'class' => 'input-mini');
+echo form_label("Idade",'idade');
+echo form_input($idade);
 
 $telefone = array('id' => 'telefone', 'name' => 'telefone', 'maxlength' => '13', 'size' => '13', 'readonly' => 'readonly');
 echo form_label("Telefone","telefone");
