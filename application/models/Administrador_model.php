@@ -43,14 +43,14 @@ class Administrador_model extends CI_Model
     public function MntFedFederado($filial,$status)
     {
         return $this->db
-                    ->select("federado.registro, federado.nome")
+                    ->select("federado.registro as id, federado.nome")
                     ->from("federado")
-                    ->join("matricula","federado.registro = matricula.registro","inner")
+                    ->join("matricula","federado.registro = matricula.federado","inner")
                     ->where("matricula.id_filial",$filial)
                     ->where("federado.status",$status)
                     ->order_by("federado.nome","asc")
                     ->get()
-                    ->result();
+                    ->result_array();
     }
     
     /*
@@ -79,7 +79,7 @@ class Administrador_model extends CI_Model
                     ->where("federado.registro",$federado)
                     ->where("graduacao_federado.status",1)
                     ->get()
-                    ->result();
+                    ->result_array();
     }
     // fim metódos para Manter dados de Federados
     
@@ -91,7 +91,7 @@ class Administrador_model extends CI_Model
     public function AlterarDadosFederado($federado)// metódo para puxar informações para página de alteração
     {
         $query = $this->db->get_where('federado',array('registro' => $federado));
-        return $query->result();
+        return $query->result_array();
     }
     
     /*

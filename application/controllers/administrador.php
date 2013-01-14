@@ -38,6 +38,35 @@ class administrador extends CI_Controller {
         }        
         echo(json_encode($filiais));
     }
+    
+    function getFederados($filial,$status)
+    {
+        $this->load->model('Administrador_model','administrador');
+        header('Content-Type: application/x-json; charset=utf-8');
+        $federados = $this->administrador->MntFedFederado($filial,$status);
+        
+        for($i = 0;$i < count($federados);$i++)
+        {
+            $federados[$i]["nome"] = htmlentities($federados[$i]["nome"]);
+        }
+        echo(json_encode($federados));
+    }
+    
+    function getFederado($federado)
+    {
+        $this->load->model('Administrador_model','administrador');
+        header('Content-type: application/x-json; charset=utf-8');
+        $federado = $this->administrador->MntFedDados($federado);
+    }
+    
+    function alterarFederado($federado)
+    {
+        $this->load->model('Administrador_model','administrador');
+        $this->load->view('header');
+        $dados['federado'] = $this->administrador->AlterarDadosFederado($federado);
+        $this->load->view('administrador/alterarFederado',$dados);
+        $this->load->view('footer');
+    }
 
     function pedidos() 
     {
