@@ -112,6 +112,36 @@ class Administrador_model extends CI_Model
     
     //fim CRU tabela de federados
     
+    public function getNacionalidade()
+    {
+        return $this->db->select('id,nacionalidade')->from('nacionalidade')->order_by('nacionalidade','ASC')->get()->result_array();
+    }
+    
+    public function getEscolaridade()
+    {
+        return $this->db->get('escolaridade')->result_array();
+    }
+    
+    public function getStatus()
+    {
+        return $this->db->get('status_federado')->result_array();
+    }
+    
+    public function getEndereco($registro)
+    {
+        return $this->db->get_where('endereco',array('registro' => $registro))->result_array();
+    }
+    
+    public function getTipoFederado()
+    {
+        return $this->db->get('tipo_federado')->result_array();
+    }
+    
+    public function getUF()
+    {
+        return $this->db->select('id,sigla')->from('estados')->order_by("sigla","asc")->get()->result_array();
+    }
+    
     //metódo para pegar os e-mails para envio de notificação
     /*
      * @param criterio de pesquisa de e-mails no banco de dados -  de 1 a 7

@@ -87,9 +87,52 @@ class administrador extends CI_Controller
     {
         $this->load->model('Administrador_model', 'administrador');
         $this->load->view('header');
-        $dados['federado'] = $this->administrador->DadosFederado($federado);
-        $this->load->view('administrador/alterarFederado', $dados);
+        
+        $this->form_validation->set_rules('nome','Nome','required|alpha|trim');
+        $this->form_validation->set_rules('fMaterna','Filiação Materna','alpha|trim');
+        $this->form_validation->set_rules('fPaterna','Filiação Paterna','alpha|trim');
+        $this->form_validation->set_rules('sexo','Sexo','required');
+        $this->form_validation->set_rules('dtNasc','Data','required|alpha_dash|trim');
+        $this->form_validation->set_rules('rg','RG','required');
+        $this->form_validation->set_rules('telefone','Telefone para contato','required|trim');
+        $this->form_validation->set_rules('celular','Celular para contato','required|trim');
+        $this->form_validation->set_rules('email', 'E-mail para contato','required|valid_email|trim');
+        $this->form_validation->set_rules('escolaridade','Escolaridade','required');
+        $this->form_validation->set_rules('situacao','Situação na federação','required');
+        $this->form_validation->set_rules('nacionalidade','Nacionalidade','required');
+        $this->form_validation->set_rules('tipo','Tipo de federado na federação','required');
+        $this->form_validation->set_rules('logradouro','Logradouro do endereço','required|alpha|trim');
+        $this->form_validation->set_rules('numero','Número do endereço','required|is_natural_no_zero|trim');
+        $this->form_validation->set_rules('bairro','Bairro do endereço','required|alpha|trim');
+        $this->form_validation->set_rules('cidade','Cidade do endereço','required|alpha|trim');
+        $this->form_validation->set_rules('uf','UF do endereço','required');
+        
+        if($this->form_validation->run() == FALSE)
+        {
+            $dados['federado'] = $this->administrador->DadosFederado($federado);
+            $endereco = $dados['federado'][0]['endereco'];
+            $dados['nacionalidade'] = $this->administrador->getNacionalidade();
+            $dados['escolaridade'] = $this->administrador->getEscolaridade();
+            $dados['tipo'] = $this->administrador->getTipoFederado();
+            $dados['statusFederado'] = $this->administrador->getStatus();
+            $dados['endereco'] = $this->administrador->getEndereco($endereco);
+            $dados['uf'] = $this->administrador->getUF();
+            $this->load->view('administrador/alterarFederado', $dados);
+        }
+        else
+        {
+            $this->atualizarFederado();
+        }
         $this->load->view('footer');
+    }
+    
+    function atualizarFederado()
+    {
+        
+    }
+    function salvarFederado()
+    {
+        
     }
 
     function imprimirFederado($federado)
