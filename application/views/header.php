@@ -18,7 +18,7 @@
         <script src="<?php echo base_url(); ?>assets/js/jquery.peity.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/fullcalendar.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/unicorn.js"></script>
-        <!--<script src="<?php// echo base_url(); ?>assets/js/unicorn.dashboard.js"></script>-->
+        <!--<script src="assets/js/unicorn.dashboard.js"></script>-->
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
     </head>
 

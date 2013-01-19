@@ -1,3 +1,18 @@
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#dtNasc").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "dd-mm-yy",
+            showAnim: "fadeIn",
+            showOtherMonths: true,
+            selectOtherMonths: true
+        })
+    })
+</script>
 <?php
 $federado = $federado[0];
 $endereco = $endereco[0];
@@ -10,7 +25,11 @@ $attr = array(
 $label = array(
   "class" => "control-label"
 );
-echo validation_errors();
+?>
+<div class="alert-error">
+    <?php echo validation_errors();?>    
+</div>
+<?php
 echo form_fieldset("Alteração de registro de federado");
 echo form_open_multipart("administrador/alterarFederado/".$this->uri->segment(3), $attr, $hidden);
 $imagem = array(
@@ -73,7 +92,7 @@ echo img($imagem);
     <div class="controls">
         <?php
             $inData = 'id="dtNasc" class="span2" maxlength="10" required';
-            echo form_input("dtNasc",set_value('dtNasc',date("d/m/Y",strtotime($federado['data_nasc']))),$inData);
+            echo form_input("dtNasc",set_value('dtNasc',date("d-m-Y",strtotime($federado['data_nasc']))),$inData);
         ?>
     </div>
 </div>
@@ -216,7 +235,7 @@ echo img($imagem);
     ?>
     <div class="controls">
         <?php
-            $inComplemento = 'id="compl" class="span3" maxlength="20" required';
+            $inComplemento = 'id="compl" class="span3" maxlength="20"';
             echo form_input('compl',$endereco['complemento'],$inComplemento);
         ?>
     </div>

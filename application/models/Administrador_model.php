@@ -94,6 +94,50 @@ class Administrador_model extends CI_Model
         return $query->result_array();
     }
     
+    public function ImprimirDadosFederado($federado)
+    {
+        return $this->db
+                    ->select(
+                                '
+                                 federado.nome as nome,
+                                 federado.filiacao_materna as fMaterna,
+                                 federado.filiacao_paterna as fPaterna,
+                                 federado.sexo as sexo,
+                                 federado.data_nasc as dtNasc,
+                                 federado.rg as rg,
+                                 federado.telefone as telefone,
+                                 federado.celular as celular,
+                                 federado.email as email,
+                                 federado.caminho_imagem,
+                                 escolaridade.descricao as escolaridade,
+                                 nacionalidade.nacionalidade as nacionalidade,
+                                 status_federado.status as situacao,
+                                 tipo_federado.tipo as tipo,
+                                 graduacao.faixa as faixa,
+                                 endereco.logradouro as logradouro,
+                                 endereco.numero as numero,
+                                 endereco.complemento as compl,
+                                 endereco.bairro as bairro,
+                                 endereco.cidade as cidade,
+                                 estados.sigla as uf
+                                '
+                            )
+                    ->from('federado')
+                    ->join('nacionalidade','federado.nacionalidade = nacionalidade.id','join')
+                    ->join('escolaridade','federado.escolaridade = escolaridade.id','join')
+                    ->join('tipo_federado','federado.tipo_federado = tipo_federado.id','join')
+                    ->join('status_federado','federado.status = status_federado.id','join')
+                    ->join("graduacao_federado","federado.registro = graduacao_federado.federado","inner")
+                    ->join("graduacao","graduacao_federado.modalidade = graduacao.modalidade AND graduacao_federado.grau = graduacao.grau","inner")
+                    ->join('endereco','federado.endereco = endereco.registro','join')
+                    ->join('estados','endereco.uf = estados.id','join')
+                    ->where("federado.registro",$federado)
+                    ->where("graduacao_federado.status",1)
+                    ->get()
+                    ->result_array();
+                        
+    }
+    
     /*
      * @param array associativo com as informações a serem inseridas no banco, onde as posições do array devem ser os campos da tabela e os valores as novas informações a serem inseridas
      */
@@ -182,7 +226,7 @@ class Administrador_model extends CI_Model
                     ->from("federado")
                     ->order_by("nome","asc")
                     ->get()
-                    ->result();
+                    ->result_array();
     }
     
     // metódo para pegar o histórico de notas do federado no banco de dados
@@ -198,7 +242,7 @@ class Administrador_model extends CI_Model
                     ->where("registro_federado",$federado)
                     ->order_by("id_evento","desc")
                     ->get()
-                    ->result();
+                    ->result_array();
     }
     
     // CRU tabela de endereço
@@ -225,7 +269,7 @@ class Administrador_model extends CI_Model
     public function AlterarEndereco($registro)// metódo para puxar informações para página de alteração
     {
         $query = $this->db->get_where('endereco',array('registro' => $registro));
-        return $query->result();
+        return $query->result_array();
     }
         
     //fim CRU tabela de endereços
@@ -241,7 +285,7 @@ class Administrador_model extends CI_Model
                     ->from("filial")
                     ->order_by("nome","asc")
                     ->get()
-                    ->result();
+                    ->result_array();
     }
     
     /*
@@ -272,7 +316,7 @@ class Administrador_model extends CI_Model
                     ->join("endereco","filial.endereco = endereco.registro","inner")
                     ->where("idFilial",$id)
                     ->get()
-                    ->result();
+                    ->result_array();
     }
     // fim
     
@@ -300,7 +344,7 @@ class Administrador_model extends CI_Model
     public function AlterarDadoasFilial($id)// metódo para puxar informações para página de alteração
     {
         $query = $this->db->get_where('filial',array('idFilial' => $id));
-        return $query->result();
+        return $query->result_array();
     }
     //fim CRU - tabela de filiais
         

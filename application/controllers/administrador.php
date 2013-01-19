@@ -74,7 +74,7 @@ class administrador extends CI_Controller
         header('Content-type: application/x-json; charset=utf-8');
         $fed = $this->administrador->MntFedDados($federado);
         $nasc = new DateTime($fed[0]['dtNasc']);
-        $fed[0]['dtNasc'] = $nasc->format('d/m/Y');
+        $fed[0]['dtNasc'] = $nasc->format('d-m-Y');
         $hoje = new DateTime('now');
         $idade = $hoje->diff($nasc)->format("%y");
         $fed[0]['idade'] = $idade;
@@ -83,14 +83,24 @@ class administrador extends CI_Controller
         echo(json_encode($resultado));
     }
 
-    function alterarFederado($federado)
+    public function alpha_acent($input)
     {
-        $this->load->model('Administrador_model', 'administrador');
-        $this->load->view('header');
-        
-        $this->form_validation->set_rules('nome','Nome','required|alpha|trim');
-        $this->form_validation->set_rules('fMaterna','Filiação Materna','alpha|trim');
-        $this->form_validation->set_rules('fPaterna','Filiação Paterna','alpha|trim');
+        if(preg_match("^[A-Za-zÀ-ú]+$", $input))
+        {
+            $this->form_validation->set_message('alpha_acent','O campo %s deve conter somente letras e caracteres acentuados.');
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    
+    function alterarFederado($federado)
+    {  
+        $this->form_validation->set_rules('nome','Nome','required|alpha_acent|trim');
+        $this->form_validation->set_rules('fMaterna','Filiação Materna','alpha_acent|trim');
+        $this->form_validation->set_rules('fPaterna','Filiação Paterna','alpha_acent|trim');
         $this->form_validation->set_rules('sexo','Sexo','required');
         $this->form_validation->set_rules('dtNasc','Data','required|alpha_dash|trim');
         $this->form_validation->set_rules('rg','RG','required');
@@ -101,14 +111,17 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('situacao','Situação na federação','required');
         $this->form_validation->set_rules('nacionalidade','Nacionalidade','required');
         $this->form_validation->set_rules('tipo','Tipo de federado na federação','required');
-        $this->form_validation->set_rules('logradouro','Logradouro do endereço','required|alpha|trim');
+        $this->form_validation->set_rules('logradouro','Logradouro do endereço','required|alpha_acent|trim');
         $this->form_validation->set_rules('numero','Número do endereço','required|is_natural_no_zero|trim');
-        $this->form_validation->set_rules('bairro','Bairro do endereço','required|alpha|trim');
-        $this->form_validation->set_rules('cidade','Cidade do endereço','required|alpha|trim');
+        $this->form_validation->set_rules('bairro','Bairro do endereço','required|alpha_acent|trim');
+        $this->form_validation->set_rules('cidade','Cidade do endereço','required|alpha_acent|trim');
         $this->form_validation->set_rules('uf','UF do endereço','required');
+        
         
         if($this->form_validation->run() == FALSE)
         {
+            $this->load->model('Administrador_model', 'administrador');
+            $this->load->view('header');
             $dados['federado'] = $this->administrador->DadosFederado($federado);
             $endereco = $dados['federado'][0]['endereco'];
             $dados['nacionalidade'] = $this->administrador->getNacionalidade();
@@ -118,18 +131,60 @@ class administrador extends CI_Controller
             $dados['endereco'] = $this->administrador->getEndereco($endereco);
             $dados['uf'] = $this->administrador->getUF();
             $this->load->view('administrador/alterarFederado', $dados);
+            $this->load->view('footer');
         }
         else
         {
             $this->atualizarFederado();
+            $this->trocarFotoFederado();
         }
-        $this->load->view('footer');
+        
+    }
+    
+    function trocarFotoFederado()
+    {
+        
+        
     }
     
     function atualizarFederado()
     {
+        $this->load->model('Administrador_model','administrador');
+        $endereco = array();
+        $federado = array();
+        
+        $endereco['logradouro']     = $this->input->post('logradouro');
+        $endereco['numero']         = $this->input->post('numero');
+        $endereco['complemento']    = $this->input->post('compl');
+        $endereco['bairro']         = $this->input->post('bairro');
+        $endereco['cidade']         = $this->input->post('cidade');
+        $endereco['uf']             = $this->input->post('uf');
+        
+        $federado['nome']               = $this->input->post('nome');
+        $federado['filiacao_materna']   = ($this->input->post('fMaterna')?$this->input->post('fMaterna'):NULL);
+        $federado['filiacao_paterna']   = ($this->input->post('fPaterna')?$this->input->post('fPaterna'):NULL);
+        $federado['sexo']               = $this->input->post('sexo');
+        $federado['data_nasc']          = date('Y-m-d', strtotime($this->input->post('dtNasc')));
+        $federado['rg']                 = $this->input->post('rg');
+        $federado['telefone']           = $this->input->post('telefone');
+        $federado['celular']            = $this->input->post('celular');
+        $federado['email']              = $this->input->post('email');
+        $federado['escolaridade']       = $this->input->post('escolaridade');
+        $federado['status']             = $this->input->post('situacao');
+        $federado['nacionalidade']      = $this->input->post('nacionalidade');
+        $federado['tipo_federado']      = $this->input->post('tipo');
+        
+        $this->administrador->AtualizarDadosFederado($this->input->post('federado'),$federado);
+        
+        $this->administrador->AtualizarEndereco($this->input->post('endereco'),$endereco);
+        
+        $dados['federado'] = $federado['nome'];
+        $this->load->view('header');
+        $this->load->view('administrador/sucessoAlteracao',$dados);
+        $this->load->view('footer');
         
     }
+    
     function salvarFederado()
     {
         
@@ -139,13 +194,14 @@ class administrador extends CI_Controller
     {
         $this->load->model('administrador_model', 'administrador');
         $this->load->view('header');
-        $dados['federado'] = $this->administrador->DadosFederado($federado);
+        $dados['federado'] = $this->administrador->ImprimirDadosFederado($federado);
         $this->load->view('administrador/imprimirFederado', $dados);
         $this->load->view('footer');
     }
 
     function pedidos()
     {
+        $this->load->model('administrador_model', 'administrador');
         $this->load->view('header');
         $this->load->view('devel');
         $this->load->view('footer');
@@ -153,6 +209,7 @@ class administrador extends CI_Controller
 
     function historico()
     {
+        $this->load->model('administrador_model', 'administrador');
         $this->load->view('header');
         $this->load->view('devel');
         $this->load->view('footer');
@@ -160,6 +217,7 @@ class administrador extends CI_Controller
 
     function filiais()
     {
+        $this->load->model('administrador_model', 'administrador');        
         $this->load->view('header');
         $this->load->view('devel');
         $this->load->view('footer');
@@ -167,6 +225,7 @@ class administrador extends CI_Controller
 
     function maladireta()
     {
+        $this->load->model('administrador_model', 'administrador');
         $this->load->view('header');
         $this->load->view('devel');
         $this->load->view('footer');
