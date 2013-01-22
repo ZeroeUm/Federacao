@@ -29,7 +29,7 @@ function imprimirInformacao(div)
       "class" => "control-label"
     );
     $imagem = array(
-        "src" => (($fed['caminho_imagem'] == 'sem foto')?"http://placehold.it/140x140/000000/ffffff&text=sem%20foto":$fed['caminho_imagem']),
+        "src" => (($fed['caminho_imagem'] == 'sem foto')?"http://placehold.it/140x140/000000/ffffff&text=sem%20foto":'federados/fotos/'.$fed['caminho_imagem']),
         "alt" => "Foto do federado " . $fed['nome'],
         "title" => "Foto do federado " . $fed['nome'],
         "class" => "img-polaroid"

@@ -1,5 +1,17 @@
-<div class="alert-sucess">
+<?php
+    if(isset ($error)){
+        echo $error;
+        echo br();
+    }
+?>
+<div class="alert-success">
     Alterações nas informações cadastrais de <b><?php echo $federado?></b> realizadas com sucesso.<br />
-    <?php echo anchor('administrador/federados','Clique aqui para voltar à área de manutenção de dados cadastrais')?>
+    <b>
+    <?php 
+        echo (isset($upload_foto)?"Nova foto colocada no sistema.".br():"");
+        echo anchor('administrador/federados','Clique aqui para voltar à área de manutenção de dados cadastrais');
+    ?>
+    </b>
 </div>
+
 

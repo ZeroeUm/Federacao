@@ -96,6 +96,17 @@ class administrador extends CI_Controller
         }
     }
     
+    public function telephone($input)
+    {
+        if(preg_match("^\(?\d{2}\)?\d{4}-?\d{4}$", $input))//formato (11)3940-1294, sem espaço
+        {
+            $this->form_validation->set_message('telephone','O campo %s deve possuir um telefone no formato (12)3456-7890.');
+            return false;
+        }
+        else
+            return true;
+    }
+    
     function alterarFederado($federado)
     {  
         $this->form_validation->set_rules('nome','Nome','required|alpha_acent|trim');
@@ -104,7 +115,7 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('sexo','Sexo','required');
         $this->form_validation->set_rules('dtNasc','Data','required|alpha_dash|trim');
         $this->form_validation->set_rules('rg','RG','required');
-        $this->form_validation->set_rules('telefone','Telefone para contato','required|trim');
+        $this->form_validation->set_rules('telefone','Telefone para contato','required|telephone|trim');
         $this->form_validation->set_rules('celular','Celular para contato','required|trim');
         $this->form_validation->set_rules('email', 'E-mail para contato','required|valid_email|trim');
         $this->form_validation->set_rules('escolaridade','Escolaridade','required');
@@ -135,19 +146,42 @@ class administrador extends CI_Controller
         }
         else
         {
-            $this->atualizarFederado();
-            $this->trocarFotoFederado();
+            $this->fotoFederado(1);
         }
         
     }
     
-    function trocarFotoFederado()
+    function fotoFederado($op)
     {
+        $path_info = ((isset($_FILES))?pathinfo($_FILES["foto"]["name"]):NULL);
+        $extensao = ((isset($path_info))?$path_info['extension']:NULL);
         
+        $config['upload_path'] = './federados/fotos/tkd/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = '1024';
+        $config['max_width'] = '400';
+        $config['max_height'] = '500';
+        $config['overwrite'] = TRUE;
+        $config['remove_spaces'] = TRUE;
+        $config['encrypt_name'] = FALSE;
+        $config['file_name'] = $this->input->post('nome') . "." . $extensao;
         
+        $this->load->library('upload',$config);
+        $this->upload->initialize($config);
+        
+        if( ! $this->upload->do_upload("foto"))
+        {
+            $dados = array('error' => $this->upload->display_errors('<div class="alert-error"><b>','</b></div>') );
+            (($op)?$this->atualizarFederado($dados):$this->salvarFederado($dados));
+        }
+        else
+        {
+             $dados = array('upload_foto' => $this->upload->data());
+             (($op)?$this->atualizarFederado($dados, $config['file_name']):$this->salvarFederado($dados,$config['file_name']));
+        }     
     }
     
-    function atualizarFederado()
+    function atualizarFederado($dados,$foto = NULL)
     {
         $this->load->model('Administrador_model','administrador');
         $endereco = array();
@@ -173,6 +207,7 @@ class administrador extends CI_Controller
         $federado['status']             = $this->input->post('situacao');
         $federado['nacionalidade']      = $this->input->post('nacionalidade');
         $federado['tipo_federado']      = $this->input->post('tipo');
+        $federado['caminho_imagem']     = (isset($foto)?"tkd/".$foto:"sem foto");
         
         $this->administrador->AtualizarDadosFederado($this->input->post('federado'),$federado);
         
@@ -185,8 +220,84 @@ class administrador extends CI_Controller
         
     }
     
-    function salvarFederado()
+    function incluirFederado()
     {
+        $this->form_validation->set_rules('nome','Nome','required|alpha_acent|trim');
+        $this->form_validation->set_rules('fMaterna','Filiação Materna','alpha_acent|trim');
+        $this->form_validation->set_rules('fPaterna','Filiação Paterna','alpha_acent|trim');
+        $this->form_validation->set_rules('sexo','Sexo','required');
+        $this->form_validation->set_rules('dtNasc','Data','required|alpha_dash|trim');
+        $this->form_validation->set_rules('rg','RG','required');
+        $this->form_validation->set_rules('telefone','Telefone para contato','required|telephone|trim');
+        $this->form_validation->set_rules('celular','Celular para contato','required|trim');
+        $this->form_validation->set_rules('email', 'E-mail para contato','required|valid_email|trim');
+        $this->form_validation->set_rules('escolaridade','Escolaridade','required');
+        $this->form_validation->set_rules('nacionalidade','Nacionalidade','required');
+        $this->form_validation->set_rules('tipo','Tipo de federado na federação','required');
+        $this->form_validation->set_rules('logradouro','Logradouro do endereço','required|alpha_acent|trim');
+        $this->form_validation->set_rules('numero','Número do endereço','required|is_natural_no_zero|trim');
+        $this->form_validation->set_rules('bairro','Bairro do endereço','required|alpha_acent|trim');
+        $this->form_validation->set_rules('cidade','Cidade do endereço','required|alpha_acent|trim');
+        $this->form_validation->set_rules('uf','UF do endereço','required');
+        
+        if($this->form_validation->run() == FALSE)
+        {
+            $this->load->model('Administrador_model', 'administrador');
+            $this->load->view('header');
+            $dados['nacionalidade'] = $this->administrador->getNacionalidade();
+            $dados['escolaridade'] = $this->administrador->getEscolaridade();
+            $dados['statusFederado'] = $this->administrador->getStatus();
+            $dados['uf'] = $this->administrador->getUF();
+            $dados['tipo'] = $this->administrador->getTipoFederado();
+            $this->load->view('administrador/incluirFederado', $dados);
+            $this->load->view('footer');
+        }
+        else
+        {
+            $this->fotoFederado(0);
+        }
+    }
+    
+    function salvarFederado($dados,$foto = NULL)
+    {
+        $this->load->model('Administrador_model','administrador');
+        $endereco = array();
+        $federado = array();
+        
+        $endereco['logradouro']     = $this->input->post('logradouro');
+        $endereco['numero']         = $this->input->post('numero');
+        $endereco['complemento']    = $this->input->post('compl');
+        $endereco['tipo_endereco']  = 1;
+        $endereco['bairro']         = $this->input->post('bairro');
+        $endereco['cidade']         = $this->input->post('cidade');
+        $endereco['uf']             = $this->input->post('uf');
+        
+        $this->administrador->InserirEndereco($endereco);
+        
+        $federado['endereco'] = $this->db->insert_id();
+        
+        $federado['nome']               = $this->input->post('nome');
+        $federado['filiacao_materna']   = ($this->input->post('fMaterna')?$this->input->post('fMaterna'):NULL);
+        $federado['filiacao_paterna']   = ($this->input->post('fPaterna')?$this->input->post('fPaterna'):NULL);
+        $federado['sexo']               = $this->input->post('sexo');
+        $federado['data_nasc']          = date('Y-m-d', strtotime($this->input->post('dtNasc')));
+        $federado['rg']                 = $this->input->post('rg');
+        $federado['telefone']           = $this->input->post('telefone');
+        $federado['celular']            = $this->input->post('celular');
+        $federado['email']              = $this->input->post('email');
+        $federado['escolaridade']       = $this->input->post('escolaridade');
+        $federado['nacionalidade']      = $this->input->post('nacionalidade');
+        $federado['tipo_federado']      = $this->input->post('tipo');
+        $federado['caminho_imagem']     = (isset($foto)?"tkd/".$foto:"sem foto");
+        
+        $this->administrador->InserirFederado($federado);
+        
+        
+        
+        $dados['federado'] = $federado['nome'];
+        $this->load->view('header');
+        $this->load->view('administrador/sucessoInclusao',$dados);
+        $this->load->view('footer');
         
     }
 
