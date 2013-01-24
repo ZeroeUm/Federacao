@@ -35,7 +35,7 @@ class coordenador extends CI_Controller{
     
     function filiais(){
         $this->load->view('header');
-        $this->load->view('devel');
+        $this->load->view('coordenador/index');
         $this->load->view('footer');
     }
     

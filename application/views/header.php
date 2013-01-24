@@ -3,23 +3,17 @@
         <title>FEPAMI</title>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/fullcalendar.css">	
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/unicorn.main.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/unicorn.grey.css" class="skin-color">
-        <link rel="stylesheet" type="text/css" href="chrome-extension://pbcgnkmbeodkmiijjfnliicelkjfcldg/content/css/gmail.css">
-        <script src="<?php echo base_url(); ?>assets/js/excanvas.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/jquery-1.8.2.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/jquery.ui.custom.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
-        <script src="<?php echo base_url(); ?>assets/js/jquery.flot.min.js"></script>
-        <script src="<?php echo base_url(); ?>assets/js/jquery.flot.resize.min.js"></script>
-        <script src="<?php echo base_url(); ?>assets/js/jquery.peity.min.js"></script>
-        <script src="<?php echo base_url(); ?>assets/js/fullcalendar.min.js"></script>
-        <script src="<?php echo base_url(); ?>assets/js/unicorn.js"></script>
-        <!--<script src="assets/js/unicorn.dashboard.js"></script>-->
+         <script src="<?php echo base_url(); ?>assets/js/unicorn.js"></script>
+        <!--<script src="<?php// echo base_url(); ?>assets/js/unicorn.dashboard.js"></script>-->
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap-responsive.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/unicorn.main.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/unicorn.grey.css" class="skin-color">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
+      
     </head>
 
     <body>
@@ -71,15 +65,15 @@
                 <li class="submenu">
                     <a href="#"><i class="icon icon-th-large"></i> <span>Coordenadores</span> </a>
                     <ul>
-                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/professores'); ?>">Verificar professores da modalidade</a></li>
+                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/filiais'); ?>">Verificar professores da modalidade</a></li>
                         <li class="icn_categories"><a href="<?php echo site_url('coordenador/filiais'); ?>">Manutenção de dados de filiais</a></li>
-                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/certificados'); ?>">Emitir certificados</a></li>
-                        <li class="icn_folder"><a href="<?php echo site_url('coordenador/comprafaixas'); ?>">Enviar pedido de compra de faixa</a></li>
-                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/prontuario'); ?>">Emitir prontuário de notas para pré-avaliação</a></li>
-                        <li class="icn_categories"><a href="<?php echo site_url('coordenador/modalidade'); ?>">Manutenção do currículo da modalidade</a></li>
-                        <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/graduados'); ?>">Verificar relação de participantes em Graduação</a></li>
-                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/eventos') ?>">Criar evento de graduação</a></li>
-                        <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/notas') ?>">Lançar Notas</a></li>
+                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/filiais'); ?>">Emitir certificados</a></li>
+                        <li class="icn_folder"><a href="<?php echo site_url('coordenador/filiais'); ?>">Enviar pedido de compra de faixa</a></li>
+                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/filiais'); ?>">Emitir prontuário de notas para pré-avaliação</a></li>
+                        <li class="icn_categories"><a href="<?php echo site_url('coordenador/filiais'); ?>">Manutenção do currículo da modalidade</a></li>
+                        <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/filiais'); ?>">Verificar relação de participantes em Graduação</a></li>
+                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/filiais') ?>">Criar evento de graduação</a></li>
+                        <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/filiais') ?>">Lançar Notas</a></li>
 
                     </ul>
                 </li>
@@ -106,4 +100,4 @@
         <div id="content">
 
 
-            <div id="conteiner">
+           
