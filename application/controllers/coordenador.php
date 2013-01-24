@@ -37,9 +37,12 @@ class coordenador extends CI_Controller{
         
         $this->load->model('Modalidade_model','modalidade');
         $this->load->model('filial_model','filiais');
+         $this->load->model('instrutores_model','instrutor');
         
+         $data['instrutor'] = $this->instrutor->get_instrutores();
+         
         $data['alunos'] = $this->modalidade->get_modalidade();
-  
+       
        
         $this->load->view('header');
         $this->load->view('coordenador/cadastroFiliais',$data);
@@ -50,9 +53,7 @@ class coordenador extends CI_Controller{
              
              $dados = $this->input->post();
              
-               echo "<pre>";
-        print_r($dados);
-        echo "</pre>";
+          
         
              
             if($this->filiais->set_filiais($dados)){

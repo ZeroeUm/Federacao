@@ -27,8 +27,17 @@
        
     </select>
    <br>
-    <input type="text" name="id_instrutor" value="" class="span4" placeholder="instrutores">
-    <br>
+  
+   
+   
+     
+   Informe instrutor responsavel: <select name="id_instrutor"  class="chzn-select">
+        
+            <?php foreach ($instrutor as $a) { ?>
+                <option value="<?php echo $a['nome']; ?>"><?php echo $a['nome']; ?></option>
+            <?php } ?>
+       
+    </select>
 
     <input type="submit" value="Salvar">
 
