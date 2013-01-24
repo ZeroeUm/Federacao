@@ -50,6 +50,7 @@ class coordenador extends CI_Controller{
                   
         echo "<pre>";
         print_r($this->input->post());
+        
         echo "</pre>";
         }
     }
