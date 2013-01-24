@@ -1,3 +1,12 @@
+<?php if($this->session->flashdata('key')){ ?>
+<div class="alert alert-success" style="position: absolute;float: left;">
+Salvo com sucesso  
+</div>
+
+<?php } ?>
+
+
+
 <div class="row-fluid">
     
     <div class="span3">
@@ -32,14 +41,14 @@
     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display: block; position: static; margin-bottom: 5px; *width:">
         <li><a tabindex="-1" href="#">Gerenciamento de Alunos</a></li>
         <li class="divider"></li>
-        <li><a tabindex="-1" href="#">Histórico do federado</a></li>
+        <li><a tabindex="-1" href="#">Histï¿½rico do federado</a></li>
         <li><a tabindex="-1" href="#">Prontuario de notas</a></li>
         
-        <li class="dropdown-submenu"><a tabindex="-1" href="#">Avaliações</a>
+        <li class="dropdown-submenu"><a tabindex="-1" href="#">Avaliaï¿½ï¿½es</a>
             <ul class="dropdown-menu">
                 <li><a tabindex="-1" href="#">Cadastrar alunos em evento</a></li>
-                   <li><a tabindex="-1" href="#">Lançar notas de evento</a></li> 
-                <li><a tabindex="-1" href="#">Solicitação de faixas</a></li>
+                   <li><a tabindex="-1" href="#">Lanï¿½ar notas de evento</a></li> 
+                <li><a tabindex="-1" href="#">Solicitaï¿½ï¿½o de faixas</a></li>
 
              </ul>
        </li>

@@ -7,12 +7,18 @@
         <script src="<?php echo base_url(); ?>assets/js/jquery.ui.custom.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
          <script src="<?php echo base_url(); ?>assets/js/unicorn.js"></script>
+         <script src="<?php echo base_url(); ?>assets/js/jquery.chosen.js"></script>
+         
+         <script src="<?php echo base_url(); ?>assets/js/chosen.jquery.js"></script>
+         
+         
         <!--<script src="<?php// echo base_url(); ?>assets/js/unicorn.dashboard.js"></script>-->
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap-responsive.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/unicorn.main.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/unicorn.grey.css" class="skin-color">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/chosen.css">
       
     </head>
 

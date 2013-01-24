@@ -17,7 +17,7 @@ class coordenador extends CI_Controller{
     function professores(){
         
       $this->load->model('FilialModel');
-      $this->load->view('header');
+     
       $this->data['dados'] = $this->FilialModel->get_filiais();
        
      
@@ -36,7 +36,7 @@ class coordenador extends CI_Controller{
     function filiais(){
         
         $this->load->model('Modalidade_model','modalidade');
-        
+        $this->load->model('filial_model','filiais');
         
         $data['alunos'] = $this->modalidade->get_modalidade();
   
@@ -47,11 +47,23 @@ class coordenador extends CI_Controller{
         
         
          if($this->input->post()){
-                  
-        echo "<pre>";
-        print_r($this->input->post());
-        
+             
+             $dados = $this->input->post();
+             
+               echo "<pre>";
+        print_r($dados);
         echo "</pre>";
+        
+             
+            if($this->filiais->set_filiais($dados)){
+                $this->session->set_flashdata('key', 'Salvo com sucesso');
+                redirect('/coordenador/index');
+            }else{
+                
+            };
+             
+             
+      
         }
     }
     

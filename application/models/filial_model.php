@@ -17,8 +17,14 @@ class Filial_model extends CI_Model{
         parent::__construct();
     }
     
-    public function get_filiais(){
-        
+    public function set_filiais($dados){
+       if($this->db->insert('filial', $dados)){
+           
+           return true;
+       }else{
+           
+           return false;
+       }; 
     }
 }
 
