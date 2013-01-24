@@ -10,7 +10,7 @@
  *
  * @author felipe
  */
-class FilialModel extends CI_Model{
+class Filial_model extends CI_Model{
    
     
     function __construct() {
@@ -18,8 +18,7 @@ class FilialModel extends CI_Model{
     }
     
     public function get_filiais(){
-        $query = $this->db->get('filial');
-        return $query->result_array();
+        
     }
 }
 

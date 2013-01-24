@@ -34,8 +34,20 @@ class coordenador extends CI_Controller{
     }
     
     function filiais(){
+        
+        $this->load->model('Modalidade_model','modalidade');
+        
+        
+        $data['alunos'] = $this->modalidade->get_modalidade();
+        
+//        echo "<pre>";
+//        print_r($data);
+//        echo "</pre>";
+        if($this->input->post()){
+            
+        }
         $this->load->view('header');
-        $this->load->view('coordenador/index');
+        $this->load->view('coordenador/cadastroFiliais',$data);
         $this->load->view('footer');
     }
     
