@@ -329,8 +329,19 @@ class administrador extends CI_Controller
     {
         $this->load->model('administrador_model', 'administrador');        
         $this->load->view('header');
-        $this->load->view('devel');
+        $dados['filiais'] = $this->administrador->MntFilial();
+        $this->load->view('administrador/manterFiliais',$dados);
         $this->load->view('footer');
+    }
+    
+    function getFilial($filial)
+    {
+        $this->load->model('Administrador_model','administrador');
+        $filial = $this->administrador->MntFilialDados($filial);
+        header('Content-type: application/x-json; charset=utf-8');
+        
+        $resultado = array_map('htmlentities',$filial[0]);
+        echo(json_encode($resultado));
     }
 
     function maladireta()

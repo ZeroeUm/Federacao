@@ -71,7 +71,7 @@ $(document).ready(function(){
     })
     $('#federados').change(function (){
         var fed = $("#federados").val();
-        if (fed !== "")
+        if (fed !== "#")
         {
             $.ajax({
                 type: "POST",
