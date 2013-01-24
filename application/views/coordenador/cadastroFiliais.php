@@ -12,10 +12,10 @@
     <input type="text" name="email" value="" class="span4" placeholder="Email principal">
     <br>
     <p>Modalidades:</p>
-    <select name="shirts" multiple="multiple">
+    <select name="Modalidade[]" multiple="multiple">
         <optgroup>
             <?php foreach ($alunos as $a) { ?>
-                <option value=""><?php echo $a['nome']; ?></option>
+                <option value="<?php echo $a['id_modalidade']; ?>"><?php echo $a['nome']; ?></option>
             <?php } ?>
         </optgroup>
     </select>

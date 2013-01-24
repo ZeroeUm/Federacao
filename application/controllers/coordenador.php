@@ -39,15 +39,24 @@ class coordenador extends CI_Controller{
         
         
         $data['alunos'] = $this->modalidade->get_modalidade();
-        
-//        echo "<pre>";
-//        print_r($data);
-//        echo "</pre>";
-        if($this->input->post()){
-            
-        }
+  
+       
         $this->load->view('header');
         $this->load->view('coordenador/cadastroFiliais',$data);
+        $this->load->view('footer');
+        
+        
+         if($this->input->post()){
+                  
+        echo "<pre>";
+        print_r($this->input->post());
+        echo "</pre>";
+        }
+    }
+    
+    function index(){
+        $this->load->view('header');
+        $this->load->view('coordenador/index');
         $this->load->view('footer');
     }
     
