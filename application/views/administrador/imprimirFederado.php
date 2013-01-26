@@ -4,7 +4,7 @@ function imprimirInformacao(div)
     document.getElementById("btnImprimir").style.display = "none";
     var conteudo = document.getElementById(div);
     var html = "<html><head>"+
-               "<link src='../../../assets/bootstrap.css'/>"+
+               "<link src='<?php echo base_url(); ?>assets/bootstrap.css'/>"+
                "<body>"+
                conteudo.innerHTML+
                "</body></html>";
@@ -13,7 +13,7 @@ function imprimirInformacao(div)
     janelaImprimir.document.close();
     janelaImprimir.focus();
     janelaImprimir.print();
-    //janelaImprimir.close();
+    janelaImprimir.close();
     document.getElementById("btnImprimir").style.display = "block";
                
 }

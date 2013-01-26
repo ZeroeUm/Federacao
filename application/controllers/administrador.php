@@ -99,12 +99,24 @@ class administrador extends CI_Controller
     {
         if(preg_match("^\(?\d{2}\)?\d{4}-?\d{4}$", $input))//formato (11)3940-1294, sem espaço
         {
-            $this->form_validation->set_message('telephone','O campo %s deve possuir um telefone no formato (12)3456-7890.');
+            $this->form_validation->set_message('telephone','O campo %s deve possuir um número de telefone ou fax no formato (12)3456-7890.');
             return false;
         }
         else
             return true;
     }
+    
+    public function cnpj($input)
+    {
+        if(preg_match("(^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$)",$input))
+        {
+            $this->form_validation->set_messasge('cnpj',"O campo %s deve possuir um número de CNPJ no formato 12.345.678/0123-45");
+            return false;
+        }
+        else
+            return true;
+    }
+    
     
     function alterarFederado($federado)
     {  
@@ -214,7 +226,7 @@ class administrador extends CI_Controller
         
         $dados['federado'] = $federado['nome'];
         $this->load->view('header');
-        $this->load->view('administrador/sucessoAlteracao',$dados);
+        $this->load->view('administrador/sucessoAlteracaoFederado',$dados);
         $this->load->view('footer');
         
     }
@@ -291,11 +303,9 @@ class administrador extends CI_Controller
         
         $this->administrador->InserirFederado($federado);
         
-        
-        
         $dados['federado'] = $federado['nome'];
         $this->load->view('header');
-        $this->load->view('administrador/sucessoInclusao',$dados);
+        $this->load->view('administrador/sucessoInclusaoFederado',$dados);
         $this->load->view('footer');
         
     }
@@ -342,6 +352,148 @@ class administrador extends CI_Controller
         
         $resultado = array_map('htmlentities',$filial[0]);
         echo(json_encode($resultado));
+    }
+    
+    function alterarFilial($filial)
+    {
+        $this->form_validation->set_rules('nome','Nome da Filial','required|alpha_acent|trim');
+        $this->form_validation->set_rules('cnpj','Número de CNPJ','required|cnpj');
+        $this->form_validation->set_rules('telefone','Telefone da filial','telephone|trim');
+        $this->form_validation->set_rules('fax','Fax da filial','telephone|trim');
+        $this->form_validation->set_rules('email','E-mail','required|valid_email|trim');
+        $this->form_validation->set_rules('representante','Representante','alpha_acent|trim');
+        $this->form_validation->set_rules('instrutor','Instrutor','required');
+        $this->form_validation->set_rules('logradouro','Logradouro','required|alpha_acent|trim');
+        $this->form_validation->set_rules('numero','Número','required|is_natural_no_zero|trim');
+        $this->form_validation->set_rules('bairro','Bairro','required|alpha_acent|trim');
+        $this->form_validation->set_rules('cidade','Cidade','required|alpha_acent|trim');
+        $this->form_validation->set_rules('uf','UF','required');
+        
+        if($this->form_validation->run() == FALSE)
+        {
+            $this->load->model('Administrador_model','administrador');
+            $this->load->view('header');
+            $dados['filial'] = $this->administrador->AlterarDadoasFilial($filial);
+            $endereco = $dados['filial'][0]['endereco'];
+            $dados['endereco'] = $this->administrador->getEndereco($endereco);
+            $dados['modalidade'] = $this->administrador->getModalidades();
+            $dados['uf'] = $this->administrador->getUF();
+            $dados['instrutor'] = $this->administrador->MntFedInstrutor();
+            $this->load->view("administrador/alterarFilial",$dados);
+            $this->load->view("footer");
+        }
+        else
+        {
+            $this->atualizaFilial();
+        }
+    }
+    
+    function atualizaFilial()
+    {
+        $this->load->model("Administrador_model","administrador");
+        $filial = array();
+        $endereco = array();
+        
+        $endereco['logradouro']     = $this->input->post('logradouro');
+        $endereco['numero']         = $this->input->post('numero');
+        $endereco['complemento']    = $this->input->post('compl');
+        $endereco['bairro']         = $this->input->post('bairro');
+        $endereco['cidade']         = $this->input->post('cidade');
+        $endereco['uf']             = $this->input->post('uf');
+        
+        $this->administrador->AtualizarEndereco($this->input->post('endereco'),$endereco);
+        
+        $filial['nome']             = $this->input->post('nome');
+        $filial['cnpj']             = $this->input->post('cnpj');
+        $filial['telefone']         = (($this->input->post('telefone'))?$this->input->post('telefone'):NULL);
+        $filial['fax']              = (($this->input->post('fax'))?$this->input->post('fax'):NULL);
+        $filial['representante']    = (($this->input->post('representante'))?$this->input->post('representante'):NULL);
+        $filial['modalidade']       = $this->input->post('modalidade');
+        $filial['instrutor']        = $this->input->post('instrutor');
+        $filial['email']            = $this->input->post('email');
+        
+        $this->administrador->AtualizarFilial($this->input->post('filial',$filial));
+        
+        $dados['filial'] = $filial['nome'];
+        $this->load->view('header');
+        $this->load->view('administrador/sucessoAlteracaoFilial',$dados);
+        $this->load->view('footer');
+    }
+    
+    function imprimirFilial($filial)
+    {
+        $this->load->model("Administrador_model","administrador");
+        $dados['filial'] = $this->administrador->MntFilialDados($filial);
+        $dados['modalidade'] = $this->administrador->getModalidades();
+        $dados['instrutor'] = $this->administrador->MntFedInstrutor();
+        $this->load->view('header');
+        $this->load->view("administrador/imprimirFilial",$dados);
+        $this->load->view("footer");
+    }
+    
+    function incluirFilial()
+    {
+        $this->form_validation->set_rules('nome','Nome da Filial','required|alpha_acent|trim');
+        $this->form_validation->set_rules('cnpj','Número de CNPJ','required|cnpj');
+        $this->form_validation->set_rules('telefone','Telefone da filial','required|telephone|trim');
+        $this->form_validation->set_rules('fax','Fax da filial','required|telephone|trim');
+        $this->form_validation->set_rules('email','E-mail','required|valid_email|trim');
+        $this->form_validation->set_rules('representante','Representante','required|alpha_acent|trim');
+        $this->form_validation->set_rules('instrutor','Instrutor','required');
+        $this->form_validation->set_rules('logradouro','Logradouro','required|alpha_acent|trim');
+        $this->form_validation->set_rules('numero','Número','required|is_natural_no_zero|trim');
+        $this->form_validation->set_rules('bairro','Bairro','required|alpha_acent|trim');
+        $this->form_validation->set_rules('cidade','Cidade','required|alpha_acent|trim');
+        $this->form_validation->set_rules('uf','UF','required');
+        
+        if($this->form_validation->run() == FALSE)
+        {
+            $this->load->model("Administrador_model","administrador");
+            $this->load->view("header");
+            $dados['modalidade'] = $this->administrador->getModalidades();
+            $dados['uf'] = $this->administrador->getUF();
+            $dados['instrutores'] = $this->administrador->MntFedInstrutor();
+            $this->load->view("administrador/incluirFilial",$dados);
+            $this->load->view("footer");
+        }
+        else
+        {
+            $this->salvarFilial();
+        }
+    }
+    
+    function salvarFilial()
+    {
+        $this->load->model("Administrador_model","administrador");
+        $filial = array();
+        $endereco = array();
+        
+        $endereco['logradouro']     = $this->input->post('logradouro');
+        $endereco['numero']         = $this->input->post('numero');
+        $endereco['complemento']    = $this->input->post('compl');
+        $endereco['bairro']         = $this->input->post('bairro');
+        $endereco['cidade']         = $this->input->post('cidade');
+        $endereco['uf']             = $this->input->post('uf');
+        
+        $this->administrador->InserirEndereco($endereco);
+        
+        $filial['endereco'] = $this->db->insert_id();
+        
+        $filial['nome']             = $this->input->post('nome');
+        $filial['cnpj']             = $this->input->post('cnpj');
+        $filial['telefone']         = (($this->input->post('telefone'))?$this->input->post('telefone'):NULL);
+        $filial['fax']              = (($this->input->post('fax'))?$this->input->post('fax'):NULL);
+        $filial['representante']    = (($this->input->post('representante'))?$this->input->post('representante'):NULL);
+        $filial['modalidade']       = $this->input->post('modalidade');
+        $filial['instrutor']        = $this->input->post('instrutor');
+        $filial['email']            = $this->input->post('email');
+        
+        $this->administrador->InserirFilial($filial);
+        
+        $dados['filial'] = $filial['nome'];
+        $this->load->view('header');
+        $this->load->viwe('administrador/sucessoInclusaoFilial',$dados);
+        $this->load->view('footer');
     }
 
     function maladireta()

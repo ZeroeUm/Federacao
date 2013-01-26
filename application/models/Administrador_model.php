@@ -15,10 +15,11 @@ class Administrador_model extends CI_Model
         return $this->db
                     ->select("registro as id, nome")
                     ->from("federado")
-                    ->where("tipo_federado >=",2)
-                    ->order_by("nome","asc")
+                    ->where("tipo_federado",2)
+                    ->or_where("tipo_federado",3)
+                    ->order_by("registro","asc")
                     ->get()
-                    ->result();
+                    ->result_array();
     }
     
     /*
@@ -304,9 +305,11 @@ class Administrador_model extends CI_Model
                             filial.fax AS fax,
                             filial.email AS email,
                             filial.representante AS representante,
+                            filial.modalidade AS modalidade,
                             federado.nome AS instrutor,
                             endereco.logradouro AS logradouro,
                             endereco.numero AS numero,
+                            endereco.complemento AS complemento,
                             endereco.bairro AS bairro,
                             endereco.cidade AS cidade,
                             estados.sigla as uf
@@ -321,6 +324,7 @@ class Administrador_model extends CI_Model
                     ->result_array();
     }
     // fim
+   
     
     //CRU - tabela de filiais
     /*
@@ -349,6 +353,17 @@ class Administrador_model extends CI_Model
         return $query->result_array();
     }
     //fim CRU - tabela de filiais
+    
+    public function GetModalidades()
+    {
+        return $this->db
+                    ->select('nome')
+                    ->from('modalidade')
+                    ->order_by('nome')
+                    ->get()
+                    ->result_array();
+                         
+    }
         
 }
 ?>
