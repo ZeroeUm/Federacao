@@ -297,28 +297,33 @@ class Administrador_model extends CI_Model
         return $this->db
                     ->select
                         (
-                            "filial.idFilial AS id,
+                            "
+                            filial.idFilial AS id,
                             filial.nome AS nome,
                             filial.telefone AS telefone,
                             filial.fax AS fax,
                             filial.email AS email,
-                            filial.site AS site,
                             filial.representante AS representante,
+                            filial.modalidade AS modalidade,
                             federado.nome AS instrutor,
                             endereco.logradouro AS logradouro,
                             endereco.numero AS numero,
+                            endereco.complemento AS complemento,
                             endereco.bairro AS bairro,
                             endereco.cidade AS cidade,
-                            endereco.uf AS uf"
+                            estados.sigla as uf
+                            "
                          )
                     ->from("filial")
                     ->join("federado","filial.instrutor = federado.registro","inner")
                     ->join("endereco","filial.endereco = endereco.registro","inner")
+                    ->join('estados','endereco.uf = estados.id','join')
                     ->where("idFilial",$id)
                     ->get()
                     ->result_array();
     }
     // fim
+   
     
     //CRU - tabela de filiais
     /*
@@ -347,6 +352,17 @@ class Administrador_model extends CI_Model
         return $query->result_array();
     }
     //fim CRU - tabela de filiais
+    
+    public function GetModalidades()
+    {
+        return $this->db
+                    ->select('nome')
+                    ->from('modalidade')
+                    ->order_by('nome')
+                    ->get()
+                    ->result_array();
+                         
+    }
         
 }
 ?>
