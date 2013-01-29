@@ -6,7 +6,7 @@
 $filial = $filial[0];
 $endereco = $endereco[0];
 
-$hidden = array("filial" => $filial['idFilial'], "endereco" => $endereco["registro"]);
+$hidden = array("filial" => $filial['id_filial'], "endereco" => $endereco["id_endereco"]);
 $attr = array(
     "class" => "form-horizontal",
     "id" => "frmAlterar",
@@ -82,8 +82,9 @@ echo form_open("administrador/alterarFilial/" . $this->uri->segment(3), $attr, $
     <div class="controls">
         <?php
         $inModalidade = 'id="modalidade" class="span2" disabled' ;
-        $opModalidade["Taekwondo"] = "Taekwondo";
-        echo form_dropdown('modalidade', $opModalidade, $filial['modalidade'], $inModalidade);
+        foreach ($modalidade as $mod)
+            $opModalidade[$mod['id']] = $mod['nome'];
+        echo form_dropdown('modalidade', $opModalidade, $filial['id_modalidade'], $inModalidade);
         ?>
     </div>
 </div>
@@ -94,7 +95,7 @@ echo form_open("administrador/alterarFilial/" . $this->uri->segment(3), $attr, $
         $inInstrutor = "id='instrutor' class='span3'";
         foreach($instrutor as $ins)
             $opInstrutor[$ins['id']] = $ins['nome'];
-        echo form_dropdown('instrutor', $opInstrutor, set_value("instrutor",$filial['instrutor']), $inInstrutor);
+        echo form_dropdown('instrutor', $opInstrutor, set_value("instrutor",$filial['id_instrutor']), $inInstrutor);
         ?>
     </div>
 </div>

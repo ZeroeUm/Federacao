@@ -145,7 +145,7 @@ class administrador extends CI_Controller
             $this->load->model('Administrador_model', 'administrador');
             $this->load->view('header');
             $dados['federado'] = $this->administrador->DadosFederado($federado);
-            $endereco = $dados['federado'][0]['endereco'];
+            $endereco = $dados['federado'][0]['id_endereco'];
             $dados['nacionalidade'] = $this->administrador->getNacionalidade();
             $dados['escolaridade'] = $this->administrador->getEscolaridade();
             $dados['tipo'] = $this->administrador->getTipoFederado();
@@ -214,11 +214,11 @@ class administrador extends CI_Controller
         $federado['telefone']           = $this->input->post('telefone');
         $federado['celular']            = $this->input->post('celular');
         $federado['email']              = $this->input->post('email');
-        $federado['escolaridade']       = $this->input->post('escolaridade');
-        $federado['status']             = $this->input->post('situacao');
-        $federado['nacionalidade']      = $this->input->post('nacionalidade');
-        $federado['tipo_federado']      = $this->input->post('tipo');
-        $federado['caminho_imagem']     = (isset($foto)?"tkd/".$foto:"sem foto");
+        $federado['id_escolaridade']       = $this->input->post('escolaridade');
+        $federado['id_status']             = $this->input->post('situacao');
+        $federado['id_nacionalidade']      = $this->input->post('nacionalidade');
+        $federado['id_tipo_federado']      = $this->input->post('tipo');
+        $federado['id_caminho_imagem']     = (isset($foto)?"tkd/".$foto:"sem foto");
         
         $this->administrador->AtualizarDadosFederado($this->input->post('federado'),$federado);
         
@@ -285,7 +285,7 @@ class administrador extends CI_Controller
         
         $this->administrador->InserirEndereco($endereco);
         
-        $federado['endereco'] = $this->db->insert_id();
+        $federado['id_endereco'] = $this->db->insert_id();
         
         $federado['nome']               = $this->input->post('nome');
         $federado['filiacao_materna']   = ($this->input->post('fMaterna')?$this->input->post('fMaterna'):NULL);
@@ -296,9 +296,9 @@ class administrador extends CI_Controller
         $federado['telefone']           = $this->input->post('telefone');
         $federado['celular']            = $this->input->post('celular');
         $federado['email']              = $this->input->post('email');
-        $federado['escolaridade']       = $this->input->post('escolaridade');
-        $federado['nacionalidade']      = $this->input->post('nacionalidade');
-        $federado['tipo_federado']      = $this->input->post('tipo');
+        $federado['id_escolaridade']       = $this->input->post('escolaridade');
+        $federado['id_nacionalidade']      = $this->input->post('nacionalidade');
+        $federado['id_tipo_federado']      = $this->input->post('tipo');
         $federado['caminho_imagem']     = (isset($foto)?"tkd/".$foto:"sem foto");
         
         $this->administrador->InserirFederado($federado);
@@ -374,7 +374,7 @@ class administrador extends CI_Controller
             $this->load->model('Administrador_model','administrador');
             $this->load->view('header');
             $dados['filial'] = $this->administrador->AlterarDadoasFilial($filial);
-            $endereco = $dados['filial'][0]['endereco'];
+            $endereco = $dados['filial'][0]['id_endereco'];
             $dados['endereco'] = $this->administrador->getEndereco($endereco);
             $dados['modalidade'] = $this->administrador->getModalidades();
             $dados['uf'] = $this->administrador->getUF();
@@ -408,7 +408,6 @@ class administrador extends CI_Controller
         $filial['telefone']         = (($this->input->post('telefone'))?$this->input->post('telefone'):NULL);
         $filial['fax']              = (($this->input->post('fax'))?$this->input->post('fax'):NULL);
         $filial['representante']    = (($this->input->post('representante'))?$this->input->post('representante'):NULL);
-        $filial['modalidade']       = $this->input->post('modalidade');
         $filial['instrutor']        = $this->input->post('instrutor');
         $filial['email']            = $this->input->post('email');
         
@@ -470,6 +469,7 @@ class administrador extends CI_Controller
         
         $endereco['logradouro']     = $this->input->post('logradouro');
         $endereco['numero']         = $this->input->post('numero');
+        $endereco['tipo_endereco']  = 3;
         $endereco['complemento']    = $this->input->post('compl');
         $endereco['bairro']         = $this->input->post('bairro');
         $endereco['cidade']         = $this->input->post('cidade');
@@ -477,22 +477,22 @@ class administrador extends CI_Controller
         
         $this->administrador->InserirEndereco($endereco);
         
-        $filial['endereco'] = $this->db->insert_id();
+        $filial['id_endereco'] = $this->db->insert_id();
         
         $filial['nome']             = $this->input->post('nome');
         $filial['cnpj']             = $this->input->post('cnpj');
         $filial['telefone']         = (($this->input->post('telefone'))?$this->input->post('telefone'):NULL);
         $filial['fax']              = (($this->input->post('fax'))?$this->input->post('fax'):NULL);
         $filial['representante']    = (($this->input->post('representante'))?$this->input->post('representante'):NULL);
-        $filial['modalidade']       = $this->input->post('modalidade');
-        $filial['instrutor']        = $this->input->post('instrutor');
+        $filial['id_modalidade']    = 1;
+        $filial['id_instrutor']        = $this->input->post('instrutor');
         $filial['email']            = $this->input->post('email');
         
         $this->administrador->InserirFilial($filial);
         
         $dados['filial'] = $filial['nome'];
         $this->load->view('header');
-        $this->load->viwe('administrador/sucessoInclusaoFilial',$dados);
+        $this->load->view('administrador/sucessoInclusaoFilial',$dados);
         $this->load->view('footer');
     }
 

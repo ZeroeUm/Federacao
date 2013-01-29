@@ -200,7 +200,7 @@ function imprimirInformacao(div)
     <div class="controls">
         <?php
             $inEndereco = 'id="endereco" class="span6" disabled size="100"';
-            echo form_input('endereco',$fed['logradouro'] . ", " . $fed['numero'] . " - " . $fed['compl'] . ", " . $fed['bairro'] . ", " . $fed['cidade'] . " - " . $fed['uf'],$inEndereco)
+            echo form_input('endereco',$fed['logradouro'] . ", " . $fed['numero'] . ((isset($fed['complemento']))?" - " . $fed['compl']:"") . ", " . $fed['bairro'] . ", " . $fed['cidade'] . " - " . $fed['uf'],$inEndereco)
         ?>
     </div>
 </div>

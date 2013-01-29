@@ -78,8 +78,9 @@ echo form_open("administrador/incluirFilial",$attr);
     <div class="controls">
         <?php
         $inModalidade = "id='modalidade class='span2' required disabled";
-        $opModalidade["Taekwondo"] = "Taekwondo";
-        echo form_dropdown('modalidade', $opModalidade, "Taekwondo", $inModalidade);
+        foreach ($modalidade as $mod)
+            $opModalidade[$mod['id']] = $mod['nome'];
+        echo form_dropdown('modalidade', $opModalidade, 1, $inModalidade);
         ?>
     </div>
 </div>
@@ -89,8 +90,8 @@ echo form_open("administrador/incluirFilial",$attr);
         <?php
         $inInstrutor = "id='instrutor' class='span3' required";
         $opInstrutor["#"] = "Escolha uma opção.";
-        foreach($instrutor as $ins)
-            $opInstrutor[$ins['id']] = $ins['nome'];
+        foreach($instrutores as $instrutor)
+            $opInstrutor[$instrutor['id']] = $instrutor['nome'];
         echo form_dropdown('instrutor', $opInstrutor, set_value("instrutor","#"), $inInstrutor);
         ?>
     </div>
