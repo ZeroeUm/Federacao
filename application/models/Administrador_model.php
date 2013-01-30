@@ -204,30 +204,36 @@ class Administrador_model extends CI_Model
     public function NotifEmail($criterio)
     {       
         if($criterio == 1)
-            $this->db->where("tipo_federado",1);
+            $this->db->where("id_tipo_federado",1);
         else if($criterio == 2)
-            $this->db->where("tipo_federado",2);
+            $this->db->where("id_tipo_federado",2);
         else if($criterio == 3)
-            $this->db->where("tipo_federado",3);
+            $this->db->where("id_tipo_federado",3);
+        else if($criterio == 4)
+        {
+            $this->db->where("id_tipo_federado",1);
+            $this->db->or_where("id_tipo_federado",2);
+            $this->db->or_where("id_tipo_federado",3);
+        }
         else if($criterio == 5)
         {
-            $this->db->where("tipo_federado",1);
-            $this->db->where("tipo_federado",2);
+            $this->db->where("id_tipo_federado",1);
+            $this->db->or_where("id_tipo_federado",2);
         }
         else if($criterio == 6)
         {
-            $this->db->where("tipo_federado",1);
-            $this->db->where("tipo_federado",3);
+            $this->db->where("id_tipo_federado",1);
+            $this->db->or_where("id_tipo_federado",3);
         }
         else if($criterio == 7)
         {
-            $this->db->where("tipo_federado",2);
-            $this->db->where("tipo_federado",3);
+            $this->db->where("id_tipo_federado",2);
+            $this->db->or_where("id_tipo_federado",3);
         }
         return $this->db
-                    ->select("nome, email")
+                    ->select("nome,email")
                     ->from("federado")
-                    ->order_by("nome","asc")
+                    ->order_by("email","asc")
                     ->get()
                     ->result_array();
     }

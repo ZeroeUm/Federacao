@@ -15,8 +15,51 @@ class administrador extends CI_Controller
     function notificacoes()
     {
         $this->load->view('header');
-        $this->load->view('devel');
+        $this->load->view('administrador/notificacoes');
         $this->load->view('footer');
+    }
+    
+    function enviarNotificacoes()
+    {
+        $this->load->library('email');
+        $this->load->model('Administrador_model','administrador');
+        $this->load->view('header');
+        if(($this->input->post('aluno')))
+            if(($this->input->post('instrutor')))
+                $criterio = 5;
+            else if(($this->input->post('coordenador')))
+                $criterio = 6;
+            else
+                $criterio = 1;
+        else if(($this->input->post('instrutor')))
+            if(($this->input->post('coordenador')))
+                $criterio = 7;
+            else
+                $criterio = 2;
+        else if(($this->input->post('coordenador')))
+            $criterio = 3;
+        else 
+            $criterio = 4;
+        $emailOrigem = "fp_interestilos@hotmail.com";
+        $nomeOrigem = "Federação Paulista de Artes Marciais Interestilos";
+        $listaEmails = $this->administrador->NotifEmail($criterio);
+        $assunto = $this->input->post('assunto');
+        $mensagem = htmlentities($this->input->post('txtNotificacao'));
+        
+        foreach($listaEmails as $destinatario){
+            $this->email->clear();
+            $this->email->to($destinatario['email']);
+            $this->email->from($emailOrigem,$nomeOrigem);
+            $this->email->subject($assunto);
+            $this->email->message($mensagem);
+            if(!$this->email->send())
+            {
+                $dados['erros'] = $destinatario['nome'];
+            }
+        }
+        $this->load->view('administrador/enviarNotificacoes',$dados);
+        $this->load->view('footer');
+        
     }
 
     function federados()
