@@ -8,9 +8,7 @@ if (isset($erros)):
         Houveram erros no envio de e-mails aos destinatários.<br/>
         Os seguintes destinatários não receberam a notificação:<br/>
         <?php
-        foreach ($erros as $destino):
-            echo $destino . br();
-        endforeach;
+        echo ul($erros);
         ?>
         Verifique se os e-mails são válidos ou se o servidor de e-mail está disponivel.
         <?php

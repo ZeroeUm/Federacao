@@ -54,7 +54,7 @@ class administrador extends CI_Controller
             $this->email->message($mensagem);
             if(!$this->email->send())
             {
-                $dados['erros'] = $destinatario['nome'];
+                $dados['erros'][] = $destinatario['nome'];
             }
         }
         $this->load->view('administrador/enviarNotificacoes',$dados);
