@@ -208,7 +208,7 @@ class administrador extends CI_Controller
     function fotoFederado($op)
     {
         $path_info = ((isset($_FILES))?pathinfo($_FILES["foto"]["name"]):NULL);
-        $extensao = ((isset($path_info))?$path_info['extension']:NULL);
+        $extensao = ((isset($path_info['extension']))?$path_info['extension']:NULL);
         
         $config['upload_path'] = './federados/fotos/tkd/';
         $config['allowed_types'] = 'gif|jpg|png';
@@ -218,8 +218,9 @@ class administrador extends CI_Controller
         $config['overwrite'] = TRUE;
         $config['remove_spaces'] = TRUE;
         $config['encrypt_name'] = FALSE;
-        $config['file_name'] = $this->input->post('nome') . "." . $extensao;
+        $config['file_name'] = (isset($extensao)?$this->input->post('nome') . "." . $extensao:NULL);
         
+
         $this->load->library('upload',$config);
         $this->upload->initialize($config);
         
@@ -261,7 +262,7 @@ class administrador extends CI_Controller
         $federado['id_status']             = $this->input->post('situacao');
         $federado['id_nacionalidade']      = $this->input->post('nacionalidade');
         $federado['id_tipo_federado']      = $this->input->post('tipo');
-        $federado['id_caminho_imagem']     = (isset($foto)?"tkd/".$foto:"sem foto");
+        $federado['caminho_imagem']     = (isset($foto)?"tkd/".$foto:"sem foto");
         
         $this->administrador->AtualizarDadosFederado($this->input->post('federado'),$federado);
         
