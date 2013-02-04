@@ -374,6 +374,19 @@ class Administrador_model extends CI_Model
                     ->result_array();
                          
     }
+    
+    public function getHistoricoNotas($federado)
+    {
+        return $this->db
+                    ->select()
+                    ->from()
+                    ->join()
+                    ->where()
+                    ->order_by()
+                    ->get()
+                    ->result_array();
+                
+    } 
         
 }
 ?>
