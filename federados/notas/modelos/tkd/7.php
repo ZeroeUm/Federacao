@@ -13,6 +13,7 @@
             <th>MK</th>
             <th>SK</th>
             <th>JK</th>
+            <th>KE</th>
             <th>KP</th>
             <th>YU</th>
             <th>IR</th>
@@ -22,6 +23,7 @@
     <tbody>
         <tr>
             <td class="span4"><?php echo nbs(2)?></td>
+            <td class="span2"><?php echo nbs(2)?></td>
             <td class="span2"><?php echo nbs(2)?></td>
             <td class="span2"><?php echo nbs(2)?></td>
             <td class="span2"><?php echo nbs(2)?></td>

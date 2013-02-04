@@ -378,11 +378,13 @@ class Administrador_model extends CI_Model
     public function getHistoricoNotas($federado)
     {
         return $this->db
-                    ->select()
-                    ->from()
-                    ->join()
-                    ->where()
-                    ->order_by()
+                    ->select('prontuario.arquivo,evento_graduacao.data_evento,modalidade.nome')
+                    ->from('prontuario')
+                    ->join('evento_graduacao',  'prontuario.id_evento = evento_graduacao.id_evento', 'join')
+                    ->join('modalidade',        'evento_graduacao.id_modalidade = modalidade.id_modalidade', 'join')
+                    ->where('prontuario.id_federado',$federado)
+                    ->order_by('evento_graduacao.id_modalidade','asc')
+                    ->order_by('evento_graduacao.data_evento','desc')
                     ->get()
                     ->result_array();
                 

@@ -367,8 +367,15 @@ class administrador extends CI_Controller
     {
         $this->load->model('administrador_model', 'administrador');
         $this->load->view('header');
-        $this->load->view('administrador/historico');
+        $dados['instrutores'] = $this->administrador->MntFedInstrutor();
+        $this->load->view('administrador/historico',$dados);
         $this->load->view('footer');
+    }
+    
+    function getHistorico()
+    {
+        $this->load->model('Administrador_model','administrador');
+        
     }
 
     function filiais()
