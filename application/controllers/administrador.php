@@ -372,10 +372,26 @@ class administrador extends CI_Controller
         $this->load->view('footer');
     }
     
-    function getHistorico()
+    function getHistorico($federado)
     {
+        header('Content-type: text/html; charset=ISO-8859-1');
         $this->load->model('Administrador_model','administrador');
+        $historico = $this->administrador->getHistoricoNotas($federado);
         
+        if(!empty($historico))
+        {
+            foreach($historico as $evento):
+                echo ("Data do evento: ". date("d-m-Y",  strtotime($evento['data_evento'])));
+                echo ("<br />");
+                echo ("Modalidade: ".$evento['modalidade']);
+                echo ("<hr />");
+                include_once($evento['arquivo']);
+                echo ("<br />");
+            endforeach;
+        }
+        else
+            echo ("Não foi encontrado nenhum registro do federado escolhido.<br/>Verifique se o federado já realizou alguma graduação na Federação Paulista de Artes Marciais Interestilos.");
+            
     }
 
     function filiais()

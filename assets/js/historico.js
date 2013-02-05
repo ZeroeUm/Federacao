@@ -86,7 +86,13 @@ $(document).ready(function(){
             
     })
     $('#federados').change(function (){
+        var federado = $("#federados").val();
         
+        if(federado != "#")
+        {
+            $("#resultado").css("display","block");
+            $("#resultado").load('getHistorico/'+federado);
+        }
     })
 })
 

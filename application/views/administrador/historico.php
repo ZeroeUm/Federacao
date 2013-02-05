@@ -1,4 +1,4 @@
-<script scr="<?php echo base_url(); ?>assets/js/historico.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>assets/js/historico.js" type="text/javascript"></script>
 <?php
 /*2013-02-02
  * @author HUmberto
@@ -18,7 +18,7 @@ echo form_label("Situação",'situacao');
 echo form_dropdown('situacao',array("#" => "Escolha uma filial"),"#","id='situacao' class='span2' disabled");
 
 echo form_label('Federados','federados');
-echo form_dropdown('federados',array("#" => "Escolha uma situação"),"#","id='federados' class='span3' disasbled");
+echo form_dropdown('federados',array("#" => "Escolha uma situação"),"#","id='federados' class='span3' disabled");
 
 echo form_fieldset_close();
 
