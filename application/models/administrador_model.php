@@ -389,8 +389,7 @@ class Administrador_model extends CI_Model
                     ->result_array();
                 
     } 
-=======
->>>>>>> origin/master
+
         
 }
 ?>
