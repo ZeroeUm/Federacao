@@ -41,7 +41,7 @@ echo form_open();
     <?php echo form_label("Nome Filial", "nome", $label) ?>
     <div class="controls">
         <?php
-        $inNome = "disabled id='nome' class='span3' maxlength='60' required";
+        $inNome = "disabled id='nome' class='span3' maxlength='60'  ";
         echo form_input('nome', $fil['nome'], $inNome);
         ?>
     </div>
@@ -50,7 +50,7 @@ echo form_open();
     <?php echo form_label("CNPJ", "cnpj", $label) ?>
     <div class="controls">
         <?php
-        $inCNPJ = "disabled id='cnpj' class='span2' maxlength='19' required";
+        $inCNPJ = "disabled id='cnpj' class='span2' maxlength='19'  ";
         echo form_input('cnpj', $fil['cnpj'], $inCNPJ);
         ?>
     </div>
@@ -69,7 +69,7 @@ echo form_open();
     <div class="controls">
         <?php
         $inCelular = "disabled id='fax' class='span2' maxlength='13'";
-        echo form_input('fax', $fil['celular'], $inCelular);
+        echo form_input('fax', $fil['fax'], $inCelular);
         ?>
     </div>
 </div>
@@ -77,7 +77,7 @@ echo form_open();
     <?php echo form_label("E-mail", 'email', $label) ?>
     <div class="controls">
         <?php
-        $inEmail = "disabled id='email' class='span2' maxlength='50' required";
+        $inEmail = "disabled id='email' class='span3' maxlength='50'  ";
         echo form_input('email', $fil['email'], $inEmail);
         ?>
     </div>
@@ -95,9 +95,9 @@ echo form_open();
     <?php echo form_label("Modalidade", "modalidade", $label) ?>
     <div class="controls">
         <?php
-        $inModalidade = "disabled id='modalidade class='span2' required";
+        $inModalidade = "disabled id='modalidade class='span2'  ";
         foreach ($modalidade as $mod)
-            $opModalidade[$mod['nome']] = $mod['nome'];
+            $opModalidade[$mod['id']] = $mod['nome'];
         echo form_dropdown('modalidade', $opModalidade, $fil['modalidade'], $inModalidade);
         ?>
     </div>
@@ -106,7 +106,7 @@ echo form_open();
     <?php echo form_label("Instrutor", "instrutor", $label) ?>
     <div class="controls">
         <?php
-        $inInstrutor = "disabled id='instrutor' class='span3' required";
+        $inInstrutor = "disabled id='instrutor' class='span3'  ";
         foreach($instrutor as $ins)
             $opInstrutor[$ins['nome']] = $ins['nome'];
         echo form_dropdown('instrutor', $opInstrutor, $fil['nome'], $inInstrutor);
@@ -117,8 +117,8 @@ echo form_open();
     <?php echo form_label("Endereço", "endereco", $label) ?>
     <div class="controls">
         <?php
-        $inEndereco = "disabled id='Endereco' class='span4' maxlength='100' required";
-        echo form_input('endereco', $fil['logradouro'] . ", " . $fil['numero'] . " - " . $fil['complemento'] . " - " . $fil['bairro'] . " - " . $fil['cidade'] . " - " . $fil['uf'], $inEndereco);
+        $inEndereco = "disabled id='Endereco' class='span5' maxlength='100'  ";
+        echo form_input('endereco', $fil['logradouro'] . ", " . $fil['numero'] . ((isset($fil['complemento']))?" - " . $fil['complemento']:"") . ", " . $fil['bairro'] . " - " . $fil['cidade'] . " - " . $fil['uf'], $inEndereco);
         ?>
     </div>
 </div>

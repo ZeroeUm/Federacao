@@ -1,4 +1,5 @@
 /* 
+ * 2013-02-02
  * @author Humberto
  */
 $(document).ready(function(){
@@ -9,7 +10,7 @@ $(document).ready(function(){
     $('#filiais').prop('disabled',true);
     
     $('#federados').empty();
-    $('#federados').append(new Option("Escolha uma situaï¿½ï¿½o","#",true,true));
+    $('#federados').append(new Option("Escolha uma situação","#",true,true));
     $('#federados').prop('disabled',true);
     
     $('#situacao').val("#");
@@ -35,7 +36,7 @@ $(document).ready(function(){
                 $('#situacao').prop('disabled',true);
                 
                 $("#federados").empty();
-                $('#federados').append(new Option("Escolha uma situaï¿½ï¿½o","#",true,true));
+                $('#federados').append(new Option("Escolha uma situação","#",true,true));
                 $('#federados').prop('disabled',true);
                 
                 $("#resultado").css("display","none");
@@ -50,7 +51,7 @@ $(document).ready(function(){
         $('#situacao').prop('disabled',false);
         $('#situacao').empty();
         
-        $('#situacao').append(new Option("Escolha uma situaï¿½ï¿½o","#",true,true));
+        $('#situacao').append(new Option("Escolha uma situação","#",true,true));
         $('#situacao').append(new Option("Inativo","0"));
         $('#situacao').append(new Option("Ativo","1"));
         
@@ -85,32 +86,14 @@ $(document).ready(function(){
             
     })
     $('#federados').change(function (){
-        var fed = $("#federados").val();
-        if (fed !== "#")
+        var federado = $("#federados").val();
+        
+        if(federado != "#")
         {
-            $.ajax({
-                type: "POST",
-                data: "federados="+fed,
-                url: "getFederado/"+fed,
-                datatype: 'json',
-                success: function(federado)
-                {
-                    $("#resultado").css("display","block");
-                    $("#nomeFederado").val($('<div/>').html(federado.nome).text());
-                    $("#dataNasc").val($('<div/>').html(federado.dtNasc).text());
-                    $("#idade").val($('<div/>').html(federado.idade).text());
-                    $("#telefone").val($('<div/>').html(federado.telefone).text());
-                    $("#email").val($('<div/>').html(federado.email).text());
-                    $("#celular").val($('<div/>').html(federado.celular).text());
-                    $("#sexo").val($('<div/>').html(federado.sexo).text());
-                    $("#escolaridade").val($('<div/>').html(federado.escolaridade).text());
-                    $("#nacionalidade").val($('<div/>').html(federado.nacionalidade).text());
-                    $("#faixa").val($('<div/>').html(federado.faixa).text());
-                    
-                    $("#imprimir").attr("href", "imprimirFederado/"+fed);
-                    $("#alterar").attr("href","alterarFederado/"+fed);
-                }
-            })
+            $("#resultado").css("display","block");
+            $("#resultado").load('getHistorico/'+federado);
         }
     })
 })
+
+
