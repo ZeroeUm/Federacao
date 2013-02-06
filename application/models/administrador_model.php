@@ -1,67 +1,77 @@
 <?php
+
 class Administrador_model extends CI_Model
 {
-    function __construct() 
+
+    function __construct()
     {
         parent::__construct();
     }
+<<<<<<< HEAD
     
     // metï¿½dos para Manter dados de Federados
+=======
+
+    // metódos para Manter dados de Federados
+>>>>>>> commit prj_ope 20130206
     /*
      * @return instrutores para serem colocados em um combobox
      */
     public function MntFedInstrutor()
     {
         return $this->db
-                    ->select("instrutor.id_instrutor AS id, federado.nome")
-                    ->from("federacao.instrutor")
-                    ->join('federacao.federado','instrutor.id_federado = federado.id_federado','inner')
-                    ->order_by("federado.nome","asc")
-                    ->get()
-                    ->result_array();
+                        ->select("instrutor.id_instrutor AS id, federado.nome")
+                        ->from("federacao.instrutor")
+                        ->join('federacao.federado', 'instrutor.id_federado = federado.id_federado', 'inner')
+                        ->order_by("federado.nome", "asc")
+                        ->get()
+                        ->result_array();
     }
-    
+
     /*
      * @param instrutor responsï¿½vel por filiais
      * @return filiais que o instrutor escolhido ï¿½ responsï¿½vel
      */
+
     public function MntFedFilial($instrutor)
     {
         return $this->db
-                    ->select("id_filial AS id, nome")
-                    ->from("filial")
-                    ->where("id_instrutor =",$instrutor)
-                    ->order_by("nome","asc")
-                    ->get()
-                    ->result_array();
+                        ->select("id_filial AS id, nome")
+                        ->from("filial")
+                        ->where("id_instrutor =", $instrutor)
+                        ->order_by("nome", "asc")
+                        ->get()
+                        ->result_array();
     }
-    
+
     /*
      * @param filial a ser pesquisada e a situaï¿½ï¿½o a ser abordada na pesquisa
      * @return federados que pertenï¿½am a filial pesquisada e que estï¿½o na situaï¿½ï¿½o pesquisada
      */
-    public function MntFedFederado($filial,$status)
+
+    public function MntFedFederado($filial, $status)
     {
         return $this->db
-                    ->select("federado.id_federado as id, federado.nome")
-                    ->from("federado")
-                    ->join("matricula","federado.id_federado = matricula.id_federado","inner")
-                    ->where("matricula.id_filial",$filial)
-                    ->where("federado.id_status",$status)
-                    ->order_by("federado.nome","asc")
-                    ->get()
-                    ->result_array();
+                        ->select("federado.id_federado as id, federado.nome")
+                        ->from("federado")
+                        ->join("matricula", "federado.id_federado = matricula.id_federado", "inner")
+                        ->where("matricula.id_filial", $filial)
+                        ->where("federado.id_status", $status)
+                        ->order_by("federado.nome", "asc")
+                        ->get()
+                        ->result_array();
     }
-    
+
     /*
      * @param federado escolhido no combobox
      * @return alguns dados do federado escolhido para serem mostrados na tela de pesquisa
      */
+
     public function MntFedDados($federado)
     {
-       return $this->db
-                    ->select(
-                             "federado.nome AS nome,
+        return $this->db
+                        ->select(
+                                "federado.nome AS nome,
                               federado.data_nasc AS dtNasc,
                               federado.telefone AS telefone,
                               federado.email AS email,
@@ -70,19 +80,24 @@ class Administrador_model extends CI_Model
                               escolaridade.descricao AS escolaridade,
                               nacionalidade.nacionalidade AS nacionalidade,
                               graduacao.faixa AS faixa"
-                            )
-                    ->from("federado")
-                    ->join("escolaridade","federado.id_escolaridade = escolaridade.id","inner")
-                    ->join("nacionalidade","federado.id_nacionalidade = nacionalidade.id","inner")
-                    ->join("graduacao_federado","federado.id_federado = graduacao_federado.id_federado","inner")
-                    ->join("graduacao","graduacao_federado.id_modalidade = graduacao.id_modalidade AND graduacao_federado.grau = graduacao.grau","inner")
-                    ->where("federado.id_federado",$federado)
-                    ->where("graduacao_federado.status",1)
-                    ->get()
-                    ->result_array();
+                        )
+                        ->from("federado")
+                        ->join("escolaridade", "federado.id_escolaridade = escolaridade.id", "inner")
+                        ->join("nacionalidade", "federado.id_nacionalidade = nacionalidade.id", "inner")
+                        ->join("graduacao_federado", "federado.id_federado = graduacao_federado.id_federado", "inner")
+                        ->join("graduacao", "graduacao_federado.id_modalidade = graduacao.id_modalidade AND graduacao_federado.grau = graduacao.grau", "inner")
+                        ->where("federado.id_federado", $federado)
+                        ->where("graduacao_federado.status", 1)
+                        ->get()
+                        ->result_array();
     }
+<<<<<<< HEAD
     // fim metï¿½dos para Manter dados de Federados
     
+=======
+
+    // fim metódos para Manter dados de Federados
+>>>>>>> commit prj_ope 20130206
     //CRU tabela de federados
     /*
      * @param federado que se deseja alterar as informaï¿½ï¿½es
@@ -90,14 +105,14 @@ class Administrador_model extends CI_Model
      */
     public function DadosFederado($federado)// metï¿½do para puxar informaï¿½ï¿½es para pï¿½gina de alteraï¿½ï¿½o
     {
-        $query = $this->db->get_where('federado',array('id_federado' => $federado));
+        $query = $this->db->get_where('federado', array('id_federado' => $federado));
         return $query->result_array();
     }
-    
+
     public function ImprimirDadosFederado($federado)
     {
         return $this->db
-                    ->select(
+                        ->select(
                                 '
                                  federado.nome as nome,
                                  federado.filiacao_materna as fMaterna,
@@ -121,124 +136,132 @@ class Administrador_model extends CI_Model
                                  endereco.cidade as cidade,
                                  estados.sigla as uf
                                 '
-                            )
-                    ->from('federado')
-                    ->join('nacionalidade',         'federado.id_nacionalidade = nacionalidade.id','inner')
-                    ->join('escolaridade',          'federado.id_escolaridade = escolaridade.id','inner')
-                    ->join('tipo_federado',         'federado.id_tipo_federado = tipo_federado.id','join')
-                    ->join('status_federado',       'federado.id_status = status_federado.id','inner')
-                    ->join("graduacao_federado",    "federado.id_federado = graduacao_federado.id_federado","inner")
-                    ->join("graduacao",             "graduacao_federado.id_modalidade = graduacao.id_modalidade AND graduacao_federado.grau = graduacao.grau","inner")
-                    ->join('endereco',              'federado.id_endereco = endereco.id_endereco','inner')
-                    ->join('estados',               'endereco.uf = estados.id_estados','inner')
-                    ->where("federado.id_federado",$federado)
-                    ->where("graduacao_federado.status",1)
-                    ->get()
-                    ->result_array();
-                        
+                        )
+                        ->from('federado')
+                        ->join('nacionalidade', 'federado.id_nacionalidade = nacionalidade.id', 'inner')
+                        ->join('escolaridade', 'federado.id_escolaridade = escolaridade.id', 'inner')
+                        ->join('tipo_federado', 'federado.id_tipo_federado = tipo_federado.id', 'join')
+                        ->join('status_federado', 'federado.id_status = status_federado.id', 'inner')
+                        ->join("graduacao_federado", "federado.id_federado = graduacao_federado.id_federado", "inner")
+                        ->join("graduacao", "graduacao_federado.id_modalidade = graduacao.id_modalidade AND graduacao_federado.grau = graduacao.grau", "inner")
+                        ->join('endereco', 'federado.id_endereco = endereco.id_endereco', 'inner')
+                        ->join('estados', 'endereco.uf = estados.id_estados', 'inner')
+                        ->where("federado.id_federado", $federado)
+                        ->where("graduacao_federado.status", 1)
+                        ->get()
+                        ->result_array();
     }
-    
+
     /*
      * @param array associativo com as informaï¿½ï¿½es a serem inseridas no banco, onde as posiï¿½ï¿½es do array devem ser os campos da tabela e os valores as novas informaï¿½ï¿½es a serem inseridas
      */
+
     public function InserirFederado($dados = array())
     {
-        $this->db->insert('federado',$dados);
+        $this->db->insert('federado', $dados);
     }
-    
+
     /*
      * @param identificador do federado a ter as informaï¿½ï¿½es alteradas junto com as alteraï¿½ï¿½es em um array
      */
-    public function AtualizarDadosFederado($id,$dados = array())
+
+    public function AtualizarDadosFederado($id, $dados = array())
     {
-        $this->db->update('federado',$dados,array('id_federado' => $id));
+        $this->db->update('federado', $dados, array('id_federado' => $id));
     }
-    
+
     //fim CRU tabela de federados
-    
+
     public function getNacionalidade()
     {
         return $this->db
                         ->select('id,nacionalidade')
                         ->from('nacionalidade')
-                        ->order_by('nacionalidade','ASC')
+                        ->order_by('nacionalidade', 'ASC')
                         ->get()
                         ->result_array();
     }
-    
+
     public function getEscolaridade()
     {
         return $this->db->get('escolaridade')->result_array();
     }
-    
+
     public function getStatus()
     {
         return $this->db->get('status_federado')->result_array();
     }
-    
+
     public function getEndereco($id)
     {
-        return $this->db->get_where('endereco',array('id_endereco' => $id))->result_array();
+        return $this->db->get_where('endereco', array('id_endereco' => $id))->result_array();
     }
-    
+
     public function getTipoFederado()
     {
         return $this->db->get('tipo_federado')->result_array();
     }
-    
+
     public function getUF()
     {
         return $this->db
                         ->select('id_estados AS id,sigla')
                         ->from('estados')
-                        ->order_by("sigla","asc")
+                        ->order_by("sigla", "asc")
                         ->get()
                         ->result_array();
     }
+<<<<<<< HEAD
     
     //metï¿½do para pegar os e-mails para envio de notificaï¿½ï¿½o
+=======
+
+    //metódo para pegar os e-mails para envio de notificação
+>>>>>>> commit prj_ope 20130206
     /*
      * @param criterio de pesquisa de e-mails no banco de dados -  de 1 a 7
      * @return lista de e-mails dos federados alvo da notificaï¿½ï¿½o
      */
     public function NotifEmail($criterio)
-    {       
-        if($criterio == 1)
-            $this->db->where("id_tipo_federado",1);
-        else if($criterio == 2)
-            $this->db->where("id_tipo_federado",2);
-        else if($criterio == 3)
-            $this->db->where("id_tipo_federado",3);
-        else if($criterio == 4)
+    {
+        if ($criterio == 1)
+            $this->db->where("id_tipo_federado", 1);
+        else if ($criterio == 2)
+            $this->db->where("id_tipo_federado", 2);
+        else if ($criterio == 3)
+            $this->db->where("id_tipo_federado", 3);
+        else if ($criterio == 4)
         {
-            $this->db->where("id_tipo_federado",1);
-            $this->db->or_where("id_tipo_federado",2);
-            $this->db->or_where("id_tipo_federado",3);
-        }
-        else if($criterio == 5)
+            $this->db->where("id_tipo_federado", 1);
+            $this->db->or_where("id_tipo_federado", 2);
+            $this->db->or_where("id_tipo_federado", 3);
+        } else if ($criterio == 5)
         {
-            $this->db->where("id_tipo_federado",1);
-            $this->db->or_where("id_tipo_federado",2);
-        }
-        else if($criterio == 6)
+            $this->db->where("id_tipo_federado", 1);
+            $this->db->or_where("id_tipo_federado", 2);
+        } else if ($criterio == 6)
         {
-            $this->db->where("id_tipo_federado",1);
-            $this->db->or_where("id_tipo_federado",3);
-        }
-        else if($criterio == 7)
+            $this->db->where("id_tipo_federado", 1);
+            $this->db->or_where("id_tipo_federado", 3);
+        } else if ($criterio == 7)
         {
-            $this->db->where("id_tipo_federado",2);
-            $this->db->or_where("id_tipo_federado",3);
+            $this->db->where("id_tipo_federado", 2);
+            $this->db->or_where("id_tipo_federado", 3);
         }
         return $this->db
-                    ->select("nome,email")
-                    ->from("federado")
-                    ->order_by("email","asc")
-                    ->get()
-                    ->result_array();
+                        ->select("nome,email")
+                        ->from("federado")
+                        ->order_by("email", "asc")
+                        ->get()
+                        ->result_array();
     }
+<<<<<<< HEAD
     
     // metï¿½do para pegar o histï¿½rico de notas do federado no banco de dados
+=======
+
+    // metódo para pegar o histórico de notas do federado no banco de dados
+>>>>>>> commit prj_ope 20130206
     /*
      * #param federado a ser pesquisado no banco de dados
      * @return as notas em graduaï¿½ï¿½es de faixa do federado passado como parametro
@@ -246,67 +269,91 @@ class Administrador_model extends CI_Model
     public function HistFederado($federado)
     {
         return $this->db
-                    ->select("id_federado as federado,id_evento as evento, arquivo")
-                    ->from("prontuario")
-                    ->where("id_federado",$federado)
-                    ->order_by("id_evento","desc")
-                    ->get()
-                    ->result_array();
+                        ->select("id_federado as federado,id_evento as evento, arquivo")
+                        ->from("prontuario")
+                        ->where("id_federado", $federado)
+                        ->order_by("id_evento", "desc")
+                        ->get()
+                        ->result_array();
     }
+<<<<<<< HEAD
     
     // CRU tabela de endereï¿½o
+=======
+
+    // CRU tabela de endereço
+>>>>>>> commit prj_ope 20130206
     /*
      * @param array associativo com as informaï¿½ï¿½es a serem inseridas no banco, onde as posiï¿½ï¿½es do array devem ser os campos da tabela e os valores as novas informaï¿½ï¿½es a serem inseridas
      */
     public function InserirEndereco($dados = array())
     {
-        $this->db->insert('endereco',$dados);
+        $this->db->insert('endereco', $dados);
     }
-    
+
     /*
      * @param identificador do endereï¿½o a ter as informaï¿½ï¿½es atualizadas junto com o array com as novas informaï¿½ï¿½es
      */
-    public function AtualizarEndereco($id,$dados = array())
+
+    public function AtualizarEndereco($id, $dados = array())
     {
-        $this->db->update('endereco',$dados,array('id_endereco' => $id));
+        $this->db->update('endereco', $dados, array('id_endereco' => $id));
     }
-    
+
     /*
      * @param numero de registro do endereï¿½o que estï¿½ cadastrado no banco para ser alterado
      * @return as informaï¿½ï¿½es guardadas no banco de dados para serem alterados 
      */
+<<<<<<< HEAD
     public function AlterarEndereco($id)// metï¿½do para puxar informaï¿½ï¿½es para pï¿½gina de alteraï¿½ï¿½o
+=======
+
+    public function AlterarEndereco($id)// metódo para puxar informações para página de alteração
+>>>>>>> commit prj_ope 20130206
     {
-        $query = $this->db->get_where('endereco',array('id_endereco' => $id));
+        $query = $this->db->get_where('endereco', array('id_endereco' => $id));
         return $query->result_array();
     }
+<<<<<<< HEAD
         
     //fim CRU tabela de endereï¿½os
     
     //metï¿½dos para ser utilizado Manter dados de filiais
+=======
+
+    //fim CRU tabela de endereços
+    //metódos para ser utilizado Manter dados de filiais
+>>>>>>> commit prj_ope 20130206
     /*
-     | @return lista das filiais para preencher o combobox
+      | @return lista das filiais para preencher o combobox
      */
     public function MntFilial()
     {
         return $this->db
-                    ->select("id_filial as id, nome")
-                    ->from("filial")
-                    ->order_by("nome","asc")
-                    ->get()
-                    ->result_array();
+                        ->select("id_filial as id, nome")
+                        ->from("filial")
+                        ->order_by("nome", "asc")
+                        ->get()
+                        ->result_array();
     }
-    
+
     /*
+<<<<<<< HEAD
      | @param identificador da filial para pesquisa no banco
      | @return informaï¿½ï¿½es para apresentar na tela de pesquisa de filiais
      */    
+=======
+      | @param identificador da filial para pesquisa no banco
+      | @return informações para apresentar na tela de pesquisa de filiais
+     */
+
+>>>>>>> commit prj_ope 20130206
     public function MntFilialDados($id)
-    {   
+    {
         return $this->db
-                    ->select
-                        (
-                            "
+                        ->select
+                                (
+                                "
                             filial.id_filial AS id,
                             filial.nome AS nome,
                             filial.telefone AS telefone,
@@ -323,61 +370,67 @@ class Administrador_model extends CI_Model
                             endereco.cidade AS cidade,
                             estados.sigla as uf
                             "
-                         )
-                    ->from("filial")
-                    ->join("instrutor","filial.id_instrutor = instrutor.id_instrutor","inner")
-                    ->join("federado","instrutor.id_federado = federado.id_federado","inner")
-                    ->join("endereco","filial.id_endereco = endereco.id_endereco","inner")
-                    ->join('estados','endereco.uf = estados.id_estados','join')
-                    ->where("filial.id_filial",$id)
-                    ->get()
-                    ->result_array();
+                        )
+                        ->from("filial")
+                        ->join("instrutor", "filial.id_instrutor = instrutor.id_instrutor", "inner")
+                        ->join("federado", "instrutor.id_federado = federado.id_federado", "inner")
+                        ->join("endereco", "filial.id_endereco = endereco.id_endereco", "inner")
+                        ->join('estados', 'endereco.uf = estados.id_estados', 'join')
+                        ->where("filial.id_filial", $id)
+                        ->get()
+                        ->result_array();
     }
+
     // fim
-   
-    
     //CRU - tabela de filiais
     /*
      * @param array associativo com as informaï¿½ï¿½es a serem inseridas no banco, onde as posiï¿½ï¿½es do array devem ser os campos da tabela e os valores as novas informaï¿½ï¿½es a serem inseridas
      */
     public function InserirFilial($dados = array())
     {
-        $this->db->insert('filial',$dados);
+        $this->db->insert('filial', $dados);
     }
-    
+
     /*
      * @param identificador da filial
      */
-    public function AtualizarFilial($id,$dados = array())
+
+    public function AtualizarFilial($id, $dados = array())
     {
-        $this->db->update('filial',$dados,array('id_filial' => $id));
+        $this->db->update('filial', $dados, array('id_filial' => $id));
     }
-    
+
     /*
      * @param identificador da filial que terï¿½ seus dados alterados
      * @return dados da filial que vai ser alterada
      */
+<<<<<<< HEAD
     public function AlterarDadoasFilial($id)// metï¿½do para puxar informaï¿½ï¿½es para pï¿½gina de alteraï¿½ï¿½o
+=======
+
+    public function AlterarDadoasFilial($id)// metódo para puxar informações para página de alteração
+>>>>>>> commit prj_ope 20130206
     {
-        $query = $this->db->get_where('filial',array('id_filial' => $id));
+        $query = $this->db->get_where('filial', array('id_filial' => $id));
         return $query->result_array();
     }
+
     //fim CRU - tabela de filiais
-    
+
     public function GetModalidades()
     {
         return $this->db
-                    ->select('id_modalidade AS id,nome')
-                    ->from('modalidade')
-                    ->order_by('nome','asc')
-                    ->get()
-                    ->result_array();
-                         
+                        ->select('id_modalidade AS id,nome')
+                        ->from('modalidade')
+                        ->order_by('nome', 'asc')
+                        ->get()
+                        ->result_array();
     }
-    
+
     public function getHistoricoNotas($federado)
     {
         return $this->db
+<<<<<<< HEAD
                     ->select('prontuario.arquivo,evento_graduacao.data_evento,modalidade.nome as modalidade')
                     ->from('prontuario')
                     ->join('evento_graduacao',  'prontuario.id_evento = evento_graduacao.id_evento', 'join')
@@ -389,7 +442,41 @@ class Administrador_model extends CI_Model
                     ->result_array();
                 
     } 
-
+=======
+>>>>>>> origin/master
         
+=======
+                        ->select('prontuario.arquivo,evento_graduacao.data_evento,modalidade.nome as modalidade')
+                        ->from('prontuario')
+                        ->join('evento_graduacao', 'prontuario.id_evento = evento_graduacao.id_evento', 'join')
+                        ->join('modalidade', 'evento_graduacao.id_modalidade = modalidade.id_modalidade', 'join')
+                        ->where('prontuario.id_federado', $federado)
+                        ->order_by('evento_graduacao.id_modalidade', 'asc')
+                        ->order_by('evento_graduacao.data_evento', 'desc')
+                        ->get()
+                        ->result_array();
+    }
+
+    public function malaDireta()
+    {
+        return $this->db
+                        ->select("id,mensagem")
+                        ->from("mala-direta")
+                        ->get()
+                        ->result_array();
+    }
+
+    public function inserirMaladireta($dados = array())
+    {
+        $this->db->insert('mala-direta', $dados);
+    }
+
+    public function alterarMalaDireta($id, $dados = array())
+    {
+        $this->db->update('mala-direta', $dados, array('id' => $id));
+    }
+
+>>>>>>> commit prj_ope 20130206
 }
+
 ?>
