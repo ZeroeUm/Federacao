@@ -1,18 +1,3 @@
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $("#dtNasc").datepicker({
-            changeMonth: true,
-            changeYear: true,
-            dateFormat: "dd-mm-yy",
-            showAnim: "fadeIn",
-            showOtherMonths: true,
-            selectOtherMonths: true
-        })
-    })
-</script>
 <?php
 $federado = $federado[0];
 $endereco = $endereco[0];
@@ -25,15 +10,11 @@ $attr = array(
 $label = array(
   "class" => "control-label"
 );
-?>
-<div class="alert-error">
-    <?php echo validation_errors();?>    
-</div>
-<?php
+echo validation_errors();
 echo form_fieldset("Alteração de registro de federado");
 echo form_open_multipart("administrador/alterarFederado/".$this->uri->segment(3), $attr, $hidden);
 $imagem = array(
-    "src" => (($federado['caminho_imagem'] == "sem foto")?"http://placehold.it/140x140/000000/ffffff&text=sem%20foto":'federados/fotos/'.$federado['caminho_imagem']),
+    "src" => (($federado['caminho_imagem'] == "sem foto")?"http://placehold.it/140x140/000000/ffffff&text=sem%20foto":$federado['caminho_imagem']),
     "alt" => "Foto do federado ".$federado['nome'],
     "title" => "Foto do federado ".$federado['nome'],
     "class" => "img-polaroid"    
@@ -58,7 +39,7 @@ echo img($imagem);
     <div class="controls">
         <?php
             $inFMaterna = 'id="fMaterna" class="span3" maxlength="60"';
-            echo form_input('fMaterna',set_value('fMaterna',$federado['filiacao_materna']),$inFMaterna);
+            echo form_input('fMaternta',set_value('fMaterna',$federado['filiacao_materna']),$inFMaterna);
         ?>
     </div>
 </div>
@@ -92,7 +73,7 @@ echo img($imagem);
     <div class="controls">
         <?php
             $inData = 'id="dtNasc" class="span2" maxlength="10" required';
-            echo form_input("dtNasc",set_value('dtNasc',date("d-m-Y",strtotime($federado['data_nasc']))),$inData);
+            echo form_input("dtNasc",set_value('dtNasc',date("d/m/Y",strtotime($federado['data_nasc']))),$inData);
         ?>
     </div>
 </div>
@@ -235,7 +216,7 @@ echo img($imagem);
     ?>
     <div class="controls">
         <?php
-            $inComplemento = 'id="compl" class="span3" maxlength="20"';
+            $inComplemento = 'id="compl" class="span3" maxlength="20" required';
             echo form_input('compl',$endereco['complemento'],$inComplemento);
         ?>
     </div>
