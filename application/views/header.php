@@ -41,7 +41,7 @@
             <ul style="display: block; ">
                 <li >
                     <a href="#"><span>Nome:Nome completo do Aluno</span></a> 
-                    <a href="#"><span>Categoria: JudÃ´</span></a> 
+                    <a href="#"><span>Categoria: Judô</span></a> 
 
                 </li>
 
@@ -50,10 +50,10 @@
                 <li class="submenu">
                     <a href="#"><i class="icon icon-pause"></i> <span>Alunos</span> </a>
                     <ul>
-                        <li><a href="<?php echo site_url('alunos/notas'); ?>">HistÃ³rico pessoal de notas</a></li>
+                        <li><a href="<?php echo site_url('alunos/notas'); ?>">Histórico pessoal de notas</a></li>
                         <li><a href="<?php echo site_url('alunos/eventos'); ?>">Cronograma de eventos da Federação</a></li>
-                        <li><a href="<?php echo site_url('alunos/historico'); ?>">HistÃ³rico de atividades</a></li>
-                        <li><a href="<?php echo site_url('alunos/modalidade'); ?>">CurrÃ­culo da modalidade</a></li>
+                        <li><a href="<?php echo site_url('alunos/historico'); ?>">Histórico de atividades</a></li>
+                        <li><a href="<?php echo site_url('alunos/modalidade'); ?>">Currículo da modalidade</a></li>
 
                     </ul>
                 </li>
@@ -75,11 +75,11 @@
                         <li class="icn_categories"><a href="<?php echo site_url('coordenador/index'); ?>">Manutenção de dados de filiais</a></li>
                         <li class="icn_new_article"><a href="<?php echo site_url('coordenador/index'); ?>">Emitir certificados</a></li>
                         <li class="icn_folder"><a href="<?php echo site_url('coordenador/index'); ?>">Enviar pedido de compra de faixa</a></li>
-                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/index'); ?>">Emitir prontuÃ¡rio de notas para prÃ©-avaliaï¿½ï¿½o</a></li>
-                        <li class="icn_categories"><a href="<?php echo site_url('coordenador/index'); ?>">Manutenção do CurrÃ­culo da modalidade</a></li>
+                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/index'); ?>">Emitir prontuário de notas para pré-avaliaï¿½ï¿½o</a></li>
+                        <li class="icn_categories"><a href="<?php echo site_url('coordenador/index'); ?>">Manutenção do Currículo da modalidade</a></li>
                         <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/index'); ?>">Verificar relação de participantes em Graduação</a></li>
                         <li class="icn_new_article"><a href="<?php echo site_url('coordenador/index') ?>">Criar evento de Graduação</a></li>
-                        <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/index') ?>">LanÃ§ar Notas</a></li>
+                        <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/index') ?>">Lançar Notas</a></li>
 
                     </ul>
                 </li>
@@ -88,12 +88,12 @@
                 <li class="submenu">
                     <a href="#"><i class="icon icon-th"></i> <span>Administrador</span> </a>
                     <ul>
-                        <li class="icn_folder"><a href="<?php echo site_url('administrador/notificacoes'); ?>">Enviar notificaÃ§Ãµes via e-mail</a></li>
+                        <li class="icn_folder"><a href="<?php echo site_url('administrador/notificacoes'); ?>">Enviar notificações via e-mail</a></li>
                         <li class="icn_categories"><a href="<?php echo site_url('administrador/federados'); ?>">Manutenção de dados de Federados</a></li>
                         <li class="icn_money"><a href="<?php echo site_url('administrador/pedidos'); ?>">Manutenção de pedidos de compra de faixa</a></li>
-                        <li class="icn_tags"><a href="<?php echo site_url('administrador/historico'); ?>">Verificar HistÃ³rico de atividades de Federado</a></li>
+                        <li class="icn_tags"><a href="<?php echo site_url('administrador/historico'); ?>">Verificar Histórico de atividades de Federado</a></li>
                         <li class="icn_categories"><a href="<?php echo site_url('administrador/filiais'); ?>">Manutenção de dados de Filiais</a></li>
-                        <li class="icn_edit_article"><a href="<?php echo site_url('administrador/maladireta'); ?>">Manutenção de mala-direta Ã  aniversariantes</a></li>
+                        <li class="icn_edit_article"><a href="<?php echo site_url('administrador/maladireta'); ?>">Manutenção de mala-direta à aniversariantes</a></li>
 
                     </ul>
                 </li>
