@@ -162,7 +162,7 @@ function imprimirInformacao(div)
 </div>
 <div class="control-group">
     <?php
-        echo form_label("SituaÃ§Ã£o","situacao",$label);
+        echo form_label("Situação","situacao",$label);
     ?>
     <div class="controls">
         <?php
@@ -184,7 +184,7 @@ function imprimirInformacao(div)
 </div>
 <div class="control-group">
     <?php
-        echo form_label("GraduaÃ§Ã£o atual","graduacao",$label);
+        echo form_label("Graduação atual","graduacao",$label);
     ?>
     <div class="controls">
         <?php

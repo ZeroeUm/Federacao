@@ -89,7 +89,7 @@ echo form_open("administrador/incluirFilial",$attr);
     <div class="controls">
         <?php
         $inInstrutor = "id='instrutor' class='span3' required";
-        $opInstrutor["#"] = "Escolha uma opÃ§Ã£o.";
+        $opInstrutor["#"] = "Escolha uma opção.";
         foreach($instrutores as $instrutor)
             $opInstrutor[$instrutor['id']] = $instrutor['nome'];
         echo form_dropdown('instrutor', $opInstrutor, set_value("instrutor","#"), $inInstrutor);
@@ -146,7 +146,7 @@ echo form_open("administrador/incluirFilial",$attr);
     <div class="controls">
         <?php
         $inUF = "id='uf' class='span3' required";
-        $opUF["#"] = "Escolha uma opÃ§Ã£o.";
+        $opUF["#"] = "Escolha uma opção.";
         foreach($uf as $estado)
             $opUF[$estado['id']] = $estado['sigla'];
         echo form_dropdown('uf', $opUF, set_value("uf","#"), $inUF);

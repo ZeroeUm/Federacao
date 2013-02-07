@@ -69,7 +69,7 @@ echo form_open_multipart("instrutores/novoaluno", $attr);
     ?>
     <div class="controls">
         <?php
-            $opSexo = array("#" => "Escolha uma opÃ§Ã£o.", "F" => "Feminino", "M" => "Masculino");
+            $opSexo = array("#" => "Escolha uma opção.", "F" => "Feminino", "M" => "Masculino");
             echo form_dropdown("sexo", $opSexo, set_value("sexo","#"), 'id="sexo" class="span2" required');
         ?>
     </div>
@@ -146,7 +146,7 @@ echo form_open_multipart("instrutores/novoaluno", $attr);
     ?>
     <div class="controls">
         <?php
-            $opEscolaridade["#"] = "Escolha uma opÃ§Ã£o.";
+            $opEscolaridade["#"] = "Escolha uma opção.";
             foreach($escolaridade as $esc)
                 $opEscolaridade[$esc['id']] = $esc['descricao'];
             echo form_dropdown("escolaridade", $opEscolaridade, set_value('escolaridade','#'), 'id="sexo" class="span3" required')
@@ -160,7 +160,7 @@ echo form_open_multipart("instrutores/novoaluno", $attr);
     ?>
     <div class="controls">
         <?php
-            $opNacionalidade["#"] = "Escolha uma opÃ§Ã£o.";
+            $opNacionalidade["#"] = "Escolha uma opção.";
             foreach($nacionalidade as $nac)
                 $opNacionalidade[$nac['id']] = $nac['nacionalidade'];
 
@@ -174,7 +174,7 @@ echo form_open_multipart("instrutores/novoaluno", $attr);
     ?>
     <div class="controls">
         <?php
-            $opTipo["#"] = "Escolha uma opÃ§Ã£o.";
+            $opTipo["#"] = "Escolha uma opção.";
             foreach($tipo as $t)
                 $opTipo[$t['id']] = $t['tipo'];
             echo form_dropdown('tipo', $opTipo, set_value('tipo',"#"), 'id="tipo" class="span2" required');
@@ -242,7 +242,7 @@ echo form_open_multipart("instrutores/novoaluno", $attr);
     ?>
     <div class="controls">
         <?php
-            $opUF["#"] = "Escolha uma opÃ§Ã£o.";
+            $opUF["#"] = "Escolha uma opção.";
             foreach($uf as $estado)
                 $opUF[$estado['id']] = $estado['sigla'];
             echo form_dropdown('uf', $opUF, set_value('uf',"#"), 'id="uf" class="span2" required');

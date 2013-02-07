@@ -4,7 +4,7 @@
     <head>
 
 
-        <title>Sistema Gerenciador de Atividades Internas &mdash; FederaÃ§Ã£o Paulista de Artes Marciais Interestilos</title>
+        <title>Sistema Gerenciador de Atividades Internas &mdash; Federação Paulista de Artes Marciais Interestilos</title>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() . 'assets/css/style.css' ?>" />
         <!--[if lt IE 9]>
@@ -49,7 +49,7 @@
             <h3>Alunos</h3>
             <ul class="toggle">
                 <li class="icn_profile"><a href="#">Histï¿½rico pessoal de notas</a></li>
-                <li class="icn_folder"><a href="#">Cronograma de eventos da FederaÃ§Ã£o</a></li>
+                <li class="icn_folder"><a href="#">Cronograma de eventos da Federação</a></li>
                 <li class="icn_view_users"><a href="#">Histï¿½rico de atividades</a></li>
                 <li class="icn_folder"><a href="#">Currï¿½culo da modalidade</a></li>
             </ul>
@@ -57,9 +57,9 @@
             <h3>Instrutores</h3>
             <ul class="toggle">
                 <li class="icn_edit_article"><a href="#">Manutenï¿½ï¿½o de dados de alunos</a></li>
-                <li class="icn_add_user"><a href="#">Cadastrar novo aluno na FederaÃ§Ã£o</a></li>
-                <li class="icn_tags"><a href="#">Inscrever alunos em GraduaÃ§Ã£o de Faixa</a></li>
-                <li class="icn_categories"><a href="#">Manuteï¿½ï¿½o de participantes em GraduaÃ§Ã£o de Faixa</a></li>
+                <li class="icn_add_user"><a href="#">Cadastrar novo aluno na Federação</a></li>
+                <li class="icn_tags"><a href="#">Inscrever alunos em Graduação de Faixa</a></li>
+                <li class="icn_categories"><a href="#">Manuteï¿½ï¿½o de participantes em Graduação de Faixa</a></li>
             </ul>
             
             <h3>Coordenadores</h3>
@@ -70,7 +70,7 @@
                 <li class="icn_folder"><a href="#">Enviar pedido de compra de faixa</a></li>
                 <li class="icn_new_article"><a href="#">Emitir prontuï¿½rio de notas para prï¿½-avaliaï¿½ï¿½o</a></li>
                 <li class="icn_categories"><a href="#">Manutenï¿½ï¿½o do currï¿½culo da modalidade</a></li>
-                <li class="icn_edit_article"><a href="#">Verificar relaï¿½ï¿½o de participantes em GraduaÃ§Ã£o</a></li>
+                <li class="icn_edit_article"><a href="#">Verificar relaï¿½ï¿½o de participantes em Graduação</a></li>
             </ul>
             <h3>Administrador</h3>
             <ul class="toggle">

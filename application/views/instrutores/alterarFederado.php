@@ -167,7 +167,7 @@ echo img($imagem);
 </div>
 <div class="control-group">
     <?php
-        echo form_label("SituaÃ§Ã£o", "situacao", $label);
+        echo form_label("Situação", "situacao", $label);
     ?>
     <div class="controls">
         <?php

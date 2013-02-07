@@ -5,7 +5,7 @@ $prop = array('class' => 'btn btn-link btn-large','name' => 'incluirFederado', '
 echo anchor("administrador/incluirFederado", "Incluir Federado", $prop);
 
 echo form_fieldset("Pesquisa por federado");
-$options = array('#' => "Escolha uma opÃ§Ã£o.");
+$options = array('#' => "Escolha uma opção.");
 foreach($instrutores as $instrutor)
     $options[$instrutor['id']] = $instrutor['nome'];
 
@@ -15,11 +15,11 @@ echo form_dropdown('instrutores', $options, '#', 'id="instrutores" class="span3"
 echo form_label("Filiais","filiais");
 echo form_dropdown("filiais",array("#" => "Escolha um instrutor"),"#",'id="filiais" class="span3"');
 
-echo form_label("SituaÃ§Ã£o","situacao");
+echo form_label("Situação","situacao");
 echo form_dropdown("situacao",array("#" => "Escolha uma filial"),"#",'disabled id="situacao" class="span2"');
 
 echo form_label("Federados","federados");
-echo form_dropdown("federados",array("#" => "Escolha uma situaÃ§Ã£o"),"#",'id="federados" class="span3"');
+echo form_dropdown("federados",array("#" => "Escolha uma situação"),"#",'id="federados" class="span3"');
 
 echo form_fieldset_close();
 
@@ -62,7 +62,7 @@ echo form_label("Nacionalidade","nacionalidade");
 echo form_input($nacionalidade);
 
 $faixa = array('id' => 'faixa', 'name' => 'faixa', 'maxlength' => '30', 'size' => '30', 'readonly' => 'readonly', 'class' => 'span3');
-echo form_label("GraduaÃ§Ã£o atual","faixa");
+echo form_label("Graduação atual","faixa");
 echo form_input($faixa);
 echo br();
 echo anchor("", "Imprimir Federado", array('class' => 'btn btn-link btn-large', 'id' => 'imprimir'));

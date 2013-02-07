@@ -51,7 +51,7 @@
                     <a href="#"><i class="icon icon-pause"></i> <span>Alunos</span> </a>
                     <ul>
                         <li><a href="<?php echo site_url('alunos/notas'); ?>">Hist√≥rico pessoal de notas</a></li>
-                        <li><a href="<?php echo site_url('alunos/eventos'); ?>">Cronograma de eventos da Federa√ß√£o</a></li>
+                        <li><a href="<?php echo site_url('alunos/eventos'); ?>">Cronograma de eventos da FederaÁ„o</a></li>
                         <li><a href="<?php echo site_url('alunos/historico'); ?>">Hist√≥rico de atividades</a></li>
                         <li><a href="<?php echo site_url('alunos/modalidade'); ?>">Curr√≠culo da modalidade</a></li>
 
@@ -60,11 +60,11 @@
                 <li class="submenu">
                     <a href="#"><i class="icon icon-th-list"></i> <span>Instrutores</span> </a>
                     <ul>
-                        <li class="icn_edit_article"><a href="<?php echo site_url('instrutores/cadastro'); ?>">Manuten√ß√£o de dados de alunos</a></li>
-                        <li class="icn_add_user"><a href="<?php echo site_url('instrutores/novoaluno'); ?>">Cadastrar novo aluno na Federa√ß√£o</a></li>
-                        <li class="icn_tags"><a href="<?php echo site_url('instrutores/inscricao'); ?>">Inscrever alunos em Gradua√ß√£o de Faixa</a></li>
-                        <li class="icn_categories"><a href="<?php echo site_url('instrutores/manutencao'); ?>">Manuten√ß√£o de participantes em Gradua√ß√£o de Faixa</a></li>
-                        <li class="icn_folder"><a href="<?php echo site_url('instrutores/evento') ?>">Verificar notas de Gradua√ß√£o de faixa</a></li>
+                        <li class="icn_edit_article"><a href="<?php echo site_url('instrutores/cadastro'); ?>">ManutenÁ„o de dados de alunos</a></li>
+                        <li class="icn_add_user"><a href="<?php echo site_url('instrutores/novoaluno'); ?>">Cadastrar novo aluno na FederaÁ„o</a></li>
+                        <li class="icn_tags"><a href="<?php echo site_url('instrutores/inscricao'); ?>">Inscrever alunos em GraduaÁ„o de Faixa</a></li>
+                        <li class="icn_categories"><a href="<?php echo site_url('instrutores/manutencao'); ?>">ManutenÁ„o de participantes em GraduaÁ„o de Faixa</a></li>
+                        <li class="icn_folder"><a href="<?php echo site_url('instrutores/evento') ?>">Verificar notas de GraduaÁ„o de faixa</a></li>
 
                     </ul>
                 </li>
@@ -72,13 +72,13 @@
                     <a href="#"><i class="icon icon-th-large"></i> <span>Coordenadores</span> </a>
                     <ul>
                         <li class="icn_new_article"><a href="<?php echo site_url('coordenador/index'); ?>">Verificar professores da modalidade</a></li>
-                        <li class="icn_categories"><a href="<?php echo site_url('coordenador/index'); ?>">Manuten√ß√£o de dados de filiais</a></li>
+                        <li class="icn_categories"><a href="<?php echo site_url('coordenador/index'); ?>">ManutenÁ„o de dados de filiais</a></li>
                         <li class="icn_new_article"><a href="<?php echo site_url('coordenador/index'); ?>">Emitir certificados</a></li>
                         <li class="icn_folder"><a href="<?php echo site_url('coordenador/index'); ?>">Enviar pedido de compra de faixa</a></li>
                         <li class="icn_new_article"><a href="<?php echo site_url('coordenador/index'); ?>">Emitir prontu√°rio de notas para pr√©-avaliaÔøΩÔøΩo</a></li>
-                        <li class="icn_categories"><a href="<?php echo site_url('coordenador/index'); ?>">Manuten√ß√£o do Curr√≠culo da modalidade</a></li>
-                        <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/index'); ?>">Verificar rela√ß√£o de participantes em Gradua√ß√£o</a></li>
-                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/index') ?>">Criar evento de Gradua√ß√£o</a></li>
+                        <li class="icn_categories"><a href="<?php echo site_url('coordenador/index'); ?>">ManutenÁ„o do Curr√≠culo da modalidade</a></li>
+                        <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/index'); ?>">Verificar relaÁ„o de participantes em GraduaÁ„o</a></li>
+                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/index') ?>">Criar evento de GraduaÁ„o</a></li>
                         <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/index') ?>">Lan√ßar Notas</a></li>
 
                     </ul>
@@ -89,11 +89,11 @@
                     <a href="#"><i class="icon icon-th"></i> <span>Administrador</span> </a>
                     <ul>
                         <li class="icn_folder"><a href="<?php echo site_url('administrador/notificacoes'); ?>">Enviar notifica√ß√µes via e-mail</a></li>
-                        <li class="icn_categories"><a href="<?php echo site_url('administrador/federados'); ?>">Manuten√ß√£o de dados de Federados</a></li>
-                        <li class="icn_money"><a href="<?php echo site_url('administrador/pedidos'); ?>">Manuten√ß√£o de pedidos de compra de faixa</a></li>
+                        <li class="icn_categories"><a href="<?php echo site_url('administrador/federados'); ?>">ManutenÁ„o de dados de Federados</a></li>
+                        <li class="icn_money"><a href="<?php echo site_url('administrador/pedidos'); ?>">ManutenÁ„o de pedidos de compra de faixa</a></li>
                         <li class="icn_tags"><a href="<?php echo site_url('administrador/historico'); ?>">Verificar Hist√≥rico de atividades de Federado</a></li>
-                        <li class="icn_categories"><a href="<?php echo site_url('administrador/filiais'); ?>">Manuten√ß√£o de dados de Filiais</a></li>
-                        <li class="icn_edit_article"><a href="<?php echo site_url('administrador/maladireta'); ?>">Manuten√ß√£o de mala-direta √† aniversariantes</a></li>
+                        <li class="icn_categories"><a href="<?php echo site_url('administrador/filiais'); ?>">ManutenÁ„o de dados de Filiais</a></li>
+                        <li class="icn_edit_article"><a href="<?php echo site_url('administrador/maladireta'); ?>">ManutenÁ„o de mala-direta √† aniversariantes</a></li>
 
                     </ul>
                 </li>

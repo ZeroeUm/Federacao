@@ -1,1 +1,1 @@
-View manutenï¿½ï¿½o - Manutenï¿½ï¿½o de participantes em GraduaÃ§Ã£o de faixa
+View manutenï¿½ï¿½o - Manutenï¿½ï¿½o de participantes em Graduação de faixa
