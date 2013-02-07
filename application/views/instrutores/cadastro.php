@@ -110,12 +110,12 @@ echo form_label("Nacionalidade","nacionalidade");
 echo form_input($nacionalidade);
 
 $faixa = array('id' => 'faixa', 'name' => 'faixa', 'maxlength' => '30', 'size' => '30', 'readonly' => 'readonly', 'class' => 'span3');
-echo form_label("Graduação atual","faixa");
+echo form_label("GraduaÃ§Ã£o atual","faixa");
 echo form_input($faixa);
 echo br();
 echo anchor("", "Imprimir Federado", array('class' => 'btn btn-large btn-primary', 'id' => 'imprimir'));
 echo nbs(4);
-echo anchor("","Alterar informações" , array('class' => 'btn btn-large btn-primary', 'id' => 'alterar'));
+echo anchor("","Alterar informaÃ§Ãµes" , array('class' => 'btn btn-large btn-primary', 'id' => 'alterar'));
 
 echo form_fieldset_close();
 ?>

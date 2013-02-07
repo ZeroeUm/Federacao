@@ -7,13 +7,8 @@ class Administrador_model extends CI_Model
     {
         parent::__construct();
     }
-<<<<<<< HEAD
-    
-    // metï¿½dos para Manter dados de Federados
-=======
 
     // metódos para Manter dados de Federados
->>>>>>> commit prj_ope 20130206
     /*
      * @return instrutores para serem colocados em um combobox
      */
@@ -29,8 +24,8 @@ class Administrador_model extends CI_Model
     }
 
     /*
-     * @param instrutor responsï¿½vel por filiais
-     * @return filiais que o instrutor escolhido ï¿½ responsï¿½vel
+     * @param instrutor respons?vel por filiais
+     * @return filiais que o instrutor escolhido ? respons?vel
      */
 
     public function MntFedFilial($instrutor)
@@ -45,8 +40,8 @@ class Administrador_model extends CI_Model
     }
 
     /*
-     * @param filial a ser pesquisada e a situaï¿½ï¿½o a ser abordada na pesquisa
-     * @return federados que pertenï¿½am a filial pesquisada e que estï¿½o na situaï¿½ï¿½o pesquisada
+     * @param filial a ser pesquisada e a situação a ser abordada na pesquisa
+     * @return federados que perten?am a filial pesquisada e que est?o na situação pesquisada
      */
 
     public function MntFedFederado($filial, $status)
@@ -91,19 +86,13 @@ class Administrador_model extends CI_Model
                         ->get()
                         ->result_array();
     }
-<<<<<<< HEAD
-    // fim metï¿½dos para Manter dados de Federados
-    
-=======
-
     // fim metódos para Manter dados de Federados
->>>>>>> commit prj_ope 20130206
     //CRU tabela de federados
     /*
-     * @param federado que se deseja alterar as informaï¿½ï¿½es
-     * #return todas as informaï¿½ï¿½es guardadas na tabela de federados
+     * @param federado que se deseja alterar as informações
+     * #return todas as informações guardadas na tabela de federados
      */
-    public function DadosFederado($federado)// metï¿½do para puxar informaï¿½ï¿½es para pï¿½gina de alteraï¿½ï¿½o
+    public function DadosFederado($federado)// metódo para puxar informações para página de alteração
     {
         $query = $this->db->get_where('federado', array('id_federado' => $federado));
         return $query->result_array();
@@ -153,7 +142,7 @@ class Administrador_model extends CI_Model
     }
 
     /*
-     * @param array associativo com as informaï¿½ï¿½es a serem inseridas no banco, onde as posiï¿½ï¿½es do array devem ser os campos da tabela e os valores as novas informaï¿½ï¿½es a serem inseridas
+     * @param array associativo com as informações a serem inseridas no banco, onde as posi??es do array devem ser os campos da tabela e os valores as novas informações a serem inseridas
      */
 
     public function InserirFederado($dados = array())
@@ -162,7 +151,7 @@ class Administrador_model extends CI_Model
     }
 
     /*
-     * @param identificador do federado a ter as informaï¿½ï¿½es alteradas junto com as alteraï¿½ï¿½es em um array
+     * @param identificador do federado a ter as informações alteradas junto com as altera??es em um array
      */
 
     public function AtualizarDadosFederado($id, $dados = array())
@@ -211,16 +200,11 @@ class Administrador_model extends CI_Model
                         ->get()
                         ->result_array();
     }
-<<<<<<< HEAD
-    
-    //metï¿½do para pegar os e-mails para envio de notificaï¿½ï¿½o
-=======
 
-    //metódo para pegar os e-mails para envio de notificação
->>>>>>> commit prj_ope 20130206
+    //met?do para pegar os e-mails para envio de notifica??o
     /*
      * @param criterio de pesquisa de e-mails no banco de dados -  de 1 a 7
-     * @return lista de e-mails dos federados alvo da notificaï¿½ï¿½o
+     * @return lista de e-mails dos federados alvo da notifica??o
      */
     public function NotifEmail($criterio)
     {
@@ -243,7 +227,8 @@ class Administrador_model extends CI_Model
         {
             $this->db->where("id_tipo_federado", 1);
             $this->db->or_where("id_tipo_federado", 3);
-        } else if ($criterio == 7)
+        } 
+        else if ($criterio == 7)
         {
             $this->db->where("id_tipo_federado", 2);
             $this->db->or_where("id_tipo_federado", 3);
@@ -255,16 +240,11 @@ class Administrador_model extends CI_Model
                         ->get()
                         ->result_array();
     }
-<<<<<<< HEAD
     
-    // metï¿½do para pegar o histï¿½rico de notas do federado no banco de dados
-=======
-
     // metódo para pegar o histórico de notas do federado no banco de dados
->>>>>>> commit prj_ope 20130206
     /*
      * #param federado a ser pesquisado no banco de dados
-     * @return as notas em graduaï¿½ï¿½es de faixa do federado passado como parametro
+     * @return as notas em gradua??es de faixa do federado passado como parametro
      */
     public function HistFederado($federado)
     {
@@ -276,15 +256,10 @@ class Administrador_model extends CI_Model
                         ->get()
                         ->result_array();
     }
-<<<<<<< HEAD
-    
-    // CRU tabela de endereï¿½o
-=======
 
     // CRU tabela de endereço
->>>>>>> commit prj_ope 20130206
     /*
-     * @param array associativo com as informaï¿½ï¿½es a serem inseridas no banco, onde as posiï¿½ï¿½es do array devem ser os campos da tabela e os valores as novas informaï¿½ï¿½es a serem inseridas
+     * @param array associativo com as informações a serem inseridas no banco, onde as posi??es do array devem ser os campos da tabela e os valores as novas informações a serem inseridas
      */
     public function InserirEndereco($dados = array())
     {
@@ -292,7 +267,7 @@ class Administrador_model extends CI_Model
     }
 
     /*
-     * @param identificador do endereï¿½o a ter as informaï¿½ï¿½es atualizadas junto com o array com as novas informaï¿½ï¿½es
+     * @param identificador do endere?o a ter as informações atualizadas junto com o array com as novas informações
      */
 
     public function AtualizarEndereco($id, $dados = array())
@@ -301,29 +276,18 @@ class Administrador_model extends CI_Model
     }
 
     /*
-     * @param numero de registro do endereï¿½o que estï¿½ cadastrado no banco para ser alterado
-     * @return as informaï¿½ï¿½es guardadas no banco de dados para serem alterados 
+     * @param numero de registro do endere?o que est? cadastrado no banco para ser alterado
+     * @return as informações guardadas no banco de dados para serem alterados 
      */
-<<<<<<< HEAD
-    public function AlterarEndereco($id)// metï¿½do para puxar informaï¿½ï¿½es para pï¿½gina de alteraï¿½ï¿½o
-=======
 
-    public function AlterarEndereco($id)// metódo para puxar informações para página de alteração
->>>>>>> commit prj_ope 20130206
+    public function AlterarEndereco($id)// metódo para puxar informações para p?gina de altera??o
     {
         $query = $this->db->get_where('endereco', array('id_endereco' => $id));
         return $query->result_array();
     }
-<<<<<<< HEAD
-        
-    //fim CRU tabela de endereï¿½os
-    
-    //metï¿½dos para ser utilizado Manter dados de filiais
-=======
 
     //fim CRU tabela de endereços
     //metódos para ser utilizado Manter dados de filiais
->>>>>>> commit prj_ope 20130206
     /*
       | @return lista das filiais para preencher o combobox
      */
@@ -338,16 +302,10 @@ class Administrador_model extends CI_Model
     }
 
     /*
-<<<<<<< HEAD
      | @param identificador da filial para pesquisa no banco
-     | @return informaï¿½ï¿½es para apresentar na tela de pesquisa de filiais
+     | @return informações para apresentar na tela de pesquisa de filiais
      */    
-=======
-      | @param identificador da filial para pesquisa no banco
-      | @return informações para apresentar na tela de pesquisa de filiais
-     */
 
->>>>>>> commit prj_ope 20130206
     public function MntFilialDados($id)
     {
         return $this->db
@@ -384,7 +342,7 @@ class Administrador_model extends CI_Model
     // fim
     //CRU - tabela de filiais
     /*
-     * @param array associativo com as informaï¿½ï¿½es a serem inseridas no banco, onde as posiï¿½ï¿½es do array devem ser os campos da tabela e os valores as novas informaï¿½ï¿½es a serem inseridas
+     * @param array associativo com as informações a serem inseridas no banco, onde as posi??es do array devem ser os campos da tabela e os valores as novas informações a serem inseridas
      */
     public function InserirFilial($dados = array())
     {
@@ -401,15 +359,11 @@ class Administrador_model extends CI_Model
     }
 
     /*
-     * @param identificador da filial que terï¿½ seus dados alterados
+     * @param identificador da filial que ter? seus dados alterados
      * @return dados da filial que vai ser alterada
      */
-<<<<<<< HEAD
-    public function AlterarDadoasFilial($id)// metï¿½do para puxar informaï¿½ï¿½es para pï¿½gina de alteraï¿½ï¿½o
-=======
 
-    public function AlterarDadoasFilial($id)// metódo para puxar informações para página de alteração
->>>>>>> commit prj_ope 20130206
+    public function AlterarDadoasFilial($id)// metódo para puxar informações para p?gina de altera??o
     {
         $query = $this->db->get_where('filial', array('id_filial' => $id));
         return $query->result_array();
@@ -430,7 +384,6 @@ class Administrador_model extends CI_Model
     public function getHistoricoNotas($federado)
     {
         return $this->db
-<<<<<<< HEAD
                     ->select('prontuario.arquivo,evento_graduacao.data_evento,modalidade.nome as modalidade')
                     ->from('prontuario')
                     ->join('evento_graduacao',  'prontuario.id_evento = evento_graduacao.id_evento', 'join')
@@ -442,20 +395,6 @@ class Administrador_model extends CI_Model
                     ->result_array();
                 
     } 
-=======
->>>>>>> origin/master
-        
-=======
-                        ->select('prontuario.arquivo,evento_graduacao.data_evento,modalidade.nome as modalidade')
-                        ->from('prontuario')
-                        ->join('evento_graduacao', 'prontuario.id_evento = evento_graduacao.id_evento', 'join')
-                        ->join('modalidade', 'evento_graduacao.id_modalidade = modalidade.id_modalidade', 'join')
-                        ->where('prontuario.id_federado', $federado)
-                        ->order_by('evento_graduacao.id_modalidade', 'asc')
-                        ->order_by('evento_graduacao.data_evento', 'desc')
-                        ->get()
-                        ->result_array();
-    }
 
     public function malaDireta()
     {
@@ -476,7 +415,6 @@ class Administrador_model extends CI_Model
         $this->db->update('mala-direta', $dados, array('id' => $id));
     }
 
->>>>>>> commit prj_ope 20130206
 }
 
 ?>

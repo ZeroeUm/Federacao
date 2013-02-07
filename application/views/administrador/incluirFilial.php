@@ -16,7 +16,7 @@ $label = array(
     <?php echo validation_errors();?>    
 </div>
 <?php
-echo form_fieldset("Inclusão de nova filial");
+echo form_fieldset("InclusÃ£o de nova filial");
 echo form_open("administrador/incluirFilial",$attr);
 ?>
 <div class="control-group">
@@ -89,7 +89,7 @@ echo form_open("administrador/incluirFilial",$attr);
     <div class="controls">
         <?php
         $inInstrutor = "id='instrutor' class='span3' required";
-        $opInstrutor["#"] = "Escolha uma opção.";
+        $opInstrutor["#"] = "Escolha uma opÃ§Ã£o.";
         foreach($instrutores as $instrutor)
             $opInstrutor[$instrutor['id']] = $instrutor['nome'];
         echo form_dropdown('instrutor', $opInstrutor, set_value("instrutor","#"), $inInstrutor);
@@ -106,10 +106,10 @@ echo form_open("administrador/incluirFilial",$attr);
     </div>
 </div>
 <div class="control-group">
-    <?php echo form_label("Número", "numero", $label) ?>
+    <?php echo form_label("NÃºmero", "numero", $label) ?>
     <div class="controls">
         <?php
-        $inNumero = "id='numero' class='span2' maxlength='5' required placeholder='Número'";
+        $inNumero = "id='numero' class='span2' maxlength='5' required placeholder='NÃºmero'";
         echo form_input('numero', set_value("numero"), $inNumero);
         ?>
     </div>
@@ -146,7 +146,7 @@ echo form_open("administrador/incluirFilial",$attr);
     <div class="controls">
         <?php
         $inUF = "id='uf' class='span3' required";
-        $opUF["#"] = "Escolha uma opção.";
+        $opUF["#"] = "Escolha uma opÃ§Ã£o.";
         foreach($uf as $estado)
             $opUF[$estado['id']] = $estado['sigla'];
         echo form_dropdown('uf', $opUF, set_value("uf","#"), $inUF);
@@ -155,7 +155,7 @@ echo form_open("administrador/incluirFilial",$attr);
 </div>
 <?php
 $inBotao = 'id="btnIncluir" class="btn"';
-echo form_submit("btnIncluir", "Incluir informações", $inBotao);
+echo form_submit("btnIncluir", "Incluir informaÃ§Ãµes", $inBotao);
 echo form_close();
 echo form_fieldset_close();
 ?>
