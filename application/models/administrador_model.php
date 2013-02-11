@@ -86,6 +86,7 @@ class Administrador_model extends CI_Model
                         ->get()
                         ->result_array();
     }
+
     // fim metódos para Manter dados de Federados
     //CRU tabela de federados
     /*
@@ -227,8 +228,7 @@ class Administrador_model extends CI_Model
         {
             $this->db->where("id_tipo_federado", 1);
             $this->db->or_where("id_tipo_federado", 3);
-        } 
-        else if ($criterio == 7)
+        } else if ($criterio == 7)
         {
             $this->db->where("id_tipo_federado", 2);
             $this->db->or_where("id_tipo_federado", 3);
@@ -240,7 +240,7 @@ class Administrador_model extends CI_Model
                         ->get()
                         ->result_array();
     }
-    
+
     // metódo para pegar o histórico de notas do federado no banco de dados
     /*
      * #param federado a ser pesquisado no banco de dados
@@ -302,9 +302,9 @@ class Administrador_model extends CI_Model
     }
 
     /*
-     | @param identificador da filial para pesquisa no banco
-     | @return informações para apresentar na tela de pesquisa de filiais
-     */    
+      | @param identificador da filial para pesquisa no banco
+      | @return informações para apresentar na tela de pesquisa de filiais
+     */
 
     public function MntFilialDados($id)
     {
@@ -384,17 +384,16 @@ class Administrador_model extends CI_Model
     public function getHistoricoNotas($federado)
     {
         return $this->db
-                    ->select('prontuario.arquivo,evento_graduacao.data_evento,modalidade.nome as modalidade')
-                    ->from('prontuario')
-                    ->join('evento_graduacao',  'prontuario.id_evento = evento_graduacao.id_evento', 'join')
-                    ->join('modalidade',        'evento_graduacao.id_modalidade = modalidade.id_modalidade', 'join')
-                    ->where('prontuario.id_federado',$federado)
-                    ->order_by('evento_graduacao.id_modalidade','asc')
-                    ->order_by('evento_graduacao.data_evento','desc')
-                    ->get()
-                    ->result_array();
-                
-    } 
+                        ->select('prontuario.arquivo,evento_graduacao.data_evento,modalidade.nome as modalidade')
+                        ->from('prontuario')
+                        ->join('evento_graduacao', 'prontuario.id_evento = evento_graduacao.id_evento', 'join')
+                        ->join('modalidade', 'evento_graduacao.id_modalidade = modalidade.id_modalidade', 'join')
+                        ->where('prontuario.id_federado', $federado)
+                        ->order_by('evento_graduacao.id_modalidade', 'asc')
+                        ->order_by('evento_graduacao.data_evento', 'desc')
+                        ->get()
+                        ->result_array();
+    }
 
     public function malaDireta()
     {
@@ -414,6 +413,31 @@ class Administrador_model extends CI_Model
     {
         $this->db->update('mala-direta', $dados, array('id' => $id));
     }
+
+    public function totalPedidos()
+    {
+        return $this->db->count_all('pedido');
+    }
+    
+    public function trocarStatusPedido($id,$novoStatus)
+    {
+        $this->db->update('pedido',array('status' => $novoStatus), array('id' => $id));
+    }
+    
+    public function pedidos($limite,$comeco)
+    {
+        $this->db->limit($limite,$comeco);
+        $query = $this->db->get("pedido");
+        
+        if($query->num_rows() > 0):
+            foreach($query->result() as $row):
+                $dados[] = $row;
+            endforeach;
+            return $dados;
+        endif;
+        return false;
+    }
+    
 
 }
 
