@@ -376,7 +376,7 @@ class Administrador_model extends CI_Model
         return $this->db
                         ->select('id_modalidade AS id,nome')
                         ->from('modalidade')
-                        ->order_by('nome', 'asc')
+                        ->order_by('id_modalidade', 'asc')
                         ->get()
                         ->result_array();
     }
@@ -426,8 +426,16 @@ class Administrador_model extends CI_Model
     
     public function pedidos($limite,$comeco)
     {
+        $this->db->order_by("data_pedido","desc");
         $this->db->limit($limite,$comeco);
-        $query = $this->db->get("pedido");
+        $query = $this->db
+                        ->select('pedido.id_pedido as id,pedido.data_pedido as data,pedido.status,federado.nome as responsavel,fornecedor.nome as fornecedor,status_pedido.descricao as situacao')
+                        ->from('pedido')
+                        ->join('coordenador','pedido.id_responsavel = coordenador.id_coordenador','join')
+                        ->join('federado','coordenador.id_federado = federado.id_federado','join')
+                        ->join('fornecedor','pedido.fornecedor = fornecedor.id_fornecedor','join')
+                        ->join('status_pedido','pedido.status = status_pedido.id','join')
+                        ->get();
         
         if($query->num_rows() > 0):
             foreach($query->result() as $row):
@@ -438,6 +446,28 @@ class Administrador_model extends CI_Model
         return false;
     }
     
+    public function informacoesPedido($id)
+    {
+        return $this->db
+                        ->select('itens_pedido.tamanho,itens_pedido.quantidade,item.id_item,item.id_modalidade,itens_pedido.numero')
+                        ->from('itens_pedido')
+                        ->join('item','itens_pedido.id_item = item.id_item','join')
+                        ->where('itens_pedido.id_pedido',$id)
+                        ->order_by('itens_pedido.numero','asc')
+                        ->get()
+                        ->result_array();
+    }
+    
+    public function itensModalidade($modalidade)
+    {
+        return $this->db
+                        ->select('item.id_item as id,item.descricao')
+                        ->from('item')
+                        ->where('item.id_modalidade',$modalidade)
+                        ->order_by('item.id_item','asc')
+                        ->get()
+                        ->result_array();
+    }
 
 }
 
