@@ -18,7 +18,7 @@ class Instrutores extends CI_Controller {
     }
 
     function cadastro() {
-        $this->load->model('Instrutor_model');
+        $this->load->model('instrutor_model');
         $tema["instrutor"] = $this->Instrutor_model->cadastro();
         $this->load->view('header');
         $this->load->view('instrutores/cadastro', $tema);

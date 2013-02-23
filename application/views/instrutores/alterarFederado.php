@@ -30,7 +30,7 @@ $label = array(
     <?php echo validation_errors();?>    
 </div>
 <?php
-echo form_fieldset("Alteração de registro de federado");
+echo form_fieldset("Alteraï¿½ï¿½o de registro de federado");
 echo form_open_multipart("instrutores/alterarFederado/".$this->uri->segment(3), $attr, $hidden);
 $imagem = array(
     "src" => (($federado['caminho_imagem'] == "sem foto")?"http://placehold.it/140x140/000000/ffffff&text=sem%20foto":'federados/fotos/'.$federado['caminho_imagem']),
@@ -53,7 +53,7 @@ echo img($imagem);
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Filiação Materna", "fMaterna", $label);
+        echo form_label("Filiaï¿½ï¿½o Materna", "fMaterna", $label);
     ?>
     <div class="controls">
         <?php
@@ -64,7 +64,7 @@ echo img($imagem);
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Filiação Paterna", "fPaterna", $label);
+        echo form_label("Filiaï¿½ï¿½o Paterna", "fPaterna", $label);
     ?>
     <div class="controls">
         <?php
@@ -142,7 +142,7 @@ echo img($imagem);
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Foto de identificação", "foto", $label);
+        echo form_label("Foto de identificaï¿½ï¿½o", "foto", $label);
     ?>
     <div class="controls">
         <?php
@@ -220,7 +220,7 @@ echo img($imagem);
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Número", "numero", $label);
+        echo form_label("Nï¿½mero", "numero", $label);
     ?>
     <div class="controls">
         <?php
@@ -277,7 +277,7 @@ echo img($imagem);
 </div>
 <?php
 $inBotao = 'id="btnAlterar" class="btn"';
-echo form_submit("btnAlterar", "Alterar informações", $inBotao);
+echo form_submit("btnAlterar", "Alterar informaÃ§Ãµes", $inBotao);
 echo form_close();
 echo form_fieldset_close();
 ?>

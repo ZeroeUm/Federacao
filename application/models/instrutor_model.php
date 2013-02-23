@@ -2,6 +2,18 @@
 
 class Instrutor_model extends CI_Model {
 
+    
+    
+    function get_instrutor_modalidade(){
+      $query = $this->select()
+                    ->join('federado')
+                    ->get();
+            return $query->result_array();    
+    }
+
+
+
+
     //SELECT federado.nome FROM federado INNER
     // JOIN filial WHERE federado.registro = filial.instrutor
     function cadastro() {
@@ -129,7 +141,7 @@ class Instrutor_model extends CI_Model {
     }
 
     /*
-     * @param array associativo com as informações a serem inseridas no banco, onde as posições do array devem ser os campos da tabela e os valores as novas informações a serem inseridas
+     * @param array associativo com as informaÃ§Ãµes a serem inseridas no banco, onde as posiï¿½ï¿½es do array devem ser os campos da tabela e os valores as novas informaÃ§Ãµes a serem inseridas
      */
 
     public function InserirFederado($dados = array()) {

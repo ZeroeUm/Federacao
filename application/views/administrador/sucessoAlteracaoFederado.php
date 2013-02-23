@@ -9,7 +9,7 @@
     <b>
     <?php 
         echo (isset($upload_foto)?"Nova foto colocada no sistema.".br():"");
-        echo anchor('administrador/federados','Clique aqui para voltar à área de manutenção de dados cadastrais');
+        echo anchor('administrador/federados','Clique aqui para voltar à Área de manutenção de dados cadastrais');
     ?>
     </b>
 </div>
