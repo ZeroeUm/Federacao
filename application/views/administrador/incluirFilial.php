@@ -16,7 +16,7 @@ $label = array(
     <?php echo validation_errors();?>    
 </div>
 <?php
-echo form_fieldset("Inclusão de nova filial");
+echo form_fieldset("InclusÃ£o de nova filial");
 echo form_open("administrador/incluirFilial",$attr);
 ?>
 <div class="control-group">
@@ -106,10 +106,10 @@ echo form_open("administrador/incluirFilial",$attr);
     </div>
 </div>
 <div class="control-group">
-    <?php echo form_label("Número", "numero", $label) ?>
+    <?php echo form_label("NÃºmero", "numero", $label) ?>
     <div class="controls">
         <?php
-        $inNumero = "id='numero' class='span2' maxlength='5' required placeholder='Número'";
+        $inNumero = "id='numero' class='span2' maxlength='5' required placeholder='NÃºmero'";
         echo form_input('numero', set_value("numero"), $inNumero);
         ?>
     </div>
@@ -155,7 +155,7 @@ echo form_open("administrador/incluirFilial",$attr);
 </div>
 <?php
 $inBotao = 'id="btnIncluir" class="btn"';
-echo form_submit("btnIncluir", "Incluir informações", $inBotao);
+echo form_submit("btnIncluir", "Incluir informaÃ§Ãµes", $inBotao);
 echo form_close();
 echo form_fieldset_close();
 ?>

@@ -9,7 +9,7 @@ $(document).ready(function(){
     $('#filiais').prop('disabled',true);
     
     $('#federados').empty();
-    $('#federados').append(new Option("Escolha uma situaï¿½ï¿½o","#",true,true));
+    $('#federados').append(new Option("Escolha uma situação","#",true,true));
     $('#federados').prop('disabled',true);
     
     $('#situacao').val("#");
@@ -35,7 +35,7 @@ $(document).ready(function(){
                 $('#situacao').prop('disabled',true);
                 
                 $("#federados").empty();
-                $('#federados').append(new Option("Escolha uma situaï¿½ï¿½o","#",true,true));
+                $('#federados').append(new Option("Escolha uma situação","#",true,true));
                 $('#federados').prop('disabled',true);
                 
                 $("#resultado").css("display","none");
@@ -50,7 +50,7 @@ $(document).ready(function(){
         $('#situacao').prop('disabled',false);
         $('#situacao').empty();
         
-        $('#situacao').append(new Option("Escolha uma situaï¿½ï¿½o","#",true,true));
+        $('#situacao').append(new Option("Escolha uma situação","#",true,true));
         $('#situacao').append(new Option("Inativo","0"));
         $('#situacao').append(new Option("Ativo","1"));
         
