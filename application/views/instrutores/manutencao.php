@@ -1,1 +1,5 @@
-View manutenção - Manutenção de participantes em Graduação de faixa
+<?php
+
+foreach ($instrutor as $row)
+    echo $row->nome ."</br>";
+?>
