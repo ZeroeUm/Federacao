@@ -7,7 +7,7 @@ echo anchor("administrador/incluirFederado", "Incluir Federado", $prop);
 echo form_fieldset("Pesquisa por federado");
 $options = array('#' => "Escolha uma opção.");
 foreach($instrutores as $instrutor)
-    $options[$instrutor->id] = $instrutor->nome;
+    $options[$instrutor['id']] = $instrutor['nome'];
 
 echo form_label("Instrutores","instrutores");
 echo form_dropdown('instrutores', $options, '#', 'id="instrutores" class="span3"');

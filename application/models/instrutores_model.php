@@ -10,7 +10,7 @@
  *
  * @author felipe
  */
-class instrutores_model extends CI_Model {
+class Instrutores_model extends CI_Model {
     function __construct() 
     {
         parent::__construct();

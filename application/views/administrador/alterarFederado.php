@@ -1,7 +1,7 @@
 <?php
 $federado = $federado[0];
 $endereco = $endereco[0];
-$hidden = array("federado" => $federado['registro'],"endereco" => $endereco['registro']);
+$hidden = array("federado" => $federado['id_federado'],"endereco" => $endereco['id_endereco']);
 $attr = array(
     "class" => "form-horizontal",
     "id" => "frmAlterar",
@@ -141,7 +141,7 @@ echo img($imagem);
             $opEscolaridade = array();
             foreach($escolaridade as $esc)
                 $opEscolaridade[$esc['id']] = $esc['descricao'];
-            $selEscolaridade = $federado['escolaridade'];
+            $selEscolaridade = $federado['id_escolaridade'];
             echo form_dropdown("escolaridade", $opEscolaridade, set_value('escolaridade',$selEscolaridade), 'id="sexo" class="span3" required');
         ?>
     </div>
@@ -155,7 +155,7 @@ echo img($imagem);
             $opSituacao = array();
             foreach($statusFederado as $sFederado)
                 $opSituacao[$sFederado['id']] = $sFederado['status'];
-            $selSituacao = $federado['status'];
+            $selSituacao = $federado['id_status'];
             echo form_dropdown("situacao", $opSituacao, set_value('situacao',$selSituacao), 'id="status" class="span2" required');
         ?>
     </div>
@@ -169,7 +169,7 @@ echo img($imagem);
             $opNacionalidade = array();
             foreach($nacionalidade as $nac)
                 $opNacionalidade[$nac['id']] = $nac['nacionalidade'];
-            $selNacionalidade = $federado['nacionalidade'];
+            $selNacionalidade = $federado['id_nacionalidade'];
             echo form_dropdown('nacionalidade', $opNacionalidade, set_value('nacionalidade',$selNacionalidade), 'id="nacionalidade" class="span2" required');
         ?>
     </div>
@@ -183,7 +183,7 @@ echo img($imagem);
             $opTipo = array();
             foreach($tipo as $t)
                 $opTipo[$t['id']] = $t['tipo'];
-            $selTipo = $federado['tipo_federado'];
+            $selTipo = $federado['id_tipo_federado'];
             echo form_dropdown('tipo', $opTipo, set_value('tipo',$selTipo), 'id="tipo" class="span2" required');
         ?>
     </div>
