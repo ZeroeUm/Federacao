@@ -502,9 +502,7 @@ class administrador extends CI_Controller
         if(!empty($modalidade))
         {
             for ($i = 0; $i < count($modalidade); $i++)
-            {
                 $modalidade[$i]['nome'] = htmlentities($modalidade[$i]['nome']);
-            }
         }
         else
         {

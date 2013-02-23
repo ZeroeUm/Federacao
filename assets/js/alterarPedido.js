@@ -7,8 +7,8 @@ $(document).ready(function () {
     $("#adicionar").click(function () {
         var novaLinha = "<tr>";
             novaLinha += "<td style='text-align: center'>"+id;
-            novaLinha += "<td style='text-align: center'><select name='modalidade["+id+"]' id='modalidade"+id+"' disabled>"+modalidade(id)+"</select></td>";
-            novaLinha += "<td style='text-align: center'><select id='novoItem[]' name='novoItem[]'></select></td>";
+            novaLinha += "<td style='text-align: center'><select class='span2' name='modalidade["+id+"]' id='modalidade"+id+"' disabled>"+modalidade(id)+"</select></td>";
+            novaLinha += "<td style='text-align: center'><select class='span3' id='novoItem"+id+"' name='novoItem[]'>"+itensModalidade(1)+"</select></td>";
             novaLinha += "<td style='text-align: center'><input type='text' id='novoTamanho[]' name='novoTamanho[]' value='' class='span1' /></td>";
             novaLinha += "<td style='text-align: center'><input type='text' id='novaQuantidade[]' name='novaQuantidade[]' value='' class='span1' /></td>";
             novaLinha += "<td style='text-align: center'>";
@@ -24,21 +24,37 @@ $(document).ready(function () {
         $(this).parent().parent().remove();
     })
     
+    function itensModalidade(modalidade)
+    {
+        var select = "#novoItem"+id;
+        $.ajax({
+            type:"POST",
+            url:"../itensModalidade/"+modalidade,
+            data:"id="+modalidade,
+            datatype:"json",
+            success: function(itens)
+            {
+                $.each(itens,function (item,prop){
+                    $(select).append( new Option( $('<div/>').html(prop.descricao).text(),prop.id ) );
+                })
+            }
+        })
+    }
+    
     function modalidade(id)
     {
-        var select = $("#modalidade"+id);
-        
+        var select = "#modalidade"+id;
         $.ajax({
             type: "POST",
-            url: "modalidades",
+            url: "../modalidades",
             datatype: "json",
             success: function(modalidade)
             {
-                $.each(modalidade,function(i,v){
-                    if(i == "1")
-                        select.append(new Option($("<div/>").html(v.nome).text(),v.id,true,true));
+                $.each(modalidade,function(i,prop){
+                    if(prop.id == "1")
+                        $(select).append( new Option( $("<div/>").html(prop.nome).text(),prop.id,true,true ) );
                     else
-                        select.append(new Option($("<div/>").html(v.nome).text(),v.id));
+                        $(select).append( new Option( $("<div/>").html(prop.nome).text(),prop.id ) );
                 })
             }
         })

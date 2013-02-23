@@ -67,7 +67,7 @@ echo form_input($faixa);
 echo br();
 echo anchor("", "Imprimir Federado", array('class' => 'btn btn-link btn-large', 'id' => 'imprimir'));
 echo nbs(4);
-echo anchor("","Alterar informaÃ§Ãµes" , array('class' => 'btn btn-link btn-large', 'id' => 'alterar'));
+echo anchor("","Alterar informações" , array('class' => 'btn btn-link btn-large', 'id' => 'alterar'));
 
 echo form_fieldset_close();
 ?>
