@@ -468,6 +468,35 @@ class Administrador_model extends CI_Model
                         ->get()
                         ->result_array();
     }
+    
+    public function ultimoItem($pedido)
+    {
+        return $this->db
+                        ->select_max('numero','ultimo')
+                        ->from('itens_pedido')
+                        ->where('id_pedido',$pedido)
+                        ->get()
+                        ->result_array();
+    }
+    
+    public function deletarItemPedido($pedido,$item)
+    {
+        $this->db->where('id_pedido',$pedido);
+        $this->db->where('numero',$item);
+        $this->db->delete('itens_pedido');
+    }
+    
+    public function alterarItemPedido($pedido,$item,$dados = array())
+    {
+        $this->db->where('id_pedido',$pedido);
+        $this->db->where('numero',$item);
+        $this->db->update('itens_pedido',$dados);
+    }
+    
+    public function inserirItemPedido($dados = array())
+    {
+        $this->db->insert('itens_pedido',$dados);
+    }
 
 }
 
