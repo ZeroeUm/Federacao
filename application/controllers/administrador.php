@@ -413,6 +413,7 @@ class administrador extends CI_Controller
         $dados['modalidade'] = $this->administrador->GetModalidades();
         $dados['taekwondo'] = $this->administrador->itensModalidade(1);
         $dados['itens'] = $this->administrador->informacoesPedido($id);
+        $dados['status'] = $this->administrador->statusPedidos();
         $this->load->view('header');
         $this->load->view('administrador/alterarPedido', $dados);
         $this->load->view('footer');
@@ -428,9 +429,9 @@ class administrador extends CI_Controller
         $alterar = $post['numero'];
         if (isset($post['excluir'])):
             $excluir = array_keys($post['excluir']);
-            //foreach ($excluir as $chave => $numero):
-            //$this->administrador->deletarItemPedido($pedido,$numero);
-            //endforeach;
+            foreach ($excluir as $chave => $numero):
+                $this->administrador->deletarItemPedido($pedido,$numero);
+            endforeach;
             $alterar = array_diff_key($post['numero'], $post['excluir']);
         endif;
 
@@ -444,7 +445,7 @@ class administrador extends CI_Controller
                 $itemNovo['id_item'] = $post['novoItem'][$i];
                 $itemNovo['tamanho'] = $post['novoTamanho'][$i];
                 $itemNovo['quantidade'] = $post['novaQuantidade'][$i];
-                //  $this->administrador->inserirItemPedido($itemNovo);
+                $this->administrador->inserirItemPedido($itemNovo);
                 $novoId++;
             endfor;
         endif;
@@ -456,10 +457,13 @@ class administrador extends CI_Controller
                 $item['id_item'] = $post['item'][$key];
                 $item['tamanho'] = $post['tamanho'][$key];
                 $item['quantidade'] = $post['quantidade'][$key];
-                //$this->administrador->alterarItemPedido($pedido,$key,$item);
+                $this->administrador->alterarItemPedido($pedido,$key,$item);
                 $alt++;
             endforeach;
         endif;
+        
+        $this->administrador->alterarStatusPedido($pedido,array('status' => $post['situacao']));
+        
         $dados['excluidos'] = (isset($post['excluir']) ? count($excluir) : 0);
         $dados['incluidos'] = (isset($post['novoItem']) ? $i + 1 : 0);
         $dados['atualizados'] = (isset($post['numero']) ? $alt : 0);
