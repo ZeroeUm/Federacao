@@ -18,11 +18,12 @@ class Modalidade_model extends CI_Model{
     
     public function get_modalidade(){
         
-        $query =  $this->db->get('modalidade');
-       
-       
+         $query =  $this->db->select('*')
+                           ->from('modalidade')
+                           ->get();
         
-        return $query->result_array();
+         return $query->result_array();
+       
     }
 }
 

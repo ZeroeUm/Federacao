@@ -33,7 +33,7 @@ class Instrutores extends CI_Controller {
         } else if (!empty($data)) {
             $tmp .= "<option value=''>Selecione uma Filial</option>";
             foreach ($data as $row) {
-                $tmp .= "<option value='" . $row->id . "'>" . $row->nome . "</option>";
+                $tmp .= "<option value='" . $row->id . "'>" . utf8_encode($row->nome) . "</option>";
             }
         } else {
             $tmp .= "<option value=''>Sem registro para esta Filial</option>";
@@ -64,7 +64,7 @@ class Instrutores extends CI_Controller {
         if (!empty($data)) {
             $tmp .= "<option value=''>Selecione o Federado</option>";
             foreach ($data as $row) {
-                $tmp .="<option value ='" . $row->id . "'>" . $row->nome . "</option>";
+                $tmp .="<option value ='" . $row->id . "'>" . utf8_encode($row->nome) . "</option>";
             }
         } else {
             $tmp .="<option value=''>Sem registro para com os parametros informados</option>";
@@ -265,16 +265,47 @@ class Instrutores extends CI_Controller {
     }
 
     function inscricao() {
+        $this->load->model('Instrutor_model');
+        $tema["instrutor"] = $this->Instrutor_model->inscrever();
         $this->load->view('header');
-        $this->load->view('devel');
-        $this->load->view('instrutores/inscricao');
+        $this->load->view('instrutores/inscricao', $tema);
         $this->load->view('footer');
     }
 
-    function manutencao() {
+    function getFiliais($id) {
+        $tmp = '';
+        $data = $this->Instrutor_model->getFilial($id);
+        if ($id == null) {
+            $tmp .= "<option value=''>Selecione a Filial</option>";
+        } else if (!empty($data)) {
+            $tmp .= "<option value=''>Selecione uma Filial</option>";
+            foreach ($data as $row) {
+                $tmp .= "<option value='" . $row->id . "'>" . utf8_encode($row->nome) . "</option>";
+            }
+        } else {
+            $tmp .= "<option value=''>Sem registro para esta Filial</option>";
+        }
+
+        die($tmp);
+    }
+
+    function getInscrito($filial) {
+        $this->load->model('Instrutor_model', 'instrutor');
+        header('Content-type: application/x-json; charset=utf-8');
+        $filiais = $this->instrutor->getInscrito($filial);
+        if (!empty($filiais)) {
+             for ($i = 0; $i < count($filiais); $i++) {
+            $resultado = array_map('htmlentities', $filiais[$i]);
+             }
+            echo(json_encode($resultado));
+        }
+    }
+
+    function manutencao($id = '1') {
+        $this->load->model('Instrutor_model');
+        $tema["instrutor"] = $this->Instrutor_model->getInscrito('1');
         $this->load->view('header');
-        $this->load->view('devel');
-        $this->load->view('instrutores/manutencao');
+        $this->load->view('instrutores/manutencao', $tema);
         $this->load->view('footer');
     }
 
@@ -286,3 +317,4 @@ class Instrutores extends CI_Controller {
     }
 
 }
+

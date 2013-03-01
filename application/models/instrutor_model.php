@@ -2,6 +2,18 @@
 
 class Instrutor_model extends CI_Model {
 
+    
+    
+    function get_instrutor_modalidade(){
+      $query = $this->select()
+                    ->join('federado')
+                    ->get();
+            return $query->result_array();    
+    }
+
+
+
+
     //SELECT federado.nome FROM federado INNER
     // JOIN filial WHERE federado.registro = filial.instrutor
     function cadastro() {
