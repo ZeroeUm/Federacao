@@ -34,14 +34,16 @@
                 <li class="btn btn-inverse"><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
             </ul>
         </div>
-        <div id="sidebar">
-            <img src="http://placehold.it/140x140" class="img-polaroid" style="margin: 20px;">
-
+       
+        <div id="sidebar" style="position: absolute">
+             <div class="row-fluid">
+             <img src="http://placehold.it/140x190" class="img-polaroid" style="margin: 20px;">
+             </div>
             <a href="#" class="visible-phone"><i class="icon icon-home"></i> Menu oculto</a>
-            <ul style="display: block; ">
+            <ul>
                 <li >
                     <a href="#"><span>Nome:Nome completo do Aluno</span></a> 
-                    <a href="#"><span>Categoria: Judï¿½</span></a> 
+                    <a href="#"><span>Categoria: Judô</span></a> 
 
                 </li>
 
@@ -72,7 +74,7 @@
                     <a href="#"><i class="icon icon-th-large"></i> <span>Coordenadores</span> </a>
                     <ul>
                         <li class="icn_new_article"><a href="<?php echo site_url('coordenador/modalidade'); ?>">Verificar professores da modalidade</a></li>
-                        <li class="icn_categories"><a href="<?php echo site_url('coordenador/index'); ?>">Manutenï¿½ï¿½o de dados de filiais</a></li>
+                        <li class="icn_categories"><a href="<?php echo site_url('coordenador/dados_filial'); ?>">Manutenï¿½ï¿½o de dados de filiais</a></li>
                         <li class="icn_new_article"><a href="<?php echo site_url('coordenador/index'); ?>">Emitir certificados</a></li>
                         <li class="icn_folder"><a href="<?php echo site_url('coordenador/index'); ?>">Enviar pedido de compra de faixa</a></li>
                         <li class="icn_new_article"><a href="<?php echo site_url('coordenador/index'); ?>">Emitir prontuï¿½rio de notas para prï¿½-avaliaï¿½ï¿½o</a></li>
@@ -101,7 +103,6 @@
             </ul>
 
         </div>
-
 
         <div id="content">
 

@@ -449,8 +449,9 @@ class Administrador_model extends CI_Model
     public function informacoesPedido($id)
     {
         return $this->db
-                        ->select('itens_pedido.tamanho,itens_pedido.quantidade,item.id_item,item.id_modalidade,itens_pedido.numero')
+                        ->select('itens_pedido.tamanho,itens_pedido.quantidade,item.id_item,item.id_modalidade,itens_pedido.numero,pedido.status')
                         ->from('itens_pedido')
+                        ->join('pedido','itens_pedido.id_pedido = pedido.id_pedido','join')
                         ->join('item','itens_pedido.id_item = item.id_item','join')
                         ->where('itens_pedido.id_pedido',$id)
                         ->order_by('itens_pedido.numero','asc')
@@ -467,6 +468,50 @@ class Administrador_model extends CI_Model
                         ->order_by('item.id_item','asc')
                         ->get()
                         ->result_array();
+    }
+    
+    public function ultimoItem($pedido)
+    {
+        return $this->db
+                        ->select_max('numero','ultimo')
+                        ->from('itens_pedido')
+                        ->where('id_pedido',$pedido)
+                        ->get()
+                        ->result_array();
+    }
+    
+    public function deletarItemPedido($pedido,$item)
+    {
+        $this->db->where('id_pedido',$pedido);
+        $this->db->where('numero',$item);
+        $this->db->delete('itens_pedido');
+    }
+    
+    public function alterarItemPedido($pedido,$item,$dados = array())
+    {
+        $this->db->where('id_pedido',$pedido);
+        $this->db->where('numero',$item);
+        $this->db->update('itens_pedido',$dados);
+    }
+    
+    public function inserirItemPedido($dados = array())
+    {
+        $this->db->insert('itens_pedido',$dados);
+    }
+    
+    public function statusPedidos()
+    {
+        return $this->db
+                        ->select('id, descricao')
+                        ->from('status_pedido')
+                        ->order_by('id','asc')
+                        ->get()
+                        ->result_array();
+    }
+    
+    public function alterarStatusPedido($id,$dados = array())
+    {
+        $this->db->update('pedido',$dados,array('id_pedido' => $id));
     }
 
 }

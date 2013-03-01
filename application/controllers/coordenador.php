@@ -12,9 +12,21 @@
  */
 class coordenador extends CI_Controller{
     
+    function mostrarFiliais($filial=null){
+         $this->load->model('coordenador_model', 'coordenador');
+        $filial = $this->coordenador->MntFilialDados($filial);
+        $data['resultado'] = $filial;
+        $this->load->view('/coordenador/mostrarFilial',$data);
+       
+    }
     
-    
-    
+    function dados_filial(){
+         $this->load->model('administrador_model', 'administrador');
+        $this->load->view('header');
+        $dados['filiais'] = $this->administrador->MntFilial();
+        $this->load->view('coordenador/manterFiliais', $dados);
+        $this->load->view('footer');
+    }
     
     function modalidade(){
        $this->load->model('Modalidade_model', 'modalidades');
@@ -25,14 +37,21 @@ class coordenador extends CI_Controller{
     }
 
 
-    function ajax_professores_modalidade($id_modalidade=null){
-        $this->load->model('Instrutor_model','instrutores');
-        
-        $this->instrutores->get_instrutor_modalidade('4');
-        die($id_modalidade);
-    
-        
+    function professores_modalidade($id_professor=null){
+       
+       
+       $this->load->model('Coordenador_model', 'coordenador');
+       
+       $data['professor'] = $this->coordenador->get_professores($id_professor);
+//       echo "<pre>";
+//       print_r($data);
+//       echo "</pre>";
+       
+       $this->load->view('/coordenador/professores_modalidade',$data);
+       return true;
     }
+    
+    
 }
 
 ?>
