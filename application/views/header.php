@@ -43,7 +43,7 @@
             <ul>
                 <li >
                     <a href="#"><span>Nome:Nome completo do Aluno</span></a> 
-                    <a href="#"><span>Categoria: Judô</span></a> 
+                    <a href="#"><span>Categoria: Judï¿½</span></a> 
 
                 </li>
 
