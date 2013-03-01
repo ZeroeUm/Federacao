@@ -413,6 +413,7 @@ class administrador extends CI_Controller
         $dados['modalidade'] = $this->administrador->GetModalidades();
         $dados['taekwondo'] = $this->administrador->itensModalidade(1);
         $dados['itens'] = $this->administrador->informacoesPedido($id);
+        $dados['status'] = $this->administrador->statusPedidos();
         $this->load->view('header');
         $this->load->view('administrador/alterarPedido', $dados);
         $this->load->view('footer');
@@ -420,7 +421,56 @@ class administrador extends CI_Controller
 
     function atualizarPedido($pedido)
     {
+        $this->load->model('Administrador_model', 'administrador');
+        $post = $this->input->post();
+
+        $pedido = $post['pedido'];
+
+        $alterar = $post['numero'];
+        if (isset($post['excluir'])):
+            $excluir = array_keys($post['excluir']);
+            foreach ($excluir as $chave => $numero):
+                $this->administrador->deletarItemPedido($pedido,$numero);
+            endforeach;
+            $alterar = array_diff_key($post['numero'], $post['excluir']);
+        endif;
+
+        if (isset($post['novoItem'])):
+            $ultimo = $this->administrador->ultimoItem($pedido);
+            $novoId = (isset($ultimo) ? $ultimo[0]['ultimo'] + 1 : 1);
+            $itemNovo = array();
+            for ($i = 0; $i < count($post['novoItem']); $i++):
+                $itemNovo['id_pedido'] = $pedido;
+                $itemNovo['numero'] = $novoId;
+                $itemNovo['id_item'] = $post['novoItem'][$i];
+                $itemNovo['tamanho'] = $post['novoTamanho'][$i];
+                $itemNovo['quantidade'] = $post['novaQuantidade'][$i];
+                $this->administrador->inserirItemPedido($itemNovo);
+                $novoId++;
+            endfor;
+        endif;
+
+        if (isset($post['numero'])):
+            $item = array();
+            $alt = 0;
+            foreach ($alterar as $key => $value):
+                $item['id_item'] = $post['item'][$key];
+                $item['tamanho'] = $post['tamanho'][$key];
+                $item['quantidade'] = $post['quantidade'][$key];
+                $this->administrador->alterarItemPedido($pedido,$key,$item);
+                $alt++;
+            endforeach;
+        endif;
         
+        $this->administrador->alterarStatusPedido($pedido,array('status' => $post['situacao']));
+        
+        $dados['excluidos'] = (isset($post['excluir']) ? count($excluir) : 0);
+        $dados['incluidos'] = (isset($post['novoItem']) ? $i + 1 : 0);
+        $dados['atualizados'] = (isset($post['numero']) ? $alt : 0);
+        $dados['pedido'] = $pedido;
+        $this->load->view('header');
+        $this->load->view('administrador/sucessoAlterarPedido',$dados);
+        $this->load->view('footer');
     }
 
     function itensModalidade($id)
@@ -499,17 +549,16 @@ class administrador extends CI_Controller
 
         header('Content-type: application/x-json; charset=utf-8');
 
-        if(!empty($modalidade))
+        if (!empty($modalidade))
         {
             for ($i = 0; $i < count($modalidade); $i++)
                 $modalidade[$i]['nome'] = htmlentities($modalidade[$i]['nome']);
-        }
-        else
+        } else
         {
             $modalidade[0]['id'] = "";
             $modalidade[0]['nome'] = "Não foram encontradas as modalidades, verifique a conexão com o banco.";
         }
-        
+
         echo(json_encode($modalidade));
     }
 

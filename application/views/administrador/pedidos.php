@@ -41,7 +41,6 @@ echo($links);
             <td style="text-align: center;"><?= $row->situacao?></td>
             <td style="text-align: center;">
                 <a href="<?php echo base_url()?>administrador/alterarPedido/<?=$row->id?>" class="btn btn-link">Informações</a>
-                <a href="#modal" class="btn btn-link" role="button" data-toggle="modal">Status</a>
             </td>            
         </tr>
         <?php
@@ -49,8 +48,6 @@ echo($links);
         ?>
     </tbody>
 </table>
-<div id="modal">
-</div>
 <?php
 echo($links);
 ?>
