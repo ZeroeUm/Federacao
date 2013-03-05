@@ -141,7 +141,7 @@ class Instrutor_model extends CI_Model {
     }
 
     /*
-     * @param array associativo com as informaÃ§Ãµes a serem inseridas no banco, onde as posiï¿½ï¿½es do array devem ser os campos da tabela e os valores as novas informaÃ§Ãµes a serem inseridas
+     * @param array associativo com as informações a serem inseridas no banco, onde as posições do array devem ser os campos da tabela e os valores as novas informações a serem inseridas
      */
 
     public function InserirFederado($dados = array()) {
