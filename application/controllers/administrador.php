@@ -139,7 +139,7 @@ class administrador extends CI_Controller
 
     public function telephone($input)
     {
-        if (preg_match("^\(?\d{2}\)?\d{4}-?\d{4}$", $input))//formato (11)3940-1294, sem espaï¿½o
+        if (preg_match("^\(?\d{2}\)?\d{4}-?\d{4}$", $input))//formato (11)3940-1294, sem espaço
         {
             $this->form_validation->set_message('telephone', 'O campo %s deve possuir um número de telefone ou fax no formato (12)3456-7890.');
             return false;
@@ -174,11 +174,11 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('situacao', 'Situação na federação', 'required');
         $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required');
         $this->form_validation->set_rules('tipo', 'Tipo de federado na federação', 'required');
-        $this->form_validation->set_rules('logradouro', 'Logradouro do endereÃ§o', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('numero', 'número do endereÃ§o', 'required|is_natural_no_zero|trim');
-        $this->form_validation->set_rules('bairro', 'Bairro do endereÃ§o', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('cidade', 'Cidade do endereÃ§o', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('uf', 'UF do endereÃ§o', 'required');
+        $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|alpha_acent|trim');
+        $this->form_validation->set_rules('numero', 'número do endereço', 'required|is_natural_no_zero|trim');
+        $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|alpha_acent|trim');
+        $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|alpha_acent|trim');
+        $this->form_validation->set_rules('uf', 'UF do endereço', 'required');
 
 
         if ($this->form_validation->run() == FALSE)
@@ -283,11 +283,11 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required');
         $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required');
         $this->form_validation->set_rules('tipo', 'Tipo de federado na federação', 'required');
-        $this->form_validation->set_rules('logradouro', 'Logradouro do endereÃ§o', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('numero', 'número do endereÃ§o', 'required|is_natural_no_zero|trim');
-        $this->form_validation->set_rules('bairro', 'Bairro do endereÃ§o', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('cidade', 'Cidade do endereÃ§o', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('uf', 'UF do endereÃ§o', 'required');
+        $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|alpha_acent|trim');
+        $this->form_validation->set_rules('numero', 'número do endereço', 'required|is_natural_no_zero|trim');
+        $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|alpha_acent|trim');
+        $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|alpha_acent|trim');
+        $this->form_validation->set_rules('uf', 'UF do endereço', 'required');
 
         if ($this->form_validation->run() == FALSE)
         {
@@ -520,7 +520,7 @@ class administrador extends CI_Controller
             endforeach;
         }
         else
-            echo ("Não foi encontrado nenhum registro do federado escolhido.<br/>Verifique se o federado já realizou alguma graduaï¿½ï¿½o na federação Paulista de Artes Marciais Interestilos.");
+            echo ("Não foi encontrado nenhum registro do federado escolhido.<br/>Verifique se o federado já realizou alguma graduação na federação Paulista de Artes Marciais Interestilos.");
     }
 
     function filiais()

@@ -34,6 +34,9 @@ $attr = array(
 $label = array(
     "class" => "control-label"
 );
+?>
+<div id="row-fluid">
+<?php
 echo form_fieldset('Impressão de dados da filial');
 echo form_open();
 ?>
@@ -127,3 +130,4 @@ echo form_button('btnImprimir','Imprimir Informações','id="btnImprimir" onClick=
 echo form_close();
 echo form_fieldset_close();
 ?>
+</div>
