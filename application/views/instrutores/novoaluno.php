@@ -43,22 +43,22 @@ echo form_open_multipart("instrutores/novoaluno", $attr);
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Filiação Materna", "fMaterna", $label);
+        echo form_label("Filiaï¿½ï¿½o Materna", "fMaterna", $label);
     ?>
     <div class="controls">
         <?php
-            $inFMaterna = 'id="fMaterna" class="span3" maxlength="60" placeholder="Filiação Materna"';
+            $inFMaterna = 'id="fMaterna" class="span3" maxlength="60" placeholder="Filiaï¿½ï¿½o Materna"';
             echo form_input('fMaterna',set_value('fMaterna'),$inFMaterna);
         ?>
     </div>
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Filiação Paterna", "fPaterna", $label);
+        echo form_label("Filiaï¿½ï¿½o Paterna", "fPaterna", $label);
     ?>
     <div class="controls">
         <?php
-            $inFPaterna = 'id="fPaterna" class="span3" maxlength="60" placeholder="Filiação Paterna"';
+            $inFPaterna = 'id="fPaterna" class="span3" maxlength="60" placeholder="Filiaï¿½ï¿½o Paterna"';
             echo form_input("fPaterna",set_value('fPaterna'),$inFPaterna);
         ?>
     </div>
@@ -131,7 +131,7 @@ echo form_open_multipart("instrutores/novoaluno", $attr);
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Foto de identificação", "foto", $label);
+        echo form_label("Foto de identificaï¿½ï¿½o", "foto", $label);
     ?>
     <div class="controls">
         <?php
@@ -194,11 +194,11 @@ echo form_open_multipart("instrutores/novoaluno", $attr);
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Número", "numero", $label);
+        echo form_label("Nï¿½mero", "numero", $label);
     ?>
     <div class="controls">
         <?php
-            $inNumero = 'id="numero" class="span2" maxlength="5" required placeholder="Número"';
+            $inNumero = 'id="numero" class="span2" maxlength="5" required placeholder="Nï¿½mero"';
             echo form_input('numero',set_value('numero'),$inNumero);
         ?>
     </div>
@@ -251,7 +251,7 @@ echo form_open_multipart("instrutores/novoaluno", $attr);
 </div>
 <?php
 $inBotao = 'id="btnIncluir" class="btn"';
-echo form_submit("btnIncluir", "Incluir informações", $inBotao);
+echo form_submit("btnIncluir", "Incluir informaÃ§Ãµes", $inBotao);
 echo form_close();
 echo form_fieldset_close();
 ?>
