@@ -1,12 +1,17 @@
-<div class="row-fluid">
-    <?php
-    if (isset($error))
-    {
+<?php
+if (isset($error))
+{
+    ?>
+    <div class="row-fluid">    
+        <?php
         echo $error;
         echo br();
-    }
-    ?>
-</div>
+        ?>
+    </div>    
+    <?php
+}
+?>
+
 <div class="row-fluid">
     <div class="alert-success">
         Alterações nas informações cadastrais de <b><?php echo $federado ?></b> realizadas com sucesso.<br />

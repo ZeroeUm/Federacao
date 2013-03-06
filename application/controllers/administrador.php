@@ -174,6 +174,7 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('situacao', 'Situação na federação', 'required');
         $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required');
         $this->form_validation->set_rules('tipo', 'Tipo de federado na federação', 'required');
+        $this->form_validation->set_rules('filial','Filial','required');
         $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|alpha_acent|trim');
         $this->form_validation->set_rules('numero', 'número do endereço', 'required|is_natural_no_zero|trim');
         $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|alpha_acent|trim');
@@ -187,12 +188,15 @@ class administrador extends CI_Controller
             $this->load->view('header');
             $dados['federado'] = $this->administrador->DadosFederado($federado);
             $endereco = $dados['federado'][0]['id_endereco'];
+            $modalidade = $dados['federado'][0]['modalidade'];
             $dados['nacionalidade'] = $this->administrador->getNacionalidade();
             $dados['escolaridade'] = $this->administrador->getEscolaridade();
             $dados['tipo'] = $this->administrador->getTipoFederado();
             $dados['statusFederado'] = $this->administrador->getStatus();
             $dados['endereco'] = $this->administrador->getEndereco($endereco);
             $dados['uf'] = $this->administrador->getUF();
+            $dados['modalidade'] = $this->administrador->GetModalidades();
+            $dados['filiais'] = $this->administrador->getFiliaisModalidade($modalidade);
             $this->load->view('administrador/alterarFederado', $dados);
             $this->load->view('footer');
         } else
@@ -237,6 +241,8 @@ class administrador extends CI_Controller
         $endereco = array();
         $federado = array();
 
+        $this->alterarMatricula($this->input->post('federado'), $this->input->post('filial'), 1);
+        
         $endereco['logradouro'] = $this->input->post('logradouro');
         $endereco['numero'] = $this->input->post('numero');
         $endereco['complemento'] = $this->input->post('compl');
@@ -268,7 +274,72 @@ class administrador extends CI_Controller
         $this->load->view('administrador/sucessoAlteracaoFederado', $dados);
         $this->load->view('footer');
     }
+    
+    function matricularFederado($federado,$filial,$modalidade)
+    {
+        $this->load->model('Administrador_model','administrador');
+        $matricula = array();
+        $matricula['id_federado']       = $federado;
+        $matricula['id_modalidade']     = $modalidade;
+        $matricula['id_filial']         = $filial;
+        $matricula['data_matricula']    = date('Y-m-d');
+        $matricula['matricula_filial']  = date('Y-m-d');
+        $this->administrador->matricularFederado($matricula);
+    }
+    
+    function alterarMatricula($federado,$filial,$modalidade)
+    {
+        $this->load->model('Administrador_model','administrador');
+        $matricula = array();
+        $matricula['id_federado'] = $federado;
+        $matricula['id_modalidade'] = $filial;
+        $matricula['id_filial'] = $modalidade;
+        $matricula['matricula_filial'] = date("Y-m-d");
+        
+        $this->administrador->alterarMatricula($federado,$modalidade,$matricula);
+    }
+    
+    function criarLogin($federado,$nome)
+    {
+        $this->load->model('Administrador_model','administrador');
+        $login = array();
+        $login['id_federado'] = $federado;
+        $login['login'] = $this->gerarLogin($nome);
+        $login['senha'] = md5($this->gerarSenha());
+        $this->administrador->criarLogin($login);
+    }
 
+    function gerarLogin($nome)
+    {
+        $arrNome = explode(" ", $nome);
+        $retorno = substr($arrNome[0],0,1);
+        $retorno .= end($arrNome);
+        return $retorno;
+    }
+    
+    function gerarSenha($tamanho = 10,$maiusculas = true,$numeros = true)
+    {
+        $lmin = 'abcdefghijkmnopqrstuvwxyz';
+        $lmai = 'ABCDEFGHJKLMNOPQRSTUVWXYZ';
+        $num = '0123456789';
+        
+        $caracteres = '';
+        $retorno = '';
+        
+        $caracteres .= $lmin;
+        if($maiusculas) $caracteres .= $lmai;
+        if($numeros) $caracteres .= $num;
+        
+        $len = strlen($caracteres);
+        
+        for($i = 0; $i <= $tamanho; $i++):
+            $rand = mt_rand(1, $len);
+            $retorno .= $caracteres[$rand - 1];
+        endfor;
+        
+        return $retorno;
+    }
+    
     function incluirFederado()
     {
         $this->form_validation->set_rules('nome', 'Nome', 'required|alpha_acent|trim');
@@ -283,6 +354,7 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required');
         $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required');
         $this->form_validation->set_rules('tipo', 'Tipo de federado na federação', 'required');
+        $this->form_validation->set_rules('filial','Filial','required');
         $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|alpha_acent|trim');
         $this->form_validation->set_rules('numero', 'número do endereço', 'required|is_natural_no_zero|trim');
         $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|alpha_acent|trim');
@@ -298,6 +370,7 @@ class administrador extends CI_Controller
             $dados['statusFederado'] = $this->administrador->getStatus();
             $dados['uf'] = $this->administrador->getUF();
             $dados['tipo'] = $this->administrador->getTipoFederado();
+            $dados['modalidade'] = $this->administrador->GetModalidades();
             $this->load->view('administrador/incluirFederado', $dados);
             $this->load->view('footer');
         } else
@@ -339,6 +412,11 @@ class administrador extends CI_Controller
         $federado['caminho_imagem'] = (isset($foto) ? "tkd/" . $foto : "sem foto");
 
         $this->administrador->InserirFederado($federado);
+        
+        $novoFederado = $this->db->insert_id();
+        
+        $this->matricularFederado($novoFederado, $this->input->post('filial'), 1);
+        $this->criarLogin($novoFederado, $federado['nome']);
 
         $dados['federado'] = $federado['nome'];
         $this->load->view('header');
@@ -562,6 +640,21 @@ class administrador extends CI_Controller
         echo(json_encode($modalidade));
     }
 
+    function getFilialModalidade($modalidade)
+    {
+        $this->load->model('Administrador_model','administrador');
+        $filiais = $this->administrador->getFiliaisModalidade($modalidade);
+        header('Content-type: application/x-json; charset=utf-8');
+        if(!empty($filiais))
+            for($i = 0; $i < count($filiais);$i++)
+                $filiais[$i]['nome'] = htmlentities ($filiais[$i]['nome']);
+        else{
+            $filiais[0]['id'] = "";
+            $filiais[0]['nome'] = "Não foram encontradas filiais para essa modalidade, verifique a conexão com o banco.";
+        }
+        echo (json_encode ($filiais));
+    }
+    
     function alterarFilial($filial)
     {
         $this->form_validation->set_rules('nome', 'Nome da Filial', 'required|alpha_acent|trim');
@@ -733,7 +826,5 @@ class administrador extends CI_Controller
         $this->load->view('administrador/novaMensagem', $dados);
         $this->load->view('footer');
     }
-
 }
-
 ?>

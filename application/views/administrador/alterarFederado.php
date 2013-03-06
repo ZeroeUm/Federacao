@@ -1,3 +1,18 @@
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#dtNasc").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "dd-mm-yy",
+            showAnim: "fadeIn",
+            showOtherMonths: true,
+            selectOtherMonths: true
+        })
+    })
+</script>
 <?php
 $federado = $federado[0];
 $endereco = $endereco[0];
@@ -17,7 +32,7 @@ $label = array(
     echo form_fieldset("Alteração de registro de federado");
     echo form_open_multipart("administrador/alterarFederado/" . $this->uri->segment(3), $attr, $hidden);
     $imagem = array(
-        "src" => (($federado['caminho_imagem'] == "sem foto") ? "http://placehold.it/140x140/000000/ffffff&text=sem%20foto" : $federado['caminho_imagem']),
+        "src" => (($federado['caminho_imagem'] == "sem foto") ? "http://placehold.it/140x140/000000/ffffff&text=sem%20foto" : "federados/fotos/".$federado['caminho_imagem']),
         "alt" => "Foto do federado " . $federado['nome'],
         "title" => "Foto do federado " . $federado['nome'],
         "class" => "img-polaroid"
@@ -76,7 +91,7 @@ $label = array(
         <div class="controls">
             <?php
             $inData = 'id="dtNasc" class="span2" maxlength="10" required';
-            echo form_input("dtNasc", set_value('dtNasc', date("d/m/Y", strtotime($federado['data_nasc']))), $inData);
+            echo form_input("dtNasc", set_value('dtNasc', date("d-m-Y", strtotime($federado['data_nasc']))), $inData);
             ?>
         </div>
     </div>
@@ -188,6 +203,30 @@ $label = array(
                 $opTipo[$t['id']] = $t['tipo'];
             $selTipo = $federado['id_tipo_federado'];
             echo form_dropdown('tipo', $opTipo, set_value('tipo', $selTipo), 'id="tipo" class="span2" required');
+            ?>
+        </div>
+    </div>
+    <div class="control-group">
+        <?php
+        echo form_label('Modalidade','modalidade',$label);
+        ?>
+        <div class="controls">
+            <?php
+            foreach ($modalidade as $mod)
+                $opModalidade[$mod['id']] = $mod['nome'];
+            echo form_dropdown('modalidade',$opModalidade,set_value('modalidade',1),'id="modalidade" class="span3" required disabled');
+            ?>
+        </div>
+    </div>
+    <div class="control-group">
+        <?php
+        echo form_label('Filial','filial',$label);
+        ?>
+        <div class="controls">
+            <?php
+            foreach ($filiais as $f)
+                $opFilial[$f['id']] = $f['nome'];
+            echo form_dropdown('filial',$opFilial,set_value('filial',$federado['filial']),'id="filial" class="span2" required')
             ?>
         </div>
     </div>

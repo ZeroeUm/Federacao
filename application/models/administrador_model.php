@@ -95,8 +95,13 @@ class Administrador_model extends CI_Model
      */
     public function DadosFederado($federado)// metódo para puxar informações para página de alteração
     {
-        $query = $this->db->get_where('federado', array('id_federado' => $federado));
-        return $query->result_array();
+        return $this->db
+                        ->select("*,matricula.id_filial as filial,matricula.id_modalidade as modalidade")
+                        ->from("federado")
+                        ->join("matricula",'federado.id_federado = matricula.id_federado')
+                        ->where("federado.id_federado",$federado)
+                        ->get()
+                        ->result_array();
     }
 
     public function ImprimirDadosFederado($federado)
@@ -380,6 +385,17 @@ class Administrador_model extends CI_Model
                         ->get()
                         ->result_array();
     }
+    
+    public function getFiliaisModalidade($modalidade)
+    {
+        return $this->db
+                        ->select('id_filial as id, nome')
+                        ->from('filial')
+                        ->where('id_modalidade',$modalidade)
+                        ->order_by('nome','asc')
+                        ->get()
+                        ->result_array();
+    }
 
     public function getHistoricoNotas($federado)
     {
@@ -512,6 +528,26 @@ class Administrador_model extends CI_Model
     public function alterarStatusPedido($id,$dados = array())
     {
         $this->db->update('pedido',$dados,array('id_pedido' => $id));
+    }
+    
+    public function matricularFederado($dados = array())
+    {
+        $this->db->insert('matricula',$dados);
+    }
+    
+    public function alterarMatricula($federado,$modalidade,$dados = array())
+    {
+        $this->db->update('matricula',$dados,array('id_federado' => $federado,'id_modalidade' => $modalidade));
+    }
+    
+    public function criarLogin($dados = array())
+    {
+        $this->db->insert('login',$dados);
+    }
+    
+    public function alterarLogin($id,$dados = array())
+    {
+        $this->update('login',$dados,array('id_login' => $id));
     }
 
 }

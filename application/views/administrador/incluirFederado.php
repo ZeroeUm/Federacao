@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/incluirFederado.js"></script>
 <script type="text/javascript">
     $(function () {
         $("#dtNasc").datepicker({
@@ -73,7 +74,7 @@ $label = array(
         <div class="controls">
             <?php
             $opSexo = array("#" => "Escolha uma opção.", "F" => "Feminino", "M" => "Masculino");
-            echo form_dropdown("sexo", $opSexo, set_value("sexo", "#"), 'id="sexo" class="span2" required');
+            echo form_dropdown("sexo", $opSexo, set_value("sexo", "#"), 'id="sexo" class="span3" required');
             ?>
         </div>
     </div>
@@ -166,7 +167,7 @@ $label = array(
             foreach ($nacionalidade as $nac)
                 $opNacionalidade[$nac['id']] = $nac['nacionalidade'];
 
-            echo form_dropdown('nacionalidade', $opNacionalidade, set_value('nacionalidade', '#'), 'id="nacionalidade" class="span2" required');
+            echo form_dropdown('nacionalidade', $opNacionalidade, set_value('nacionalidade', '#'), 'id="nacionalidade" class="span3" required');
             ?>
         </div>
     </div>
@@ -179,7 +180,29 @@ $label = array(
             $opTipo["#"] = "Escolha uma opção.";
             foreach ($tipo as $t)
                 $opTipo[$t['id']] = $t['tipo'];
-            echo form_dropdown('tipo', $opTipo, set_value('tipo', "#"), 'id="tipo" class="span2" required');
+            echo form_dropdown('tipo', $opTipo, set_value('tipo', "#"), 'id="tipo" class="span3" required');
+            ?>
+        </div>
+    </div>
+    <div class="control-group">
+        <?php
+            echo form_label('Modalidade', 'modalidade',$label);
+        ?>
+        <div class="controls">
+            <?php
+            foreach ($modalidade as $mod)
+                $opModalidade[$mod['id']] = $mod['nome'];
+            echo form_dropdown('modalidade',$opModalidade,1,'id="modalidade" class="span3" required disabled');
+            ?>
+        </div>
+    </div>
+        <div class="control-group">
+        <?php
+            echo form_label('Filial','filial',$label);
+        ?>
+        <div class="controls">
+            <?php
+            echo form_dropdown('filial',array("#" => "Escolha uma filial"),set_value('filial',"#"),'id="filial" class="span3" required');
             ?>
         </div>
     </div>
