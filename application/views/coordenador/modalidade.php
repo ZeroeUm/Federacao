@@ -18,7 +18,7 @@
               
             },
             error: function(){
-                $('.mostrar_professores').append('Não encontrado nenhum instrutor');
+                $('.mostrar_professores').html('Não encontrado nenhum instrutor');
             }
         })
         })
