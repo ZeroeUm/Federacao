@@ -53,7 +53,7 @@ $db['default']['username'] = 'root';
 $db['default']['password'] = 'jacfelipe';
 $db['default']['database'] = 'federacao';// nome do Banco
 $db['default']['dbdriver'] = 'mysql'; 
-$db['default']['dbprefix'] = '';
+$db['default']['dbprefix'] = "";
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;
 $db['default']['cache_on'] = FALSE;
@@ -63,7 +63,7 @@ $db['default']['dbcollat'] = 'latin1_spanish_c1';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
-
+$db['default']['_protect_identifiers']= FALSE;
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */
