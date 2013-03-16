@@ -225,7 +225,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = 'key';
+$config['encryption_key'] = '1c2h3a4v5e67p8a9r0a98e7n6c5r4i3p2t1a1r2';
 
 /*
 |--------------------------------------------------------------------------
