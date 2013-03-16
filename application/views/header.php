@@ -91,7 +91,7 @@
                     <ul>
                         <li class="icn_folder"><a href="<?php echo site_url('administrador/notificacoes'); ?>">Enviar notifica??o via e-mail</a></li>
                         <li class="icn_categories"><a href="<?php echo site_url('administrador/federados'); ?>">Manuten??o de dados de Federados</a></li>
-                        <li class="icn_money"><a href="<?php echo site_url('administrador/pedidos'); ?>">Manuten??o de pedidos de compra de faixa</a></li>
+                         <li class="icn_money"><a href="<?php echo site_url('administrador/pedidos'); ?>">Manuten??o de pedidos de compra de faixa</a></li>
                         <li class="icn_tags"><a href="<?php echo site_url('administrador/historico'); ?>">Verificar Hist?rico de atividades de Federado</a></li>
                         <li class="icn_categories"><a href="<?php echo site_url('administrador/filiais'); ?>">Manuten??o de dados de Filiais</a></li>
                         <li class="icn_edit_article"><a href="<?php echo site_url('administrador/maladireta'); ?>">Manuten??o de mala-direta de aniversariantes</a></li>
