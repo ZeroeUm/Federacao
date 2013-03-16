@@ -52,12 +52,12 @@ class Coordenador_model extends CI_Model {
                                     date_format(evento_graduacao.data_evento,'%d-%m-%Y') as data_evento,
                                     endereco.logradouro,
                                     endereco.cidade,
-                                    uf.sigla,
+                                    estados.sigla,
                                     endereco.numero,
                                     modalidade.nome")
                 ->from('evento_graduacao')
                 ->join('endereco', 'evento_graduacao.id_endereco = endereco.id_endereco')
-                ->join('uf', 'endereco.uf = uf.uf')
+                ->join('estados', 'endereco.uf = estados.id_estados')
                 ->join('modalidade', 'evento_graduacao.id_modalidade = modalidade.id_modalidade')
                 ->get()
                 ->result_array();
