@@ -33,7 +33,7 @@ $label = array(
 echo form_fieldset("Alteração de registro de federado");
 echo form_open_multipart("instrutores/alterarFederado/".$this->uri->segment(3), $attr, $hidden);
 $imagem = array(
-    "src" => (($federado['caminho_imagem'] == "sem foto")?"http://placehold.it/140x140/000000/ffffff&text=sem%20foto":'federados/fotos/'.$federado['caminho_imagem']),
+    "src" => (($federado['caminho_imagem'] == "sem foto")?"http://placehold.it/140x140/000000/ffffff&text=%3F":'federados/fotos/'.$federado['caminho_imagem']),
     "alt" => "Foto do federado ".$federado['nome'],
     "title" => "Foto do federado ".$federado['nome'],
     "class" => "img-polaroid"    

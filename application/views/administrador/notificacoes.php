@@ -26,7 +26,7 @@ echo form_label("Instrutores".form_checkbox('instrutor','1'),'alvoNotificacao',a
 echo form_label("Coordenador".form_checkbox('coordenador','1'),'alvoNotificacao',array('class' => 'checkbox inline'));
 echo form_label("à Todos".form_checkbox('todos','1'),'alvoNotificacao',array('class' => 'checkbox inline'));
 echo br();
-echo form_submit('enviarNotificacao','Enviar Notificação','class = "btn"');
+echo form_submit('enviarNotificacao','Enviar Notificação','class = "btn btn-primary"');
 echo form_close();
 echo form_fieldset_close();
 ?>

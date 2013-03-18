@@ -65,6 +65,6 @@ echo form_open('administrador/atualizarPedido/' . $this->uri->segment(3), 'class
     </table>
 </div>
 <?php
-echo form_submit("btnAlterar", "Alterar informações", 'class="btn"');
+echo form_submit("btnAlterar", "Alterar informações", 'class="btn btn-primary"');
 echo form_close();
 ?>

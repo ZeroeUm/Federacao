@@ -37,7 +37,7 @@ $label = array(
         <?php echo form_label("CNPJ", "cnpj", $label) ?>
         <div class="controls">
             <?php
-            $inCNPJ = "id='cnpj' class='span2' maxlength='19' required";
+            $inCNPJ = "id='cnpj' class='span3' maxlength='19' required";
             echo form_input('cnpj', set_value("cnpj", $filial['cnpj']), $inCNPJ);
             ?>
         </div>
@@ -157,7 +157,7 @@ $label = array(
         </div>
     </div>
     <?php
-    $inBotao = 'id="btnAlterar" class="btn"';
+    $inBotao = 'id="btnAlterar" class="btn btn-primary"';
     echo form_submit("btnAlterar", "Alterar informações", $inBotao);
     echo form_close();
     echo form_fieldset_close();
