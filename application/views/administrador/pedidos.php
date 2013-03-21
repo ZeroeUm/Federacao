@@ -1,4 +1,4 @@
-<div class="row-fluid">
+<div class="row-fluid" style="height: 100px;">
     <?php
     /* 2013-02-11
      * @author Humberto
