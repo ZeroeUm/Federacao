@@ -31,17 +31,17 @@
         </div>
         <div id="user-nav" class="navbar navbar-inverse">
             <ul class="nav btn-group">
-                <li class="btn btn-inverse"><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+                <li class="btn btn-inverse"><a title="Logoff do sistema" href="login/logoff"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
             </ul>
         </div>
         <div id="sidebar">
-            <img src="http://placehold.it/140x190/000000/FFFFFF&text=%3F" class="img-polaroid" style="margin: 20px;">
+            <img width="140px" heigth="190px" src="<?php echo(($this->session->userdata('foto')!= "sem foto")?"federados/fotos/".$this->session->userdata('foto'):"http://placehold.it/140x190/000000/FFFFFF&text=%3F") ?>" class="img-polaroid" style="margin: 20px;">
 
             <a href="#" class="visible-phone"><i class="icon icon-home"></i> Menu oculto</a>
             <ul style="display: block; ">
                 <li >
-                    <a href="#"><span>Nome:Nome completo do Aluno</span></a> 
-                    <a href="#"><span>Categoria: Judô</span></a> 
+                    <a href="#"><span>Nome: <?php echo $this->session->userdata('nome')?></span></a> 
+                    <a href="#"><span>Categoria: <?php echo $this->session->userdata('modalidade') ?></span></a> 
 
                 </li>
 
@@ -57,6 +57,7 @@
 
                     </ul>
                 </li>
+                <?php if ($this->session->userdata('tipo') >= 2):?>
                 <li class="submenu">
                     <a href="#"><i class="icon icon-th-list"></i> <span>Instrutores</span> </a>
                     <ul>
@@ -68,6 +69,8 @@
 
                     </ul>
                 </li>
+                <?php endif;?>
+                <?php if($this->session->userdata('tipo') >= 3):?>
                 <li class="submenu">
                     <a href="#"><i class="icon icon-th-large"></i> <span>Coordenadores</span> </a>
                     <ul>
@@ -83,8 +86,8 @@
 
                     </ul>
                 </li>
-
-
+                <?php endif;?>
+                <?php if($this->session->userdata('tipo') == 4): ?>
                 <li class="submenu">
                     <a href="#"><i class="icon icon-th"></i> <span>Administrador</span> </a>
                     <ul>
@@ -97,7 +100,7 @@
 
                     </ul>
                 </li>
-
+                <?php endif;?>
             </ul>
 
         </div>

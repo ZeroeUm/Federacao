@@ -24,21 +24,23 @@ $label = array(
     </head>
     <body>
         <div class="row-fluid">
+            <div class="alert-error">
+                <?php echo validation_errors(); ?>
+            </div>
             <?php
-            echo validation_errors();
             echo form_fieldset('Área de login ao SGAI');
             echo form_open('login', $attr);
             ?>
             <div class="control-group">
                 <?php echo form_label('Usuário', 'usuario', $label); ?>
                 <div class="controls">
-                    <?php echo form_input('usuario', set_value('usuario'), 'id="usuario" class="span3" maxlength="20" required placeholder="Usuário"'); ?>
+                    <?php echo form_input('usuario', '', 'id="usuario" class="span3" maxlength="20" required placeholder="Usuário"'); ?>
                 </div>
             </div>
             <div class="control-group">
                 <?php echo form_label('Senha', 'senha', $label); ?>
                 <div class="controls">
-                    <?php echo form_password('senha', set_value('senha'), 'id="senha" class="span3" maxlength="10" required placeholder="Senha"'); ?>
+                    <?php echo form_password('senha', '', 'id="senha" class="span3" maxlength="10" required placeholder="Senha"'); ?>
                 </div>
             </div>
             <div class="controls">
