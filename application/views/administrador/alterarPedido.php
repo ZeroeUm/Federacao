@@ -23,11 +23,11 @@ echo form_open('administrador/atualizarPedido/' . $this->uri->segment(3), 'class
     <div class="span5 offset4" style="height: 35px;">
         <div class="control-group" style="height: 35px;">
             <?php
-            echo form_label("Situação do pedido: ", 'situacao', array('class' => 'control-label','style' => 'padding: 5px 0 0 0'));
+            echo form_label("Situação do pedido: ", 'situacao', array('class' => 'control-label', 'style' => 'padding: 5px 0 0 0'));
             ?>
             <div class="controls" style="padding: 0">
                 <?php
-                echo form_dropdown('situacao', $opStatus, $itens[0]['status'],"class='input-medium'")
+                echo form_dropdown('situacao', $opStatus, $itens[0]['status'], "class='input-medium'")
                 ?>
             </div>
         </div>
@@ -64,7 +64,15 @@ echo form_open('administrador/atualizarPedido/' . $this->uri->segment(3), 'class
         </tbody>
     </table>
 </div>
+<div class="row-fluid">
+    <div class="span3 offset8">
+        <?php
+        echo anchor('administrador/pedidos', 'Voltar', 'class="btn btn-primary"'); 
+        echo nbs(4);
+        echo form_submit("btnAlterar", "Alterar informações", 'class="btn btn-primary"');
+        ?>
+    </div>
+</div>
 <?php
-echo form_submit("btnAlterar", "Alterar informações", 'class="btn btn-primary"');
 echo form_close();
 ?>

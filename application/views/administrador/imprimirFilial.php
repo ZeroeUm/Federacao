@@ -126,7 +126,7 @@ echo form_open();
     </div>
 </div>
 <?php
-echo form_button('btnImprimir','Imprimir Informações','id="btnImprimir" onClick="imprimirInformacao(\'conteiner\')" class="btn btn-primary"');
+echo form_button('btnImprimir','Imprimir Informações','id="btnImprimir" onClick="imprimirInformacao(\'content\')" class="btn btn-primary"');
 echo form_close();
 echo form_fieldset_close();
 ?>

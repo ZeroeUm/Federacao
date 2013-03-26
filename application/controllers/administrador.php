@@ -13,18 +13,24 @@ class administrador extends CI_Controller
         parent::__construct();
         $this->checar_sessao();
     }
-    
+
     function checar_sessao()
     {
-        if(!$this->session->userdata('autentificado'))
-            redirect('login','refresh');
+        if (!$this->session->userdata('autentificado'))
+            redirect('login', 'refresh');
     }
-    
+
     function notificacoes()
     {
-        $this->load->view('header');
-        $this->load->view('administrador/notificacoes');
-        $this->load->view('footer');
+        $this->form_validation->set_rules('assunto', 'Assunto', 'required|alpha_acent|trim');
+        $this->form_validation->set_rules('txtNotificacao', 'Notificação', 'required|trim');
+        if ($this->form_validation->run() == FALSE):
+            $this->load->view('header');
+            $this->load->view('administrador/notificacoes');
+            $this->load->view('footer');
+        else:
+            $this->enviarNotificacoes();
+        endif;
     }
 
     function enviarNotificacoes()
@@ -158,6 +164,26 @@ class administrador extends CI_Controller
             return true;
     }
 
+    public function celular($input)
+    {
+        if (preg_match("^\(?\d{2}\)?[9]?\d{4}-?\d{4}$", $input)):
+            $this->form_validation->set_message('celular', 'O campo %s deve possuir um número de celular no formato de São Paulo (11)90494-3904.');
+            return false;
+        else:
+            return true;
+        endif;
+    }
+
+    public function rg($input)
+    {
+        if (preg_match("^\d{2}[.]\d{3}[.]\d{3}[-]\d{1}|[X]$", $input)):
+            $this->form_validation->set_message('rg', 'O campo %s deve possuir um número de RG no formato de São Paulo, 23.456.789-0.');
+            return false;
+        else:
+            return true;
+        endif;
+    }
+
     public function cnpj($input)
     {
         if (preg_match("(^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$)", $input))
@@ -171,14 +197,14 @@ class administrador extends CI_Controller
 
     function alterarFederado($federado)
     {
-        $this->form_validation->set_rules('nome', 'Nome', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('fMaterna', 'Filiação Materna', 'alpha_acent|trim');
-        $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'alpha_acent|trim');
+        $this->form_validation->set_rules('nome', 'Nome', 'required|alpha_acent|trim|xss_clean');
+        $this->form_validation->set_rules('fMaterna', 'Filiação Materna', 'alpha_acent|trim|xss_clean');
+        $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'alpha_acent|trim|xss_clean');
         $this->form_validation->set_rules('sexo', 'Sexo', 'required');
-        $this->form_validation->set_rules('dtNasc', 'Data', 'required|alpha_dash|trim');
-        $this->form_validation->set_rules('rg', 'RG', 'required');
+        $this->form_validation->set_rules('dtNasc', 'Data', 'required|alpha_dash|trim||xss_clean');
+        $this->form_validation->set_rules('rg', 'RG', 'required|rg|trim');
         $this->form_validation->set_rules('telefone', 'Telefone para contato', 'required|telephone|trim');
-        $this->form_validation->set_rules('celular', 'Celular para contato', 'required|trim');
+        $this->form_validation->set_rules('celular', 'Celular para contato', 'required|celular|trim');
         $this->form_validation->set_rules('email', 'E-mail para contato', 'required|valid_email|trim');
         $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required');
         $this->form_validation->set_rules('situacao', 'Situação na federação', 'required');
@@ -363,9 +389,9 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'alpha_acent|trim');
         $this->form_validation->set_rules('sexo', 'Sexo', 'required');
         $this->form_validation->set_rules('dtNasc', 'Data', 'required|alpha_dash|trim');
-        $this->form_validation->set_rules('rg', 'RG', 'required');
+        $this->form_validation->set_rules('rg', 'RG', 'required|rg|trim');
         $this->form_validation->set_rules('telefone', 'Telefone para contato', 'required|telephone|trim');
-        $this->form_validation->set_rules('celular', 'Celular para contato', 'required|trim');
+        $this->form_validation->set_rules('celular', 'Celular para contato', 'required|celular|trim');
         $this->form_validation->set_rules('email', 'E-mail para contato', 'required|valid_email|trim');
         $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required');
         $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required');

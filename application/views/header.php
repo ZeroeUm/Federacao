@@ -31,7 +31,8 @@
         </div>
         <div id="user-nav" class="navbar navbar-inverse">
             <ul class="nav btn-group">
-                <li class="btn btn-inverse"><a title="Logoff do sistema" href="login/logoff"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+                <li class="btn btn-inverse"><a title="Trocar senha de acesso" href="<?php echo base_url() ?>login/trocarSenha/<?php echo $this->session->userdata('id') ?>"><i class="icon icon-user"></i><span class="text">Trocar senha de acesso</span></a></li>
+                <li class="btn btn-inverse"><a title="Logoff do sistema" href="<?php echo base_url() ?>login/logoff"><i class="icon icon-off"></i> <span class="text">Logout</span></a></li>
             </ul>
         </div>
         <div id="sidebar">
