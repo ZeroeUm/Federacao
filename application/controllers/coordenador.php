@@ -16,6 +16,36 @@ class coordenador extends CI_Controller{
     
     
     
+    function prontuario(){
+            
+            
+         $this->load->model('coordenador_model','coordenador');   
+            $this->load->view('header');
+           
+            
+           
+           
+           if($this->input->post()){
+         
+         $data['dados'] =  $this->coordenador->getProntuario($this->input->post('data'));     
+          
+         print_r($data['dados'] );
+         
+          $this->load->view('/coordenador/prontuario',$data);
+         
+          
+         
+           }else{
+              
+               
+               $this->load->view('/coordenador/prontuario'); 
+               
+           }
+           
+           $this->load->view('footer');
+           
+    }
+    
     function criarEvento() {
         $this->load->view('header');
 
@@ -75,30 +105,20 @@ class coordenador extends CI_Controller{
 
 
     function editarEvento($id_evento){
+        $this->load->model('coordenador_model','coordenador');   
         
-        //$data['Eventos'] = $this->coordenador_model->getEventoUnico($id_evento);
-        
-       $u = new Evento();
-       $u->select("id_evento");
-       $u->get(3);
-       
-       $arr = array();
-       foreach ($u->all as $valor){
-         $arr[] = $valor->id_evento;  
-       };
-       
-       print_r($arr);
-       
-        
-        
-        
-        die('fim');
-        
-       $this->load->view('header');
-        $this->load->view('coordenador/editar');
+        $data['id'] = $id_evento;
+        $data['estados'] = $this->coordenador->getEstados();
+        $data['Eventos'] = $this->coordenador->getEventoUnico($id_evento);
+        $this->load->view('header');
+        $this->load->view('coordenador/editar',$data);
         $this->load->view('footer');
         
-        
+        if($this->input->post()){
+            
+            $this->coordenador->editEvento($this->input->post('data'));
+            redirect('/coordenador/listaEventos');
+        }
         
         
         

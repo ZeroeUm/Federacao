@@ -20,11 +20,81 @@ class Coordenador_model extends CI_Model {
         array('endereco'=>'id_endereco')
         );
     
+   
+    
+    
+    
+    function getProntuario($dados){
+       
+        $dados['nome'] = "Aluna Um";
+        $dados['rg'] = "69.523.920-5";
+        extract($dados);
+        print_r($rg);
+       
+        $sql = "SELECT 
+                    federado.nome,
+                    federado.rg,
+                    movimentos_por_faixa.descricao,
+                    prontuario.nota,
+                    faixas.descricao,
+                    evento_graduacao.numero_evento
+                    FROM federado
+                    join 
+                    prontuario using (id_federado)
+                    join 
+                    faixas using (id_faixa)
+                    join
+                    movimentos_por_faixa using(id_movimentos_por_faixa)
+                    join 
+                    evento_graduacao using (id_evento)
+                    where 
+                    federado.nome like '$nome'
+                    or
+                    federado.rg like '$rg'";
+        
+        $query =  $this->db->query($sql);;
+
+       return $query->result_array();
+    }
+    
+    function getEstados(){
+        
+        return $this->db
+                ->select('*')
+                ->from('estados')
+                ->get()                
+                ->result_array();
+        
+        
+    }
+    
+    function editEvento($dados){
+       
+        $data = explode('-',$dados['evento_graduacao']['data_evento']);
+        
+        $dados['evento_graduacao']['data_evento'] = $data['2']."-".$data['1']."-".$data['0'];
+        
+        $this->db->where('id_evento', $dados['evento_graduacao']['id_evento']);
+        $this->db->update('evento_graduacao', $dados['evento_graduacao']); 
+        
+        
+        $this->db->where('id_endereco', $dados['endereco']['id_endereco']);
+        $this->db->update('endereco', $dados['endereco']); 
+        
+       
+        
+    }
+    
+    
     function getEventoUnico($id_evento){
         
         return $this->db
-                ->limit('2')     
-                ->get('evento_graduacao')                
+                ->select('*')
+                ->from('evento_graduacao')
+                ->where('id_evento',$id_evento)
+                ->join('endereco','evento_graduacao.id_endereco = endereco.id_endereco')
+                ->join('estados','endereco.uf = estados.id_estados')
+                ->get()                
                 ->result_array();
         
     }
