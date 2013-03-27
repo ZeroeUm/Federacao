@@ -2,7 +2,8 @@
 SQLyog Ultimate v9.02 
 MySQL - 5.5.16 : Database - federacao
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -73,11 +74,11 @@ CREATE TABLE `endereco` (
   KEY `FK_endereco_uf` (`uf`),
   CONSTRAINT `FK_endereco_tipo_endereco` FOREIGN KEY (`tipo_endereco`) REFERENCES `tipo_endereco` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `FK_endereco_uf` FOREIGN KEY (`uf`) REFERENCES `estados` (`id_estados`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 /*Data for the table `endereco` */
 
-insert  into `endereco`(`id_endereco`,`logradouro`,`numero`,`complemento`,`bairro`,`cidade`,`uf`,`tipo_endereco`) values (1,'Rua Inexistente',12,'ap. 23','Imaginação','Nula',26,1),(2,'Rua Imaginaria',43,'bl. 3 ap. 12','Inexistente','Inexistente',26,1),(3,'Rua Ficticia',45,'','Ficticio','Imaginária',26,1),(4,'Avenida da Não Existência',312,'fundos','Existência','Existente',26,1),(5,'Travessa dos Fundos',2,NULL,'Fundista','Nula',26,1),(6,'Praça dos Bobos',34,'bl. 1 ap. 43','Bobolândia','Nula',26,1),(7,'Praça da Força',0,NULL,'Existência','Existente',26,3),(8,'Avenida Existente',12,'sobreloja','Imaginação','Imaginária',26,3),(9,'Alameda Floradas',900,NULL,'Inexistente','Inexistente',26,3),(10,'Rua Principal',1200,NULL,'Ficticio','Imaginária',26,2),(11,'Avenida Primeira',100,NULL,'Bobolândia','Nula',26,2),(12,'Alameda dos Beija-flores',300,NULL,'Inexistente','Inexistente',26,2),(13,'Rua dos Bobos',123,'apartamento 44','Bobolandia','Inexistente',26,1),(14,'Alameda das Árvores',23,NULL,'Arboredo','Imaginária',26,1),(15,'Avenida Carolina Gonçalves',222,'quadra poliesportiva','Oculto','Inexistente',26,3),(16,'Avenida Carolina Gonçalves',222,'quadra poliesportiva','Oculto','Inexistente',26,3),(17,'Avenida Carolina Gonçalves',222,'quadra poliesportiva','Oculto','Inexistente',26,3),(18,'Avenida Carolina Gonçalves',222,'quadra poliesportiva','Oculto','Inexistente',26,3),(19,'Avenida Carolina Gonçalves',222,'quadra poliesportiva','Oculto','Inexistente',26,3);
+insert  into `endereco`(`id_endereco`,`logradouro`,`numero`,`complemento`,`bairro`,`cidade`,`uf`,`tipo_endereco`) values (1,'Rua Inexistente',12,'ap. 23','Imaginação','Nula',26,1),(2,'Rua Imaginaria',43,'bl. 3 ap. 12','Inexistente','Inexistente',26,1),(3,'Rua Ficticia',45,'','Ficticio','Imaginária',26,1),(4,'Avenida da Não Existência',312,'fundos','Existência','Existente',26,1),(5,'Travessa dos Fundos',2,NULL,'Fundista','Nula',26,1),(6,'Praça dos Bobos',34,'bl. 1 ap. 43','Bobolândia','Nula',26,1),(7,'Praça da Força',0,NULL,'Existência','Existente',26,3),(8,'Avenida Existente',12,'sobreloja','Imaginação','Imaginária',26,3),(9,'Alameda Floradas',900,NULL,'Inexistente','Inexistente',26,3),(10,'Rua Principal',1200,NULL,'Ficticio','Imaginária',26,2),(11,'Avenida Primeira',100,NULL,'Bobolândia','Nula',26,2),(12,'Alameda dos Beija-flores',300,NULL,'Inexistente','Inexistente',26,2),(13,'Rua dos Bobos',123,'apartamento 44','Bobolandia','Inexistente',26,1),(14,'Alameda das Árvores',23,NULL,'Arboredo','Imaginária',26,1),(15,'Avenida Carolina Gonçalves',222,'quadra poliesportiva','Oculto','Inexistente',26,3),(16,'Rua dos Bobos',10,'fundos','Bobolandia','Imaginária',26,1);
 
 /*Table structure for table `escolaridade` */
 
@@ -162,11 +163,11 @@ CREATE TABLE `federado` (
   CONSTRAINT `FK_federado_nacionalidade` FOREIGN KEY (`id_nacionalidade`) REFERENCES `nacionalidade` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `FK_federado_status_federado` FOREIGN KEY (`id_status`) REFERENCES `status_federado` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `FK_federado_tipo_federado` FOREIGN KEY (`id_tipo_federado`) REFERENCES `tipo_federado` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 /*Data for the table `federado` */
 
-insert  into `federado`(`id_federado`,`nome`,`filiacao_materna`,`filiacao_paterna`,`sexo`,`data_nasc`,`rg`,`telefone`,`celular`,`email`,`caminho_imagem`,`id_escolaridade`,`id_status`,`id_endereco`,`id_nacionalidade`,`id_tipo_federado`) values (1,'Administrador Jr.',NULL,'Administrador','M','1987-02-20','39.493.019-0','(11)3930-9490',NULL,'adm@gmail.com','sem foto',5,1,1,4,4),(2,'Coordenadora',NULL,NULL,'F','1988-04-29','49.019.193-1','(11)2300-0122',NULL,'coord@gmail.com','sem foto',4,1,2,3,3),(3,'Instrutor 1',NULL,NULL,'M','1989-02-20','39.019.392-1','(11)3349-9239','(11)92039-2932','instr1@gmail.com','sem foto',6,1,5,3,2),(4,'Instrutora 2',NULL,NULL,'F','1990-12-22','43.192.129-5','(11)2019-9494','(11)99029-0124','instr2@gmail.com','sem foto',4,1,3,17,2),(5,'Instrutor 3',NULL,NULL,'M','1978-09-20','42.092.940-4','(11)4319-4912','(11)99120-1249','instr3@yahoo.com.br','sem foto',5,1,1,2,2),(6,'Aluna Uma',NULL,NULL,'F','1995-03-04','69.523.920-5','(11)2359-9235','(11)90185-3592','alun1@hotmail.com','sem foto',4,1,4,1,1),(7,'Aluno Dois',NULL,NULL,'M','2000-08-31','49.129.124-4','(11)2401-1401','(11)99102-1924','alun2@terra.com','sem foto',2,1,6,4,1),(8,'Aluno Três',NULL,NULL,'M','2004-01-01','98.912.912-4','(11)2001-1294','(11)99120-1495','alun3@globo.com','sem foto',1,1,4,11,1),(9,'Aluna Quatro',NULL,NULL,'F','1997-12-31','59.129.120-1','(11)2333-1292','(11)91049-9194','alun4@ig.com.br','sem foto',2,1,3,1,1),(10,'Aluna Cinco',NULL,NULL,'F','1999-10-20','40.493.393-2','(11)4930-3403','(11)92300-9999','alun5@hotmail.com','tkd/Aluna_Cinco.jpg',2,0,2,2,1),(11,'Aluno Seis',NULL,NULL,'M','2000-01-25','49.923.239-3','(11)4292-1249','(11)94845-4049','alun6@pop.com','tkd/Aluno Seis.jpg',1,1,4,20,1),(12,'Aluno Sete','Mãe cinco','Pai dois','M','2003-05-16','34.909.998-3','(11)2344-0000','(11)90000-1111','alun7@alun.com','sem foto',1,1,13,17,1),(13,'Aluna Oito','Mãe Quatro','Pai Quatro','F','1993-02-28','29.102.029-2','(11)2920-2020','(11)99999-9999','alun8@globo.com','tkd/Aluna_Oito.jpg',5,1,14,3,1),(14,'Coordenador Capoeira',NULL,NULL,'M','1960-02-11','32.029.990-1','(11)2939-0003','(11)93000-2222','coordCap@cap.com','sem foto',9,1,17,1,3),(15,'Coordenadora Judo',NULL,NULL,'F','1972-12-01','38.293.202-2','(11)3432-2392','(11)92829-2492','coordJud@jud.com','sem foto',10,0,16,5,3),(16,'Coordenador Hapkido',NULL,NULL,'M','1980-08-12','56.023.020-1','(11)2392-0020','(11)90000-1234','coordHkd@hkd.com','sem foto',8,1,17,10,3),(17,'Coordenadora Krav Magá',NULL,NULL,'F','1977-07-07','39.001.140-9','(11)3290-2049','(11)94032-1093','coordKkm@kkm.com','sem foto',9,1,14,23,3),(18,'Coordenador MMA',NULL,NULL,'M','1988-08-08','41.491.419-1','(11)2333-0000','(11)99012-1249','coordMMA@mma.com','sem foto',6,0,14,20,3);
+insert  into `federado`(`id_federado`,`nome`,`filiacao_materna`,`filiacao_paterna`,`sexo`,`data_nasc`,`rg`,`telefone`,`celular`,`email`,`caminho_imagem`,`id_escolaridade`,`id_status`,`id_endereco`,`id_nacionalidade`,`id_tipo_federado`) values (1,'Administrador Jr.',NULL,'Administrador','M','1987-02-20','39.493.019-0','(11)3930-9490',NULL,'adm@gmail.com','sem foto',5,1,1,4,4),(2,'Coordenadora',NULL,NULL,'F','1988-04-29','49.019.193-1','(11)2300-0122',NULL,'coord@gmail.com','sem foto',4,1,2,3,3),(3,'Instrutor 1',NULL,NULL,'M','1989-02-20','39.019.392-1','(11)3349-9239','(11)92039-2932','instr1@gmail.com','sem foto',6,1,5,3,2),(4,'Instrutora 2',NULL,NULL,'F','1990-12-22','43.192.129-5','(11)2019-9494','(11)99029-0124','instr2@gmail.com','sem foto',4,1,3,17,2),(5,'Instrutor 3',NULL,NULL,'M','1978-09-20','42.092.940-4','(11)4319-4912','(11)99120-1249','instr3@yahoo.com.br','sem foto',5,1,1,2,2),(6,'Aluna Uma',NULL,NULL,'F','1995-03-04','69.523.920-5','(11)2359-9235','(11)90185-3592','alun1@hotmail.com','sem foto',4,1,4,1,1),(7,'Aluno Dois',NULL,NULL,'M','2000-08-31','49.129.124-4','(11)2401-1401','(11)99102-1924','alun2@terra.com','sem foto',2,1,6,4,1),(8,'Aluno Três',NULL,NULL,'M','2004-01-01','98.912.912-4','(11)2001-1294','(11)99120-1495','alun3@globo.com','sem foto',1,1,4,11,1),(9,'Aluna Quatro',NULL,NULL,'F','1997-12-31','59.129.120-1','(11)2333-1292','(11)91049-9194','alun4@ig.com.br','sem foto',2,1,3,1,1),(10,'Aluna Cinco',NULL,NULL,'F','1999-10-20','40.493.393-2','(11)4930-3403','(11)92300-9999','alun5@hotmail.com','sem foto',2,1,2,2,1),(11,'Aluno Seis',NULL,NULL,'M','2000-01-25','49.923.239-3','(11)4292-1249','(11)94845-4049','alun6@pop.com','tkd/Aluno_Seis.jpg',1,1,4,20,1),(12,'Aluno Sete','Mãe cinco','Pai dois','M','2003-05-16','34.909.998-3','(11)2344-0000','(11)90000-1111','alun7@alun.com','sem foto',1,1,13,17,1),(13,'Aluna Oito','Mãe Quatro','Pai Quatro','F','1993-02-28','29.102.029-2','(11)2920-2020','(11)99999-9999','alun8@globo.com','tkd/Aluna_Oito.jpg',5,0,14,3,1),(14,'Coordenador Capoeira',NULL,NULL,'M','1960-02-11','32.029.990-1','(11)2939-0003','(11)93000-2222','coordCap@cap.com','sem foto',9,1,14,1,3),(15,'Coordenadora Judo',NULL,NULL,'F','1972-12-01','38.293.202-2','(11)3432-2392','(11)92829-2492','coordJud@jud.com','sem foto',10,0,14,5,3),(16,'Coordenador Hapkido',NULL,NULL,'M','1980-08-12','56.023.020-1','(11)2392-0020','(11)90000-1234','coordHkd@hkd.com','sem foto',8,1,14,10,3),(17,'Coordenadora Krav Magá',NULL,NULL,'F','1977-07-07','39.001.140-9','(11)3290-2049','(11)94032-1093','coordKkm@kkm.com','sem foto',9,1,14,23,3),(18,'Coordenador MMA',NULL,NULL,'M','1988-08-08','41.491.419-1','(11)2333-0000','(11)99012-1249','coordMMA@mma.com','sem foto',6,0,14,20,3),(20,'Aluno Nove','Mãe Três','Pai Três','M','2006-01-18','23.009.930-1','(11)2230-3933','(11)94039-2021','alun9@msn.com','tkd/Aluno_Nove.jpg',1,1,16,29,1);
 
 /*Table structure for table `filial` */
 
@@ -326,16 +327,18 @@ insert  into `itens_pedido`(`id_pedido`,`numero`,`id_item`,`tamanho`,`quantidade
 DROP TABLE IF EXISTS `login`;
 
 CREATE TABLE `login` (
-  `id_login` int(11) NOT NULL,
+  `id_login` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
   `senha` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
   `id_federado` int(11) NOT NULL,
   PRIMARY KEY (`id_login`),
   KEY `FK_login_federado` (`id_federado`),
   CONSTRAINT `FK_login_federado` FOREIGN KEY (`id_federado`) REFERENCES `federado` (`id_federado`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 /*Data for the table `login` */
+
+insert  into `login`(`id_login`,`login`,`senha`,`id_federado`) values (1,'anove','d63918bad9',20),(2,'administrador','ie10oa14ak',1),(3,'coordenadora','ow0eo1010s',2),(4,'instrutor1','kd01kx9cma',3),(5,'instrutora2','kc0q120kxp',4),(6,'instrutor3','aop103kdal',5),(7,'auma','owmd20k22p',6),(8,'adois','941jdmdmd0',7),(9,'atres','kg84jso103',8),(10,'aquatro','o230rlakc0',9),(11,'acinco','jgo29e0ak8',10),(12,'aseis','mcv92ufr8q',11),(13,'asete','0fik4qoe92',12),(14,'aoito','la94ujb190',13),(15,'ccapoeira','o2iekc093n',14),(16,'chapkido','04398jlkas',16),(17,'cmma','i39ffla10d',18),(18,'cjudo','9113kfnjf0',15),(19,'ckrmaga','oq30dlqo1p',17);
 
 /*Table structure for table `mala-direta` */
 
@@ -371,7 +374,7 @@ CREATE TABLE `matricula` (
 
 /*Data for the table `matricula` */
 
-insert  into `matricula`(`id_federado`,`id_modalidade`,`id_filial`,`data_matricula`,`matricula_filial`) values (6,1,1,'2000-09-12','2000-09-12'),(7,1,3,'2011-11-11','2011-11-11'),(8,1,3,'2012-09-11','2012-09-11'),(9,1,2,'2008-08-08','2008-08-08'),(10,1,3,'2010-10-10','2010-10-10'),(11,1,1,'2010-12-01','2010-12-01'),(12,1,6,'2010-09-21','2010-09-21'),(13,1,8,'2011-08-22','2011-08-22');
+insert  into `matricula`(`id_federado`,`id_modalidade`,`id_filial`,`data_matricula`,`matricula_filial`) values (1,1,8,'2000-01-10','2000-01-10'),(2,1,2,'2000-03-20','2006-12-01'),(6,1,1,'2000-09-12','2000-09-12'),(7,1,3,'2011-11-11','2011-11-11'),(8,1,3,'2012-09-11','2012-09-11'),(9,1,2,'2008-08-08','2008-08-08'),(10,1,1,'2010-10-10','2013-03-06'),(11,1,1,'2010-12-01','2010-12-01'),(12,1,6,'2010-09-21','2010-09-21'),(13,1,8,'2011-08-22','2011-08-22'),(20,1,6,'2013-03-06','2013-03-06');
 
 /*Table structure for table `modalidade` */
 

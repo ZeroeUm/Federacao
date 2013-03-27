@@ -3,22 +3,23 @@
         <title>FEPAMI</title>
         <meta http-equiv="content-type" content="text/html" charset="ISO-8859-1" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="<?php echo base_url(); ?>assets/js/jquery-1.8.3.js"></script>
-        <script src="<?php echo base_url(); ?>assets/js/jquery-ui-1.9.2.custom.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/jquery-1.8.2.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/jquery.ui.custom.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/unicorn.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/jquery.chosen.js"></script>
-        
 
-        <link rel="stylesheet" href="<?php echo base_url();  ?>assets/css/jquery-ui-1.9.2.custom.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/chosen.css">
+        <script src="<?php echo base_url(); ?>assets/js/chosen.jquery.js"></script>
+
+
+<!--<script src="<?php // echo base_url();  ?>assets/js/unicorn.dashboard.js"></script>-->
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap-responsive.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/unicorn.main.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/unicorn.grey.css" class="skin-color">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
-      
-      
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/chosen.css">
+
     </head>
 
     <body>
@@ -30,19 +31,17 @@
         </div>
         <div id="user-nav" class="navbar navbar-inverse">
             <ul class="nav btn-group">
-                <li class="btn btn-inverse"><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+                <li class="btn btn-inverse"><a title="Logoff do sistema" href="login/logoff"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
             </ul>
         </div>
-       
-        <div id="sidebar" style="position: absolute">
-             <div class="row-fluid">
-             <img src="http://placehold.it/140x190" class="img-polaroid" style="margin: 20px;">
-             </div>
+        <div id="sidebar">
+            <img width="140px" heigth="190px" src="<?php echo(($this->session->userdata('foto')!= "sem foto")?"federados/fotos/".$this->session->userdata('foto'):"http://placehold.it/140x190/000000/FFFFFF&text=%3F") ?>" class="img-polaroid" style="margin: 20px;">
+
             <a href="#" class="visible-phone"><i class="icon icon-home"></i> Menu oculto</a>
-            <ul>
+            <ul style="display: block; ">
                 <li >
-                    <a href="#"><span>Nome:Nome completo do Aluno</span></a> 
-                    <a href="#"><span>Categoria: Judo</span></a> 
+                    <a href="#"><span>Nome: <?php echo $this->session->userdata('nome')?></span></a> 
+                    <a href="#"><span>Categoria: <?php echo $this->session->userdata('modalidade') ?></span></a> 
 
                 </li>
 
@@ -51,58 +50,63 @@
                 <li class="submenu">
                     <a href="#"><i class="icon icon-pause"></i> <span>Alunos</span> </a>
                     <ul>
-                        <li><a href="<?php echo site_url('alunos/notas'); ?>">Histórico pessoal de notas</a></li>
-                        <li><a href="<?php echo site_url('alunos/eventos'); ?>">Cronograma de eventos da Federação</a></li>
-                        <li><a href="<?php echo site_url('alunos/historico'); ?>">Histórico de atividades</a></li>
+                        <li><a href="<?php echo site_url('alunos/notas'); ?>">Histï¿½rico pessoal de notas</a></li>
+                        <li><a href="<?php echo site_url('alunos/eventos'); ?>">Cronograma de eventos da Federaï¿½ï¿½o</a></li>
+                        <li><a href="<?php echo site_url('alunos/historico'); ?>">Histï¿½rico de atividades</a></li>
                         <li><a href="<?php echo site_url('alunos/modalidade'); ?>">Currriculo da modalidade</a></li>
 
                     </ul>
                 </li>
+                <?php if ($this->session->userdata('tipo') >= 2):?>
                 <li class="submenu">
                     <a href="#"><i class="icon icon-th-list"></i> <span>Instrutores</span> </a>
                     <ul>
-                        <li class="icn_edit_article"><a href="<?php echo site_url('instrutores/cadastro'); ?>">Manutenção de dados de alunos</a></li>
-                        <li class="icn_add_user"><a href="<?php echo site_url('instrutores/novoaluno'); ?>">Cadastrar novo aluno na Federação</a></li>
-                        <li class="icn_tags"><a href="<?php echo site_url('instrutores/inscricao'); ?>">Inscrever alunos em Graduação de Faixa</a></li>
-                        <li class="icn_categories"><a href="<?php echo site_url('instrutores/manutencao'); ?>">Manutenção de participantes em Graduação de Faixa</a></li>
-                        <li class="icn_folder"><a href="<?php echo site_url('instrutores/evento') ?>">Verificar notas de Graduação de faixa</a></li>
+                        <li class="icn_edit_article"><a href="<?php echo site_url('instrutores/cadastro'); ?>">Manutenï¿½ï¿½o de dados de alunos</a></li>
+                        <li class="icn_add_user"><a href="<?php echo site_url('instrutores/novoaluno'); ?>">Cadastrar novo aluno na Federaï¿½ï¿½o</a></li>
+                        <li class="icn_tags"><a href="<?php echo site_url('instrutores/inscricao'); ?>">Inscrever alunos em Graduaï¿½ï¿½o de Faixa</a></li>
+                        <li class="icn_categories"><a href="<?php echo site_url('instrutores/manutencao'); ?>">Manutenï¿½ï¿½o de participantes em Graduaï¿½ï¿½o de Faixa</a></li>
+                        <li class="icn_folder"><a href="<?php echo site_url('instrutores/evento') ?>">Verificar notas de Graduaï¿½ï¿½o de faixa</a></li>
 
                     </ul>
                 </li>
+                <?php endif;?>
+                <?php if($this->session->userdata('tipo') >= 3):?>
                 <li class="submenu">
                     <a href="#"><i class="icon icon-th-large"></i> <span>Coordenadores</span> </a>
                     <ul>
                         <li class="icn_new_article"><a href="<?php echo site_url('coordenador/modalidade'); ?>">Verificar professores da modalidade</a></li>
-                        <li class="icn_categories"><a href="<?php echo site_url('coordenador/dados_filial'); ?>">Manutenção de dados de filiais</a></li>
+                        <li class="icn_categories"><a href="<?php echo site_url('coordenador/index'); ?>">Manutenï¿½ï¿½o de dados de filiais</a></li>
                         <li class="icn_new_article"><a href="<?php echo site_url('coordenador/index'); ?>">Emitir certificados</a></li>
                         <li class="icn_folder"><a href="<?php echo site_url('coordenador/index'); ?>">Enviar pedido de compra de faixa</a></li>
-                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/index'); ?>">Emitir prontuário de notas para pré-avaliação</a></li>
-                        <li class="icn_categories"><a href="<?php echo site_url('coordenador/index'); ?>">Manutenção de curriculo da modalidade</a></li>
-                        <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/index'); ?>">Verificar relação de participantes em Graduação</a></li>
-                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/criarEvento') ?>">Criar evento de Graduação</a></li>
-                        <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/prontuario') ?>">Emitir Notas</a></li>
+                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/index'); ?>">Emitir prontuï¿½rio de notas para prï¿½-avaliaï¿½ï¿½o</a></li>
+                        <li class="icn_categories"><a href="<?php echo site_url('coordenador/index'); ?>">Manutenï¿½ï¿½o do Currï¿½culo da modalidade</a></li>
+                        <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/index'); ?>">Verificar relaï¿½ï¿½o de participantes em Graduaï¿½ï¿½o</a></li>
+                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/index') ?>">Criar evento de Graduaï¿½ï¿½o</a></li>
+                        <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/index') ?>">Lanï¿½ar Notas</a></li>
 
                     </ul>
                 </li>
-
-
+                <?php endif;?>
+                <?php if($this->session->userdata('tipo') == 4): ?>
                 <li class="submenu">
                     <a href="#"><i class="icon icon-th"></i> <span>Administrador</span> </a>
                     <ul>
-                        <li class="icn_folder"><a href="<?php echo site_url('administrador/notificacoes'); ?>">Enviar notificação via e-mail</a></li>
-                        <li class="icn_categories"><a href="<?php echo site_url('administrador/federados'); ?>">Manutenção de dados de Federados</a></li>
-                         <li class="icn_money"><a href="<?php echo site_url('administrador/pedidos'); ?>">Manutenção de pedidos de compra de faixa</a></li>
-                        <li class="icn_tags"><a href="<?php echo site_url('administrador/historico'); ?>">Verificar Histórico de atividades de Federado</a></li>
-                        <li class="icn_categories"><a href="<?php echo site_url('administrador/filiais'); ?>">Manutenção de dados de Filiais</a></li>
-                        <li class="icn_edit_article"><a href="<?php echo site_url('administrador/maladireta'); ?>">Manutenção de mala-direta de aniversariantes</a></li>
+                        <li class="icn_folder"><a href="<?php echo site_url('administrador/notificacoes'); ?>">Enviar notificaï¿½ï¿½es via e-mail</a></li>
+                        <li class="icn_categories"><a href="<?php echo site_url('administrador/federados'); ?>">Manutenï¿½ï¿½o de dados de Federados</a></li>
+                        <li class="icn_money"><a href="<?php echo site_url('administrador/pedidos'); ?>">Manutenï¿½ï¿½o de pedidos de compra de faixa</a></li>
+                        <li class="icn_tags"><a href="<?php echo site_url('administrador/historico'); ?>">Verificar Histï¿½rico de atividades de Federado</a></li>
+                        <li class="icn_categories"><a href="<?php echo site_url('administrador/filiais'); ?>">Manutenï¿½ï¿½o de dados de Filiais</a></li>
+                        <li class="icn_edit_article"><a href="<?php echo site_url('administrador/maladireta'); ?>">Manutenï¿½ï¿½o de mala-direta ï¿½ aniversariantes</a></li>
 
                     </ul>
                 </li>
-
+                <?php endif;?>
             </ul>
 
         </div>
 
         <div id="content" style="min-height: 800px">
+
+        <div id="content">
 
 

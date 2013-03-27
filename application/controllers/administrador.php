@@ -11,14 +11,13 @@ class administrador extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        session_start();
+        $this->checar_sessao();
     }
     
     function checar_sessao()
     {
-        if(! $this->session->userdata('id')):
-            redirect(base_url().'/login','refresh');
-        endif;
+        if(!$this->session->userdata('autentificado'))
+            redirect('login','refresh');
     }
     
     function notificacoes()

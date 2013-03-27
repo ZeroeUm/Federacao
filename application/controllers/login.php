@@ -5,55 +5,66 @@
  * @author Humberto
  */
 
-class login extends CI_Controller
+class Login extends CI_Controller
 {
 
     function __construct()
     {
         parent::__construct();
-        $this->load->model("Login_model", 'login');
+        $this->load->model("Login_model", 'login',TRUE);
     }
 
     function index()
     {
-        $this->form_validation->set_rules('usuario', 'Usuário', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('senha', 'Senha', 'trim|required|xss_clean|verificar_banco');
+        $this->form_validation->set_rules('usuario', 'Usuário', 'trim|xss_clean|required');
+        $this->form_validation->set_rules('senha', 'Senha', 'trim|callback_verificar_banco|xss_clean|required');
 
         if ($this->form_validation->run() == FALSE):
             $this->load->view('login');
         else:
-            
-        endif;    
-        
+            //$this->verificaStatus($this->input->post('usuario'), $this->input->post('senha'));
+            redirect('home','refresh');
+        endif;
     }
 
     function verificar_banco($senha)
     {
-        $usuario = $this->input->post('usuario');
-        
-        $result = $this->login->login($usuario, $senha);
-        
-        if ($result):
-            $dadosUsuario = $this->login->dadosUsuario($result[0]['id_federado']);
-            foreach ($dadosUsuario as $dado):
-                $this->session->set_userdata('id', $dado['id']);
-                $this->session->set_userdata('nome', $dado['nome']);
-                $this->session->set_userdata('foto', $dado['foto']);
-                $this->session->set_userdata('modalidade', $dado['modalidade']);
-                $this->session->set_userdata('tipo', $dado['tipo']);
-            endforeach;
+        if ($this->verificaStatus($this->input->post('usuario'), $senha)):
             return TRUE;
         else:
-            $this->form_validation->set_message('verificar_banco', 'Usuário ou senha inválidos');
+            $this->form_validation->set_message('verificar_banco', (($this->session->userdata('msg'))?$this->session->userdata('msg'):'Usuário ou senha inválidos.'));
+            return FALSE;
+        endif;
+    }
+
+    function verificaStatus($usuario, $senha)
+    {
+        if ($this->login->verificarStatus($usuario)):
+            if ($this->login->login($usuario, $senha)):
+                $resultado = $this->login->IDFedereado($usuario,$senha);
+                $dadosUsuario = $this->login->dadosUsuario($resultado[0]['id_federado']);
+                $this->session->set_userdata($dadosUsuario[0]);
+                $this->session->set_userdata('autentificado',TRUE);
+                //echo "ENTROU";
+                return TRUE;
+            else:
+                //echo "WRONG";
+                return FALSE;
+            endif;
+        else:
+            $msg = "Usuário inativo na federação, acesso não permitido.";
+            $this->session->set_userdata('msg',$msg);
+            //echo "INATIVO";
             return FALSE;
         endif;
     }
 
     function logoff()
     {
-        $this->session->unset_userdata('logado');
-        session_destroy();
-        redirect('login', 'refresh');
+        if($this->session->userdata('autentificado')):
+            $this->session->sess_destroy();
+            redirect('login','refresh');
+        endif;
     }
 
 }
