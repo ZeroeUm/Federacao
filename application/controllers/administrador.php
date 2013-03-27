@@ -278,8 +278,8 @@ class administrador extends CI_Controller
         $this->load->model('Administrador_model', 'administrador');
         $endereco = array();
         $federado = array();
-
-        $this->alterarMatricula($this->input->post('federado'), $this->input->post('filial'), 1);
+        
+        (($this->input->post('antigaFilial') != $this->input->post('filial'))? $this->alterarMatricula($this->input->post('federado'), $this->input->post('filial'), 1):"");
 
         $endereco['logradouro'] = $this->input->post('logradouro');
         $endereco['numero'] = $this->input->post('numero');
@@ -302,7 +302,7 @@ class administrador extends CI_Controller
         $federado['id_nacionalidade'] = $this->input->post('nacionalidade');
         $federado['id_tipo_federado'] = $this->input->post('tipo');
         $federado['caminho_imagem'] = (isset($foto) ? "tkd/" . $foto : "sem foto");
-
+        
         $this->administrador->AtualizarDadosFederado($this->input->post('federado'), $federado);
 
         $this->administrador->AtualizarEndereco($this->input->post('endereco'), $endereco);
@@ -330,8 +330,8 @@ class administrador extends CI_Controller
         $this->load->model('Administrador_model', 'administrador');
         $matricula = array();
         $matricula['id_federado'] = $federado;
-        $matricula['id_modalidade'] = $filial;
-        $matricula['id_filial'] = $modalidade;
+        $matricula['id_modalidade'] = $modalidade;
+        $matricula['id_filial'] = $filial;
         $matricula['matricula_filial'] = date("Y-m-d");
 
         $this->administrador->alterarMatricula($federado, $modalidade, $matricula);

@@ -202,7 +202,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            echo form_dropdown('filial',array("#" => "Escolha uma filial"),set_value('filial',"#"),'id="filial" class="span3" required');
+            echo form_dropdown('filial',array("#" => "Escolha uma filial"),set_value('filial',"#"),'id="filial" class="span4" required');
             ?>
         </div>
     </div>

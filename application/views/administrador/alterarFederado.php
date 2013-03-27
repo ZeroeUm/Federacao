@@ -16,7 +16,7 @@
 <?php
 $federado = $federado[0];
 $endereco = $endereco[0];
-$hidden = array("federado" => $federado['id_federado'], "endereco" => $endereco['id_endereco']);
+$hidden = array("federado" => $federado['id_federado'], "endereco" => $endereco['id_endereco'],"antigaFilial" => $federado['filial']);
 $attr = array(
     "class" => "form-horizontal",
     "id" => "frmAlterar",
@@ -57,7 +57,7 @@ $label = array(
         <div class="controls">
             <?php
             $inFMaterna = 'id="fMaterna" class="span3" maxlength="60"';
-            echo form_input('fMaternta', set_value('fMaterna', $federado['filiacao_materna']), $inFMaterna);
+            echo form_input('fMaterna', set_value('fMaterna', $federado['filiacao_materna']), $inFMaterna);
             ?>
         </div>
     </div>
@@ -226,7 +226,7 @@ $label = array(
             <?php
             foreach ($filiais as $f)
                 $opFilial[$f['id']] = $f['nome'];
-            echo form_dropdown('filial',$opFilial,set_value('filial',$federado['filial']),'id="filial" class="span2" required')
+            echo form_dropdown('filial',$opFilial,set_value('filial',$federado['filial']),'id="filial" class="span4" required')
             ?>
         </div>
     </div>
