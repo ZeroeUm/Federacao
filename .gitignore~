@@ -1,3 +1,5 @@
-nbproject/*
+/application/config/config.php
+/application/config/database.php
+/nbproject/*
 /*.zip
-/application/config/
+
