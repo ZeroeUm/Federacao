@@ -18,7 +18,7 @@ class Instrutores extends CI_Controller {
     }
 
     function cadastro() {
-        $this->load->model('instrutor_model');
+        $this->load->model('Instrutor_model');
         $tema["instrutor"] = $this->Instrutor_model->cadastro();
         $this->load->view('header');
         $this->load->view('instrutores/cadastro', $tema);
@@ -106,7 +106,7 @@ class Instrutores extends CI_Controller {
         $this->form_validation->set_rules('email', 'E-mail para contato', 'required|valid_email|trim');
         $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required');
         $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required');
-        $this->form_validation->set_rules('tipo', 'Tipo de federado na federação', 'required');
+
         $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|alpha_acent|trim');
         $this->form_validation->set_rules('numero', 'Número do endereço', 'required|is_natural_no_zero|trim');
         $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|alpha_acent|trim');
@@ -120,7 +120,7 @@ class Instrutores extends CI_Controller {
             $dados['escolaridade'] = $this->instrutor->getEscolaridade();
             $dados['statusFederado'] = $this->instrutor->getStatus();
             $dados['uf'] = $this->instrutor->getUF();
-            $dados['tipo'] = $this->instrutor->getTipoFederado();
+
             $this->load->view('instrutores/incluirFederado', $dados);
             $this->load->view('footer');
         } else {
@@ -193,6 +193,45 @@ class Instrutores extends CI_Controller {
         }
     }
 
+    function salvarFederado($dados, $foto = NULL) {
+        $this->load->model('Instrutor_model', 'instrutor');
+        $endereco = array();
+        $federado = array();
+
+        $endereco['logradouro'] = $this->input->post('logradouro');
+        $endereco['numero'] = $this->input->post('numero');
+        $endereco['complemento'] = $this->input->post('compl');
+        $endereco['tipo_endereco'] = 1;
+        $endereco['bairro'] = $this->input->post('bairro');
+        $endereco['cidade'] = $this->input->post('cidade');
+        $endereco['uf'] = $this->input->post('uf');
+
+        $this->instrutor->InserirEndereco($endereco);
+
+        $federado['id_endereco'] = $this->db->insert_id();
+
+        $federado['nome'] = $this->input->post('nome');
+        $federado['filiacao_materna'] = ($this->input->post('fMaterna') ? $this->input->post('fMaterna') : NULL);
+        $federado['filiacao_paterna'] = ($this->input->post('fPaterna') ? $this->input->post('fPaterna') : NULL);
+        $federado['sexo'] = $this->input->post('sexo');
+        $federado['data_nasc'] = date('Y-m-d', strtotime($this->input->post('dtNasc')));
+        $federado['rg'] = $this->input->post('rg');
+        $federado['telefone'] = $this->input->post('telefone');
+        $federado['celular'] = $this->input->post('celular');
+        $federado['email'] = $this->input->post('email');
+        $federado['id_escolaridade'] = $this->input->post('escolaridade');
+        $federado['id_nacionalidade'] = $this->input->post('nacionalidade');
+        $federado['id_tipo_federado'] = 1;
+        $federado['caminho_imagem'] = (isset($foto) ? "tkd/" . $foto : "sem foto");
+
+        $this->instrutor->InserirFederado($federado);
+
+        $dados['federado'] = $federado['nome'];
+        $this->load->view('header');
+        $this->load->view('instrutores/sucessoInclusaoFederado', $dados);
+        $this->load->view('footer');
+    }
+
     function atualizarFederado($dados, $foto = NULL) {
         $this->load->model('Instrutor_model', 'instrutor');
         $endereco = array();
@@ -220,9 +259,9 @@ class Instrutores extends CI_Controller {
         $federado['id_tipo_federado'] = $this->input->post('tipo');
         $federado['caminho_imagem'] = (isset($foto) ? "tkd/" . $foto : "sem foto");
 
-        $this->instrutor->AtualizarDadosFederado($this->input->post('instrutor'), $federado);
-
         $this->instrutor->AtualizarEndereco($this->input->post('endereco'), $endereco);
+
+        $this->instrutor->AtualizarDadosFederado($this->input->post('federado'), $federado);
 
         $dados['federado'] = $federado['nome'];
         $this->load->view('header');
@@ -276,7 +315,7 @@ class Instrutores extends CI_Controller {
         $tmp = '';
         $data = $this->Instrutor_model->getFilial($id);
         if ($id == null) {
-            $tmp .= "<option value=''>Selecione a Filial</option>";
+            $tmp .= "<option value='' >Selecione a Filial</option>";
         } else if (!empty($data)) {
             $tmp .= "<option value=''>Selecione uma Filial</option>";
             foreach ($data as $row) {
@@ -291,16 +330,29 @@ class Instrutores extends CI_Controller {
 
     function getInscrito($filial) {
         $this->load->model('Instrutor_model', 'instrutor');
-        header('Content-type: application/x-json; charset=utf-8');
+        header('Content-type: application/x-json; charset=iso-8859-1', true);
+
+        //   echo (htmlentities(utf8_encode('é,não, três')));
         $filiais = $this->instrutor->getInscrito($filial);
+//        print_r($filiais);
         if (!empty($filiais)) {
-             for ($i = 0; $i < count($filiais); $i++) {
-            $resultado = array_map('htmlentities', $filiais[$i]);
-             }
-            echo(json_encode($resultado));
+            for ($i = 0; $i < count($filiais); $i++) {
+                $filiais[$i]['nome'] = utf8_encode($filiais[$i]['nome']);
+                $filiais[$i]['graduacao'] = utf8_encode($filiais[$i]['graduacao']);
+                $filiais[$i]['filial'] = utf8_encode($filiais[$i]['nome']);
+
+
+                //$resultado = array_map('htmlentities', $filiais['2']);
+            }
+            //print_r(count($filiais));
+            echo (json_encode($filiais));
         }
     }
-
+/*federado.id_federado as id, federado.nome as nome,
+      graduacao_federado.grau as graduacao, filial.nome as filial
+        */
+        
+        
     function manutencao($id = '1') {
         $this->load->model('Instrutor_model');
         $tema["instrutor"] = $this->Instrutor_model->getInscrito('1');

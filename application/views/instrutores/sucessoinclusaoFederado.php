@@ -5,7 +5,7 @@
     }
 ?>
 <div class="alert-success">
-    Alterações nas informações cadastrais de <b><?php echo $federado?></b> realizadas com sucesso.<br />
+    Inclusão de <b><?php echo $federado?></b> realizada com sucesso.<br />
     <b>
     <?php 
         echo (isset($upload_foto)?"Nova foto colocada no sistema.".br():"");

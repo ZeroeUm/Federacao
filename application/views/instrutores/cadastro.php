@@ -10,29 +10,21 @@ echo br();
 
 <!-- div com nomes da label-->
 <form action="" method="post">
-    <div id="instru">
-        <td>Instrutor</td>
-    </div>
 
-    <div id="fili">
-        <td>Filial</td>
-    </div>
-
-    <div id="stat">
-        <td>Status</td>
-    </div>
-
-    <div id="feder">
-        <td>Federado</td>
-    </div>
-    <!--fom das div's-->
 
 
     <!--incio dos combobox-->
 
     <div id="cad">
-        <table>
+        <table class="table table-bordered table-condensed">
             <tr>
+			<th>instrutor</th>
+			<th>Filial</th>
+			<th>Status</th>
+			<th>Filial</th>
+			</tr>
+			
+			<tr>
                 <!--<td>Instrutor</td>-->
                 <td>
                     <select name="instrutor" id="instrutor">
@@ -110,7 +102,7 @@ echo form_label("Nacionalidade","nacionalidade");
 echo form_input($nacionalidade);
 
 $faixa = array('id' => 'faixa', 'name' => 'faixa', 'maxlength' => '30', 'size' => '30', 'readonly' => 'readonly', 'class' => 'span3');
-echo form_label("Graduação atual","faixa");
+echo form_label("GraduaÃ§Ã£o atual","faixa");
 echo form_input($faixa);
 echo br();
 echo anchor("", "Imprimir Federado", array('class' => 'btn btn-large btn-primary', 'id' => 'imprimir'));

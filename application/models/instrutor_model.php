@@ -2,18 +2,6 @@
 
 class Instrutor_model extends CI_Model {
 
-    
-    
-    function get_instrutor_modalidade(){
-      $query = $this->select()
-                    ->join('federado')
-                    ->get();
-            return $query->result_array();    
-    }
-
-
-
-
     //SELECT federado.nome FROM federado INNER
     // JOIN filial WHERE federado.registro = filial.instrutor
     function cadastro() {
@@ -141,7 +129,7 @@ class Instrutor_model extends CI_Model {
     }
 
     /*
-     * @param array associativo com as informaÃ§Ãµes a serem inseridas no banco, onde as posiï¿½ï¿½es do array devem ser os campos da tabela e os valores as novas informaÃ§Ãµes a serem inseridas
+     * @param array associativo com as informações a serem inseridas no banco, onde as posições do array devem ser os campos da tabela e os valores as novas informações a serem inseridas
      */
 
     public function InserirFederado($dados = array()) {
@@ -169,8 +157,14 @@ class Instrutor_model extends CI_Model {
         return $this->db->get_where('endereco', array('id_endereco' => $id))->result_array();
     }
 
+    //SELECT tipo FROM tipo_federado WHERE id = 1
     public function getTipoFederado() {
-        return $this->db->get('tipo_federado')->result_array();
+        return $this->db
+                        ->select('tipo, id')
+                        ->from('tipo_federado')
+                        ->where('tipo_federado.id =', '1')
+                        ->get()
+                        ->result_array();
     }
 
     public function getUF() {
@@ -193,6 +187,51 @@ class Instrutor_model extends CI_Model {
 
     public function AtualizarEndereco($id, $dados = array()) {
         $this->db->update('endereco', $dados, array('id_endereco' => $id));
+    }
+
+    public function InserirEndereco($dados = array()) {
+        $this->db->insert('endereco', $dados);
+    }
+
+    function inscrever() {
+        $this->db->order_by('federado.nome', 'ASC');
+        return $this->db->select('instrutor.id_instrutor as id, federado.nome as nome')
+                        ->DISTINCT()
+                        ->from('instrutor')
+                        ->join('federado', 'federado.id_federado = instrutor.id_federado', 'inner')
+                        ->where(array('federado.id_tipo_federado' => "2"))
+                        ->get()
+                        ->result();
+    }
+
+    /*
+     * SELECT federado.id_federado as id, federado.nome as nome,
+      graduacao_federado.grau as graduacao, filial.nome as filial
+      FROM federado
+      INNER JOIN   matricula  ON matricula.id_federado = federado.id_federado
+      INNER JOIN    filial ON matricula.id_filial = filial.id_Filial
+      INNER JOIN graduacao_federado  ON graduacao_federado.id_federado = federado.id_federado
+      INNER JOIN modalidade ON modalidade.id_modalidade = graduacao_federado.id_modalidade
+      WHERE federado.id_tipo_federado = 1 AND filial.id_filial = 1 AND  federado.id_status = 1
+      AND  graduacao_federado.status = 1
+     * 
+     *   ->where(array('federado.id_tipo_federado' => '1', 'filial.id_filial' => $filial, 'federado.id_status' => $status))
+     */
+
+    function getInscrito($filial) {
+        $this->db->order_by('graduacao_federado.grau', 'ASC');
+        return $this->db
+                        ->select('federado.id_federado as id, federado.nome as nome,
+      graduacao_federado.grau as graduacao, filial.nome as filial')
+                        ->DISTINCT()
+                        ->from('federado')
+                        ->join('matricula', 'matricula.id_federado = federado.id_federado', 'inner')
+                        ->join('filial', 'matricula.id_filial = filial.id_filial', 'inner')
+                        ->join('graduacao_federado', 'graduacao_federado.id_federado = federado.id_federado', 'inner')
+                        ->join('modalidade', 'modalidade.id_modalidade = graduacao_federado.id_modalidade', 'inner')
+                        ->where(array('federado.id_tipo_federado' => '1', 'filial.id_Filial' => $filial, 'federado.id_status' => '1'))
+                        ->get()
+                        ->result_array();
     }
 
 }
