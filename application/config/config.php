@@ -14,7 +14,7 @@
   | path to your installation.
   |
  */
-$config['base_url'] = "http://localhost/Federacao";
+$config['base_url'] = "http://Federacao.local";
 
 /*
   |--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ $config['language'] = 'pt-br';
   | that require a character set to be provided.
   |
  */
-$config['charset'] = 'ISO-8859-1';
+$config['charset'] = 'utf8';
 
 /*
   |--------------------------------------------------------------------------

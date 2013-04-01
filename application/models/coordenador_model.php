@@ -21,8 +21,64 @@ class Coordenador_model extends CI_Model {
         );
     
    
+    function getFaixas($id_modalidade){
+        return $this->db->select('nome,id_faixa')
+                        ->from('faixa')
+                        ->where('id_modalidade',$id_modalidade)
+                        ->get()
+                        ->result_array();
+    }
     
-    
+    function getParticipantes($id_evento,$faixa){
+       
+        
+//        $sql = "SELECT 
+//                    graduacao_participantes.id_evento,
+//                    federado.nome,
+//                    federado.rg,
+//                    federado.sexo,
+//                    federado.email,
+//                    federado.telefone
+//                FROM 
+//                    federacao.graduacao_participantes
+//                join
+//                    federado using (id_federado)
+//                where 
+//                    graduacao_participantes.id_evento  = $id_evento";
+//        
+//        
+//         $query =  $this->db->query($sql);;
+//
+//        return $query->result_array();
+        
+        
+        
+        
+        $query = $this->db->select(
+                "graduacao_participantes.id_evento,
+                    evento_graduacao.id_modalidade,
+                    federado.nome,
+                    federado.rg,
+                    federado.sexo,
+                    federado.email,
+                    federado.telefone"
+                            )
+                ->from('graduacao_participantes')
+                ->join('federado','graduacao_participantes.id_federado = federado.id_federado')
+                ->join('evento_graduacao','graduacao_participantes.id_evento = evento_graduacao.id_evento')
+                ->where('graduacao_participantes.id_evento',$id_evento);
+                
+        
+        if($faixa == '0'){
+          
+        }else{
+           $query->where('graduacao_participantes.id_faixa',$faixa);
+        }
+       
+        
+            return $query->get()                
+                  ->result_array();
+    }
     
     function getProntuario($dados){
        
