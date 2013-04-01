@@ -15,6 +15,7 @@
 </script>
 <?php
 $federado = $federado[0];
+print_r($federado);
 $endereco = $endereco[0];
 $hidden = array("federado" => $federado['id_federado'],"endereco" => $endereco['id_endereco']);
 $attr = array(
@@ -30,10 +31,10 @@ $label = array(
     <?php echo validation_errors();?>    
 </div>
 <?php
-echo form_fieldset("Altera��o de registro de federado");
+echo form_fieldset("Alteração de registro de federado");
 echo form_open_multipart("instrutores/alterarFederado/".$this->uri->segment(3), $attr, $hidden);
 $imagem = array(
-    "src" => (($federado['caminho_imagem'] == "sem foto")?"http://placehold.it/140x140/000000/ffffff&text=%3F":'federados/fotos/'.$federado['caminho_imagem']),
+    "src" => (($federado['caminho_imagem'] == "sem foto")?"http://placehold.it/140x140/000000/ffffff&text=sem%20foto":'federados/fotos/'.$federado['caminho_imagem']),
     "alt" => "Foto do federado ".$federado['nome'],
     "title" => "Foto do federado ".$federado['nome'],
     "class" => "img-polaroid"    
@@ -47,13 +48,13 @@ echo img($imagem);
     <div class="controls">
         <?php
             $inNome = 'id="nome" class="span3" maxlength="60" required';
-            echo form_input('nome', set_value('nome',$federado['nome']), $inNome);
+            echo form_input('nome', set_value('nome', ($federado['nome'])), $inNome);
         ?>
     </div>
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Filia��o Materna", "fMaterna", $label);
+        echo form_label("Filiação Materna", "fMaterna", $label);
     ?>
     <div class="controls">
         <?php
@@ -64,7 +65,7 @@ echo img($imagem);
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Filia��o Paterna", "fPaterna", $label);
+        echo form_label("Filiaçao Paterna", "fPaterna", $label);
     ?>
     <div class="controls">
         <?php
@@ -142,7 +143,7 @@ echo img($imagem);
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Foto de identifica��o", "foto", $label);
+        echo form_label("Foto de identificaçao", "foto", $label);
     ?>
     <div class="controls">
         <?php
@@ -167,7 +168,7 @@ echo img($imagem);
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Situa��o", "situacao", $label);
+        echo form_label("Situaçao", "situacao", $label);
     ?>
     <div class="controls">
         <?php
@@ -220,7 +221,7 @@ echo img($imagem);
 </div>
 <div class="control-group">
     <?php
-        echo form_label("N�mero", "numero", $label);
+        echo form_label("Numero", "numero", $label);
     ?>
     <div class="controls">
         <?php
@@ -275,9 +276,9 @@ echo img($imagem);
         ?>
     </div>
 </div>
+<input class="btn btn-primary" name="btnAlterar" id="btnAlterar" type="submit" value="Alterar informaçaes">
 <?php
-$inBotao = 'id="btnAlterar" class="btn"';
-echo form_submit("btnAlterar", "Alterar informa��es", $inBotao);
+
 echo form_close();
 echo form_fieldset_close();
 ?>
