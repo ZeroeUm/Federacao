@@ -1,23 +1,26 @@
-<?php
-/* 2013-02-11
- * @author Humberto
- */
-echo($links);
-?>
-<table class="table table-condensed table-hover">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Data</th>
-            <th>Responsável</th>
-            <th>Fornecedor</th>
-            <th>Situação</th>
-            <th>Alterar</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-            foreach($resultado as $row):
+<div class="row-fluid" style="height: 100px;">
+    <?php
+    /* 2013-02-11
+     * @author Humberto
+     */
+    echo($links);
+    ?>
+</div>
+<div class="row-fluid">
+    <table class="table table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Data</th>
+                <th>Responsável</th>
+                <th>Fornecedor</th>
+                <th>Situação</th>
+                <th>Alterar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach ($resultado as $row):
                 switch ($row->status):
                     case 1:
                         $classe = "warning";
@@ -32,25 +35,25 @@ echo($links);
                         $classe = "error";
                         break;
                 endswitch;
-        ?>
-        <tr class="<?= $classe?>">
-            <td style="text-align: center;"><?= $row->id?></td>
-            <td style="text-align: center;"><?= date('d-m-Y',strtotime($row->data))?></td>
-            <td style="text-align: center;"><?= $row->responsavel?></td>
-            <td style="text-align: center;"><?= $row->fornecedor?></td>
-            <td style="text-align: center;"><?= $row->situacao?></td>
-            <td style="text-align: center;">
-                <a href="<?php echo base_url()?>administrador/alterarPedido/<?=$row->id?>" class="btn btn-link">Informações</a>
-                <a href="#modal" class="btn btn-link" role="button" data-toggle="modal">Status</a>
-            </td>            
-        </tr>
-        <?php
+                ?>
+                <tr class="<?= $classe ?>">
+                    <td style="text-align: center;"><?= $row->id ?></td>
+                    <td style="text-align: center;"><?= date('d-m-Y', strtotime($row->data)) ?></td>
+                    <td style="text-align: center;"><?= $row->responsavel ?></td>
+                    <td style="text-align: center;"><?= $row->fornecedor ?></td>
+                    <td style="text-align: center;"><?= $row->situacao ?></td>
+                    <td style="text-align: center;">
+                        <a href="<?php echo base_url() ?>administrador/alterarPedido/<?= $row->id ?>" class="btn btn-link">Informações</a>
+                    </td>            
+                </tr>
+                <?php
             endforeach;
-        ?>
-    </tbody>
-</table>
-<div id="modal">
+            ?>
+        </tbody>
+    </table>
 </div>
-<?php
-echo($links);
-?>
+<div class="row-fluid">
+    <?php
+    echo($links);
+    ?>
+</div>

@@ -8,7 +8,7 @@ function imprimirInformacao(div)
                "<body>"+
                conteudo.innerHTML+
                "</body></html>";
-    var janelaImprimir = window.open("", "Tela de impressão", 'width=750,height=650,top=50,left=50,toolbars=no,scroolbar=yes,status=no,resizable=yes');
+    var janelaImprimir = window.open("", "Tela de impressï¿½o", 'width=750,height=650,top=50,left=50,toolbars=no,scroolbar=yes,status=no,resizable=yes');
     janelaImprimir.document.writeln(html);
     janelaImprimir.document.close();
     janelaImprimir.focus();
@@ -29,13 +29,13 @@ function imprimirInformacao(div)
       "class" => "control-label"
     );
     $imagem = array(
-        "src" => (($fed['caminho_imagem'] == 'sem foto')?"http://placehold.it/140x140/000000/ffffff&text=sem%20foto":'federados/fotos/tkd'.$fed['caminho_imagem']),
+        "src" => (($fed['caminho_imagem'] == 'sem foto')?"http://placehold.it/140x140/000000/ffffff&text=%3F":'federados/fotos/tkd'.$fed['caminho_imagem']),
         "alt" => "Foto do federado " . $fed['nome'],
         "title" => "Foto do federado " . $fed['nome'],
         "class" => "img-polaroid"
     );
 
-    echo form_fieldset("Impressão de dados do federado");
+    echo form_fieldset("Impressï¿½o de dados do federado");
     echo form_open('', $attr);
     echo img($imagem);
 ?>
@@ -52,23 +52,23 @@ function imprimirInformacao(div)
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Filiação Materna","fMaterna",$label);
+        echo form_label("Filiaï¿½ï¿½o Materna","fMaterna",$label);
     ?>
     <div class="controls">
         <?php
             $inFMaterna = 'id="fMaterna" class="span3" disabled size="60"';
-            echo form_input('fMaterna',(($fed['fMaterna'] == "")?"Não fornecido":$fed['fMaterna']),$inFMaterna);
+            echo form_input('fMaterna',(($fed['fMaterna'] == "")?"Nï¿½o fornecido":$fed['fMaterna']),$inFMaterna);
         ?>
     </div>
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Filiação Paterna","fPaterna",$label);
+        echo form_label("Filiaï¿½ï¿½o Paterna","fPaterna",$label);
     ?>
     <div class="controls">
         <?php
             $inFPaterna = 'id="fPaterna" class="span3" disabled size="60"';
-            echo form_input('fPaterna',(($fed['fPaterna'] == "")?"Não fornecido":$fed['fPaterna']),$inFPaterna)
+            echo form_input('fPaterna',(($fed['fPaterna'] == "")?"Nï¿½o fornecido":$fed['fPaterna']),$inFPaterna)
         ?>
     </div>
 </div>
@@ -162,7 +162,7 @@ function imprimirInformacao(div)
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Situação","situacao",$label);
+        echo form_label("Situaï¿½ï¿½o","situacao",$label);
     ?>
     <div class="controls">
         <?php
@@ -184,7 +184,7 @@ function imprimirInformacao(div)
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Graduação atual","graduacao",$label);
+        echo form_label("Graduaï¿½ï¿½o atual","graduacao",$label);
     ?>
     <div class="controls">
         <?php
@@ -195,7 +195,7 @@ function imprimirInformacao(div)
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Endereço Residencial","endereco",$label);
+        echo form_label("Endereï¿½o Residencial","endereco",$label);
     ?>
     <div class="controls">
         <?php
@@ -205,7 +205,7 @@ function imprimirInformacao(div)
     </div>
 </div>
 <?php
-echo form_button('btnImprimir','Imprimir Informações','id="btnImprimir" onClick="imprimirInformacao(\'content\')" class="btn btn-primary"');
+echo form_button('btnImprimir','Imprimir Informaï¿½ï¿½es','id="btnImprimir" onClick="imprimirInformacao(\'conteiner\')" class="btn btn-primary"');
 echo form_close();
 echo form_fieldset_close();
 ?>

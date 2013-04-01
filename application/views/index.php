@@ -36,7 +36,7 @@
 
         <section id="secondary_bar">
             <div class="user">
-                <p style="index-z:+10;">Nome do usuï¿½rio</p>
+                <p style="index-z:+10;">Nome do usuário</p>
                 <!-- <a class="logout_user" href="#" title="Logout">Logout</a> -->
             </div>
             <div class="breadcrumbs_container">
@@ -45,41 +45,41 @@
         </section><!-- end of secondary bar -->
 
         <aside id="sidebar" class="column">
-            <img src="#" alt="imagem usuï¿½rio" title="imagem usuario" width="150" height="200" style="padding:5px 20px" />
+            <img src="#" alt="imagem usuário" title="imagem usuario" width="150" height="200" style="padding:5px 20px" />
             <h3>Alunos</h3>
             <ul class="toggle">
-                <li class="icn_profile"><a href="#">Histï¿½rico pessoal de notas</a></li>
+                <li class="icn_profile"><a href="#">Histórico pessoal de notas</a></li>
                 <li class="icn_folder"><a href="#">Cronograma de eventos da Federação</a></li>
-                <li class="icn_view_users"><a href="#">Histï¿½rico de atividades</a></li>
-                <li class="icn_folder"><a href="#">Currï¿½culo da modalidade</a></li>
+                <li class="icn_view_users"><a href="#">Histórico de atividades</a></li>
+                <li class="icn_folder"><a href="#">Currículo da modalidade</a></li>
             </ul>
 
             <h3>Instrutores</h3>
             <ul class="toggle">
-                <li class="icn_edit_article"><a href="#">Manutenï¿½ï¿½o de dados de alunos</a></li>
+                <li class="icn_edit_article"><a href="#">Manutenção de dados de alunos</a></li>
                 <li class="icn_add_user"><a href="#">Cadastrar novo aluno na Federação</a></li>
                 <li class="icn_tags"><a href="#">Inscrever alunos em Graduação de Faixa</a></li>
-                <li class="icn_categories"><a href="#">Manuteï¿½ï¿½o de participantes em Graduação de Faixa</a></li>
+                <li class="icn_categories"><a href="#">Manuteção de participantes em Graduação de Faixa</a></li>
             </ul>
             
             <h3>Coordenadores</h3>
             <ul class="toggle">
                 <li class="icn_new_article"><a href="#">Verificar professores da modalidade</a></li>
-                <li class="icn_categories"><a href="#">Manutenï¿½ï¿½o de dados de filiais</a></li>
+                <li class="icn_categories"><a href="#">Manutenção de dados de filiais</a></li>
                 <li class="icn_new_article"><a href="#">Emitir certificados</a></li>
                 <li class="icn_folder"><a href="#">Enviar pedido de compra de faixa</a></li>
-                <li class="icn_new_article"><a href="#">Emitir prontuï¿½rio de notas para prï¿½-avaliaï¿½ï¿½o</a></li>
-                <li class="icn_categories"><a href="#">Manutenï¿½ï¿½o do currï¿½culo da modalidade</a></li>
-                <li class="icn_edit_article"><a href="#">Verificar relaï¿½ï¿½o de participantes em Graduação</a></li>
+                <li class="icn_new_article"><a href="#">Emitir prontuário de notas para pré-avaliação</a></li>
+                <li class="icn_categories"><a href="#">Manutenção do currículo da modalidade</a></li>
+                <li class="icn_edit_article"><a href="#">Verificar relação de participantes em Graduação</a></li>
             </ul>
             <h3>Administrador</h3>
             <ul class="toggle">
-                <li class="icn_folder"><a href="#">Enviar notificaÃ§Ãµes via e-mail</a></li>
-                <li class="icn_categories"><a href="#">Manutenï¿½ï¿½o de dados de Federados</a></li>
-                <li class="icn_money"><a href="#">Manutenï¿½ï¿½o de pedidos de compra de faixa</a></li>
-                <li class="icn_tags"><a href="#">Verificar histï¿½rico de atividades de Federado</a></li>
-                <li class="icn_categories"><a href="#">Manutenï¿½ï¿½o de dados de Filiais</a></li>
-                <li class="icn_edit_article"><a href="#">Manuntenï¿½ï¿½o de mala-direta ï¿½ aniversariantes</a></li>
+                <li class="icn_folder"><a href="#">Enviar notificações via e-mail</a></li>
+                <li class="icn_categories"><a href="#">Manutenção de dados de Federados</a></li>
+                <li class="icn_money"><a href="#">Manutenção de pedidos de compra de faixa</a></li>
+                <li class="icn_tags"><a href="#">Verificar histórico de atividades de Federado</a></li>
+                <li class="icn_categories"><a href="#">Manutenção de dados de Filiais</a></li>
+                <li class="icn_edit_article"><a href="#">Manuntenção de mala-direta à aniversariantes</a></li>
             </ul>
 
             <footer>
@@ -91,7 +91,7 @@
 
         <section id="main" class="column">
 
-            <h4 class="alert_info">Bem vindo ao Dworker administraï¿½ï¿½o MMN.</h4>
+            <h4 class="alert_info">Bem vindo ao Dworker administração MMN.</h4>
 
             <article class="module width_full">
                 <header><h3>Meus Ganhos</h3></header>
