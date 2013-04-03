@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: 25/03/2013 às 15:01:00
+-- Tempo de Geração: 01/04/2013 às 16:19:13
 -- Versão do Servidor: 5.1.66-0ubuntu0.11.10.3
 -- Versão do PHP: 5.3.6-13ubuntu3.9
 
@@ -36,16 +36,7 @@ CREATE TABLE IF NOT EXISTS `certificado` (
   KEY `FK_tipo_certificado` (`id_tipo_certificado`),
   KEY `FK_certificado_federado` (`id_federado`),
   KEY `FK_evento_graduacao` (`id_evento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=4 ;
-
---
--- Extraindo dados da tabela `certificado`
---
-
-INSERT INTO `certificado` (`id_certificado`, `id_evento`, `id_federado`, `data_emissao`, `id_tipo_certificado`) VALUES
-(1, 20000105, 6, '2000-12-15', 1),
-(2, 20010101, 6, '2001-03-20', 2),
-(3, 20010103, 6, '2001-09-20', 3);
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -58,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `coordenador` (
   `id_federado` int(11) NOT NULL,
   PRIMARY KEY (`id_coordenador`),
   KEY `FK_coordenador_federado` (`id_federado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Extraindo dados da tabela `coordenador`
@@ -75,41 +66,22 @@ INSERT INTO `coordenador` (`id_coordenador`, `id_federado`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `empresa_rede`
---
-
-CREATE TABLE IF NOT EXISTS `empresa_rede` (
-  `id_empresa_rede` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(200) DEFAULT NULL,
-  `telefone` varchar(15) DEFAULT NULL,
-  `endereco` longtext,
-  `site` varchar(45) DEFAULT NULL,
-  `area` varchar(45) DEFAULT NULL,
-  `id` int(11) DEFAULT NULL,
-  `status_ativacao` int(11) DEFAULT '1',
-  `identificacao` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id_empresa_rede`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `endereco`
 --
 
 CREATE TABLE IF NOT EXISTS `endereco` (
   `id_endereco` int(12) NOT NULL AUTO_INCREMENT,
-  `logradouro` varchar(80) COLLATE latin1_spanish_ci NOT NULL,
+  `logradouro` varchar(80) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `numero` int(5) NOT NULL,
-  `complemento` varchar(20) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `bairro` varchar(30) COLLATE latin1_spanish_ci NOT NULL,
-  `cidade` varchar(30) COLLATE latin1_spanish_ci NOT NULL,
+  `complemento` varchar(20) CHARACTER SET latin1 COLLATE latin1_spanish_ci DEFAULT NULL,
+  `bairro` varchar(30) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `cidade` varchar(30) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `uf` int(2) NOT NULL,
-  `tipo_endereco` int(3) DEFAULT '1',
+  `tipo_endereco` int(3) DEFAULT NULL,
   PRIMARY KEY (`id_endereco`),
   KEY `FK_endereco_tipo_endereco` (`tipo_endereco`),
   KEY `FK_endereco_uf` (`uf`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
 -- Extraindo dados da tabela `endereco`
@@ -131,25 +103,10 @@ INSERT INTO `endereco` (`id_endereco`, `logradouro`, `numero`, `complemento`, `b
 (13, 'Rua dos Bobos', 123, 'apartamento 44', 'Bobolandia', 'Inexistente', 26, 1),
 (14, 'Alameda das Árvores', 23, NULL, 'Arboredo', 'Imaginária', 26, 1),
 (15, 'Avenida Carolina Gonçalves', 222, 'quadra poliesportiva', 'Oculto', 'Inexistente', 26, 3),
-(16, 'Avenida Carolina Gonçalves', 222, 'quadra poliesportiva', 'Oculto', 'Inexistente', 26, 3),
-(17, 'Avenida Carolina Gonçalves', 222, 'quadra poliesportiva', 'Oculto', 'Inexistente', 26, 3),
-(18, 'Avenida Carolina Gonçalves', 222, 'quadra poliesportiva', 'Oculto', 'Inexistente', 26, 3),
-(19, 'Avenida Carolina Gonçalves', 222, 'quadra poliesportiva', 'Oculto', 'Inexistente', 26, 3),
-(20, 'Rua Tomé de Lara', 161, 'Casa2', 'Tucuruvi', 'São Paulo', 26, NULL),
-(21, 'Rua Tomé de Lara', 161, 'Casa2', 'Tucuruvi', 'São Paulo', 26, NULL),
-(22, 'Rua Tomé de Lara', 161, 'Casa2', 'Tucuruvi', 'São Paulo', 26, NULL),
-(23, 'Rua Tomé de Lara', 161, 'Casa2', 'Tucuruvi', 'São Paulo', 26, NULL),
-(24, 'Rua Tomé de Lara', 161, 'Casa2', 'Tucuruvi', 'São Paulo', 26, NULL),
-(25, 'Rua Tomé de Lara', 161, 'Casa2', 'Tucuruvi', 'São Paulo', 26, NULL),
-(26, 'Rua Tomé de Lara', 161, 'Casa2', 'Tucuruvi', 'São Paulo', 26, NULL),
-(27, 'Rua Tomé de Lara', 161, 'Casa2', 'Tucuruvi', 'São Paulo', 26, NULL),
-(28, 'asdasd', 0, 'dasdad', 'asdas', 'asdasd', 26, NULL),
-(29, 'Av Paulista 352', 457, '', 'Jaçana', 'Campo Limpo', 26, NULL),
-(30, 'Av Paulista 352', 457, '', 'Jaçana', 'Campo Limpo', 26, 1),
-(31, 'Av Paulista 352', 457, '', 'Jaçana', 'Campo Limpo', 26, 1),
-(32, 'Av Paulista 352', 457, '', 'Jaçana', 'Campo Limpo', 26, 1),
-(33, 'Rua Tomé de Lara', 161, 'Casa2', 'Tucuruvi', 'São Paulo', 26, 1),
-(34, 'Rua dos eventos ', 161, '', 'jaçana', 'São Paulo', 26, 1);
+(16, 'Rua dos Bobos', 10, 'fundos', 'Bobolandia', 'Imaginária', 26, 1),
+(17, 'bgndjgbbbçbbçotçnogtebo', 12934, '', 'ebgfgfb', 'bgbgiubgtebui', 26, 1),
+(18, 'Rua dos Bobos', 12345, 'fundos', 'Ficticio', 'Inexistente', 26, 1),
+(19, 'Rua dos eventos', 161, '', 'Tucuruvi', 'S?o Paulo', 26, NULL);
 
 -- --------------------------------------------------------
 
@@ -159,9 +116,9 @@ INSERT INTO `endereco` (`id_endereco`, `logradouro`, `numero`, `complemento`, `b
 
 CREATE TABLE IF NOT EXISTS `escolaridade` (
   `id` int(2) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(40) COLLATE latin1_spanish_ci NOT NULL,
+  `descricao` varchar(40) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Extraindo dados da tabela `escolaridade`
@@ -188,10 +145,10 @@ INSERT INTO `escolaridade` (`id`, `descricao`) VALUES
 
 CREATE TABLE IF NOT EXISTS `estados` (
   `id_estados` int(2) NOT NULL,
-  `sigla` varchar(2) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `nome` varchar(30) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `sigla` varchar(2) CHARACTER SET latin1 COLLATE latin1_spanish_ci DEFAULT NULL,
+  `nome` varchar(30) CHARACTER SET latin1 COLLATE latin1_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_estados`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `estados`
@@ -238,60 +195,49 @@ CREATE TABLE IF NOT EXISTS `evento_graduacao` (
   `data_evento` date NOT NULL,
   `id_endereco` int(12) NOT NULL,
   `id_modalidade` int(2) NOT NULL,
-  `descricao` longtext COLLATE latin1_spanish_ci,
+  `descricao` longtext CHARACTER SET latin1 COLLATE latin1_spanish_ci,
   PRIMARY KEY (`id_evento`),
   KEY `FK_evento_graduacao_endereco` (`id_endereco`),
   KEY `FK_evento_graduacao_modalidade` (`id_modalidade`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `evento_graduacao`
 --
 
 INSERT INTO `evento_graduacao` (`id_evento`, `numero_evento`, `data_evento`, `id_endereco`, `id_modalidade`, `descricao`) VALUES
-(20000105, 5, '2000-12-15', 11, 1, NULL),
-(20010101, 1, '2001-03-20', 10, 1, NULL),
-(20010103, 3, '2001-09-20', 12, 1, NULL),
-(20020101, 1, '2002-03-30', 10, 1, NULL),
-(20080105, 5, '2008-12-02', 12, 1, NULL),
-(20090102, 2, '2009-06-20', 12, 1, NULL),
-(20090105, 5, '2009-12-01', 10, 1, NULL),
-(20100102, 2, '2010-06-20', 12, 1, NULL),
-(20100103, 3, '2010-09-20', 10, 1, NULL),
-(20100105, 5, '2010-12-06', 10, 1, NULL),
-(20110101, 1, '2011-03-22', 10, 1, NULL),
-(20110102, 2, '2011-06-20', 12, 1, NULL),
-(20110103, 3, '2011-09-22', 10, 1, NULL),
-(20110105, 5, '2011-12-15', 10, 1, NULL),
-(20120101, 1, '2012-03-20', 10, 1, NULL),
-(20120102, 2, '2012-06-29', 11, 1, NULL),
-(20120103, 3, '2012-09-22', 10, 1, NULL),
-(20120104, 4, '2012-06-29', 11, 1, NULL),
-(20120105, 5, '2012-12-12', 12, 1, NULL),
-(2147483647, 1, '2013-03-31', 34, 1, '<p>Evento de gradua&ccedil;&atilde;o de faixa branca para azul</p>');
+(2147483647, 1, '2013-04-30', 19, 1, '<p>evento de gradua&ccedil;&atilde;o de eventos</p>');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `faixas`
+-- Estrutura da tabela `faixa`
 --
 
-CREATE TABLE IF NOT EXISTS `faixas` (
-  `id_faixa` int(1) NOT NULL AUTO_INCREMENT,
-  `descricao` text NOT NULL,
-  `id_modalidade` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `faixa` (
+  `id_faixa` int(11) NOT NULL AUTO_INCREMENT,
+  `id_modalidade` int(11) DEFAULT NULL,
+  `nome` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
   PRIMARY KEY (`id_faixa`),
-  KEY `fk_faixas_1` (`id_modalidade`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  KEY `fk_faixa_1` (`id_modalidade`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
--- Extraindo dados da tabela `faixas`
+-- Extraindo dados da tabela `faixa`
 --
 
-INSERT INTO `faixas` (`id_faixa`, `descricao`, `id_modalidade`) VALUES
-(1, 'Faixa Branca', 1),
-(2, 'Faixa Azul', 1),
-(3, 'Faixa Amarela', 1);
+INSERT INTO `faixa` (`id_faixa`, `id_modalidade`, `nome`) VALUES
+(1, 1, 'Faixa Branca'),
+(2, 1, 'Faixa Amarela'),
+(3, 1, 'Ponta Verde'),
+(4, 1, 'Verde'),
+(5, 1, 'Ponta Azul'),
+(6, 1, 'Azul'),
+(7, 1, 'Ponta Vermelha'),
+(8, 1, 'Vermelha'),
+(9, 1, 'Ponta Preta'),
+(10, 1, 'Preta'),
+(11, NULL, 'Faixa Branca');
 
 -- --------------------------------------------------------
 
@@ -301,16 +247,16 @@ INSERT INTO `faixas` (`id_faixa`, `descricao`, `id_modalidade`) VALUES
 
 CREATE TABLE IF NOT EXISTS `federado` (
   `id_federado` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(60) COLLATE latin1_spanish_ci NOT NULL,
-  `filiacao_materna` varchar(60) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `filiacao_paterna` varchar(60) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `sexo` varchar(1) COLLATE latin1_spanish_ci NOT NULL COMMENT 'M/F',
+  `nome` varchar(60) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `filiacao_materna` varchar(60) CHARACTER SET latin1 COLLATE latin1_spanish_ci DEFAULT NULL,
+  `filiacao_paterna` varchar(60) CHARACTER SET latin1 COLLATE latin1_spanish_ci DEFAULT NULL,
+  `sexo` varchar(1) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL COMMENT 'M/F',
   `data_nasc` date NOT NULL,
-  `rg` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
-  `telefone` varchar(13) COLLATE latin1_spanish_ci NOT NULL,
-  `celular` varchar(14) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `email` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
-  `caminho_imagem` varchar(50) COLLATE latin1_spanish_ci NOT NULL DEFAULT 'sem foto',
+  `rg` varchar(12) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `telefone` varchar(13) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `celular` varchar(14) CHARACTER SET latin1 COLLATE latin1_spanish_ci DEFAULT NULL,
+  `email` varchar(50) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `caminho_imagem` varchar(50) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT 'sem foto',
   `id_escolaridade` int(1) NOT NULL,
   `id_status` int(1) NOT NULL DEFAULT '1',
   `id_endereco` int(12) NOT NULL,
@@ -322,7 +268,7 @@ CREATE TABLE IF NOT EXISTS `federado` (
   KEY `FK_federado_nacionalidade` (`id_nacionalidade`),
   KEY `FK_federado_status_federado` (`id_status`),
   KEY `FK_federado_tipo_federado` (`id_tipo_federado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
 
 --
 -- Extraindo dados da tabela `federado`
@@ -335,18 +281,19 @@ INSERT INTO `federado` (`id_federado`, `nome`, `filiacao_materna`, `filiacao_pat
 (4, 'Instrutora 2', NULL, NULL, 'F', '1990-12-22', '43.192.129-5', '(11)2019-9494', '(11)99029-0124', 'instr2@gmail.com', 'sem foto', 4, 1, 3, 17, 2),
 (5, 'Instrutor 3', NULL, NULL, 'M', '1978-09-20', '42.092.940-4', '(11)4319-4912', '(11)99120-1249', 'instr3@yahoo.com.br', 'sem foto', 5, 1, 1, 2, 2),
 (6, 'Aluna Uma', NULL, NULL, 'F', '1995-03-04', '69.523.920-5', '(11)2359-9235', '(11)90185-3592', 'alun1@hotmail.com', 'sem foto', 4, 1, 4, 1, 1),
-(7, 'Aluno Dois', NULL, NULL, 'M', '2000-08-31', '49.129.124-4', '(11)2401-1401', '(11)99102-1924', 'alun2@terra.com', 'sem foto', 2, 1, 6, 4, 1),
-(8, 'Aluno Três', NULL, NULL, 'M', '2004-01-01', '98.912.912-4', '(11)2001-1294', '(11)99120-1495', 'alun3@globo.com', 'sem foto', 1, 1, 4, 11, 1),
+(7, 'Aluno Dois', NULL, 'Pai Um', 'M', '2000-08-10', '49.129.124-4', '(11)2401-1401', '(11)99102-1924', 'alun2@terra.com', 'sem foto', 2, 1, 6, 4, 1),
+(8, 'Aluno TrÊS', NULL, NULL, 'M', '2004-01-01', '98.912.912-4', '(11)2001-1294', '(11)99120-1495', 'alun3@globo.com', 'sem foto', 1, 1, 4, 11, 1),
 (9, 'Aluna Quatro', NULL, NULL, 'F', '1997-12-31', '59.129.120-1', '(11)2333-1292', '(11)91049-9194', 'alun4@ig.com.br', 'sem foto', 2, 1, 3, 1, 1),
-(10, 'Aluna Cinco', NULL, NULL, 'F', '1999-10-20', '40.493.393-2', '(11)4930-3403', '(11)92300-9999', 'alun5@hotmail.com', 'tkd/Aluna_Cinco.jpg', 2, 0, 2, 2, 1),
-(11, 'Aluno Seis', NULL, NULL, 'M', '2000-01-25', '49.923.239-3', '(11)4292-1249', '(11)94845-4049', 'alun6@pop.com', 'tkd/Aluno Seis.jpg', 1, 1, 4, 20, 1),
+(10, 'Aluna Cinco', NULL, NULL, 'F', '1999-10-20', '40.493.393-2', '(11)4930-3403', '(11)92300-9999', 'alun5@hotmail.com', 'tkd/Aluna_Cinco.jpg', 2, 1, 2, 2, 1),
+(11, 'Aluno Seis', NULL, NULL, 'M', '2000-01-25', '49.923.239-3', '(11)4292-1249', '(11)94845-4049', 'alun6@pop.com', 'tkd/Aluno_Seis.jpg', 1, 1, 4, 20, 1),
 (12, 'Aluno Sete', 'Mãe cinco', 'Pai dois', 'M', '2003-05-16', '34.909.998-3', '(11)2344-0000', '(11)90000-1111', 'alun7@alun.com', 'sem foto', 1, 1, 13, 17, 1),
-(13, 'Aluna Oito', 'Mãe Quatro', 'Pai Quatro', 'F', '1993-02-28', '29.102.029-2', '(11)2920-2020', '(11)99999-9999', 'alun8@globo.com', 'tkd/Aluna_Oito.jpg', 5, 1, 14, 3, 1),
-(14, 'Coordenador Capoeira', NULL, NULL, 'M', '1960-02-11', '32.029.990-1', '(11)2939-0003', '(11)93000-2222', 'coordCap@cap.com', 'sem foto', 9, 1, 17, 1, 3),
-(15, 'Coordenadora Judo', NULL, NULL, 'F', '1972-12-01', '38.293.202-2', '(11)3432-2392', '(11)92829-2492', 'coordJud@jud.com', 'sem foto', 10, 0, 16, 5, 3),
-(16, 'Coordenador Hapkido', NULL, NULL, 'M', '1980-08-12', '56.023.020-1', '(11)2392-0020', '(11)90000-1234', 'coordHkd@hkd.com', 'sem foto', 8, 1, 17, 10, 3),
+(13, 'Aluna Oito', 'Mãe Quatro', 'Pai Quatro', 'F', '1993-02-28', '29.102.029-2', '(11)2920-2020', '(11)99999-9999', 'alun8@globo.com', 'tkd/Aluna_Oito.jpg', 5, 0, 14, 3, 1),
+(14, 'Coordenador Capoeira', NULL, NULL, 'M', '1960-02-11', '32.029.990-1', '(11)2939-0003', '(11)93000-2222', 'coordCap@cap.com', 'sem foto', 9, 1, 14, 1, 3),
+(15, 'Coordenadora Judo', NULL, NULL, 'F', '1972-12-01', '38.293.202-2', '(11)3432-2392', '(11)92829-2492', 'coordJud@jud.com', 'sem foto', 10, 0, 14, 5, 3),
+(16, 'Coordenador Hapkido', NULL, NULL, 'M', '1980-08-12', '56.023.020-1', '(11)2392-0020', '(11)90000-1234', 'coordHkd@hkd.com', 'sem foto', 8, 1, 14, 10, 3),
 (17, 'Coordenadora Krav Magá', NULL, NULL, 'F', '1977-07-07', '39.001.140-9', '(11)3290-2049', '(11)94032-1093', 'coordKkm@kkm.com', 'sem foto', 9, 1, 14, 23, 3),
-(18, 'Coordenador MMA', NULL, NULL, 'M', '1988-08-08', '41.491.419-1', '(11)2333-0000', '(11)99012-1249', 'coordMMA@mma.com', 'sem foto', 6, 0, 14, 20, 3);
+(18, 'Coordenador MMA', NULL, NULL, 'M', '1988-08-08', '41.491.419-1', '(11)2333-0000', '(11)99012-1249', 'coordMMA@mma.com', 'sem foto', 6, 0, 14, 20, 3),
+(20, 'Aluno Nove', 'Mãe Três', 'Pai Três', 'M', '2006-01-18', '23.009.930-1', '(11)2230-3933', '(11)94039-2021', 'alun9@msn.com', 'tkd/Aluno_Nove.jpg', 1, 1, 16, 29, 1);
 
 -- --------------------------------------------------------
 
@@ -356,12 +303,12 @@ INSERT INTO `federado` (`id_federado`, `nome`, `filiacao_materna`, `filiacao_pat
 
 CREATE TABLE IF NOT EXISTS `filial` (
   `id_filial` int(10) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(60) COLLATE latin1_spanish_ci NOT NULL,
-  `cnpj` varchar(19) COLLATE latin1_spanish_ci NOT NULL,
-  `telefone` varchar(13) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `fax` varchar(13) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `email` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
-  `representante` varchar(60) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `nome` varchar(60) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `cnpj` varchar(19) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `telefone` varchar(13) CHARACTER SET latin1 COLLATE latin1_spanish_ci DEFAULT NULL,
+  `fax` varchar(13) CHARACTER SET latin1 COLLATE latin1_spanish_ci DEFAULT NULL,
+  `email` varchar(50) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `representante` varchar(60) CHARACTER SET latin1 COLLATE latin1_spanish_ci DEFAULT NULL,
   `id_modalidade` int(2) NOT NULL,
   `id_instrutor` int(11) NOT NULL,
   `id_endereco` int(12) NOT NULL,
@@ -369,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `filial` (
   KEY `FK_filial_endereco` (`id_endereco`),
   KEY `FK_filial_modalidade` (`id_modalidade`),
   KEY `FK_filial_instrutor` (`id_instrutor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Extraindo dados da tabela `filial`
@@ -393,11 +340,11 @@ INSERT INTO `filial` (`id_filial`, `nome`, `cnpj`, `telefone`, `fax`, `email`, `
 
 CREATE TABLE IF NOT EXISTS `fornecedor` (
   `id_fornecedor` int(3) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(40) COLLATE latin1_spanish_ci NOT NULL,
-  `telefone` varchar(13) COLLATE latin1_spanish_ci NOT NULL,
-  `email` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
+  `nome` varchar(40) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `telefone` varchar(13) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `email` varchar(50) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`id_fornecedor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Extraindo dados da tabela `fornecedor`
@@ -418,13 +365,13 @@ INSERT INTO `fornecedor` (`id_fornecedor`, `nome`, `telefone`, `email`) VALUES
 
 CREATE TABLE IF NOT EXISTS `graduacao` (
   `id_modalidade` int(2) NOT NULL,
-  `grau` varchar(7) COLLATE latin1_spanish_ci NOT NULL,
+  `grau` varchar(7) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `ordem` int(2) NOT NULL,
-  `faixa` varchar(30) COLLATE latin1_spanish_ci NOT NULL,
+  `faixa` varchar(30) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `curriculo` blob,
   PRIMARY KEY (`id_modalidade`,`grau`),
   KEY `FK_graduacao_modalidade` (`id_modalidade`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `graduacao`
@@ -516,13 +463,13 @@ INSERT INTO `graduacao` (`id_modalidade`, `grau`, `ordem`, `faixa`, `curriculo`)
 
 CREATE TABLE IF NOT EXISTS `graduacao_federado` (
   `id_modalidade` int(2) NOT NULL,
-  `grau` varchar(7) COLLATE latin1_spanish_ci NOT NULL,
+  `grau` varchar(7) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `id_federado` int(11) NOT NULL,
   `status` int(1) NOT NULL,
   `data_emissao` date NOT NULL,
   PRIMARY KEY (`id_modalidade`,`grau`,`id_federado`),
   KEY `FK_federado_graduacao` (`id_federado`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `graduacao_federado`
@@ -577,25 +524,20 @@ INSERT INTO `graduacao_federado` (`id_modalidade`, `grau`, `id_federado`, `statu
 --
 
 CREATE TABLE IF NOT EXISTS `graduacao_participantes` (
-  `id_graduacao_participantes` int(11) NOT NULL AUTO_INCREMENT,
-  `id_evento` int(8) DEFAULT NULL,
-  `id_federado` int(11) DEFAULT NULL,
-  `data_inscricao` date DEFAULT NULL,
-  `matriculador` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_graduacao_participantes`),
-  KEY `FK_participante` (`id_federado`),
-  KEY `FK_graduacao` (`id_evento`),
-  KEY `unico` (`id_federado`,`id_evento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=4 ;
+  `id_evento` int(8) NOT NULL,
+  `id_federado` int(11) NOT NULL,
+  `id_faixa` int(11) DEFAULT NULL COMMENT 'faixa que está se candidatando\n',
+  PRIMARY KEY (`id_evento`,`id_federado`),
+  KEY `FK_participante` (`id_federado`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `graduacao_participantes`
 --
 
-INSERT INTO `graduacao_participantes` (`id_graduacao_participantes`, `id_evento`, `id_federado`, `data_inscricao`, `matriculador`) VALUES
-(1, 2147483647, 6, '2013-03-25', NULL),
-(2, 2147483647, 7, '2013-03-25', NULL),
-(3, 2147483647, 8, '2013-03-25', NULL);
+INSERT INTO `graduacao_participantes` (`id_evento`, `id_federado`, `id_faixa`) VALUES
+(2147483647, 7, 1),
+(2147483647, 8, 2);
 
 -- --------------------------------------------------------
 
@@ -608,7 +550,7 @@ CREATE TABLE IF NOT EXISTS `instrutor` (
   `id_federado` int(11) NOT NULL,
   PRIMARY KEY (`id_instrutor`),
   KEY `FK_instrutor_federado` (`id_federado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Extraindo dados da tabela `instrutor`
@@ -628,11 +570,11 @@ INSERT INTO `instrutor` (`id_instrutor`, `id_federado`) VALUES
 
 CREATE TABLE IF NOT EXISTS `item` (
   `id_item` int(2) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(40) COLLATE latin1_spanish_ci NOT NULL,
+  `descricao` varchar(40) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `id_modalidade` int(2) NOT NULL,
   PRIMARY KEY (`id_item`),
   KEY `FK_item_modalidade` (`id_modalidade`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=89 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=89 ;
 
 --
 -- Extraindo dados da tabela `item`
@@ -737,11 +679,11 @@ CREATE TABLE IF NOT EXISTS `itens_pedido` (
   `id_pedido` int(12) NOT NULL,
   `numero` int(3) NOT NULL,
   `id_item` int(2) NOT NULL,
-  `tamanho` varchar(2) COLLATE latin1_spanish_ci NOT NULL,
+  `tamanho` varchar(2) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `quantidade` int(3) NOT NULL,
   PRIMARY KEY (`id_pedido`,`numero`),
   KEY `FK_itens_pedido` (`id_item`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `itens_pedido`
@@ -769,20 +711,38 @@ INSERT INTO `itens_pedido` (`id_pedido`, `numero`, `id_item`, `tamanho`, `quanti
 --
 
 CREATE TABLE IF NOT EXISTS `login` (
-  `id_login` int(11) NOT NULL,
-  `login` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
-  `senha` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
+  `id_login` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(20) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `senha` varchar(32) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `id_federado` int(11) NOT NULL,
   PRIMARY KEY (`id_login`),
   KEY `FK_login_federado` (`id_federado`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
 -- Extraindo dados da tabela `login`
 --
 
 INSERT INTO `login` (`id_login`, `login`, `senha`, `id_federado`) VALUES
-(0, 'felipe@hotmail.com', '1234', 1);
+(1, 'anove', 'd63918bad9', 20),
+(2, 'administrador', 'abcdefghij', 1),
+(3, 'coordenadora', 'ow0eo1010s', 2),
+(4, 'instrutor1', 'kd01kx9cma', 3),
+(5, 'instrutora2', 'kc0q120kxp', 4),
+(6, 'instrutor3', 'aop103kdal', 5),
+(7, 'auma', 'owmd20k22p', 6),
+(8, 'adois', '941jdmdmd0', 7),
+(9, 'atres', 'kg84jso103', 8),
+(10, 'aquatro', 'o230rlakc0', 9),
+(11, 'acinco', 'jgo29e0ak8', 10),
+(12, 'aseis', 'mcv92ufr8q', 11),
+(13, 'asete', '0fik4qoe92', 12),
+(14, 'aoito', 'la94ujb190', 13),
+(15, 'ccapoeira', 'o2iekc093n', 14),
+(16, 'chapkido', '04398jlkas', 16),
+(17, 'cmma', 'i39ffla10d', 18),
+(18, 'cjudo', '9113kfnjf0', 15),
+(19, 'ckrmaga', 'oq30dlqo1p', 17);
 
 -- --------------------------------------------------------
 
@@ -792,9 +752,9 @@ INSERT INTO `login` (`id_login`, `login`, `senha`, `id_federado`) VALUES
 
 CREATE TABLE IF NOT EXISTS `mala-direta` (
   `id` int(1) NOT NULL AUTO_INCREMENT,
-  `mensagem` mediumtext COLLATE latin1_spanish_ci NOT NULL COMMENT 'campo para armazenar a mensagem de mala-direta aos aniversariantes',
+  `mensagem` mediumtext CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL COMMENT 'campo para armazenar a mensagem de mala-direta aos aniversariantes',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Extraindo dados da tabela `mala-direta`
@@ -818,21 +778,24 @@ CREATE TABLE IF NOT EXISTS `matricula` (
   PRIMARY KEY (`id_federado`,`id_modalidade`,`id_filial`),
   KEY `FK_matricula_modalidade` (`id_modalidade`),
   KEY `FK_matricula_filial` (`id_filial`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `matricula`
 --
 
 INSERT INTO `matricula` (`id_federado`, `id_modalidade`, `id_filial`, `data_matricula`, `matricula_filial`) VALUES
+(1, 1, 8, '2000-01-10', '2000-01-10'),
+(2, 1, 2, '2000-03-20', '2006-12-01'),
 (6, 1, 1, '2000-09-12', '2000-09-12'),
-(7, 1, 3, '2011-11-11', '2011-11-11'),
+(7, 3, 1, '2011-11-11', '2013-03-23'),
 (8, 1, 3, '2012-09-11', '2012-09-11'),
 (9, 1, 2, '2008-08-08', '2008-08-08'),
-(10, 1, 3, '2010-10-10', '2010-10-10'),
+(10, 1, 1, '2010-10-10', '2013-03-06'),
 (11, 1, 1, '2010-12-01', '2010-12-01'),
 (12, 1, 6, '2010-09-21', '2010-09-21'),
-(13, 1, 8, '2011-08-22', '2011-08-22');
+(13, 1, 8, '2011-08-22', '2011-08-22'),
+(20, 1, 6, '2013-03-06', '2013-03-06');
 
 --
 -- Gatilhos `matricula`
@@ -851,37 +814,16 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `meta`
---
-
-CREATE TABLE IF NOT EXISTS `meta` (
-  `id_meta` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(300) CHARACTER SET latin1 DEFAULT NULL,
-  `data_inicio` date DEFAULT NULL,
-  `data_final` date DEFAULT NULL,
-  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `valor` decimal(10,2) DEFAULT NULL,
-  `status` int(11) DEFAULT '0',
-  `id` int(10) unsigned NOT NULL,
-  `hash` varchar(45) DEFAULT NULL,
-  `tipo` int(1) DEFAULT '1' COMMENT '1 para receita \n0 para cortar custos',
-  PRIMARY KEY (`id_meta`),
-  KEY `fk_meta_1` (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `modalidade`
 --
 
 CREATE TABLE IF NOT EXISTS `modalidade` (
   `id_modalidade` int(2) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(15) COLLATE latin1_spanish_ci NOT NULL,
+  `nome` varchar(15) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `id_responsavel` int(11) NOT NULL,
   PRIMARY KEY (`id_modalidade`),
   KEY `FK_coordenador_modalidade` (`id_responsavel`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Extraindo dados da tabela `modalidade`
@@ -898,30 +840,31 @@ INSERT INTO `modalidade` (`id_modalidade`, `nome`, `id_responsavel`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `movimentos_por_faixa`
+-- Estrutura da tabela `movimento_faixa`
 --
 
-CREATE TABLE IF NOT EXISTS `movimentos_por_faixa` (
-  `id_movimentos_por_faixa` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `movimento_faixa` (
+  `id_movimento_faixa` int(11) NOT NULL AUTO_INCREMENT,
   `id_faixa` int(11) DEFAULT NULL,
-  `descricao` varchar(45) DEFAULT NULL,
-  `status` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id_movimentos_por_faixa`),
-  KEY `fk_movimentos_por_faixa_1` (`id_faixa`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+  `id_modalidade` int(11) DEFAULT NULL,
+  `nome_movimento` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id_movimento_faixa`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
--- Extraindo dados da tabela `movimentos_por_faixa`
+-- Extraindo dados da tabela `movimento_faixa`
 --
 
-INSERT INTO `movimentos_por_faixa` (`id_movimentos_por_faixa`, `id_faixa`, `descricao`, `status`) VALUES
-(1, 1, 'Chute', ''),
-(2, 1, 'Soco', NULL),
-(3, 1, 'Chute Frontal', NULL),
-(4, 1, 'Defesa', NULL),
-(5, 2, 'Hadukem', NULL),
-(6, 2, 'Chute especial', NULL),
-(7, 2, 'Defesa armada', NULL);
+INSERT INTO `movimento_faixa` (`id_movimento_faixa`, `id_faixa`, `id_modalidade`, `nome_movimento`) VALUES
+(1, 1, 1, 'POOM-SE'),
+(2, 1, 1, 'TCHAGUI'),
+(3, 1, 1, 'IRON'),
+(4, 2, 1, 'POOM-SE'),
+(5, 2, 1, 'TCHAGUI'),
+(6, 2, 1, 'MATCHO KYORUGUI '),
+(7, 2, 1, 'JAIU KYORUGUI'),
+(8, 2, 1, 'YUYON SUNG'),
+(9, 2, 1, 'IRON');
 
 -- --------------------------------------------------------
 
@@ -931,9 +874,9 @@ INSERT INTO `movimentos_por_faixa` (`id_movimentos_por_faixa`, `id_faixa`, `desc
 
 CREATE TABLE IF NOT EXISTS `nacionalidade` (
   `id` int(2) NOT NULL AUTO_INCREMENT,
-  `nacionalidade` varchar(30) COLLATE latin1_spanish_ci NOT NULL,
+  `nacionalidade` varchar(30) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
 
 --
 -- Extraindo dados da tabela `nacionalidade`
@@ -990,7 +933,7 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   KEY `FK_pedido_fornecedor` (`fornecedor`),
   KEY `FK_pedido_coordenador_responsavel` (`id_responsavel`),
   KEY `FK_pedido_status_pedido` (`status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
 
 --
 -- Extraindo dados da tabela `pedido`
@@ -1041,30 +984,14 @@ DELIMITER ;
 --
 
 CREATE TABLE IF NOT EXISTS `prontuario` (
-  `id_prontuario` int(11) NOT NULL AUTO_INCREMENT,
+  `id_prontuario` int(11) NOT NULL,
   `id_federado` int(11) DEFAULT NULL,
   `id_evento` int(8) DEFAULT NULL,
   `id_faixa` int(11) DEFAULT NULL,
-  `id_movimentos_por_faixa` int(11) DEFAULT NULL,
-  `nota` varchar(10) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `data` date DEFAULT NULL,
-  `update` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_prontuario`),
-  KEY `fk_prontuario_1` (`id_federado`),
-  KEY `fk_prontuario_2` (`id_faixa`),
-  KEY `fk_prontuario_3` (`id_movimentos_por_faixa`),
-  KEY `fk_prontuario_4` (`id_evento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=14 ;
-
---
--- Extraindo dados da tabela `prontuario`
---
-
-INSERT INTO `prontuario` (`id_prontuario`, `id_federado`, `id_evento`, `id_faixa`, `id_movimentos_por_faixa`, `nota`, `data`, `update`) VALUES
-(1, 6, 20000105, 1, 1, '9', '2013-03-25', '2013-03-25 14:26:41'),
-(11, 6, 20000105, 1, 2, '7', '2013-03-25', '2013-03-25 14:26:42'),
-(12, 6, 20000105, 1, 3, '10', '2013-03-25', '2013-03-25 14:26:42'),
-(13, 6, 20000105, 1, 4, '8', '2013-03-25', '2013-03-25 14:26:42');
+  `id_movimento` int(11) DEFAULT NULL,
+  `nota` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id_prontuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1074,9 +1001,9 @@ INSERT INTO `prontuario` (`id_prontuario`, `id_federado`, `id_evento`, `id_faixa
 
 CREATE TABLE IF NOT EXISTS `status_federado` (
   `id` int(1) NOT NULL,
-  `status` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
+  `status` varchar(10) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `status_federado`
@@ -1094,9 +1021,9 @@ INSERT INTO `status_federado` (`id`, `status`) VALUES
 
 CREATE TABLE IF NOT EXISTS `status_pedido` (
   `id` int(1) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
+  `descricao` varchar(20) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Extraindo dados da tabela `status_pedido`
@@ -1116,9 +1043,9 @@ INSERT INTO `status_pedido` (`id`, `descricao`) VALUES
 
 CREATE TABLE IF NOT EXISTS `tipo_certificado` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(100) COLLATE latin1_spanish_ci NOT NULL,
+  `descricao` varchar(100) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=57 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=57 ;
 
 --
 -- Extraindo dados da tabela `tipo_certificado`
@@ -1189,9 +1116,9 @@ INSERT INTO `tipo_certificado` (`id`, `descricao`) VALUES
 
 CREATE TABLE IF NOT EXISTS `tipo_endereco` (
   `id` int(3) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
+  `descricao` varchar(20) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Extraindo dados da tabela `tipo_endereco`
@@ -1210,9 +1137,9 @@ INSERT INTO `tipo_endereco` (`id`, `descricao`) VALUES
 
 CREATE TABLE IF NOT EXISTS `tipo_federado` (
   `id` int(1) NOT NULL AUTO_INCREMENT,
-  `tipo` varchar(15) COLLATE latin1_spanish_ci NOT NULL,
+  `tipo` varchar(15) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Extraindo dados da tabela `tipo_federado`
@@ -1223,27 +1150,6 @@ INSERT INTO `tipo_federado` (`id`, `tipo`) VALUES
 (2, 'Instrutor'),
 (3, 'Coordenador'),
 (4, 'Administrador');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `uf`
---
-
-CREATE TABLE IF NOT EXISTS `uf` (
-  `uf` int(11) NOT NULL,
-  `sigla` varchar(2) DEFAULT NULL,
-  `descricao` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`uf`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `uf`
---
-
-INSERT INTO `uf` (`uf`, `sigla`, `descricao`) VALUES
-(26, 'SP', 'São Paulo'),
-(25, 'RJ', 'Rio de Janeiro');
 
 --
 -- Restrições para as tabelas dumpadas
@@ -1278,10 +1184,10 @@ ALTER TABLE `evento_graduacao`
   ADD CONSTRAINT `FK_evento_graduacao_modalidade` FOREIGN KEY (`id_modalidade`) REFERENCES `modalidade` (`id_modalidade`) ON UPDATE CASCADE;
 
 --
--- Restrições para a tabela `faixas`
+-- Restrições para a tabela `faixa`
 --
-ALTER TABLE `faixas`
-  ADD CONSTRAINT `fk_faixas_1` FOREIGN KEY (`id_modalidade`) REFERENCES `modalidade` (`id_modalidade`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `faixa`
+  ADD CONSTRAINT `fk_faixa_1` FOREIGN KEY (`id_modalidade`) REFERENCES `modalidade` (`id_modalidade`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Restrições para a tabela `federado`
@@ -1361,27 +1267,12 @@ ALTER TABLE `modalidade`
   ADD CONSTRAINT `FK_coordenador_modalidade` FOREIGN KEY (`id_responsavel`) REFERENCES `coordenador` (`id_coordenador`) ON UPDATE CASCADE;
 
 --
--- Restrições para a tabela `movimentos_por_faixa`
---
-ALTER TABLE `movimentos_por_faixa`
-  ADD CONSTRAINT `fk_movimentos_por_faixa_1` FOREIGN KEY (`id_faixa`) REFERENCES `faixas` (`id_faixa`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
 -- Restrições para a tabela `pedido`
 --
 ALTER TABLE `pedido`
   ADD CONSTRAINT `FK_pedido_coordenador_responsavel` FOREIGN KEY (`id_responsavel`) REFERENCES `coordenador` (`id_coordenador`) ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_pedido_fornecedor` FOREIGN KEY (`fornecedor`) REFERENCES `fornecedor` (`id_fornecedor`) ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_pedido_status_pedido` FOREIGN KEY (`status`) REFERENCES `status_pedido` (`id`) ON UPDATE CASCADE;
-
---
--- Restrições para a tabela `prontuario`
---
-ALTER TABLE `prontuario`
-  ADD CONSTRAINT `fk_prontuario_4` FOREIGN KEY (`id_evento`) REFERENCES `evento_graduacao` (`id_evento`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_prontuario_1` FOREIGN KEY (`id_federado`) REFERENCES `federado` (`id_federado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_prontuario_2` FOREIGN KEY (`id_faixa`) REFERENCES `faixas` (`id_faixa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_prontuario_3` FOREIGN KEY (`id_movimentos_por_faixa`) REFERENCES `movimentos_por_faixa` (`id_movimentos_por_faixa`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

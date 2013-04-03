@@ -13,6 +13,15 @@
  */
 class Funcoes {
 
+   
+    
+    function imprimir($dados){
+        
+        echo "<pre>";
+        print_r($dados);
+        echo "</pre>";
+        
+    }
     
     function data($data){
         $data = explode("-", $data);

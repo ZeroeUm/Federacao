@@ -12,9 +12,26 @@
  */
 class coordenador extends CI_Controller{
 
+    function certificado(){
+                
+        
+        
+                $this->load->view('header');
+                $this->load->view('coordenador/certificado');
+                $this->load->view('footer');
+    }
     
     
-    
+    function notas(){
+                $this->load->view('header');
+                $this->load->view('coordenador/notas');
+                $this->load->view('footer');
+    }
+    function  curriculo(){
+                $this->load->view('header');
+                $this->load->view('coordenador/curriculo');
+                $this->load->view('footer');
+    }
     
     function prontuario(){
             
@@ -103,7 +120,28 @@ class coordenador extends CI_Controller{
                 $this->load->view('footer');
     }
 
-
+ 
+    function participantes($id_evento,$faixa='0'){
+        $this->load->model('coordenador_model','coordenador');   
+                
+        $data['participantes'] = $this->coordenador->getParticipantes($id_evento,$faixa);
+        $data['id_evento'] = $id_evento;
+        $data['faixa'] = $faixa;
+        
+        if($data['participantes']['0']['id_modalidade']==''){
+            $this->session->set_flashdata('erro', 'Nenhum participante cadastrado para essa categoria');
+            redirect("/coordenador/participantes/$id_evento");
+        }
+        $data['faixas']= $this->coordenador->getFaixas($data['participantes']['0']['id_modalidade']);
+        
+        
+       
+        $this->load->view('header');
+        $this->load->view('coordenador/participantes',$data);
+        $this->load->view('footer');
+    }
+    
+    
     function editarEvento($id_evento){
         $this->load->model('coordenador_model','coordenador');   
         
