@@ -47,22 +47,22 @@ $label = array(
     </div>
     <div class="control-group">
         <?php
-        echo form_label("Filiação Materna", "fMaterna", $label);
+        echo form_label("FiliaÃ§Ã£o Materna", "fMaterna", $label);
         ?>
         <div class="controls">
             <?php
-            $inFMaterna = 'id="fMaterna" class="span3" maxlength="60" placeholder="Filiação Materna"';
+            $inFMaterna = 'id="fMaterna" class="span3" maxlength="60" placeholder="FiliaÃ§Ã£o Materna"';
             echo form_input('fMaterna', set_value('fMaterna'), $inFMaterna);
             ?>
         </div>
     </div>
     <div class="control-group">
         <?php
-        echo form_label("Filiação Paterna", "fPaterna", $label);
+        echo form_label("FiliaÃ§Ã£o Paterna", "fPaterna", $label);
         ?>
         <div class="controls">
             <?php
-            $inFPaterna = 'id="fPaterna" class="span3" maxlength="60" placeholder="Filiação Paterna"';
+            $inFPaterna = 'id="fPaterna" class="span3" maxlength="60" placeholder="FiliaÃ§Ã£o Paterna"';
             echo form_input("fPaterna", set_value('fPaterna'), $inFPaterna);
             ?>
         </div>
@@ -73,7 +73,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $opSexo = array("#" => "Escolha uma opção.", "F" => "Feminino", "M" => "Masculino");
+            $opSexo = array("#" => "Escolha uma opÃ§Ã£o.", "F" => "Feminino", "M" => "Masculino");
             echo form_dropdown("sexo", $opSexo, set_value("sexo", "#"), 'id="sexo" class="span3" required');
             ?>
         </div>
@@ -135,7 +135,7 @@ $label = array(
     </div>
     <div class="control-group">
         <?php
-        echo form_label("Foto de identificação", "foto", $label);
+        echo form_label("Foto de identificaÃ§Ã£o", "foto", $label);
         ?>
         <div class="controls">
             <?php
@@ -150,7 +150,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $opEscolaridade["#"] = "Escolha uma opção.";
+            $opEscolaridade["#"] = "Escolha uma opÃ§Ã£o.";
             foreach ($escolaridade as $esc)
                 $opEscolaridade[$esc['id']] = $esc['descricao'];
             echo form_dropdown("escolaridade", $opEscolaridade, set_value('escolaridade', '#'), 'id="sexo" class="span3" required')
@@ -163,7 +163,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $opNacionalidade["#"] = "Escolha uma opção.";
+            $opNacionalidade["#"] = "Escolha uma opÃ§Ã£o.";
             foreach ($nacionalidade as $nac)
                 $opNacionalidade[$nac['id']] = $nac['nacionalidade'];
 
@@ -177,7 +177,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $opTipo["#"] = "Escolha uma opção.";
+            $opTipo["#"] = "Escolha uma opÃ§Ã£o.";
             foreach ($tipo as $t)
                 $opTipo[$t['id']] = $t['tipo'];
             echo form_dropdown('tipo', $opTipo, set_value('tipo', "#"), 'id="tipo" class="span3" required');
@@ -219,11 +219,11 @@ $label = array(
     </div>
     <div class="control-group">
         <?php
-        echo form_label("Número", "numero", $label);
+        echo form_label("NÃºmero", "numero", $label);
         ?>
         <div class="controls">
             <?php
-            $inNumero = 'id="numero" class="span2" maxlength="5" required placeholder="Número"';
+            $inNumero = 'id="numero" class="span2" maxlength="5" required placeholder="NÃºmero"';
             echo form_input('numero', set_value('numero'), $inNumero);
             ?>
         </div>
@@ -267,7 +267,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $opUF["#"] = "Escolha uma opção.";
+            $opUF["#"] = "Escolha uma opÃ§Ã£o.";
             foreach ($uf as $estado)
                 $opUF[$estado['id']] = $estado['sigla'];
             echo form_dropdown('uf', $opUF, set_value('uf', "#"), 'id="uf" class="span2" required');
@@ -276,7 +276,7 @@ $label = array(
     </div>
     <?php
     $inBotao = 'id="btnIncluir" class="btn btn-primary"';
-    echo form_submit("btnIncluir", "Incluir informações", $inBotao);
+    echo form_submit("btnIncluir", "Incluir informaÃ§Ãµes", $inBotao);
     echo form_close();
     echo form_fieldset_close();
     ?>

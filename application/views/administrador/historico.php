@@ -4,7 +4,7 @@
  * @author HUmberto
  */
 echo form_fieldset("Pesquisa por federado");
-$options = array('#' => "Escolha uma opção.");
+$options = array('#' => "Escolha uma opÃ§Ã£o.");
 foreach ($instrutores as $instrutor)
     $options[$instrutor['id']] = $instrutor['nome'];
 ?>
@@ -14,7 +14,7 @@ foreach ($instrutores as $instrutor)
             <tr>
                 <th><?php echo form_label("Instrutores", "instrutores"); ?></th>
                 <th><?php echo form_label("Filiais", "filiais"); ?></th>
-                <th><?php echo form_label("Situação", "situacao"); ?></th>
+                <th><?php echo form_label("SituaÃ§Ã£o", "situacao"); ?></th>
                 <th><?php echo form_label("Federados", "federados"); ?></th>
             </tr>
         </thead>
@@ -30,7 +30,7 @@ foreach ($instrutores as $instrutor)
                     <?php echo form_dropdown("situacao", array("#" => "Escolha uma filial"), "#", 'disabled id="situacao" class="span3"'); ?>
                 </td>
                 <td style="vertical-align: middle; text-align: center;">
-                    <?php echo form_dropdown("federados", array("#" => "Escolha uma situação"), "#", 'id="federados" class="span3"'); ?>
+                    <?php echo form_dropdown("federados", array("#" => "Escolha uma situaÃ§Ã£o"), "#", 'id="federados" class="span3"'); ?>
                 </td>
             </tr>
         </tbody>

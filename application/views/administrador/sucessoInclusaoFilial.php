@@ -6,10 +6,10 @@
 ?>
 <div class="row-fluid">
     <div class="alert-success">
-        Inclus„o da filial <?php echo $filial ?> na FederaÁ„o Paulista de Artes Marciais Interestilos realizada com sucesso.<br/>
+        Inclus√£o da filial <?php echo $filial ?> na Federa√ß√£o Paulista de Artes Marciais Interestilos realizada com sucesso.<br/>
         <b>
             <?php
-            echo anchor('administrador/filiais', 'Clique aqui para voltar ‡ ¡rea de manutenÁ„o de dados de filiais.');
+            echo anchor('administrador/filiais', 'Clique aqui para voltar √† √°rea de manuten√ß√£o de dados de filiais.');
             ?>
         </b>
     </div>

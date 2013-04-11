@@ -8,15 +8,15 @@
         <div class="alert-info">
             Mensagem de mala-direta aos aniversariantes alterada e salva com sucesso.
             <br/>
-            <?php echo anchor(base_url(), 'Clique aqui para voltar a página principal.') ?>
+            <?php echo anchor(base_url(), 'Clique aqui para voltar a pÃ¡gina principal.') ?>
         </div>
         <?php
     else:
         ?>
         <div class="alert-success">
-            Mensagem de mala-direta aos aniversariantes incluída e salva com sucesso.
+            Mensagem de mala-direta aos aniversariantes incluÃ­da e salva com sucesso.
             <br />
-            <?php echo anchor(base_url(), "Clique aqui para voltar a página principal.") ?>
+            <?php echo anchor(base_url(), "Clique aqui para voltar a pÃ¡gina principal.") ?>
         </div>
     <?php
     endif;

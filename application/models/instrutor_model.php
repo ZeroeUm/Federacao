@@ -141,7 +141,7 @@ class Instrutor_model extends CI_Model {
     }
 
     /*
-     * @param array associativo com as informaÃ§Ãµes a serem inseridas no banco, onde as posiï¿½ï¿½es do array devem ser os campos da tabela e os valores as novas informaÃ§Ãµes a serem inseridas
+     * @param array associativo com as informaÃ§Ãµes a serem inseridas no banco, onde as posiÃ§Ãµes do array devem ser os campos da tabela e os valores as novas informaÃ§Ãµes a serem inseridas
      */
 
     public function InserirFederado($dados = array()) {
@@ -182,7 +182,7 @@ class Instrutor_model extends CI_Model {
                         ->result_array();
     }
 
-    public function DadosFederado($federado) {// metódo para puxar informações para página de alteração
+    public function DadosFederado($federado) {// metï¿½do para puxar informaï¿½ï¿½es para pï¿½gina de alteraï¿½ï¿½o
         $query = $this->db->get_where('federado', array('id_federado' => $federado));
         return $query->result_array();
     }

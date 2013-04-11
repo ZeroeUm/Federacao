@@ -23,7 +23,7 @@ echo form_open('administrador/atualizarPedido/' . $this->uri->segment(3), 'class
     <div class="span5 offset4" style="height: 35px;">
         <div class="control-group" style="height: 35px;">
             <?php
-            echo form_label("Situação do pedido: ", 'situacao', array('class' => 'control-label', 'style' => 'padding: 5px 0 0 0'));
+            echo form_label("SituaÃ§Ã£o do pedido: ", 'situacao', array('class' => 'control-label', 'style' => 'padding: 5px 0 0 0'));
             ?>
             <div class="controls" style="padding: 0">
                 <?php
@@ -37,7 +37,7 @@ echo form_open('administrador/atualizarPedido/' . $this->uri->segment(3), 'class
     <table class="table table-condensed table-hover">
         <thead>
             <tr>
-                <th>Número</th>
+                <th>NÃºmero</th>
                 <th>Modalidade</th>
                 <th>Item</th>
                 <th>Tamanho</th>
@@ -69,7 +69,7 @@ echo form_open('administrador/atualizarPedido/' . $this->uri->segment(3), 'class
         <?php
         echo anchor('administrador/pedidos', 'Voltar', 'class="btn btn-primary"'); 
         echo nbs(4);
-        echo form_submit("btnAlterar", "Alterar informações", 'class="btn btn-primary"');
+        echo form_submit("btnAlterar", "Alterar informaÃ§Ãµes", 'class="btn btn-primary"');
         ?>
     </div>
 </div>

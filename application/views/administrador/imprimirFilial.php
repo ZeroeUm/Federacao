@@ -14,7 +14,7 @@
             "<body>"+
             conteudo.innerHTML+
             "</body></html>";
-        var janelaImprimir = window.open("", "Tela de impressão", 'width=750,height=650,top=50,left=50,toolbars=no,scroolbar=yes,status=no,resizable=yes');
+        var janelaImprimir = window.open("", "Tela de impressÃ£o", 'width=750,height=650,top=50,left=50,toolbars=no,scroolbar=yes,status=no,resizable=yes');
         janelaImprimir.document.writeln(html);
         janelaImprimir.document.close();
         janelaImprimir.focus();
@@ -37,7 +37,7 @@ $label = array(
 ?>
 <div id="row-fluid">
 <?php
-echo form_fieldset('Impressão de dados da filial');
+echo form_fieldset('ImpressÃ£o de dados da filial');
 echo form_open();
 ?>
 <div class="control-group">
@@ -117,7 +117,7 @@ echo form_open();
     </div>
 </div>
 <div class="control-group">
-    <?php echo form_label("Endereço", "endereco", $label) ?>
+    <?php echo form_label("EndereÃ§o", "endereco", $label) ?>
     <div class="controls">
         <?php
         $inEndereco = "disabled id='Endereco' class='span5' maxlength='100'  ";
@@ -126,7 +126,7 @@ echo form_open();
     </div>
 </div>
 <?php
-echo form_button('btnImprimir','Imprimir Informações','id="btnImprimir" onClick="imprimirInformacao(\'content\')" class="btn btn-primary"');
+echo form_button('btnImprimir','Imprimir InformaÃ§Ãµes','id="btnImprimir" onClick="imprimirInformacao(\'content\')" class="btn btn-primary"');
 echo form_close();
 echo form_fieldset_close();
 ?>
