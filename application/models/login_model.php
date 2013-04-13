@@ -69,6 +69,11 @@ class Login_model extends CI_Model
         endif;
         
     }
+    
+    public function trocarSenha($usuario,$dados)
+    {
+        $this->db->update('login',$dados,array('id_federado' => $usuario));
+    }
 
 }
 
