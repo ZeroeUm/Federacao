@@ -43,7 +43,7 @@
 
         <!--sideBar-->
         <div id="sidebar">
-            <img width="140px" heigth="190px" src="<?php echo(($this->session->userdata('foto')!= "sem foto")?"federados/fotos/".$this->session->userdata('foto'):"federados/default.gif") ?>" class="img-polaroid" style="margin: 20px;">
+            <img width="140px" heigth="190px" src="<?php echo(($this->session->userdata('foto')!= "sem foto")?base_url()."federados/fotos/".$this->session->userdata('foto'):base_url()."federados/default.gif") ?>" class="img-polaroid" style="margin: 20px;">
 
             <a href="#" class="visible-phone"><i class="icon icon-home"></i> Menu oculto</a>
             <ul style="display: block; ">

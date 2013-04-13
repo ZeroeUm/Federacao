@@ -150,15 +150,35 @@ class administrador extends CI_Controller
 
     public function alpha_acent($input)
     {
-        if (preg_match("/^[A-Za-záàãâéêíóôõú]+$/", $input))
+        if (preg_match("/^[A-Za-záàãâéêíóôõú\s]+$/", $input))
         {
             return true;
         }
         else
         {
-            $this->form_validation->set_message('alpha_acent', 'O campo %s deve conter somente letras e caracteres acentuados da língua portuguesa.');
+            $this->form_validation->set_message('alpha_acent', 'O campo %s deve conter somente letras e letras acentuadas da língua portuguesa.');
             return false;
         }
+    }
+    
+    public function complemento($input)
+    {
+        if(preg_match("/^[A-Za-z\s\d]+$/", $input)):
+            return true;
+        else:
+            $this->form_validation->set_message('complemento',"O campo %s deve conter somente letras e números.");
+            return false;
+        endif;
+    }
+    
+    public function filiacao($input)
+    {
+        if((preg_match("/^[A-Za-záàãâéêíóôõú\s]+$/",$input)) || $input == ""):
+            return true;
+        else:
+            $this->form_validation->set_message('filiacao',"O campo %s deve conter somente letras e letras acentuadas da língua portuguesa.");
+            return false;
+        endif;
     }
 
     public function telephone($input)
@@ -220,10 +240,10 @@ class administrador extends CI_Controller
     function alterarFederado($federado)
     {
         $this->form_validation->set_rules('nome', 'Nome', 'required|callback_alpha_acent|trim|xss_clean');
-        $this->form_validation->set_rules('fMaterna', 'Filiação Materna', 'callback_alpha_acent|trim|xss_clean');
-        $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'callback_alpha_acent|trim|xss_clean');
+        $this->form_validation->set_rules('fMaterna', 'Filiação Materna', 'callback_filiacao|xss_clean');
+        $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'callback_filiacao|xss_clean');
         $this->form_validation->set_rules('sexo', 'Sexo', 'required|callback_combo');
-        $this->form_validation->set_rules('dtNasc', 'Data', 'required|alpha_dash|trim||xss_clean');
+        $this->form_validation->set_rules('dtNasc', 'Data', 'required|alpha_dash|trim');
         $this->form_validation->set_rules('rg', 'RG', 'required|callback_rg|trim');
         $this->form_validation->set_rules('telefone', 'Telefone para contato', 'required|callback_telephone|trim');
         $this->form_validation->set_rules('celular', 'Celular para contato', 'required|callback_celular|trim');
@@ -235,7 +255,7 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('filial', 'Filial', 'required|callback_combo');
         $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('numero', 'Número do endereço', 'required|is_natural_no_zero|trim');
-        $this->form_validation->set_rules('compl', 'Complemento do endereço','callback_alpha_acent|trim');
+        $this->form_validation->set_rules('compl', 'Complemento do endereço','callback_complemento|trim');
         $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('uf', 'UF do endereço', 'required|callback_combo');
@@ -421,8 +441,8 @@ class administrador extends CI_Controller
     function incluirFederado()
     {
         $this->form_validation->set_rules('nome', 'Nome', 'required|callback_alpha_acent|trim');
-        $this->form_validation->set_rules('fMaterna', 'Filiação Materna', 'callback_alpha_acent|trim');
-        $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'callback_alpha_acent|trim');
+        $this->form_validation->set_rules('fMaterna', 'Filiação Materna', 'callback_filiacao|xss_clean');
+        $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'callback_filiacao|xss_clean');
         $this->form_validation->set_rules('sexo', 'Sexo', 'required|callback_combo');
         $this->form_validation->set_rules('dtNasc', 'Data', 'required|alpha_dash|trim');
         $this->form_validation->set_rules('rg', 'RG', 'required|callback_rg|trim');
@@ -435,7 +455,7 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('filial', 'Filial', 'required|callback_combo');
         $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('numero', 'Número do endereço', 'required|is_natural_no_zero|trim');
-        $this->form_validation->set_rules('compl', 'Complemento do endereço','callback_alpha_acent|trim');
+        $this->form_validation->set_rules('compl', 'Complemento do endereço','callback_complemento|trim');
         $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('uf', 'UF do endereço', 'required|callback_combo');

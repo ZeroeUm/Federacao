@@ -22,7 +22,6 @@ class Login extends CI_Controller
         if ($this->form_validation->run() == FALSE):
             $this->load->view('login');
         else:
-            //$this->verificaStatus($this->input->post('usuario'), $this->input->post('senha'));
             redirect('home', 'refresh');
         endif;
     }
@@ -42,10 +41,8 @@ class Login extends CI_Controller
         if ($this->login->verificarStatus($usuario)):
             if ($this->login->login($usuario, $senha)):
                 $resultado = $this->login->IDFedereado($usuario, $senha);
-                
-           
                 $dadosUsuario = $this->login->dadosUsuario($resultado[0]['id_federado']);
-               
+                
                 $this->session->set_userdata($dadosUsuario[0]);
                 $this->session->set_userdata('autentificado', TRUE);
                 return TRUE;
