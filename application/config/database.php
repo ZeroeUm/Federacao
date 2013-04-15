@@ -63,7 +63,7 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
-
+$db['default']['_protect_identifiers']= FALSE;
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */
