@@ -16,7 +16,7 @@ class Login extends CI_Controller
 
     function index()
     {
-        $this->form_validation->set_rules('usuario', 'Usuário', 'trim|xss_clean|required');
+        $this->form_validation->set_rules('usuario', 'UsuÃ¡rio', 'trim|xss_clean|required');
         $this->form_validation->set_rules('senha', 'Senha', 'trim|callback_verificar_banco|xss_clean|required');
 
         if ($this->form_validation->run() == FALSE):
@@ -32,7 +32,7 @@ class Login extends CI_Controller
         if ($this->verificaStatus($this->input->post('usuario'), $senha)):
             return TRUE;
         else:
-            $this->form_validation->set_message('verificar_banco', (($this->session->userdata('msg')) ? $this->session->userdata('msg') : 'Usuário ou senha inválidos.'));
+            $this->form_validation->set_message('verificar_banco', (($this->session->userdata('msg')) ? $this->session->userdata('msg') : 'UsuÃ¡rio ou senha invÃ¡lidos.'));
             return FALSE;
         endif;
     }
@@ -50,7 +50,7 @@ class Login extends CI_Controller
                 return FALSE;
             endif;
         else:
-            $msg = "Usuário inativo na federação, acesso não permitido.";
+            $msg = "UsuÃ¡rio inativo na federaÃ§Ã£o, acesso nÃ£o permitido.";
             $this->session->set_userdata('msg', $msg);
             return FALSE;
         endif;
@@ -66,7 +66,7 @@ class Login extends CI_Controller
     function trocarSenha($usuario)
     {
         $this->form_validation->set_rules('novaSenha','Nova senha','trim|max_length[10]|xss_clean|required');
-        $this->form_validation->set_rules('confirmar','Confirmação de senha','trim|max_length[10]|matches[novaSenha]|xss_clean|required');
+        $this->form_validation->set_rules('confirmar','ConfirmaÃ§Ã£o de senha','trim|max_length[10]|matches[novaSenha]|xss_clean|required');
         if($this->form_validation->run() == FALSE):
             $this->load->view('header');
             $dados['usuario'] = $usuario;

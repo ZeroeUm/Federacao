@@ -11,7 +11,7 @@ class administrador extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        //$this->checar_sessao();
+        $this->checar_sessao();
     }
 
     function checar_sessao()
@@ -58,7 +58,7 @@ class administrador extends CI_Controller
         $nomeOrigem = "Federação Paulista de Artes Marciais Interestilos";
         $listaEmails = $this->administrador->NotifEmail($criterio);
         $assunto = $this->input->post('assunto');
-        $mensagem = htmlentities($this->input->post('txtNotificacao'));
+        $mensagem = htmlentities($this->input->post('txtNotificacao'), ENT_QUOTES, 'UTF-8');
 
         foreach ($listaEmails as $destinatario)
         {
@@ -94,13 +94,13 @@ class administrador extends CI_Controller
         {
             for ($i = 0; $i < count($filiais); $i++)
             {
-                $filiais[$i]["nome"] = htmlentities($filiais[$i]["nome"]);
+                $filiais[$i]["nome"] = htmlentities($filiais[$i]["nome"], ENT_QUOTES, 'UTF-8');
             }
         }
         else
         {
             $filiais[0]['id'] = "";
-            $filiais[0]['nome'] = htmlentities("Não foi encontrada filial para esse instrutor.");
+            $filiais[0]['nome'] = htmlentities("Não foi encontrada filial para esse instrutor.", ENT_QUOTES, 'UTF-8');
         }
         echo(json_encode($filiais));
     }
@@ -114,13 +114,13 @@ class administrador extends CI_Controller
         {
             for ($i = 0; $i < count($federados); $i++)
             {
-                $federados[$i]["nome"] = htmlentities($federados[$i]["nome"]);
+                $federados[$i]["nome"] = htmlentities($federados[$i]["nome"], ENT_QUOTES, 'UTF-8');
             }
         }
         else
         {
             $federados[0]["id"] = "";
-            $federados[0]["nome"] = htmlentities("Não foram encontrados federados nessa filial com essa situação.");
+            $federados[0]["nome"] = htmlentities("Não foram encontrados federados nessa filial com essa situação.", ENT_QUOTES, 'UTF-8');
         }
         echo(json_encode($federados));
     }
@@ -136,15 +136,17 @@ class administrador extends CI_Controller
         $idade = $hoje->diff($nasc)->format("%y");
         $fed[0]['idade'] = $idade;
         $resultado = array_map('htmlentities', $fed[0]);
-
-        echo(json_encode($resultado));
+        foreach($fed[0] as $f):
+            $f = htmlentities($f,ENT_QUOTES,'UTF-8');
+        endforeach;
+        echo(json_encode($fed[0]));
     }
 
     public function alpha_acent($input)
     {
-        if (preg_match("/^[A-Z]+$/", $input))
+        if (preg_match("/^[A-Za-záàãâéêíóôõú]+$/", $input))
         {
-            $this->form_validation->set_message('alpha_acent', 'O campo %s deve conter somente letras e caracteres acentuados.');
+            $this->form_validation->set_message('alpha_acent', 'O campo %s deve conter somente letras e caracteres acentuados da língua portuguesa.');
             return false;
         }
         else
@@ -603,13 +605,13 @@ class administrador extends CI_Controller
         {
             for ($i = 0; $i < count($itens); $i++)
             {
-                $itens[$i]['descricao'] = htmlentities($itens[$i]['descricao']);
+                $itens[$i]['descricao'] = htmlentities($itens[$i]['descricao'], ENT_QUOTES, 'UTF-8');
             }
         }
         else
         {
             $itens[0]['id'] = "";
-            $itens[0]['descricao'] = htmlentities('Não foram encontrados itens para a modalidade escolhida.');
+            $itens[0]['descricao'] = htmlentities('Não foram encontrados itens para a modalidade escolhida.', ENT_QUOTES, 'UTF-8');
         }
 
         echo(json_encode($itens));
@@ -659,9 +661,11 @@ class administrador extends CI_Controller
         $this->load->model('Administrador_model', 'administrador');
         $filial = $this->administrador->MntFilialDados($filial);
         header('Content-type: application/x-json; charset=utf-8');
-
-        $resultado = array_map('htmlentities', $filial[0]);
-        echo(json_encode($resultado));
+        
+        foreach($filial[0] as $f):
+            $f = htmlentities($f, ENT_QUOTES, 'UTF-8');
+        endforeach;
+        echo(json_encode($filial[0]));
     }
 
     function modalidades()
@@ -674,12 +678,12 @@ class administrador extends CI_Controller
         if (!empty($modalidade))
         {
             for ($i = 0; $i < count($modalidade); $i++)
-                $modalidade[$i]['nome'] = htmlentities($modalidade[$i]['nome']);
+                $modalidade[$i]['nome'] = htmlentities($modalidade[$i]['nome'], ENT_QUOTES, 'UTF-8');
         }
         else
         {
             $modalidade[0]['id'] = "";
-            $modalidade[0]['nome'] = "Não foram encontradas as modalidades, verifique a conexão com o banco.";
+            $modalidade[0]['nome'] = htmlentities("Não foram encontradas as modalidades, verifique a conexão com o banco.", ENT_QUOTES, 'UTF-8');
         }
 
         echo(json_encode($modalidade));
@@ -692,11 +696,11 @@ class administrador extends CI_Controller
         header('Content-type: application/x-json; charset=utf-8');
         if (!empty($filiais))
             for ($i = 0; $i < count($filiais); $i++)
-                $filiais[$i]['nome'] = htmlentities($filiais[$i]['nome']);
+                $filiais[$i]['nome'] = htmlentities($filiais[$i]['nome'], ENT_QUOTES, 'UTF-8');
         else
         {
             $filiais[0]['id'] = "";
-            $filiais[0]['nome'] = "Não foram encontradas filiais para essa modalidade, verifique a conexão com o banco.";
+            $filiais[0]['nome'] = htmlentities("Não foram encontradas filiais para essa modalidade, verifique a conexão com o banco.", ENT_QUOTES, 'UTF-8');
         }
         echo (json_encode($filiais));
     }

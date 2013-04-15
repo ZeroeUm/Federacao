@@ -28,13 +28,13 @@ $label = array(
                 <?php echo validation_errors(); ?>
             </div>
             <?php
-            echo form_fieldset('�rea de login ao SGAI');
+            echo form_fieldset('Área de login ao SGAI');
             echo form_open('login', $attr);
             ?>
             <div class="control-group">
                 <?php echo form_label('Usuário', 'usuario', $label); ?>
                 <div class="controls">
-                    <?php echo form_input('usuario', '', 'id="usuario" class="span3" maxlength="20" required placeholder="Usu�rio"'); ?>
+                    <?php echo form_input('usuario', '', 'id="usuario" class="span3" maxlength="20" required placeholder="Usuário"'); ?>
                 </div>
             </div>
             <div class="control-group">

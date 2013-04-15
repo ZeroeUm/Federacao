@@ -12,7 +12,8 @@ $(document).ready(function () {
                 url: "getFilial/"+fil,
                 data: "filial="+fil,
                 datatype: "json",
-                success: function (filial){
+                success: function (filial)
+                {
                     $("#resultado").css("display","block");
                     $("#nome").val($('<div/>').html(filial.nome).text());
                     $("#telefone").val($('<div/>').html(filial.telefone).text());
@@ -30,7 +31,7 @@ $(document).ready(function () {
                     $("#imprimir").attr('href','imprimirFilial/'+fil);
                     $("#alterar").attr('href','alterarFilial/'+fil);
                 }
-            })
+            });
         }
-    })
-})
+    });
+});
