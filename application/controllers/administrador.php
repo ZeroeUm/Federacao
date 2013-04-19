@@ -146,12 +146,12 @@ class administrador extends CI_Controller
     {
         if (preg_match("/^[A-Za-záàãâéêíóôõú]+$/", $input))
         {
-            $this->form_validation->set_message('alpha_acent', 'O campo %s deve conter somente letras e caracteres acentuados da língua portuguesa.');
-            return false;
+            return true;
         }
         else
         {
-            return true;
+            $this->form_validation->set_message('alpha_acent', 'O campo %s deve conter somente letras e caracteres acentuados da língua portuguesa.');
+            return false;
         }
     }
 
@@ -159,30 +159,32 @@ class administrador extends CI_Controller
     {
         if (preg_match("/^\(?\d{2}\)?\d{4}-?\d{4}$/", $input))//formato (11)3940-1294, sem espaço
         {
+            return true;   
+        }
+        else
+        {
             $this->form_validation->set_message('telephone', 'O campo %s deve possuir um número de telefone ou fax no formato (12)3456-7890.');
             return false;
         }
-        else
-            return true;
     }
 
     public function celular($input)
     {
         if (preg_match("/^\(?\d{2}\)?[9]?\d{4}-?\d{4}$/", $input)):
+            return true;
+        else:
             $this->form_validation->set_message('celular', 'O campo %s deve possuir um número de celular no formato de São Paulo (11)90494-3904.');
             return false;
-        else:
-            return true;
         endif;
     }
 
     public function rg($input)
     {
         if (preg_match("/^\d{2}\.\d{3}\.\d{3}\-\d{1}|[X]$/", $input)):
+            return true;
+        else:
             $this->form_validation->set_message('rg', 'O campo %s deve possuir um número de RG no formato de São Paulo, 23.456.789-0.');
             return false;
-        else:
-            return true;
         endif;
     }
 
@@ -190,11 +192,23 @@ class administrador extends CI_Controller
     {
         if (preg_match("/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/", $input))
         {
+            return true;
+        }
+        else
+        {
             $this->form_validation->set_messasge('cnpj', "O campo %s deve possuir um número de CNPJ no formato 12.345.678/0123-45");
             return false;
         }
-        else
-            return true;
+    }
+    
+    public function combo($input)
+    {
+        if($input == "#"):
+            $this->form_validation->set_message('combo','Na campo com opções de %s deve ser selecionada uma opção.');
+            return FALSE;
+        else:
+            return TRUE;
+        endif;
     }
 
     function alterarFederado($federado)
@@ -202,22 +216,23 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('nome', 'Nome', 'required|callback_alpha_acent|trim|xss_clean');
         $this->form_validation->set_rules('fMaterna', 'Filiação Materna', 'callback_alpha_acent|trim|xss_clean');
         $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'callback_alpha_acent|trim|xss_clean');
-        $this->form_validation->set_rules('sexo', 'Sexo', 'required');
+        $this->form_validation->set_rules('sexo', 'Sexo', 'required|callback_combo');
         $this->form_validation->set_rules('dtNasc', 'Data', 'required|alpha_dash|trim||xss_clean');
         $this->form_validation->set_rules('rg', 'RG', 'required|callback_rg|trim');
         $this->form_validation->set_rules('telefone', 'Telefone para contato', 'required|callback_telephone|trim');
         $this->form_validation->set_rules('celular', 'Celular para contato', 'required|callback_celular|trim');
         $this->form_validation->set_rules('email', 'E-mail para contato', 'required|valid_email|trim');
-        $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required');
-        $this->form_validation->set_rules('situacao', 'Situação na federação', 'required');
-        $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required');
-        $this->form_validation->set_rules('tipo', 'Tipo de federado na federação', 'required');
-        $this->form_validation->set_rules('filial', 'Filial', 'required');
+        $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required|callback_combo');
+        $this->form_validation->set_rules('situacao', 'Situação na federação', 'required|callback_combo');
+        $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required|callback_combo');
+        $this->form_validation->set_rules('tipo', 'Tipo de federado na federação', 'required|callback_combo');
+        $this->form_validation->set_rules('filial', 'Filial', 'required|callback_combo');
         $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|callback_alpha_acent|trim');
-        $this->form_validation->set_rules('numero', 'número do endereço', 'required|is_natural_no_zero|trim');
+        $this->form_validation->set_rules('numero', 'Número do endereço', 'required|is_natural_no_zero|trim');
+        $this->form_validation->set_rules('compl', 'Complemento do endereço','callback_alpha_acent|trim');
         $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|callback_alpha_acent|trim');
-        $this->form_validation->set_rules('uf', 'UF do endereço', 'required');
+        $this->form_validation->set_rules('uf', 'UF do endereço', 'required|callback_combo');
 
 
         if ($this->form_validation->run() == FALSE)
@@ -389,21 +404,22 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('nome', 'Nome', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('fMaterna', 'Filiação Materna', 'callback_alpha_acent|trim');
         $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'callback_alpha_acent|trim');
-        $this->form_validation->set_rules('sexo', 'Sexo', 'required');
+        $this->form_validation->set_rules('sexo', 'Sexo', 'required|callback_combo');
         $this->form_validation->set_rules('dtNasc', 'Data', 'required|alpha_dash|trim');
         $this->form_validation->set_rules('rg', 'RG', 'required|callback_rg|trim');
         $this->form_validation->set_rules('telefone', 'Telefone para contato', 'required|callback_telephone|trim');
         $this->form_validation->set_rules('celular', 'Celular para contato', 'required|callback_celular|trim');
         $this->form_validation->set_rules('email', 'E-mail para contato', 'required|valid_email|trim');
-        $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required');
-        $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required');
-        $this->form_validation->set_rules('tipo', 'Tipo de federado na federação', 'required');
-        $this->form_validation->set_rules('filial', 'Filial', 'required');
+        $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required|callback_combo');
+        $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required|callback_combo');
+        $this->form_validation->set_rules('tipo', 'Tipo de federado na federação', 'required|callback_combo');
+        $this->form_validation->set_rules('filial', 'Filial', 'required|callback_combo');
         $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('numero', 'Número do endereço', 'required|is_natural_no_zero|trim');
+        $this->form_validation->set_rules('compl', 'Complemento do endereço','callback_alpha_acent|trim');
         $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|callback_alpha_acent|trim');
-        $this->form_validation->set_rules('uf', 'UF do endereço', 'required');
+        $this->form_validation->set_rules('uf', 'UF do endereço', 'required|callback_combo');
 
         if ($this->form_validation->run() == FALSE)
         {
@@ -713,12 +729,12 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('fax', 'Fax da filial', 'telephone|trim');
         $this->form_validation->set_rules('email', 'E-mail', 'required|valid_email|trim');
         $this->form_validation->set_rules('representante', 'Representante', 'callback_alpha_acent|trim');
-        $this->form_validation->set_rules('instrutor', 'Instrutor', 'required');
+        $this->form_validation->set_rules('instrutor', 'Instrutor', 'required|callback_combo');
         $this->form_validation->set_rules('logradouro', 'Logradouro', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('numero', 'número', 'required|is_natural_no_zero|trim');
         $this->form_validation->set_rules('bairro', 'Bairro', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('cidade', 'Cidade', 'required|callback_alpha_acent|trim');
-        $this->form_validation->set_rules('uf', 'UF', 'required');
+        $this->form_validation->set_rules('uf', 'UF', 'required|callback_combo');
 
         if ($this->form_validation->run() == FALSE)
         {
@@ -789,12 +805,12 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('fax', 'Fax da filial', 'required|callback_telephone|trim');
         $this->form_validation->set_rules('email', 'E-mail', 'required|valid_email|trim');
         $this->form_validation->set_rules('representante', 'Representante', 'required|callback_alpha_acent|trim');
-        $this->form_validation->set_rules('instrutor', 'Instrutor', 'required');
+        $this->form_validation->set_rules('instrutor', 'Instrutor', 'required|callback_combo');
         $this->form_validation->set_rules('logradouro', 'Logradouro', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('numero', 'número', 'required|is_natural_no_zero|trim');
         $this->form_validation->set_rules('bairro', 'Bairro', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('cidade', 'Cidade', 'required|callback_alpha_acent|trim');
-        $this->form_validation->set_rules('uf', 'UF', 'required');
+        $this->form_validation->set_rules('uf', 'UF', 'required|callback_combo');
 
         if ($this->form_validation->run() == FALSE)
         {
