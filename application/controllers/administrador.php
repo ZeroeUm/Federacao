@@ -142,7 +142,7 @@ class administrador extends CI_Controller
         echo(json_encode($fed[0]));
     }
 
-    public function alpha_acent($input)
+    private function alpha_acent($input)
     {
         if (preg_match("/^[A-Za-záàãâéêíóôõú]+$/", $input))
         {
@@ -155,7 +155,7 @@ class administrador extends CI_Controller
         }
     }
 
-    public function telephone($input)
+    private function telephone($input)
     {
         if (preg_match("/^\(?\d{2}\)?\d{4}-?\d{4}$/", $input))//formato (11)3940-1294, sem espaço
         {
@@ -168,7 +168,7 @@ class administrador extends CI_Controller
         }
     }
 
-    public function celular($input)
+    private function celular($input)
     {
         if (preg_match("/^\(?\d{2}\)?[9]?\d{4}-?\d{4}$/", $input)):
             return true;
@@ -178,7 +178,7 @@ class administrador extends CI_Controller
         endif;
     }
 
-    public function rg($input)
+    private function rg($input)
     {
         if (preg_match("/^\d{2}\.\d{3}\.\d{3}\-\d{1}|[X]$/", $input)):
             return true;
@@ -188,7 +188,7 @@ class administrador extends CI_Controller
         endif;
     }
 
-    public function cnpj($input)
+    private function cnpj($input)
     {
         if (preg_match("/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/", $input))
         {
@@ -201,7 +201,7 @@ class administrador extends CI_Controller
         }
     }
     
-    public function combo($input)
+    private function combo($input)
     {
         if($input == "#"):
             $this->form_validation->set_message('combo','Na campo com opções de %s deve ser selecionada uma opção.');
