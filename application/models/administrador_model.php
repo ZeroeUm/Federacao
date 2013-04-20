@@ -41,11 +41,12 @@ class Administrador_model extends CI_Model
 
     /*
      * @param filial a ser pesquisada e a situa��o a ser abordada na pesquisa
-     * @return federados que perten?am a filial pesquisada e que est?o na situa��o pesquisada
+     * @return federados que perten?am a filial pesquisada e que est�o na situa��o pesquisada
      */
 
     public function MntFedFederado($filial, $status)
     {
+        
         return $this->db
                         ->select("federado.id_federado as id, federado.nome")
                         ->from("federado")
@@ -64,9 +65,11 @@ class Administrador_model extends CI_Model
 
     public function MntFedDados($federado)
     {
+        
+        
         return $this->db
                         ->select(
-                                "federado.nome AS nome,
+                               "federado.nome AS nome,
                               federado.data_nasc AS dtNasc,
                               federado.telefone AS telefone,
                               federado.email AS email,
@@ -80,7 +83,7 @@ class Administrador_model extends CI_Model
                         ->join("escolaridade", "federado.id_escolaridade = escolaridade.id", "inner")
                         ->join("nacionalidade", "federado.id_nacionalidade = nacionalidade.id", "inner")
                         ->join("graduacao_federado", "federado.id_federado = graduacao_federado.id_federado", "inner")
-                        ->join("graduacao", "graduacao_federado.id_modalidade = graduacao.id_modalidade AND graduacao_federado.grau = graduacao.grau", "inner")
+                        ->join("graduacao","graduacao_federado.id_graduacao = graduacao.id_graduacao", "inner")
                         ->where("federado.id_federado", $federado)
                         ->where("graduacao_federado.status", 1)
                         ->get()
@@ -95,8 +98,13 @@ class Administrador_model extends CI_Model
      */
     public function DadosFederado($federado)// met�do para puxar informa��es para p�gina de altera��o
     {
-        $query = $this->db->get_where('federado', array('id_federado' => $federado));
-        return $query->result_array();
+        return $this->db
+                        ->select("*,matricula.id_filial as filial,matricula.id_modalidade as modalidade")
+                        ->from("federado")
+                        ->join("matricula",'federado.id_federado = matricula.id_federado')
+                        ->where("federado.id_federado",$federado)
+                        ->get()
+                        ->result_array();
     }
 
     public function ImprimirDadosFederado($federado)
@@ -152,7 +160,7 @@ class Administrador_model extends CI_Model
     }
 
     /*
-     * @param identificador do federado a ter as informa��es alteradas junto com as altera??es em um array
+     * @param identificador do federado a ter as informa��es alteradas junto com as altera��es em um array
      */
 
     public function AtualizarDadosFederado($id, $dados = array())
@@ -259,7 +267,7 @@ class Administrador_model extends CI_Model
 
     // CRU tabela de endere�o
     /*
-     * @param array associativo com as informa��es a serem inseridas no banco, onde as posi??es do array devem ser os campos da tabela e os valores as novas informa��es a serem inseridas
+     * @param array associativo com as informa��es a serem inseridas no banco, onde as posi��es do array devem ser os campos da tabela e os valores as novas informa��es a serem inseridas
      */
     public function InserirEndereco($dados = array())
     {
@@ -267,7 +275,7 @@ class Administrador_model extends CI_Model
     }
 
     /*
-     * @param identificador do endere?o a ter as informa��es atualizadas junto com o array com as novas informa��es
+     * @param identificador do endere�o a ter as informa��es atualizadas junto com o array com as novas informa��es
      */
 
     public function AtualizarEndereco($id, $dados = array())
@@ -276,11 +284,11 @@ class Administrador_model extends CI_Model
     }
 
     /*
-     * @param numero de registro do endere?o que est? cadastrado no banco para ser alterado
+     * @param numero de registro do endere�o que est� cadastrado no banco para ser alterado
      * @return as informa��es guardadas no banco de dados para serem alterados 
      */
 
-    public function AlterarEndereco($id)// met�do para puxar informa��es para p?gina de altera??o
+    public function AlterarEndereco($id)// met�do para puxar informa��es para p�gina de altera��o
     {
         $query = $this->db->get_where('endereco', array('id_endereco' => $id));
         return $query->result_array();
@@ -342,7 +350,7 @@ class Administrador_model extends CI_Model
     // fim
     //CRU - tabela de filiais
     /*
-     * @param array associativo com as informa��es a serem inseridas no banco, onde as posi??es do array devem ser os campos da tabela e os valores as novas informa��es a serem inseridas
+     * @param array associativo com as informa��es a serem inseridas no banco, onde as posi��es do array devem ser os campos da tabela e os valores as novas informa��es a serem inseridas
      */
     public function InserirFilial($dados = array())
     {
@@ -355,7 +363,8 @@ class Administrador_model extends CI_Model
 
     public function AtualizarFilial($id, $dados = array())
     {
-        $this->db->update('filial', $dados, array('id_filial' => $id));
+        
+        $this->db->update('filial', $dados, array('id_filial' =>$id));
     }
 
     /*
@@ -363,7 +372,7 @@ class Administrador_model extends CI_Model
      * @return dados da filial que vai ser alterada
      */
 
-    public function AlterarDadoasFilial($id)// met�do para puxar informa��es para p?gina de altera??o
+    public function AlterarDadoasFilial($id)// met�do para puxar informa��es para p?gina de altera��o
     {
         $query = $this->db->get_where('filial', array('id_filial' => $id));
         return $query->result_array();
@@ -380,26 +389,38 @@ class Administrador_model extends CI_Model
                         ->get()
                         ->result_array();
     }
+    
+    public function getFiliaisModalidade($modalidade)
+    {
+        return $this->db
+                        ->select('id_filial as id, nome')
+                        ->from('filial')
+                        ->where('id_modalidade',$modalidade)
+                        ->order_by('nome','asc')
+                        ->get()
+                        ->result_array();
+    }
 
     public function getHistoricoNotas($federado)
     {
-        return $this->db
-                        ->select('prontuario.arquivo,evento_graduacao.data_evento,modalidade.nome as modalidade')
-                        ->from('prontuario')
-                        ->join('evento_graduacao', 'prontuario.id_evento = evento_graduacao.id_evento', 'join')
-                        ->join('modalidade', 'evento_graduacao.id_modalidade = modalidade.id_modalidade', 'join')
-                        ->where('prontuario.id_federado', $federado)
-                        ->order_by('evento_graduacao.id_modalidade', 'asc')
-                        ->order_by('evento_graduacao.data_evento', 'desc')
-                        ->get()
-                        ->result_array();
+        return 0;
+//        return  $this->db
+//                        ->select('prontuario.arquivo,evento_graduacao.data_evento,modalidade.nome as modalidade')
+//                        ->from('prontuario')
+//                        ->join('evento_graduacao', 'prontuario.id_evento = evento_graduacao.id_evento', 'join')
+//                        ->join('modalidade', 'evento_graduacao.id_modalidade = modalidade.id_modalidade', 'join')
+//                        ->where('prontuario.id_federado', $federado)
+//                        ->order_by('evento_graduacao.id_modalidade', 'asc')
+//                        ->order_by('evento_graduacao.data_evento', 'desc')
+//                        ->get()
+//                        ->result_array();
     }
 
     public function malaDireta()
     {
         return $this->db
                         ->select("id,mensagem")
-                        ->from("mala-direta")
+                        ->from("mala_direta")
                         ->get()
                         ->result_array();
     }
@@ -449,8 +470,9 @@ class Administrador_model extends CI_Model
     public function informacoesPedido($id)
     {
         return $this->db
-                        ->select('itens_pedido.tamanho,itens_pedido.quantidade,item.id_item,item.id_modalidade,itens_pedido.numero')
+                        ->select('itens_pedido.tamanho,itens_pedido.quantidade,item.id_item,item.id_modalidade,itens_pedido.numero,pedido.status')
                         ->from('itens_pedido')
+                        ->join('pedido','itens_pedido.id_pedido = pedido.id_pedido','join')
                         ->join('item','itens_pedido.id_item = item.id_item','join')
                         ->where('itens_pedido.id_pedido',$id)
                         ->order_by('itens_pedido.numero','asc')
@@ -467,6 +489,70 @@ class Administrador_model extends CI_Model
                         ->order_by('item.id_item','asc')
                         ->get()
                         ->result_array();
+    }
+    
+    public function ultimoItem($pedido)
+    {
+        return $this->db
+                        ->select_max('numero','ultimo')
+                        ->from('itens_pedido')
+                        ->where('id_pedido',$pedido)
+                        ->get()
+                        ->result_array();
+    }
+    
+    public function deletarItemPedido($pedido,$item)
+    {
+        $this->db->where('id_pedido',$pedido);
+        $this->db->where('numero',$item);
+        $this->db->delete('itens_pedido');
+    }
+    
+    public function alterarItemPedido($pedido,$item,$dados = array())
+    {
+        $this->db->where('id_pedido',$pedido);
+        $this->db->where('numero',$item);
+        $this->db->update('itens_pedido',$dados);
+    }
+    
+    public function inserirItemPedido($dados = array())
+    {
+        $this->db->insert('itens_pedido',$dados);
+    }
+    
+    public function statusPedidos()
+    {
+        return $this->db
+                        ->select('id, descricao')
+                        ->from('status_pedido')
+                        ->order_by('id','asc')
+                        ->get()
+                        ->result_array();
+    }
+    
+    public function alterarStatusPedido($id,$dados = array())
+    {
+        $this->db->update('pedido',$dados,array('id_pedido' => $id));
+    }
+    
+    public function matricularFederado($dados = array())
+    {
+        $this->db->insert('matricula',$dados);
+    }
+    
+    public function alterarMatricula($federado,$modalidade,$dados = array())
+    {
+        $this->db->update('matricula',$dados,array('id_federado' => $federado,'id_modalidade' => $modalidade));
+    }
+    
+    public function criarLogin($dados = array())
+    {
+        $this->db->insert('login',$dados);
+    }
+    
+    public function alterarLogin($id,$dados = array())
+    {
+        $this->update('login',$dados,array('id_login' => $id));
     }
 
 }

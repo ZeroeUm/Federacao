@@ -11,13 +11,26 @@ class administrador extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->checar_sessao();
+    }
+
+    function checar_sessao()
+    {
+        if (!$this->session->userdata('autentificado'))
+            redirect('login', 'refresh');
     }
 
     function notificacoes()
     {
-        $this->load->view('header');
-        $this->load->view('administrador/notificacoes');
-        $this->load->view('footer');
+        $this->form_validation->set_rules('assunto', 'Assunto', 'required|callback_alpha_acent|trim');
+        $this->form_validation->set_rules('txtNotificacao', 'Notificação', 'required|trim');
+        if ($this->form_validation->run() == FALSE):
+            $this->load->view('header');
+            $this->load->view('administrador/notificacoes');
+            $this->load->view('footer');
+        else:
+            $this->enviarNotificacoes();
+        endif;
     }
 
     function enviarNotificacoes()
@@ -42,10 +55,10 @@ class administrador extends CI_Controller
         else
             $criterio = 4;
         $emailOrigem = "fp_interestilos@hotmail.com";
-        $nomeOrigem = "federa��o Paulista de Artes Marciais Interestilos";
+        $nomeOrigem = "Federação Paulista de Artes Marciais Interestilos";
         $listaEmails = $this->administrador->NotifEmail($criterio);
         $assunto = $this->input->post('assunto');
-        $mensagem = htmlentities($this->input->post('txtNotificacao'));
+        $mensagem = htmlentities($this->input->post('txtNotificacao'), ENT_QUOTES, 'UTF-8');
 
         foreach ($listaEmails as $destinatario)
         {
@@ -81,12 +94,13 @@ class administrador extends CI_Controller
         {
             for ($i = 0; $i < count($filiais); $i++)
             {
-                $filiais[$i]["nome"] = htmlentities($filiais[$i]["nome"]);
+                $filiais[$i]["nome"] = htmlentities($filiais[$i]["nome"], ENT_QUOTES, 'UTF-8');
             }
-        } else
+        }
+        else
         {
             $filiais[0]['id'] = "";
-            $filiais[0]['nome'] = htmlentities("N�o foi encontrada filial para esse instrutor.");
+            $filiais[0]['nome'] = htmlentities("Não foi encontrada filial para esse instrutor.", ENT_QUOTES, 'UTF-8');
         }
         echo(json_encode($filiais));
     }
@@ -100,12 +114,13 @@ class administrador extends CI_Controller
         {
             for ($i = 0; $i < count($federados); $i++)
             {
-                $federados[$i]["nome"] = htmlentities($federados[$i]["nome"]);
+                $federados[$i]["nome"] = htmlentities($federados[$i]["nome"], ENT_QUOTES, 'UTF-8');
             }
-        } else
+        }
+        else
         {
             $federados[0]["id"] = "";
-            $federados[0]["nome"] = htmlentities("N�o foram encontrados federados nessa filial com essa situa��o.");
+            $federados[0]["nome"] = htmlentities("Não foram encontrados federados nessa filial com essa situação.", ENT_QUOTES, 'UTF-8');
         }
         echo(json_encode($federados));
     }
@@ -121,81 +136,137 @@ class administrador extends CI_Controller
         $idade = $hoje->diff($nasc)->format("%y");
         $fed[0]['idade'] = $idade;
         $resultado = array_map('htmlentities', $fed[0]);
-
-        echo(json_encode($resultado));
+        foreach($fed[0] as $f):
+            $f = htmlentities($f,ENT_QUOTES,'UTF-8');
+        endforeach;
+        echo(json_encode($fed[0]));
     }
 
     public function alpha_acent($input)
     {
-        if (preg_match("^[A-Za-z�-�]+$", $input))
-        {
-            $this->form_validation->set_message('alpha_acent', 'O campo %s deve conter somente letras e caracteres acentuados.');
-            return false;
-        } else
+        if (preg_match("/^[A-Za-záàãâéêíóôõú]+$/", $input))
         {
             return true;
+        }
+        else
+        {
+            $this->form_validation->set_message('alpha_acent', 'O campo %s deve conter somente letras e caracteres acentuados da língua portuguesa.');
+            return false;
         }
     }
 
     public function telephone($input)
     {
-        if (preg_match("^\(?\d{2}\)?\d{4}-?\d{4}$", $input))//formato (11)3940-1294, sem espa�o
+        if (preg_match("/^\(?\d{2}\)?\d{4}-?\d{4}$/", $input))//formato (11)3940-1294, sem espaço
         {
-            $this->form_validation->set_message('telephone', 'O campo %s deve possuir um n�mero de telefone ou fax no formato (12)3456-7890.');
-            return false;
+            return true;   
         }
         else
+        {
+            $this->form_validation->set_message('telephone', 'O campo %s deve possuir um número de telefone ou fax no formato (12)3456-7890.');
+            return false;
+        }
+    }
+
+    public function celular($input)
+    {
+        if (preg_match("/^\(?\d{2}\)?[9]?\d{4}-?\d{4}$/", $input)):
             return true;
+        else:
+            $this->form_validation->set_message('celular', 'O campo %s deve possuir um número de celular no formato de São Paulo (11)90494-3904.');
+            return false;
+        endif;
+    }
+
+    public function rg($input)
+    {
+        if (preg_match("/^\d{2}\.\d{3}\.\d{3}\-\d{1}|[X]$/", $input)):
+            return true;
+        else:
+            $this->form_validation->set_message('rg', 'O campo %s deve possuir um número de RG no formato de São Paulo, 23.456.789-0.');
+            return false;
+        endif;
     }
 
     public function cnpj($input)
     {
-        if (preg_match("(^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$)", $input))
+        if (preg_match("/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/", $input))
         {
-            $this->form_validation->set_messasge('cnpj', "O campo %s deve possuir um n�mero de CNPJ no formato 12.345.678/0123-45");
-            return false;
+            return true;
         }
         else
-            return true;
+        {
+            $this->form_validation->set_messasge('cnpj', "O campo %s deve possuir um número de CNPJ no formato 12.345.678/0123-45");
+            return false;
+        }
+    }
+    
+    public function combo($input)
+    {
+        if($input == "#"):
+            $this->form_validation->set_message('combo','Na campo com opções de %s deve ser selecionada uma opção.');
+            return FALSE;
+        else:
+            return TRUE;
+        endif;
     }
 
     function alterarFederado($federado)
     {
-        $this->form_validation->set_rules('nome', 'Nome', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('fMaterna', 'Filia��o Materna', 'alpha_acent|trim');
-        $this->form_validation->set_rules('fPaterna', 'Filia��o Paterna', 'alpha_acent|trim');
-        $this->form_validation->set_rules('sexo', 'Sexo', 'required');
-        $this->form_validation->set_rules('dtNasc', 'Data', 'required|alpha_dash|trim');
-        $this->form_validation->set_rules('rg', 'RG', 'required');
-        $this->form_validation->set_rules('telefone', 'Telefone para contato', 'required|telephone|trim');
-        $this->form_validation->set_rules('celular', 'Celular para contato', 'required|trim');
+        $this->form_validation->set_rules('nome', 'Nome', 'required|callback_alpha_acent|trim|xss_clean');
+        $this->form_validation->set_rules('fMaterna', 'Filiação Materna', 'callback_alpha_acent|trim|xss_clean');
+        $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'callback_alpha_acent|trim|xss_clean');
+        $this->form_validation->set_rules('sexo', 'Sexo', 'required|callback_combo');
+        $this->form_validation->set_rules('dtNasc', 'Data', 'required|alpha_dash|trim||xss_clean');
+        $this->form_validation->set_rules('rg', 'RG', 'required|callback_rg|trim');
+        $this->form_validation->set_rules('telefone', 'Telefone para contato', 'required|callback_telephone|trim');
+        $this->form_validation->set_rules('celular', 'Celular para contato', 'required|callback_celular|trim');
         $this->form_validation->set_rules('email', 'E-mail para contato', 'required|valid_email|trim');
-        $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required');
-        $this->form_validation->set_rules('situacao', 'Situa��o na federa��o', 'required');
-        $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required');
-        $this->form_validation->set_rules('tipo', 'Tipo de federado na federa��o', 'required');
-        $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('numero', 'n�mero do endereço', 'required|is_natural_no_zero|trim');
-        $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('uf', 'UF do endereço', 'required');
+        $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required|callback_combo');
+        $this->form_validation->set_rules('situacao', 'Situação na federação', 'required|callback_combo');
+        $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required|callback_combo');
+        $this->form_validation->set_rules('tipo', 'Tipo de federado na federação', 'required|callback_combo');
+        $this->form_validation->set_rules('filial', 'Filial', 'required|callback_combo');
+        $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|callback_alpha_acent|trim');
+        $this->form_validation->set_rules('numero', 'Número do endereço', 'required|is_natural_no_zero|trim');
+        $this->form_validation->set_rules('compl', 'Complemento do endereço','callback_alpha_acent|trim');
+        $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|callback_alpha_acent|trim');
+        $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|callback_alpha_acent|trim');
+        $this->form_validation->set_rules('uf', 'UF do endereço', 'required|callback_combo');
 
 
         if ($this->form_validation->run() == FALSE)
         {
             $this->load->model('Administrador_model', 'administrador');
+            
             $this->load->view('header');
             $dados['federado'] = $this->administrador->DadosFederado($federado);
+            
+            
             $endereco = $dados['federado'][0]['id_endereco'];
+            $modalidade = $dados['federado'][0]['modalidade'];
             $dados['nacionalidade'] = $this->administrador->getNacionalidade();
+            
             $dados['escolaridade'] = $this->administrador->getEscolaridade();
+            
             $dados['tipo'] = $this->administrador->getTipoFederado();
+           
             $dados['statusFederado'] = $this->administrador->getStatus();
+           
             $dados['endereco'] = $this->administrador->getEndereco($endereco);
+            
             $dados['uf'] = $this->administrador->getUF();
+            
+            $dados['modalidade'] = $this->administrador->GetModalidades();
+            
+            $dados['filiais'] = $this->administrador->getFiliaisModalidade($modalidade);
+           
             $this->load->view('administrador/alterarFederado', $dados);
+             
             $this->load->view('footer');
-        } else
+            
+        }
+        else
         {
             $this->fotoFederado(1);
         }
@@ -224,7 +295,8 @@ class administrador extends CI_Controller
         {
             $dados = array('error' => $this->upload->display_errors('<div class="alert-error"><b>', '</b></div>'));
             (($op) ? $this->atualizarFederado($dados) : $this->salvarFederado($dados));
-        } else
+        }
+        else
         {
             $dados = array('upload_foto' => $this->upload->data());
             (($op) ? $this->atualizarFederado($dados, $config['file_name']) : $this->salvarFederado($dados, $config['file_name']));
@@ -236,6 +308,8 @@ class administrador extends CI_Controller
         $this->load->model('Administrador_model', 'administrador');
         $endereco = array();
         $federado = array();
+        
+        (($this->input->post('antigaFilial') != $this->input->post('filial'))? $this->alterarMatricula($this->input->post('federado'), $this->input->post('filial'), 1):"");
 
         $endereco['logradouro'] = $this->input->post('logradouro');
         $endereco['numero'] = $this->input->post('numero');
@@ -258,7 +332,7 @@ class administrador extends CI_Controller
         $federado['id_nacionalidade'] = $this->input->post('nacionalidade');
         $federado['id_tipo_federado'] = $this->input->post('tipo');
         $federado['caminho_imagem'] = (isset($foto) ? "tkd/" . $foto : "sem foto");
-
+        
         $this->administrador->AtualizarDadosFederado($this->input->post('federado'), $federado);
 
         $this->administrador->AtualizarEndereco($this->input->post('endereco'), $endereco);
@@ -269,25 +343,96 @@ class administrador extends CI_Controller
         $this->load->view('footer');
     }
 
+    function matricularFederado($federado, $filial, $modalidade)
+    {
+        $this->load->model('Administrador_model', 'administrador');
+        $matricula = array();
+        $matricula['id_federado'] = $federado;
+        $matricula['id_modalidade'] = $modalidade;
+        $matricula['id_filial'] = $filial;
+        $matricula['data_matricula'] = date('Y-m-d');
+        $matricula['matricula_filial'] = date('Y-m-d');
+        $this->administrador->matricularFederado($matricula);
+    }
+
+    function alterarMatricula($federado, $filial, $modalidade)
+    {
+        $this->load->model('Administrador_model', 'administrador');
+        $matricula = array();
+        $matricula['id_federado'] = $federado;
+        $matricula['id_modalidade'] = $modalidade;
+        $matricula['id_filial'] = $filial;
+        $matricula['matricula_filial'] = date("Y-m-d");
+
+        $this->administrador->alterarMatricula($federado, $modalidade, $matricula);
+    }
+
+    function criarLogin($federado, $nome)
+    {
+        $this->load->model('Administrador_model', 'administrador');
+        $login = array();
+        $login['id_federado'] = $federado;
+        $login['login'] = strtolower($this->gerarLogin($nome));
+        $login['senha'] = $this->gerarSenha();
+        $this->administrador->criarLogin($login);
+    }
+
+    function gerarLogin($nome)
+    {
+        $arrNome = explode(" ", $nome);
+        $retorno = substr($arrNome[0], 0, 1);
+        $retorno .= end($arrNome);
+        if (strlen($retorno) > 20)
+            $retorno = substr($retorno, 0, 20);
+        return $retorno;
+    }
+
+    function gerarSenha($tamanho = 10, $maiusculas = true, $numeros = true)
+    {
+        $lmin = 'abcdefghijkmnopqrstuvwxyz';
+        $lmai = 'ABCDEFGHJKLMNOPQRSTUVWXYZ';
+        $num = '0123456789';
+
+        $caracteres = '';
+        $retorno = '';
+
+        $caracteres .= $lmin;
+        if ($maiusculas)
+            $caracteres .= $lmai;
+        if ($numeros)
+            $caracteres .= $num;
+
+        $len = strlen($caracteres);
+
+        for ($i = 0; $i <= $tamanho; $i++):
+            $rand = mt_rand(1, $len);
+            $retorno .= $caracteres[$rand - 1];
+        endfor;
+
+        return $retorno;
+    }
+
     function incluirFederado()
     {
-        $this->form_validation->set_rules('nome', 'Nome', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('fMaterna', 'Filia��o Materna', 'alpha_acent|trim');
-        $this->form_validation->set_rules('fPaterna', 'Filia��o Paterna', 'alpha_acent|trim');
-        $this->form_validation->set_rules('sexo', 'Sexo', 'required');
+        $this->form_validation->set_rules('nome', 'Nome', 'required|callback_alpha_acent|trim');
+        $this->form_validation->set_rules('fMaterna', 'Filiação Materna', 'callback_alpha_acent|trim');
+        $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'callback_alpha_acent|trim');
+        $this->form_validation->set_rules('sexo', 'Sexo', 'required|callback_combo');
         $this->form_validation->set_rules('dtNasc', 'Data', 'required|alpha_dash|trim');
-        $this->form_validation->set_rules('rg', 'RG', 'required');
-        $this->form_validation->set_rules('telefone', 'Telefone para contato', 'required|telephone|trim');
-        $this->form_validation->set_rules('celular', 'Celular para contato', 'required|trim');
+        $this->form_validation->set_rules('rg', 'RG', 'required|callback_rg|trim');
+        $this->form_validation->set_rules('telefone', 'Telefone para contato', 'required|callback_telephone|trim');
+        $this->form_validation->set_rules('celular', 'Celular para contato', 'required|callback_celular|trim');
         $this->form_validation->set_rules('email', 'E-mail para contato', 'required|valid_email|trim');
-        $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required');
-        $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required');
-        $this->form_validation->set_rules('tipo', 'Tipo de federado na federa��o', 'required');
-        $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('numero', 'n�mero do endereço', 'required|is_natural_no_zero|trim');
-        $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('uf', 'UF do endereço', 'required');
+        $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required|callback_combo');
+        $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required|callback_combo');
+        $this->form_validation->set_rules('tipo', 'Tipo de federado na federação', 'required|callback_combo');
+        $this->form_validation->set_rules('filial', 'Filial', 'required|callback_combo');
+        $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|callback_alpha_acent|trim');
+        $this->form_validation->set_rules('numero', 'Número do endereço', 'required|is_natural_no_zero|trim');
+        $this->form_validation->set_rules('compl', 'Complemento do endereço','callback_alpha_acent|trim');
+        $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|callback_alpha_acent|trim');
+        $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|callback_alpha_acent|trim');
+        $this->form_validation->set_rules('uf', 'UF do endereço', 'required|callback_combo');
 
         if ($this->form_validation->run() == FALSE)
         {
@@ -298,9 +443,11 @@ class administrador extends CI_Controller
             $dados['statusFederado'] = $this->administrador->getStatus();
             $dados['uf'] = $this->administrador->getUF();
             $dados['tipo'] = $this->administrador->getTipoFederado();
+            $dados['modalidade'] = $this->administrador->GetModalidades();
             $this->load->view('administrador/incluirFederado', $dados);
             $this->load->view('footer');
-        } else
+        }
+        else
         {
             $this->fotoFederado(0);
         }
@@ -339,6 +486,11 @@ class administrador extends CI_Controller
         $federado['caminho_imagem'] = (isset($foto) ? "tkd/" . $foto : "sem foto");
 
         $this->administrador->InserirFederado($federado);
+
+        $novoFederado = $this->db->insert_id();
+
+        $this->matricularFederado($novoFederado, $this->input->post('filial'), 1);
+        $this->criarLogin($novoFederado, $federado['nome']);
 
         $dados['federado'] = $federado['nome'];
         $this->load->view('header');
@@ -413,6 +565,7 @@ class administrador extends CI_Controller
         $dados['modalidade'] = $this->administrador->GetModalidades();
         $dados['taekwondo'] = $this->administrador->itensModalidade(1);
         $dados['itens'] = $this->administrador->informacoesPedido($id);
+        $dados['status'] = $this->administrador->statusPedidos();
         $this->load->view('header');
         $this->load->view('administrador/alterarPedido', $dados);
         $this->load->view('footer');
@@ -420,7 +573,56 @@ class administrador extends CI_Controller
 
     function atualizarPedido($pedido)
     {
-        
+        $this->load->model('Administrador_model', 'administrador');
+        $post = $this->input->post();
+
+        $pedido = $post['pedido'];
+
+        $alterar = $post['numero'];
+        if (isset($post['excluir'])):
+            $excluir = array_keys($post['excluir']);
+            foreach ($excluir as $chave => $numero):
+                $this->administrador->deletarItemPedido($pedido, $numero);
+            endforeach;
+            $alterar = array_diff_key($post['numero'], $post['excluir']);
+        endif;
+
+        if (isset($post['novoItem'])):
+            $ultimo = $this->administrador->ultimoItem($pedido);
+            $novoId = (isset($ultimo) ? $ultimo[0]['ultimo'] + 1 : 1);
+            $itemNovo = array();
+            for ($i = 0; $i < count($post['novoItem']); $i++):
+                $itemNovo['id_pedido'] = $pedido;
+                $itemNovo['numero'] = $novoId;
+                $itemNovo['id_item'] = $post['novoItem'][$i];
+                $itemNovo['tamanho'] = $post['novoTamanho'][$i];
+                $itemNovo['quantidade'] = $post['novaQuantidade'][$i];
+                $this->administrador->inserirItemPedido($itemNovo);
+                $novoId++;
+            endfor;
+        endif;
+
+        if (isset($post['numero'])):
+            $item = array();
+            $alt = 0;
+            foreach ($alterar as $key => $value):
+                $item['id_item'] = $post['item'][$key];
+                $item['tamanho'] = $post['tamanho'][$key];
+                $item['quantidade'] = $post['quantidade'][$key];
+                $this->administrador->alterarItemPedido($pedido, $key, $item);
+                $alt++;
+            endforeach;
+        endif;
+
+        $this->administrador->alterarStatusPedido($pedido, array('status' => $post['situacao']));
+
+        $dados['excluidos'] = (isset($post['excluir']) ? count($excluir) : 0);
+        $dados['incluidos'] = (isset($post['novoItem']) ? $i + 1 : 0);
+        $dados['atualizados'] = (isset($post['numero']) ? $alt : 0);
+        $dados['pedido'] = $pedido;
+        $this->load->view('header');
+        $this->load->view('administrador/sucessoAlterarPedido', $dados);
+        $this->load->view('footer');
     }
 
     function itensModalidade($id)
@@ -432,12 +634,13 @@ class administrador extends CI_Controller
         {
             for ($i = 0; $i < count($itens); $i++)
             {
-                $itens[$i]['descricao'] = htmlentities($itens[$i]['descricao']);
+                $itens[$i]['descricao'] = htmlentities($itens[$i]['descricao'], ENT_QUOTES, 'UTF-8');
             }
-        } else
+        }
+        else
         {
             $itens[0]['id'] = "";
-            $itens[0]['descricao'] = htmlentities('N�o foram encontrados itens para a modalidade escolhida.');
+            $itens[0]['descricao'] = htmlentities('Não foram encontrados itens para a modalidade escolhida.', ENT_QUOTES, 'UTF-8');
         }
 
         echo(json_encode($itens));
@@ -454,7 +657,7 @@ class administrador extends CI_Controller
 
     function getHistorico($federado)
     {
-        header('Content-type: text/html; charset=ISO-8859-1');
+        header('Content-type: text/html; charset=UTF-8');
         $this->load->model('Administrador_model', 'administrador');
         $historico = $this->administrador->getHistoricoNotas($federado);
 
@@ -470,7 +673,7 @@ class administrador extends CI_Controller
             endforeach;
         }
         else
-            echo ("N�o foi encontrado nenhum registro do federado escolhido.<br/>Verifique se o federado j� realizou alguma gradua��o na federa��o Paulista de Artes Marciais Interestilos.");
+            echo ("Não foi encontrado nenhum registro do federado escolhido.<br/>Verifique se o federado já realizou alguma graduação na federação Paulista de Artes Marciais Interestilos.");
     }
 
     function filiais()
@@ -487,9 +690,11 @@ class administrador extends CI_Controller
         $this->load->model('Administrador_model', 'administrador');
         $filial = $this->administrador->MntFilialDados($filial);
         header('Content-type: application/x-json; charset=utf-8');
-
-        $resultado = array_map('htmlentities', $filial[0]);
-        echo(json_encode($resultado));
+        
+        foreach($filial[0] as $f):
+            $f = htmlentities($f, ENT_QUOTES, 'UTF-8');
+        endforeach;
+        echo(json_encode($filial[0]));
     }
 
     function modalidades()
@@ -499,34 +704,50 @@ class administrador extends CI_Controller
 
         header('Content-type: application/x-json; charset=utf-8');
 
-        if(!empty($modalidade))
+        if (!empty($modalidade))
         {
             for ($i = 0; $i < count($modalidade); $i++)
-                $modalidade[$i]['nome'] = htmlentities($modalidade[$i]['nome']);
+                $modalidade[$i]['nome'] = htmlentities($modalidade[$i]['nome'], ENT_QUOTES, 'UTF-8');
         }
         else
         {
             $modalidade[0]['id'] = "";
-            $modalidade[0]['nome'] = "N�o foram encontradas as modalidades, verifique a conex�o com o banco.";
+            $modalidade[0]['nome'] = htmlentities("Não foram encontradas as modalidades, verifique a conexão com o banco.", ENT_QUOTES, 'UTF-8');
         }
-        
+
         echo(json_encode($modalidade));
+    }
+
+    function getFilialModalidade($modalidade)
+    {
+        $this->load->model('Administrador_model', 'administrador');
+        $filiais = $this->administrador->getFiliaisModalidade($modalidade);
+        header('Content-type: application/x-json; charset=utf-8');
+        if (!empty($filiais))
+            for ($i = 0; $i < count($filiais); $i++)
+                $filiais[$i]['nome'] = htmlentities($filiais[$i]['nome'], ENT_QUOTES, 'UTF-8');
+        else
+        {
+            $filiais[0]['id'] = "";
+            $filiais[0]['nome'] = htmlentities("Não foram encontradas filiais para essa modalidade, verifique a conexão com o banco.", ENT_QUOTES, 'UTF-8');
+        }
+        echo (json_encode($filiais));
     }
 
     function alterarFilial($filial)
     {
-        $this->form_validation->set_rules('nome', 'Nome da Filial', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('cnpj', 'N�mero de CNPJ', 'required|cnpj');
+        $this->form_validation->set_rules('nome', 'Nome da Filial', 'required|callback_alpha_acent|trim');
+        $this->form_validation->set_rules('cnpj', 'Número de CNPJ', 'required|cnpj');
         $this->form_validation->set_rules('telefone', 'Telefone da filial', 'telephone|trim');
         $this->form_validation->set_rules('fax', 'Fax da filial', 'telephone|trim');
         $this->form_validation->set_rules('email', 'E-mail', 'required|valid_email|trim');
-        $this->form_validation->set_rules('representante', 'Representante', 'alpha_acent|trim');
-        $this->form_validation->set_rules('instrutor', 'Instrutor', 'required');
-        $this->form_validation->set_rules('logradouro', 'Logradouro', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('numero', 'n�mero', 'required|is_natural_no_zero|trim');
-        $this->form_validation->set_rules('bairro', 'Bairro', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('cidade', 'Cidade', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('uf', 'UF', 'required');
+        $this->form_validation->set_rules('representante', 'Representante', 'callback_alpha_acent|trim');
+        $this->form_validation->set_rules('instrutor', 'Instrutor', 'required|callback_combo');
+        $this->form_validation->set_rules('logradouro', 'Logradouro', 'required|callback_alpha_acent|trim');
+        $this->form_validation->set_rules('numero', 'número', 'required|is_natural_no_zero|trim');
+        $this->form_validation->set_rules('bairro', 'Bairro', 'required|callback_alpha_acent|trim');
+        $this->form_validation->set_rules('cidade', 'Cidade', 'required|callback_alpha_acent|trim');
+        $this->form_validation->set_rules('uf', 'UF', 'required|callback_combo');
 
         if ($this->form_validation->run() == FALSE)
         {
@@ -540,7 +761,8 @@ class administrador extends CI_Controller
             $dados['instrutor'] = $this->administrador->MntFedInstrutor();
             $this->load->view("administrador/alterarFilial", $dados);
             $this->load->view("footer");
-        } else
+        }
+        else
         {
             $this->atualizaFilial();
         }
@@ -590,18 +812,18 @@ class administrador extends CI_Controller
 
     function incluirFilial()
     {
-        $this->form_validation->set_rules('nome', 'Nome da Filial', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('cnpj', 'n�mero de CNPJ', 'required|cnpj');
-        $this->form_validation->set_rules('telefone', 'Telefone da filial', 'required|telephone|trim');
-        $this->form_validation->set_rules('fax', 'Fax da filial', 'required|telephone|trim');
+        $this->form_validation->set_rules('nome', 'Nome da Filial', 'required|callback_alpha_acent|trim');
+        $this->form_validation->set_rules('cnpj', 'número de CNPJ', 'required|cnpj');
+        $this->form_validation->set_rules('telefone', 'Telefone da filial', 'required|callback_telephone|trim');
+        $this->form_validation->set_rules('fax', 'Fax da filial', 'required|callback_telephone|trim');
         $this->form_validation->set_rules('email', 'E-mail', 'required|valid_email|trim');
-        $this->form_validation->set_rules('representante', 'Representante', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('instrutor', 'Instrutor', 'required');
-        $this->form_validation->set_rules('logradouro', 'Logradouro', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('numero', 'n�mero', 'required|is_natural_no_zero|trim');
-        $this->form_validation->set_rules('bairro', 'Bairro', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('cidade', 'Cidade', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('uf', 'UF', 'required');
+        $this->form_validation->set_rules('representante', 'Representante', 'required|callback_alpha_acent|trim');
+        $this->form_validation->set_rules('instrutor', 'Instrutor', 'required|callback_combo');
+        $this->form_validation->set_rules('logradouro', 'Logradouro', 'required|callback_alpha_acent|trim');
+        $this->form_validation->set_rules('numero', 'número', 'required|is_natural_no_zero|trim');
+        $this->form_validation->set_rules('bairro', 'Bairro', 'required|callback_alpha_acent|trim');
+        $this->form_validation->set_rules('cidade', 'Cidade', 'required|callback_alpha_acent|trim');
+        $this->form_validation->set_rules('uf', 'UF', 'required|callback_combo');
 
         if ($this->form_validation->run() == FALSE)
         {
@@ -612,7 +834,8 @@ class administrador extends CI_Controller
             $dados['instrutores'] = $this->administrador->MntFedInstrutor();
             $this->load->view("administrador/incluirFilial", $dados);
             $this->load->view("footer");
-        } else
+        }
+        else
         {
             $this->salvarFilial();
         }
@@ -665,7 +888,7 @@ class administrador extends CI_Controller
     function inserirMensagem()
     {
         $this->load->model('administrador_model', 'administrador');
-        $dados['mensagem'] = htmlentities($this->input->post('mensagem'), ENT_QUOTES, 'ISO-8859-1');
+        $dados['mensagem'] = htmlentities($this->input->post('mensagem'), ENT_QUOTES, 'UTF-8');
         $this->administrador->inserirMaladireta($dados);
         $this->load->view('header');
         $dados['troca'] = FALSE;
@@ -676,7 +899,7 @@ class administrador extends CI_Controller
     function alterarMensagem()
     {
         $this->load->model('administrador_model', 'administrador');
-        $dados['mensagem'] = htmlentities($this->input->post('mensagem'), ENT_QUOTES, 'ISO-8859-1');
+        $dados['mensagem'] = htmlentities($this->input->post('mensagem'), ENT_QUOTES, 'UTF-8');
         $this->administrador->alterarMalaDireta($this->input->post('id'), $dados);
         $this->load->view('header');
         unset($dados);

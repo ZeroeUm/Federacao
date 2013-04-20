@@ -1,28 +1,28 @@
 <?php
 
-$lang['db_invalid_connection_str'] = 'Não foi possível determinar as configurações do banco de dados baseado nas string que você encaminhou.';
-$lang['db_unable_to_connect'] = 'Não foi possível conectar com seu banco de dados usando as configurações fornecidas.';
-$lang['db_unable_to_select'] = 'Não foi possível selecionar o banco de dados: %s';
-$lang['db_unable_to_create'] = 'Não foi possível criar o banco de dados especificado: %s';
-$lang['db_invalid_query'] = 'A Consulta que você submeteu não é válida.';
-$lang['db_must_set_table'] = 'Você deve setar a tabela do banco de dados para ser usada com sua consulta.';
-$lang['db_must_use_set'] = 'Você deve usar o método "set" para atualizar uma entrada.';
-$lang['db_must_use_index'] = 'Você deve especificar um índice para coincidir com as atualizações em lote.';
-$lang['db_batch_missing_index'] = 'Uma ou mais linhas enviadas para a atualiação em lote está faltando o índice especificado.';
-$lang['db_must_use_where'] = 'Atualizações não são permitidas sem que elas contenham uma clausula "where".';
-$lang['db_del_must_use_where'] = 'Exclusões não são permitidas sem que elas contenham clausula "where" ou "like".';
+$lang['db_invalid_connection_str'] = 'NÃ£o foi possÃ­vel determinar as configuraÃ§Ãµes do banco de dados baseado nas string que vocÃª encaminhou.';
+$lang['db_unable_to_connect'] = 'NÃ£o foi possÃ­vel conectar com seu banco de dados usando as configuraÃ§Ãµes fornecidas.';
+$lang['db_unable_to_select'] = 'NÃ£o foi possÃ­vel selecionar o banco de dados: %s';
+$lang['db_unable_to_create'] = 'NÃ£o foi possÃ­vel criar o banco de dados especificado: %s';
+$lang['db_invalid_query'] = 'A Consulta que vocÃª submeteu nÃ£o Ã© vÃ¡lida.';
+$lang['db_must_set_table'] = 'VocÃª deve setar a tabela do banco de dados para ser usada com sua consulta.';
+$lang['db_must_use_set'] = 'VocÃª deve usar o mÃ©todo "set" para atualizar uma entrada.';
+$lang['db_must_use_index'] = 'VocÃª deve especificar um Ã­ndice para coincidir com as atualizaÃ§Ãµes em lote.';
+$lang['db_batch_missing_index'] = 'Uma ou mais linhas enviadas para a atualiaÃ§Ã£o em lote estÃ¡ faltando o Ã­ndice especificado.';
+$lang['db_must_use_where'] = 'AtualizaÃ§Ãµes nÃ£o sÃ£o permitidas sem que elas contenham uma clausula "where".';
+$lang['db_del_must_use_where'] = 'ExclusÃµes nÃ£o sÃ£o permitidas sem que elas contenham clausula "where" ou "like".';
 $lang['db_field_param_missing'] = 'Para buscar campos requer o nome da tabela como um parametro.';
-$lang['db_unsupported_function'] = 'Este recurso não está habilitado para o banco de dados que está usando.';
-$lang['db_transaction_failure'] = 'Falha na transação: Rollback realizado.';
-$lang['db_unable_to_drop'] = 'Não foi possível dropar(excluir) o banco de dados especificado.';
-$lang['db_unsuported_feature'] = 'Recurso não suportado da plataforma do banco de dados que está usando.';
-$lang['db_unsuported_compression'] = 'O formato de arquivo de compressão que você escolheu não é suportado por seu servidor.';
-$lang['db_filepath_error'] = 'Não foi possível escrever dados no caminho que você encaminhou.';
-$lang['db_invalid_cache_path'] = 'O caminho do cache que você encaminhou não é válido ou não habilitado para escrita.';
-$lang['db_table_name_required'] = 'Um nome da tabela é necessário para esta operação.';
-$lang['db_column_name_required'] = 'Um nome de coluna é necessário para esta operação.';
-$lang['db_column_definition_required'] = 'Uma definição de coluna é necessária para está operação.';
-$lang['db_unable_to_set_charset'] = 'Não foi possível configurar(setar) o charset da conexão cliente: %s';
+$lang['db_unsupported_function'] = 'Este recurso nÃ£o estÃ¡ habilitado para o banco de dados que estÃ¡ usando.';
+$lang['db_transaction_failure'] = 'Falha na transaÃ§Ã£o: Rollback realizado.';
+$lang['db_unable_to_drop'] = 'NÃ£o foi possÃ­vel dropar(excluir) o banco de dados especificado.';
+$lang['db_unsuported_feature'] = 'Recurso nÃ£o suportado da plataforma do banco de dados que estÃ¡ usando.';
+$lang['db_unsuported_compression'] = 'O formato de arquivo de compressÃ£o que vocÃª escolheu nÃ£o Ã© suportado por seu servidor.';
+$lang['db_filepath_error'] = 'NÃ£o foi possÃ­vel escrever dados no caminho que vocÃª encaminhou.';
+$lang['db_invalid_cache_path'] = 'O caminho do cache que vocÃª encaminhou nÃ£o Ã© vÃ¡lido ou nÃ£o habilitado para escrita.';
+$lang['db_table_name_required'] = 'Um nome da tabela Ã© necessÃ¡rio para esta operaÃ§Ã£o.';
+$lang['db_column_name_required'] = 'Um nome de coluna Ã© necessÃ¡rio para esta operaÃ§Ã£o.';
+$lang['db_column_definition_required'] = 'Uma definiÃ§Ã£o de coluna Ã© necessÃ¡ria para estÃ¡ operaÃ§Ã£o.';
+$lang['db_unable_to_set_charset'] = 'NÃ£o foi possÃ­vel configurar(setar) o charset da conexÃ£o cliente: %s';
 $lang['db_error_heading'] = 'Um erro de banco de dados ocorreu.';
 
 /* End of file db_lang.php */

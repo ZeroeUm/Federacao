@@ -15,7 +15,7 @@
 </script>
 <?php
 $federado = $federado[0];
-print_r($federado);
+
 $endereco = $endereco[0];
 $hidden = array("federado" => $federado['id_federado'],"endereco" => $endereco['id_endereco']);
 $attr = array(

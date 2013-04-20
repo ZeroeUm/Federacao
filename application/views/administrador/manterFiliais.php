@@ -3,21 +3,26 @@
 /* 2013-01-24
  * @author HUmberto
  */
-$prop = array('class' => 'btn btn-link btn-large', 'name' => 'incluirFilial','id' => 'incluirFilial');
+$prop = array('class' => 'btn btn-primary', 'name' => 'incluirFilial', 'id' => 'incluirFilial');
 
-echo anchor("administrador/incluirFilial","Incluir Filial",$prop);
+echo anchor("administrador/incluirFilial", "Incluir Filial", $prop);
+?>
+<div class="row-fluid">
+    <?php
+    echo form_fieldset("Pesquisa por Filial");
+    $options = array("#" => "Escolha uma filial.");
+    foreach ($filiais as $filial)
+        $options[$filial['id']] = $filial['nome'];
 
-echo form_fieldset("Pesquisa por Filial");
-$options = array("#" => "Escolha uma filial.");
-foreach($filiais as $filial)
-    $options[$filial['id']] = $filial['nome'];
+    echo form_label("Filiais", "filiais");
+    echo form_dropdown('filiais', $options, '#', 'id="filiais" class="span3"');
 
-echo form_label("Filiais","filiais");
-echo form_dropdown('filiais',$options,'#','id="filiais" class="span3"');
-
-echo form_fieldset_close();
-
-echo form_fieldset("Resultado da pesquisa",array('id' => 'resultado','style' => 'display:none'));
+    echo form_fieldset_close();
+    ?>
+</div>
+<div class="row-fluid">
+<?php
+echo form_fieldset("Resultado da pesquisa", array('id' => 'resultado', 'style' => 'display:none'));
 
 $nome = array(
     'class' => "span3",
@@ -25,7 +30,7 @@ $nome = array(
     'name' => "nome",
     'readonly' => 'readonly'
 );
-echo form_label("Nome","nome");
+echo form_label("Nome", "nome");
 echo form_input($nome);
 
 $telefone = array(
@@ -34,7 +39,7 @@ $telefone = array(
     'name' => "telefone",
     'readonly' => 'readonly'
 );
-echo form_label("Telefone","telefone");
+echo form_label("Telefone", "telefone");
 echo form_input($telefone);
 
 $fax = array(
@@ -43,7 +48,7 @@ $fax = array(
     'name' => "fax",
     'readonly' => 'readonly'
 );
-echo form_label("Fax",'fax');
+echo form_label("Fax", 'fax');
 echo form_input($fax);
 
 $email = array(
@@ -52,7 +57,7 @@ $email = array(
     'name' => "email",
     'readonly' => 'readonly'
 );
-echo form_label("E-mail","email");
+echo form_label("E-mail", "email");
 echo form_input($email);
 
 $representante = array(
@@ -61,7 +66,7 @@ $representante = array(
     'name' => "representante",
     'readonly' => 'readonly'
 );
-echo form_label("Representante",'representante');
+echo form_label("Representante", 'representante');
 echo form_input($representante);
 
 $instrutor = array(
@@ -70,7 +75,7 @@ $instrutor = array(
     'name' => "instrutor",
     'readonly' => 'readonly'
 );
-echo form_label("Instrutor","instrutor");
+echo form_label("Instrutor", "instrutor");
 echo form_input($instrutor);
 
 $logradouro = array(
@@ -79,7 +84,7 @@ $logradouro = array(
     'name' => "logradouro",
     'readonly' => 'readonly'
 );
-echo form_label("Logradouro",'logradouro');
+echo form_label("Logradouro", 'logradouro');
 echo form_input($logradouro);
 
 $numero = array(
@@ -88,7 +93,7 @@ $numero = array(
     'name' => "numero",
     'readonly' => 'readonly'
 );
-echo form_label("Número",'numero');
+echo form_label("NÃºmero", 'numero');
 echo form_input($numero);
 
 $complemento = array(
@@ -97,7 +102,7 @@ $complemento = array(
     'name' => 'complemento',
     'readonly' => 'readonly'
 );
-echo form_label("Complemento",'complemento');
+echo form_label("Complemento", 'complemento');
 echo form_input($complemento);
 
 $bairro = array(
@@ -106,7 +111,7 @@ $bairro = array(
     'name' => "bairro",
     'readonly' => 'readonly'
 );
-echo form_label("Bairro","bairro");
+echo form_label("Bairro", "bairro");
 echo form_input($bairro);
 
 $cidade = array(
@@ -115,7 +120,7 @@ $cidade = array(
     'name' => "cidade",
     'readonly' => 'readonly'
 );
-echo form_label("Cidade",'cidade');
+echo form_label("Cidade", 'cidade');
 echo form_input($cidade);
 
 $uf = array(
@@ -124,12 +129,13 @@ $uf = array(
     'name' => "uf",
     'readonly' => 'readonly'
 );
-echo form_label("UF",'uf');
+echo form_label("UF", 'uf');
 echo form_input($uf);
 
 echo br();
-echo anchor("","Imprimir Filial",array('class' => 'btn btn-link btn-large','id' => 'imprimir'));
+echo anchor("", "Imprimir Filial", array('class' => 'btn btn-primary', 'id' => 'imprimir'));
 echo nbs(4);
-echo anchor("","Alterar Filial",array('class' => 'btn btn-link btn-large','id' => 'alterar'));
+echo anchor("", "Alterar Filial", array('class' => 'btn btn-primary', 'id' => 'alterar'));
 echo form_fieldset_close();
 ?>
+</div>

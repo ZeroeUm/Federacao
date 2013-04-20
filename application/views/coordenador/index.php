@@ -41,14 +41,14 @@ Salvo com sucesso
     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display: block; position: static; margin-bottom: 5px; *width:">
         <li><a tabindex="-1" href="#">Gerenciamento de Alunos</a></li>
         <li class="divider"></li>
-        <li><a tabindex="-1" href="#">Histórico do federado</a></li>
+        <li><a tabindex="-1" href="#">HistÃ³rico do federado</a></li>
         <li><a tabindex="-1" href="#">Prontuario de notas</a></li>
         
-        <li class="dropdown-submenu"><a tabindex="-1" href="#">Avaliações</a>
+        <li class="dropdown-submenu"><a tabindex="-1" href="#">AvaliaÃ§Ãµees</a>
             <ul class="dropdown-menu">
                 <li><a tabindex="-1" href="#">Cadastrar alunos em evento</a></li>
-                   <li><a tabindex="-1" href="#">Lançar notas de evento</a></li> 
-                <li><a tabindex="-1" href="#">Solicitação de faixas</a></li>
+                   <li><a tabindex="-1" href="#">LanÃ§ar notas de evento</a></li> 
+                <li><a tabindex="-1" href="#">SolicitaÃ§Ã£o de faixas</a></li>
 
              </ul>
        </li>

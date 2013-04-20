@@ -24,7 +24,7 @@ a:hover {
 }
 
 #header h1 {
-    xbackground: url("/assets/images//logo.png") no-repeat scroll 0 0 transparent;
+    xbackground: url("/assets/images/logo.png") no-repeat scroll 0 0 transparent;
     height: 31px;
     left: 15px;
     line-height: 600px;
@@ -99,7 +99,7 @@ a:hover {
 }
 #user-nav > ul > li > a > i, #sidebar li a i {
 	vertical-align: top;
-	background-image: url('/Federacao/assets/images/glyphicons-halflings-white.png');
+	background-image: url('/assets/images/glyphicons-halflings-white.png');
 	opacity: .5;
 	margin-top: 2px;
 }

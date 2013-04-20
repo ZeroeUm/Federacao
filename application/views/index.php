@@ -4,7 +4,7 @@
     <head>
 
 
-        <title>Sistema Gerenciador de Atividades Internas &mdash; Federação Paulista de Artes Marciais Interestilos</title>
+        <title>Sistema Gerenciador de Atividades Internas &mdash; FederaÃ§Ã£o Paulista de Artes Marciais Interestilos</title>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() . 'assets/css/style.css' ?>" />
         <!--[if lt IE 9]>
@@ -36,7 +36,7 @@
 
         <section id="secondary_bar">
             <div class="user">
-                <p style="index-z:+10;">Nome do usuário</p>
+                <p style="index-z:+10;">Nome do usuÃ¡rio</p>
                 <!-- <a class="logout_user" href="#" title="Logout">Logout</a> -->
             </div>
             <div class="breadcrumbs_container">
@@ -45,41 +45,41 @@
         </section><!-- end of secondary bar -->
 
         <aside id="sidebar" class="column">
-            <img src="#" alt="imagem usuario" title="imagem usuario" width="150" height="200" style="padding:5px 20px" />
+            <img src="#" alt="imagem usuÃ¡rio" title="imagem usuario" width="150" height="200" style="padding:5px 20px" />
             <h3>Alunos</h3>
             <ul class="toggle">
-                <li class="icn_profile"><a href="#">Histórico pessoal de notas</a></li>
-                <li class="icn_folder"><a href="#">Cronograma de eventos da Federação</a></li>
-                <li class="icn_view_users"><a href="#">Histórico de atividades</a></li>
-                <li class="icn_folder"><a href="#">Currículo da modalidade</a></li>
+                <li class="icn_profile"><a href="#">HistÃ³rico pessoal de notas</a></li>
+                <li class="icn_folder"><a href="#">Cronograma de eventos da FederaÃ§Ã£o</a></li>
+                <li class="icn_view_users"><a href="#">HistÃ³rico de atividades</a></li>
+                <li class="icn_folder"><a href="#">CurrÃ­culo da modalidade</a></li>
             </ul>
 
             <h3>Instrutores</h3>
             <ul class="toggle">
-                <li class="icn_edit_article"><a href="#">Manutenção de dados de alunos</a></li>
-                <li class="icn_add_user"><a href="#">Cadastrar novo aluno na Federação</a></li>
-                <li class="icn_tags"><a href="#">Inscrever alunos em Graduação de Faixa</a></li>
-                <li class="icn_categories"><a href="#">Manutenção de participantes em Graduação de Faixa</a></li>
+                <li class="icn_edit_article"><a href="#">ManutenÃ§Ã£o de dados de alunos</a></li>
+                <li class="icn_add_user"><a href="#">Cadastrar novo aluno na FederaÃ§Ã£o</a></li>
+                <li class="icn_tags"><a href="#">Inscrever alunos em GraduaÃ§Ã£o de Faixa</a></li>
+                <li class="icn_categories"><a href="#">ManuteÃ§Ã£o de participantes em GraduaÃ§Ã£o de Faixa</a></li>
             </ul>
             
             <h3>Coordenadores</h3>
             <ul class="toggle">
                 <li class="icn_new_article"><a href="#">Verificar professores da modalidade</a></li>
-                <li class="icn_categories"><a href="#">Manutenção de dados de filiais</a></li>
+                <li class="icn_categories"><a href="#">ManutenÃ§Ã£o de dados de filiais</a></li>
                 <li class="icn_new_article"><a href="#">Emitir certificados</a></li>
                 <li class="icn_folder"><a href="#">Enviar pedido de compra de faixa</a></li>
-                <li class="icn_new_article"><a href="#">Emitir prontuário de notas para pré-avaliação</a></li>
-                <li class="icn_categories"><a href="#">Manutenção do currículo da modalidade</a></li>
-                <li class="icn_edit_article"><a href="#">Verificar relação de participantes em Graduação</a></li>
+                <li class="icn_new_article"><a href="#">Emitir prontuÃ¡rio de notas para prÃ©-avaliaÃ§Ã£o</a></li>
+                <li class="icn_categories"><a href="#">ManutenÃ§Ã£o do currÃ­culo da modalidade</a></li>
+                <li class="icn_edit_article"><a href="#">Verificar relaÃ§Ã£o de participantes em GraduaÃ§Ã£o</a></li>
             </ul>
             <h3>Administrador</h3>
             <ul class="toggle">
-                <li class="icn_folder"><a href="#">Enviar notificações via e-mail</a></li>
-                <li class="icn_categories"><a href="#">Manutenção de dados de Federados</a></li>
-                <li class="icn_money"><a href="#">Manutenção de pedidos de compra de faixa</a></li>
-                <li class="icn_tags"><a href="#">Verificar histórico de atividades de Federado</a></li>
-                <li class="icn_categories"><a href="#">Manutenção de dados de Filiais</a></li>
-                <li class="icn_edit_article"><a href="#">Manutenção de mala-direta dos aniversariantes</a></li>
+                <li class="icn_folder"><a href="#">Enviar notificaÃ§Ãµes via e-mail</a></li>
+                <li class="icn_categories"><a href="#">ManutenÃ§Ã£o de dados de Federados</a></li>
+                <li class="icn_money"><a href="#">ManutenÃ§Ã£o de pedidos de compra de faixa</a></li>
+                <li class="icn_tags"><a href="#">Verificar histÃ³rico de atividades de Federado</a></li>
+                <li class="icn_categories"><a href="#">ManutenÃ§Ã£o de dados de Filiais</a></li>
+                <li class="icn_edit_article"><a href="#">ManuntenÃ§Ã£o de mala-direta Ã  aniversariantes</a></li>
             </ul>
 
             <footer>
@@ -91,16 +91,14 @@
 
         <section id="main" class="column">
 
-            <h4 class="alert_info">Bem vindo ao Dworker administrativo MMN.</h4>
+            <h4 class="alert_info">Bem vindo ao Dworker administraÃ§Ã£o MMN.</h4>
 
             <article class="module width_full">
                 <header><h3>Meus Ganhos</h3></header>
                 <div class="module_content">
-                    <article class="stats_graph style="width: 90%; height:200px;">
+                    <article class="stats_graph style="width:90%; height:200px;">
 
-                             <div id="chart_div" style="width: 90%; height: 200px;">
-                                 
-                        </div>
+                             <div id="chart_div" style="width: 90%; height: 200px;"></div>
 
 
 
@@ -130,7 +128,7 @@
             <article class="module width_3_quarter">
                 <header><h3 class="tabs_involved">Alcance seu Sucesso</h3>
                     <ul class="tabs">
-                        <li><a href="#tab1">Indicações Recebidas</a></li>
+                        <li><a href="#tab1">Indicaï¿½ï¿½es Recebidas</a></li>
                         <li><a href="#tab2">Artigos</a></li>
                     </ul>
                 </header>
@@ -197,7 +195,7 @@
                                     <th></th> 
                                     <th>Titulo</th> 
                                     <th>Autor by</th> 
-                                    <th>Publicação</th> 
+                                    <th>Publicaï¿½ï¿½es</th> 
                                     <th>Actions</th> 
                                 </tr> 
                             </thead> 
@@ -211,7 +209,7 @@
                                 </tr> 
                                 <tr> 
                                     <td><input type="checkbox"></td> 
-                                    <td>Como alcançar o sucesso de forma eficaz</td> 
+                                    <td>Como alcanï¿½ar o sucesso de forma eficaz</td> 
                                     <td>Jeremy Usbourne</td> 
                                     <td>6th April 2011</td> 
                                     <td><input type="image" src="assets/images/icn_edit.png" title="Edit"><input type="image" src="assets/images/icn_trash.png" title="Trash"></td> 
@@ -250,13 +248,13 @@
                 <header><h3>Eventos</h3></header>
                 <div class="message_list">
                     <div class="module_content">
-                        <div class="message"><p>Reconhecimento de liderança 2012.</p>
+                        <div class="message"><p>Reconhecimento de lideranï¿½a 2012.</p>
                             <p><strong>balsamo Perfumes</strong></p></div>
                         <div class="message"><p>Aniversario de 5 anos da empresa Bult Comesmeticos.</p>
                             <p><strong>John Doe</strong></p></div>
-                        <div class="message"><p>Conheça mais sobre MMN no Brasil.</p>
+                        <div class="message"><p>Conheï¿½a mais sobre MMN no Brasil.</p>
                             <p><strong>Carlos Godoy</strong></p></div>
-                        <div class="message"><p>Reunião Anual de vendedores MMN.</p>
+                        <div class="message"><p>Reuniï¿½o Anual de vendedores MMN.</p>
                             <p><strong>SindPH</strong></p></div>
                         <div class="message"><p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor.</p>
                             <p><strong>John Doe</strong></p></div>
