@@ -73,14 +73,18 @@ class Instrutores extends CI_Controller {
     }
 
     function getFederado($federado) {
+        
+        
         $this->load->model('Instrutor_model', 'instrutor');
-        header('Content-type: application/x-json; charset=utf-8');
+          
         $fed = $this->instrutor->MntFedDados($federado);
+       
         $nasc = new DateTime($fed[0]['dtNasc']);
         $fed[0]['dtNasc'] = $nasc->format('d-m-Y');
         $hoje = new DateTime('now');
         $idade = $hoje->diff($nasc)->format("%y");
         $fed[0]['idade'] = $idade;
+        header('Content-type: application/x-json; charset=utf-8');
         $resultado = array_map('htmlentities', $fed[0]);
 
         echo(json_encode($resultado));
@@ -96,8 +100,8 @@ class Instrutores extends CI_Controller {
 
     function incluirFederado() {
         $this->form_validation->set_rules('nome', 'Nome', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('fMaterna', 'Filiação Materna', 'alpha_acent|trim');
-        $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'alpha_acent|trim');
+        $this->form_validation->set_rules('fMaterna', 'FiliaÃ§Ã£o Materna', 'alpha_acent|trim');
+        $this->form_validation->set_rules('fPaterna', 'FiliaÃ§Ã£o Paterna', 'alpha_acent|trim');
         $this->form_validation->set_rules('sexo', 'Sexo', 'required');
         $this->form_validation->set_rules('dtNasc', 'Data', 'required|alpha_dash|trim');
         $this->form_validation->set_rules('rg', 'RG', 'required');
@@ -107,11 +111,11 @@ class Instrutores extends CI_Controller {
         $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required');
         $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required');
 
-        $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('numero', 'Número do endereço', 'required|is_natural_no_zero|trim');
-        $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('uf', 'UF do endereço', 'required');
+        $this->form_validation->set_rules('logradouro', 'Logradouro do endereÃ§o', 'required|alpha_acent|trim');
+        $this->form_validation->set_rules('numero', 'NÃºmero do endereÃ§o', 'required|is_natural_no_zero|trim');
+        $this->form_validation->set_rules('bairro', 'Bairro do endereÃ§o', 'required|alpha_acent|trim');
+        $this->form_validation->set_rules('cidade', 'Cidade do endereÃ§o', 'required|alpha_acent|trim');
+        $this->form_validation->set_rules('uf', 'UF do endereÃ§o', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->model('Instrutor_model', 'instrutor');
@@ -130,8 +134,8 @@ class Instrutores extends CI_Controller {
 
     function alterarFederado($federado) {
         $this->form_validation->set_rules('nome', 'Nome', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('fMaterna', 'Filiação Materna', 'alpha_acent|trim');
-        $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'alpha_acent|trim');
+        $this->form_validation->set_rules('fMaterna', 'FiliaÃ§Ã£o Materna', 'alpha_acent|trim');
+        $this->form_validation->set_rules('fPaterna', 'FiliaÃ§Ã£o Paterna', 'alpha_acent|trim');
         $this->form_validation->set_rules('sexo', 'Sexo', 'required');
         $this->form_validation->set_rules('dtNasc', 'Data', 'required|alpha_dash|trim');
         $this->form_validation->set_rules('rg', 'RG', 'required');
@@ -139,14 +143,14 @@ class Instrutores extends CI_Controller {
         $this->form_validation->set_rules('celular', 'Celular para contato', 'required|trim');
         $this->form_validation->set_rules('email', 'E-mail para contato', 'required|valid_email|trim');
         $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required');
-        $this->form_validation->set_rules('situacao', 'Situação na federação', 'required');
+        $this->form_validation->set_rules('situacao', 'SituaÃ§Ã£o na federaÃ§Ã£o', 'required');
         $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required');
-        $this->form_validation->set_rules('tipo', 'Tipo de federado na federação', 'required');
-        $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('numero', 'Número do endereço', 'required|is_natural_no_zero|trim');
-        $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('uf', 'UF do endereço', 'required');
+        $this->form_validation->set_rules('tipo', 'Tipo de federado na federaÃ§Ã£o', 'required');
+        $this->form_validation->set_rules('logradouro', 'Logradouro do endereÃ§o', 'required|alpha_acent|trim');
+        $this->form_validation->set_rules('numero', 'NÃºmero do endereÃ§o', 'required|is_natural_no_zero|trim');
+        $this->form_validation->set_rules('bairro', 'Bairro do endereÃ§o', 'required|alpha_acent|trim');
+        $this->form_validation->set_rules('cidade', 'Cidade do endereÃ§o', 'required|alpha_acent|trim');
+        $this->form_validation->set_rules('uf', 'UF do endereÃ§o', 'required');
 
 
         if ($this->form_validation->run() == FALSE) {
@@ -271,8 +275,8 @@ class Instrutores extends CI_Controller {
 
     function novoaluno() {
         $this->form_validation->set_rules('nome', 'Nome', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('fMaterna', 'Filiação Materna', 'alpha_acent|trim');
-        $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'alpha_acent|trim');
+        $this->form_validation->set_rules('fMaterna', 'FiliaÃ§Ã£o Materna', 'alpha_acent|trim');
+        $this->form_validation->set_rules('fPaterna', 'FiliaÃ§Ã£o Paterna', 'alpha_acent|trim');
         $this->form_validation->set_rules('sexo', 'Sexo', 'required');
         $this->form_validation->set_rules('dtNasc', 'Data', 'required|alpha_dash|trim');
         $this->form_validation->set_rules('rg', 'RG', 'required');
@@ -281,12 +285,12 @@ class Instrutores extends CI_Controller {
         $this->form_validation->set_rules('email', 'E-mail para contato', 'required|valid_email|trim');
         $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required');
         $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required');
-        $this->form_validation->set_rules('tipo', 'Tipo de federado na federação', 'required');
-        $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('numero', 'Número do endereço', 'required|is_natural_no_zero|trim');
-        $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('uf', 'UF do endereço', 'required');
+        $this->form_validation->set_rules('tipo', 'Tipo de federado na federaÃ§Ã£o', 'required');
+        $this->form_validation->set_rules('logradouro', 'Logradouro do endereÃºo', 'required|alpha_acent|trim');
+        $this->form_validation->set_rules('numero', 'NÃºmero do endereÃ§o', 'required|is_natural_no_zero|trim');
+        $this->form_validation->set_rules('bairro', 'Bairro do endereÃ§o', 'required|alpha_acent|trim');
+        $this->form_validation->set_rules('cidade', 'Cidade do endereÃ§o', 'required|alpha_acent|trim');
+        $this->form_validation->set_rules('uf', 'UF do endereÃ§o', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->model('Instrutor_model', 'instrutor');
@@ -307,7 +311,7 @@ class Instrutores extends CI_Controller {
         $this->load->model('Instrutor_model');
         $tema["instrutor"] = $this->Instrutor_model->inscrever();
         $this->load->view('header');
-        $this->load->view('instrutores/inscricao', $tema);
+        $this->load->view('instrutores/inscricao',$tema);
         $this->load->view('footer');
     }
 
@@ -330,10 +334,12 @@ class Instrutores extends CI_Controller {
 
     function getInscrito($filial) {
         $this->load->model('Instrutor_model', 'instrutor');
-        header('Content-type: application/x-json; charset=iso-8859-1', true);
+       
 
-        //   echo (htmlentities(utf8_encode('é,não, três')));
+       
+        //   echo (htmlentities(utf8_encode('Ã§,nÃ§o, trÃ§s')));
         $filiais = $this->instrutor->getInscrito($filial);
+       
 //        print_r($filiais);
         if (!empty($filiais)) {
             for ($i = 0; $i < count($filiais); $i++) {
@@ -345,6 +351,7 @@ class Instrutores extends CI_Controller {
                 //$resultado = array_map('htmlentities', $filiais['2']);
             }
             //print_r(count($filiais));
+             header('Content-type: application/x-json; charset=iso-8859-1', true);
             echo (json_encode($filiais));
         }
     }

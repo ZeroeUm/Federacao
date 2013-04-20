@@ -5,18 +5,10 @@
 
 </script>
 
-Relação de participantes
+RelaÃ§Ã£o de participantes
 
     
-    <?php 
-if($this->session->flashdata('erro')){ ?>
-<div class="alert alert-error">
-    <a href="#" class="close" data-dismiss="alert">x</a>
-
-    <?php echo $this->session->flashdata('erro');?>
-</div>
-<?php };
-?>
+    
 <div class="row-fluid">
     
 </div>
@@ -57,5 +49,5 @@ if($this->session->flashdata('erro')){ ?>
 </table>
 
 <div class="row-fluid">
-    <h3>Total de inscrições: <?php echo $total; ?></h3>
+    <h3>Total de inscriÃ§Ãµes: <?php echo $total; ?></h3>
 </div>

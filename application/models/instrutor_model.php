@@ -82,7 +82,7 @@ class Instrutor_model extends CI_Model {
                         ->join("escolaridade", "federado.id_escolaridade = escolaridade.id", "inner")
                         ->join("nacionalidade", "federado.id_nacionalidade = nacionalidade.id", "inner")
                         ->join("graduacao_federado", "federado.id_federado = graduacao_federado.id_federado", "inner")
-                        ->join("graduacao", "graduacao_federado.id_modalidade = graduacao.id_modalidade AND graduacao_federado.grau = graduacao.grau", "inner")
+                        ->join("graduacao", "graduacao_federado.id_graduacao = graduacao.id_graduacao", "inner")
                         ->where("federado.id_federado", $federado)
                         ->where("graduacao_federado.status", 1)
                         ->get()
@@ -129,7 +129,7 @@ class Instrutor_model extends CI_Model {
     }
 
     /*
-     * @param array associativo com as informações a serem inseridas no banco, onde as posições do array devem ser os campos da tabela e os valores as novas informações a serem inseridas
+     * @param array associativo com as informaï¿½ï¿½es a serem inseridas no banco, onde as posiï¿½ï¿½es do array devem ser os campos da tabela e os valores as novas informaï¿½ï¿½es a serem inseridas
      */
 
     public function InserirFederado($dados = array()) {
@@ -176,7 +176,7 @@ class Instrutor_model extends CI_Model {
                         ->result_array();
     }
 
-    public function DadosFederado($federado) {// metódo para puxar informações para página de alteração
+    public function DadosFederado($federado) {// metï¿½do para puxar informaï¿½ï¿½es para pï¿½gina de alteraï¿½ï¿½o
         $query = $this->db->get_where('federado', array('id_federado' => $federado));
         return $query->result_array();
     }
@@ -219,17 +219,19 @@ class Instrutor_model extends CI_Model {
      */
 
     function getInscrito($filial) {
-        $this->db->order_by('graduacao_federado.grau', 'ASC');
+        
         return $this->db
                         ->select('federado.id_federado as id, federado.nome as nome,
-      graduacao_federado.grau as graduacao, filial.nome as filial')
+                                    graduacao.grau as graduacao, filial.nome as filial')
                         ->DISTINCT()
                         ->from('federado')
                         ->join('matricula', 'matricula.id_federado = federado.id_federado', 'inner')
                         ->join('filial', 'matricula.id_filial = filial.id_filial', 'inner')
                         ->join('graduacao_federado', 'graduacao_federado.id_federado = federado.id_federado', 'inner')
+                        ->join('graduacao', 'graduacao_federado.id_graduacao = graduacao_federado.id_graduacao', 'inner')
                         ->join('modalidade', 'modalidade.id_modalidade = graduacao_federado.id_modalidade', 'inner')
                         ->where(array('federado.id_tipo_federado' => '1', 'filial.id_Filial' => $filial, 'federado.id_status' => '1'))
+                        ->order_by('graduacao.grau', 'ASC')
                         ->get()
                         ->result_array();
     }

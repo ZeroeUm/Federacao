@@ -160,8 +160,10 @@ class Coordenador_model extends CI_Model {
         try {
            $result =  $this->db->delete('evento_graduacao', array('id_evento' => $id_evento));
         
-           if(!$result){
-                throw new Exception();
+           if($result){
+              return true;
+           }else{
+               return false;
            }
            
         } catch (Exception $exc) {
@@ -195,7 +197,9 @@ class Coordenador_model extends CI_Model {
     public function insertEvento($dados) {
 
 
-
+        
+        print_r($dados);
+        $dados['data']['endereco']['tipo_endereco'] = '3';
         $this->db->insert('endereco', $dados['data']['endereco']);
         $ultimo = $this->db->from("endereco")->insert_id();
 
@@ -257,12 +261,16 @@ class Coordenador_model extends CI_Model {
 
     public function get_professores($id) {
 
-        $query = $this->db->select('*')
-                ->from('instrutor_modalidade')
-                ->join('modalidade', 'modalidade.id_modalidade = instrutor_modalidade.id_modalidade')
-                ->join('instrutor', 'instrutor.id_instrutor = instrutor_modalidade.id_instrutor')
+        $query = $this->db->select(
+                                    'federado.nome,federado.sexo,federado.telefone,                                  
+                                    federado.email,federado.data_nasc , filial.nome as nome_filial'
+                                    )
+                ->from('instrutor_por_modalidade')
+                ->join('modalidade', 'modalidade.id_modalidade = instrutor_por_modalidade.id_modalidade')
+                ->join('instrutor', 'instrutor.id_instrutor = instrutor_por_modalidade.id_instrutor')
                 ->join('federado', 'federado.id_federado = instrutor.id_federado')
-                ->where("instrutor_modalidade.id_modalidade", $id)
+                ->join('filial', 'filial.id_instrutor = instrutor.id_instrutor')
+                ->where("instrutor_por_modalidade.id_modalidade", $id)
                 ->get();
 
         return $query->result_array();
