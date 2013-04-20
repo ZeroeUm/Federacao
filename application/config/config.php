@@ -14,7 +14,7 @@
   | path to your installation.
   |
  */
-$config['base_url'] = "http://federacao.local/";
+$config['base_url'] = "http://localhost/Federacao";
 
 /*
   |--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ $config['language'] = 'pt-br';
   | that require a character set to be provided.
   |
  */
-$config['charset'] = 'utf8';
+$config['charset'] = 'UTF8';
 
 /*
   |--------------------------------------------------------------------------
@@ -246,7 +246,7 @@ $config['encryption_key'] = '1c2h3a4v5e67p8a9r0a98e7n6c5r4i3p2t1a1r2';
   |
  */
 $config['sess_cookie_name'] = 'ci_session';
-$config['sess_expiration'] = 600;
+$config['sess_expiration'] = 1200;
 $config['sess_expire_on_close'] = FALSE;
 $config['sess_encrypt_cookie'] = FALSE;
 $config['sess_use_database'] = FALSE;

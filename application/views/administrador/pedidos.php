@@ -12,9 +12,9 @@
             <tr>
                 <th>ID</th>
                 <th>Data</th>
-                <th>Responsável</th>
+                <th>ResponsÃ¡vel</th>
                 <th>Fornecedor</th>
-                <th>Situação</th>
+                <th>SituaÃ§Ã£o</th>
                 <th>Alterar</th>
             </tr>
         </thead>
@@ -43,7 +43,7 @@
                     <td style="text-align: center;"><?= $row->fornecedor ?></td>
                     <td style="text-align: center;"><?= $row->situacao ?></td>
                     <td style="text-align: center;">
-                        <a href="<?php echo base_url() ?>administrador/alterarPedido/<?= $row->id ?>" class="btn btn-link">Informações</a>
+                        <a href="<?php echo base_url() ?>administrador/alterarPedido/<?= $row->id ?>" class="btn btn-link">InformaÃ§Ãµes</a>
                     </td>            
                 </tr>
                 <?php

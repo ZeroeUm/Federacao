@@ -10,11 +10,11 @@
             <?php
             if ($excluidos == 0):
                 ?>
-                Não foram excluídos nenhum dos itens do pedido <?= $pedido ?>.
+                NÃ£o foram excluÃ­dos nenhum dos itens do pedido <?= $pedido ?>.
                 <?php
             else:
                 ?>
-                Foram excluídos <?= $excluidos ?> item(s) do pedido <?= $pedido ?>.
+                Foram excluÃ­dos <?= $excluidos ?> item(s) do pedido <?= $pedido ?>.
             <?php
             endif;
             ?>
@@ -27,11 +27,11 @@
             <?php
             if ($incluidos == 0):
                 ?>
-                Não foram incluídos nenhum dos itens do pedido <?= $pedido ?>.
+                NÃ£o foram incluÃ­dos nenhum dos itens do pedido <?= $pedido ?>.
                 <?php
             else:
                 ?>
-                Foram incluídos <?= $incluidos ?> item(s) do pedido <?= $pedido ?>.
+                Foram incluÃ­dos <?= $incluidos ?> item(s) do pedido <?= $pedido ?>.
             <?php
             endif;
             ?>
@@ -44,7 +44,7 @@
             <?php
             if ($atualizados == 0):
                 ?>
-                Não foram atualizados nenhum dos itens do pedido <?= $pedido ?>.
+                NÃ£o foram atualizados nenhum dos itens do pedido <?= $pedido ?>.
                 <?php
             else:
                 ?>

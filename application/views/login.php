@@ -14,8 +14,8 @@ $label = array(
 ?>
 <html>
     <head>
-        <title>Login ao sistema da Federação</title>
-        <meta http-equiv="content-type" content="text/html" charset="ISO-8859-1" />
+        <title>Login ao sistema da FederaÃ§Ã£o</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <script src="<?php echo base_url(); ?>assets/js/jquery-1.8.2.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap-responsive.css">
@@ -28,13 +28,13 @@ $label = array(
                 <?php echo validation_errors(); ?>
             </div>
             <?php
-            echo form_fieldset('Área de login ao SGAI');
+            echo form_fieldset('Ãrea de login ao SGAI');
             echo form_open('login', $attr);
             ?>
             <div class="control-group">
-                <?php echo form_label('Usuário', 'usuario', $label); ?>
+                <?php echo form_label('UsuÃ¡rio', 'usuario', $label); ?>
                 <div class="controls">
-                    <?php echo form_input('usuario', '', 'id="usuario" class="span3" maxlength="20" required placeholder="Usuário"'); ?>
+                    <?php echo form_input('usuario', '', 'id="usuario" class="span3" maxlength="20" required placeholder="UsuÃ¡rio"'); ?>
                 </div>
             </div>
             <div class="control-group">

@@ -21,7 +21,7 @@ $label = array(
         <?php echo validation_errors(); ?>    
     </div>
     <?php
-    echo form_fieldset("Alteração de registro de filial");
+    echo form_fieldset("AlteraÃ§Ã£o de registro de filial");
     echo form_open("administrador/alterarFilial/" . $this->uri->segment(3), $attr, $hidden);
     ?>
     <div class="control-group">
@@ -110,7 +110,7 @@ $label = array(
         </div>
     </div>
     <div class="control-group">
-        <?php echo form_label("Número", "numero", $label) ?>
+        <?php echo form_label("NÃºmero", "numero", $label) ?>
         <div class="controls">
             <?php
             $inNumero = "id='numero' class='span2' maxlength='5' required";
@@ -158,7 +158,7 @@ $label = array(
     </div>
     <?php
     $inBotao = 'id="btnAlterar" class="btn btn-primary"';
-    echo form_submit("btnAlterar", "Alterar informações", $inBotao);
+    echo form_submit("btnAlterar", "Alterar informaÃ§Ãµes", $inBotao);
     echo form_close();
     echo form_fieldset_close();
     ?>

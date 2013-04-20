@@ -68,7 +68,7 @@ class Instrutor_model extends CI_Model {
     public function MntFedDados($federado) {
         return $this->db
                         ->select(
-                              "federado.nome AS nome,
+                                "federado.nome AS nome,
                               federado.data_nasc AS dtNasc,
                               federado.telefone AS telefone,
                               federado.email AS email,

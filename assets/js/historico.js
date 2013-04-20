@@ -18,10 +18,8 @@ $(document).ready(function(){
     $("#instrutores").val("#");
     
     $("#resultado").css("display","none");
-   
-   $('#instrutores').change(function (){
-       
-       var instrutor = $("#instrutores").val();
+    $('#instrutores').change(function (){
+        var instrutor = $("#instrutores").val();
         $.ajax({
             type: "POST",
             data: "instrutor="+instrutor,
@@ -93,7 +91,7 @@ $(document).ready(function(){
         if(federado != "#")
         {
             $("#resultado").css("display","block");
-            $("#resultado").load('/administrador/getHistorico/'+federado);
+            $("#resultado").load('getHistorico/'+federado);
         }
     })
 })

@@ -8,7 +8,7 @@
             "<body>"+
             conteudo.innerHTML+
             "</body></html>";
-        var janelaImprimir = window.open("", "Tela de impressço", 'width=750,height=650,top=50,left=50,toolbars=no,scroolbar=yes,status=no,resizable=yes');
+        var janelaImprimir = window.open("", "Tela de impressÃ£o", 'width=750,height=650,top=50,left=50,toolbars=no,scroolbar=yes,status=no,resizable=yes');
         janelaImprimir.document.writeln(html);
         janelaImprimir.document.close();
         janelaImprimir.focus();
@@ -37,7 +37,7 @@ $imagem = array(
 ?>
 <div id="row-fluid">
     <?php
-    echo form_fieldset("Impressão de dados do federado");
+    echo form_fieldset("ImpressÃ£o de dados do federado");
     echo form_open('', $attr);
     echo img($imagem);
     ?>
@@ -54,23 +54,23 @@ $imagem = array(
     </div>
     <div class="control-group">
         <?php
-        echo form_label("Filiação Materna", "fMaterna", $label);
+        echo form_label("FiliaÃ§Ã£o Materna", "fMaterna", $label);
         ?>
         <div class="controls">
             <?php
             $inFMaterna = 'id="fMaterna" class="span3" disabled size="60"';
-            echo form_input('fMaterna', (($fed['fMaterna'] == "") ? "Não fornecido" : $fed['fMaterna']), $inFMaterna);
+            echo form_input('fMaterna', (($fed['fMaterna'] == "") ? "NÃ£o fornecido" : $fed['fMaterna']), $inFMaterna);
             ?>
         </div>
     </div>
     <div class="control-group">
         <?php
-        echo form_label("Filiação Paterna", "fPaterna", $label);
+        echo form_label("FiliaÃ§Ã£o Paterna", "fPaterna", $label);
         ?>
         <div class="controls">
             <?php
             $inFPaterna = 'id="fPaterna" class="span3" disabled size="60"';
-            echo form_input('fPaterna', (($fed['fPaterna'] == "") ? "Não fornecido" : $fed['fPaterna']), $inFPaterna)
+            echo form_input('fPaterna', (($fed['fPaterna'] == "") ? "NÃ£o fornecido" : $fed['fPaterna']), $inFPaterna)
             ?>
         </div>
     </div>
@@ -164,7 +164,7 @@ $imagem = array(
     </div>
     <div class="control-group">
         <?php
-        echo form_label("Situação", "situacao", $label);
+        echo form_label("SituaÃ§Ã£o", "situacao", $label);
         ?>
         <div class="controls">
             <?php
@@ -186,7 +186,7 @@ $imagem = array(
     </div>
     <div class="control-group">
         <?php
-        echo form_label("Graduação atual", "graduacao", $label);
+        echo form_label("GraduaÃ§Ã£o atual", "graduacao", $label);
         ?>
         <div class="controls">
             <?php
@@ -197,7 +197,7 @@ $imagem = array(
     </div>
     <div class="control-group">
         <?php
-        echo form_label("Endereço Residencial", "endereco", $label);
+        echo form_label("EndereÃ§o Residencial", "endereco", $label);
         ?>
         <div class="controls">
             <?php
@@ -207,7 +207,7 @@ $imagem = array(
         </div>
     </div>
     <?php
-    echo form_button('btnImprimir', 'Imprimir Informaçães', 'id="btnImprimir" onClick="imprimirInformacao(\'conteiner\')" class="btn btn-primary"');
+    echo form_button('btnImprimir', 'Imprimir InformaÃ§Ãµes', 'id="btnImprimir" onClick="imprimirInformacao(\'content\')" class="btn btn-primary"');
     echo form_close();
     echo form_fieldset_close();
     ?>

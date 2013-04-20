@@ -16,7 +16,7 @@
 <?php
 $federado = $federado[0];
 $endereco = $endereco[0];
-$hidden = array("federado" => $federado['id_federado'], "endereco" => $endereco['id_endereco']);
+$hidden = array("federado" => $federado['id_federado'], "endereco" => $endereco['id_endereco'],"antigaFilial" => $federado['filial']);
 $attr = array(
     "class" => "form-horizontal",
     "id" => "frmAlterar",
@@ -29,7 +29,7 @@ $label = array(
 <div id="row-fluid">
     <?php
     echo validation_errors();
-    echo form_fieldset("Alteração de registro de federado");
+    echo form_fieldset("AlteraÃ§Ã£o de registro de federado");
     echo form_open_multipart("administrador/alterarFederado/" . $this->uri->segment(3), $attr, $hidden);
     $imagem = array(
         "src" => (($federado['caminho_imagem'] == "sem foto") ? "http://placehold.it/140x140/000000/ffffff&text=%3F" : "federados/fotos/".$federado['caminho_imagem']),
@@ -52,18 +52,18 @@ $label = array(
     </div>
     <div class="control-group">
         <?php
-        echo form_label("Filiação Materna", "fMaterna", $label);
+        echo form_label("FiliaÃ§Ã£o Materna", "fMaterna", $label);
         ?>
         <div class="controls">
             <?php
             $inFMaterna = 'id="fMaterna" class="span3" maxlength="60"';
-            echo form_input('fMaternta', set_value('fMaterna', $federado['filiacao_materna']), $inFMaterna);
+            echo form_input('fMaterna', set_value('fMaterna', $federado['filiacao_materna']), $inFMaterna);
             ?>
         </div>
     </div>
     <div class="control-group">
         <?php
-        echo form_label("Filiação Paterna", "fPaterna", $label);
+        echo form_label("FiliaÃ§Ã£o Paterna", "fPaterna", $label);
         ?>
         <div class="controls">
             <?php
@@ -141,7 +141,7 @@ $label = array(
     </div>
     <div class="control-group">
         <?php
-        echo form_label("Foto de identificação", "foto", $label);
+        echo form_label("Foto de identificaÃ§Ã£o", "foto", $label);
         ?>
         <div class="controls">
             <?php
@@ -166,7 +166,7 @@ $label = array(
     </div>
     <div class="control-group">
         <?php
-        echo form_label("Situação", "situacao", $label);
+        echo form_label("SituaÃ§Ã£o", "situacao", $label);
         ?>
         <div class="controls">
             <?php
@@ -226,7 +226,7 @@ $label = array(
             <?php
             foreach ($filiais as $f)
                 $opFilial[$f['id']] = $f['nome'];
-            echo form_dropdown('filial',$opFilial,set_value('filial',$federado['filial']),'id="filial" class="span2" required')
+            echo form_dropdown('filial',$opFilial,set_value('filial',$federado['filial']),'id="filial" class="span4" required')
             ?>
         </div>
     </div>
@@ -243,7 +243,7 @@ $label = array(
     </div>
     <div class="control-group">
         <?php
-        echo form_label("Número", "numero", $label);
+        echo form_label("NÃºmero", "numero", $label);
         ?>
         <div class="controls">
             <?php
@@ -300,7 +300,7 @@ $label = array(
     </div>
     <?php
     $inBotao = 'id="btnAlterar" class="btn btn-primary"';
-    echo form_submit("btnAlterar", "Alterar informações", $inBotao);
+    echo form_submit("btnAlterar", "Alterar informaÃ§Ãµes", $inBotao);
     echo form_close();
     echo form_fieldset_close();
     ?>

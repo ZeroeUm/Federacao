@@ -110,7 +110,7 @@ $(document).ready(function(){
                     $("#imprimir").attr("href", "imprimirFederado/"+fed);
                     $("#alterar").attr("href","alterarFederado/"+fed);
                 }
-            })
+            });
         }
-    })
-})
+    });
+});

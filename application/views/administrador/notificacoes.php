@@ -7,26 +7,27 @@ bkLib.onDomLoaded(nicEditors.allTextAreas);
  * 2013-01-30
  * @author Humberto
  */
-echo form_fieldset("<small>¡rea de notificaÁıes</small> FederaÁ„o Paulista de Artes Marciais Interestilos");
-echo form_open('administrador/enviarNotificacoes',array('id' => 'frmNotificacoes'));
-echo form_label('Assunto da notificaÁ„o','assunto');
-echo form_input('assunto','','class = span3');
-echo form_label('NotificaÁ„o a ser enviada','txtNotificacao');
+echo form_fieldset("<small>√Årea de notifica√ß√µes</small> Federa√ß√£o Paulista de Artes Marciais Interestilos");
+echo form_open('administrador/notificacoes',array('id' => 'frmNotificacoes'));
+echo form_label('Assunto da notifica√ß√£o','assunto');
+echo form_input('assunto','','class = span3 required');
+echo form_label('Notifica√ß√£o a ser enviada','txtNotificacao');
 $textarea = array(
     'id'    => 'txtNotificacao',
     'rows'  => 15,
     'name'  => 'txtNotificacao',
-    'style' => 'width: 100%'
+    'style' => 'width: 100%',
+    'required' => 'required'
 );
 echo form_textarea($textarea);
 echo br();
-echo form_label('Escolha o alvo da notificaÁ„o');
+echo form_label('Escolha o alvo da notifica√ß√£o');
 echo form_label("Alunos".form_checkbox('aluno','1'),'alvoNotificacao',array('class' => 'checkbox inline'));
 echo form_label("Instrutores".form_checkbox('instrutor','1'),'alvoNotificacao',array('class' => 'checkbox inline'));
 echo form_label("Coordenador".form_checkbox('coordenador','1'),'alvoNotificacao',array('class' => 'checkbox inline'));
-echo form_label("‡ Todos".form_checkbox('todos','1'),'alvoNotificacao',array('class' => 'checkbox inline'));
+echo form_label("√† Todos".form_checkbox('todos','1','true'),'alvoNotificacao',array('class' => 'checkbox inline'));
 echo br();
-echo form_submit('enviarNotificacao','Enviar NotificaÁ„o','class = "btn btn-primary"');
+echo form_submit('enviarNotificacao','Enviar Notifica√ß√£o','class = "btn btn-primary"');
 echo form_close();
 echo form_fieldset_close();
 ?>

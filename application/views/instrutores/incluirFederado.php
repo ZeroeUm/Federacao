@@ -1,4 +1,6 @@
-
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 <script type="text/javascript">
     $(function () {
         $("#dtNasc").datepicker({
@@ -41,22 +43,22 @@ echo form_open_multipart("instrutores/incluirFederado", $attr);
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Filiação Materna", "fMaterna", $label);
+        echo form_label("Filia��o Materna", "fMaterna", $label);
     ?>
     <div class="controls">
         <?php
-            $inFMaterna = 'id="fMaterna" class="span3" maxlength="60" placeholder="Filiação Materna"';
+            $inFMaterna = 'id="fMaterna" class="span3" maxlength="60" placeholder="Filia��o Materna"';
             echo form_input('fMaterna',set_value('fMaterna'),$inFMaterna);
         ?>
     </div>
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Filiação Paterna", "fPaterna", $label);
+        echo form_label("Filia��o Paterna", "fPaterna", $label);
     ?>
     <div class="controls">
         <?php
-            $inFPaterna = 'id="fPaterna" class="span3" maxlength="60" placeholder="Filiação Paterna"';
+            $inFPaterna = 'id="fPaterna" class="span3" maxlength="60" placeholder="Filia��o Paterna"';
             echo form_input("fPaterna",set_value('fPaterna'),$inFPaterna);
         ?>
     </div>
@@ -67,7 +69,7 @@ echo form_open_multipart("instrutores/incluirFederado", $attr);
     ?>
     <div class="controls">
         <?php
-            $opSexo = array("#" => "Escolha uma opção.", "F" => "Feminino", "M" => "Masculino");
+            $opSexo = array("#" => "Escolha uma op��o.", "F" => "Feminino", "M" => "Masculino");
             echo form_dropdown("sexo", $opSexo, set_value("sexo","#"), 'id="sexo" class="span2" required');
         ?>
     </div>
@@ -129,7 +131,7 @@ echo form_open_multipart("instrutores/incluirFederado", $attr);
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Foto de identificação", "foto", $label);
+        echo form_label("Foto de identifica��o", "foto", $label);
     ?>
     <div class="controls">
         <?php
@@ -144,7 +146,7 @@ echo form_open_multipart("instrutores/incluirFederado", $attr);
     ?>
     <div class="controls">
         <?php
-            $opEscolaridade["#"] = "Escolha uma opção.";
+            $opEscolaridade["#"] = "Escolha uma op��o.";
             foreach($escolaridade as $esc)
                 $opEscolaridade[$esc['id']] = $esc['descricao'];
             echo form_dropdown("escolaridade", $opEscolaridade, set_value('escolaridade','#'), 'id="sexo" class="span3" required')
@@ -158,7 +160,7 @@ echo form_open_multipart("instrutores/incluirFederado", $attr);
     ?>
     <div class="controls">
         <?php
-            $opNacionalidade["#"] = "Escolha uma opção.";
+            $opNacionalidade["#"] = "Escolha uma op��o.";
             foreach($nacionalidade as $nac)
                 $opNacionalidade[$nac['id']] = $nac['nacionalidade'];
 
@@ -184,7 +186,7 @@ echo form_open_multipart("instrutores/incluirFederado", $attr);
     ?>
     <div class="controls">
         <?php
-            $inNumero = 'id="numero" class="span2" maxlength="5" required placeholder="Número"';
+            $inNumero = 'id="numero" class="span2" maxlength="5" required placeholder="N�mero"';
             echo form_input('numero',set_value('numero'),$inNumero);
         ?>
     </div>

@@ -78,7 +78,7 @@ foreach ($instrutores as $instrutor)
     echo br();
     echo anchor("", "Imprimir Federado", array('class' => 'btn btn-primary', 'id' => 'imprimir'));
     echo nbs(4);
-    echo anchor("", "Alterar informaçães", array('class' => 'btn btn-primary', 'id' => 'alterar'));
+    echo anchor("", "Alterar informações", array('class' => 'btn btn-primary', 'id' => 'alterar'));
 
     echo form_fieldset_close();
     ?>
