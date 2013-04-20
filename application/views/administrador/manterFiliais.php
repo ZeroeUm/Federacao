@@ -93,7 +93,7 @@ $numero = array(
     'name' => "numero",
     'readonly' => 'readonly'
 );
-echo form_label("Número", 'numero');
+echo form_label("NÃºmero", 'numero');
 echo form_input($numero);
 
 $complemento = array(

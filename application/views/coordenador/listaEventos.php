@@ -1,3 +1,11 @@
+<?php 
+if($this->session->flashdata('erro')){ ?>
+<div class="alert alert-error">
+    <a href="#" class="close" data-dismiss="alert">x</a>
+
+    <?php echo $this->session->flashdata('erro');?>
+</div>
+<?php };?>
 
 <?php if($this->session->flashdata('msg')){?>
 <h3 class="alert-error">

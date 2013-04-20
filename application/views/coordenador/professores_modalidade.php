@@ -40,6 +40,11 @@
     <div class="span2">Data Nascimento:</div>
     <div class="span4"><?php echo $t['data_nasc']; ?></div>
      </div>
+     
+      <div class="row-fluid">
+    <div class="span2">Filial onde ministra aulas:</div>
+    <div class="span4"><?php echo $t['nome_filial']; ?></div>
+     </div>
     
     <hr>
     <?php }

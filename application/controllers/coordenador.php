@@ -99,7 +99,7 @@ class coordenador extends CI_Controller{
             $this->session->set_flashdata('msg','Removido com sucesso');
             redirect('/coordenador/listaEventos');
         }else{
-            $this->session->set_flashdata('msg','Não foi possivel remover o evento, pois o mesmo já possui Federados associados a ele');
+            $this->session->set_flashdata('msg','NÃ£o foi possivel remover o evento, pois o mesmo jÃ¡ possui Federados associados a ele');
             redirect('/coordenador/listaEventos');
         };
     }
@@ -127,10 +127,10 @@ class coordenador extends CI_Controller{
         $data['participantes'] = $this->coordenador->getParticipantes($id_evento,$faixa);
         $data['id_evento'] = $id_evento;
         $data['faixa'] = $faixa;
-        
-        if($data['participantes']['0']['id_modalidade']==''){
+        $contar = count($data['participantes']);
+        if($contar==0){
             $this->session->set_flashdata('erro', 'Nenhum participante cadastrado para essa categoria');
-            redirect("/coordenador/participantes/$id_evento");
+            redirect("/coordenador/listaEventos");
         }
         $data['faixas']= $this->coordenador->getFaixas($data['participantes']['0']['id_modalidade']);
         
@@ -195,9 +195,6 @@ class coordenador extends CI_Controller{
         $this->load->model('Coordenador_model', 'coordenador');
 
         $data['professor'] = $this->coordenador->get_professores($id_professor);
-//       echo "<pre>";
-//       print_r($data);
-//       echo "</pre>";
 
         $this->load->view('/coordenador/professores_modalidade', $data);
         return true;

@@ -10,7 +10,7 @@ $(document).ready(function(){
     $('#filiais').prop('disabled',true);
     
     $('#federados').empty();
-    $('#federados').append(new Option("Escolha uma situação","#",true,true));
+    $('#federados').append(new Option("Escolha uma situaÃ§Ã£o","#",true,true));
     $('#federados').prop('disabled',true);
     
     $('#situacao').val("#");
@@ -18,8 +18,10 @@ $(document).ready(function(){
     $("#instrutores").val("#");
     
     $("#resultado").css("display","none");
-    $('#instrutores').change(function (){
-        var instrutor = $("#instrutores").val();
+   
+   $('#instrutores').change(function (){
+       
+       var instrutor = $("#instrutores").val();
         $.ajax({
             type: "POST",
             data: "instrutor="+instrutor,
@@ -36,7 +38,7 @@ $(document).ready(function(){
                 $('#situacao').prop('disabled',true);
                 
                 $("#federados").empty();
-                $('#federados').append(new Option("Escolha uma situação","#",true,true));
+                $('#federados').append(new Option("Escolha uma situaÃ§Ã£o","#",true,true));
                 $('#federados').prop('disabled',true);
                 
                 $("#resultado").css("display","none");
@@ -51,7 +53,7 @@ $(document).ready(function(){
         $('#situacao').prop('disabled',false);
         $('#situacao').empty();
         
-        $('#situacao').append(new Option("Escolha uma situação","#",true,true));
+        $('#situacao').append(new Option("Escolha uma situaÃ§Ã£o","#",true,true));
         $('#situacao').append(new Option("Inativo","0"));
         $('#situacao').append(new Option("Ativo","1"));
         
@@ -91,7 +93,7 @@ $(document).ready(function(){
         if(federado != "#")
         {
             $("#resultado").css("display","block");
-            $("#resultado").load('getHistorico/'+federado);
+            $("#resultado").load('/administrador/getHistorico/'+federado);
         }
     })
 })
