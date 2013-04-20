@@ -1,9 +1,5 @@
-<script src="<?php echo base_url(); ?>/assets/js/historico.js" type="text/javascript"></script>
-
-
-    
-    
-    <?php
+<script src="<?php echo base_url(); ?>assets/js/historico.js" type="text/javascript"></script>
+<?php
 /* 2013-02-02
  * @author HUmberto
  */

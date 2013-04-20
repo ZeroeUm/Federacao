@@ -5,9 +5,11 @@
  *
  * @author Humberto
  */
-class administrador extends CI_Controller {
+class administrador extends CI_Controller
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
         $this->checar_sessao();
     }
@@ -31,7 +33,8 @@ class administrador extends CI_Controller {
         endif;
     }
 
-    function enviarNotificacoes() {
+    function enviarNotificacoes()
+    {
         $this->load->library('email');
         $this->load->model('Administrador_model', 'administrador');
         $this->load->view('header');
@@ -125,10 +128,8 @@ class administrador extends CI_Controller {
     function getFederado($federado)
     {
         $this->load->model('Administrador_model', 'administrador');
-        
-       
+        header('Content-type: application/x-json; charset=utf-8');
         $fed = $this->administrador->MntFedDados($federado);
-        
         $nasc = new DateTime($fed[0]['dtNasc']);
         $fed[0]['dtNasc'] = $nasc->format('d-m-Y');
         $hoje = new DateTime('now');
@@ -141,7 +142,7 @@ class administrador extends CI_Controller {
         echo(json_encode($fed[0]));
     }
 
-    private function alpha_acent($input)
+    public function alpha_acent($input)
     {
         if (preg_match("/^[A-Za-záàãâéêíóôõú]+$/", $input))
         {
@@ -154,7 +155,7 @@ class administrador extends CI_Controller {
         }
     }
 
-    private function telephone($input)
+    public function telephone($input)
     {
         if (preg_match("/^\(?\d{2}\)?\d{4}-?\d{4}$/", $input))//formato (11)3940-1294, sem espaço
         {
@@ -167,7 +168,7 @@ class administrador extends CI_Controller {
         }
     }
 
-    private function celular($input)
+    public function celular($input)
     {
         if (preg_match("/^\(?\d{2}\)?[9]?\d{4}-?\d{4}$/", $input)):
             return true;
@@ -177,7 +178,7 @@ class administrador extends CI_Controller {
         endif;
     }
 
-    private function rg($input)
+    public function rg($input)
     {
         if (preg_match("/^\d{2}\.\d{3}\.\d{3}\-\d{1}|[X]$/", $input)):
             return true;
@@ -187,7 +188,7 @@ class administrador extends CI_Controller {
         endif;
     }
 
-    private function cnpj($input)
+    public function cnpj($input)
     {
         if (preg_match("/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/", $input))
         {
@@ -200,7 +201,7 @@ class administrador extends CI_Controller {
         }
     }
     
-    private function combo($input)
+    public function combo($input)
     {
         if($input == "#"):
             $this->form_validation->set_message('combo','Na campo com opções de %s deve ser selecionada uma opção.');
@@ -237,20 +238,33 @@ class administrador extends CI_Controller {
         if ($this->form_validation->run() == FALSE)
         {
             $this->load->model('Administrador_model', 'administrador');
+            
             $this->load->view('header');
             $dados['federado'] = $this->administrador->DadosFederado($federado);
+            
+            
             $endereco = $dados['federado'][0]['id_endereco'];
             $modalidade = $dados['federado'][0]['modalidade'];
             $dados['nacionalidade'] = $this->administrador->getNacionalidade();
+            
             $dados['escolaridade'] = $this->administrador->getEscolaridade();
+            
             $dados['tipo'] = $this->administrador->getTipoFederado();
+           
             $dados['statusFederado'] = $this->administrador->getStatus();
+           
             $dados['endereco'] = $this->administrador->getEndereco($endereco);
+            
             $dados['uf'] = $this->administrador->getUF();
+            
             $dados['modalidade'] = $this->administrador->GetModalidades();
+            
             $dados['filiais'] = $this->administrador->getFiliaisModalidade($modalidade);
+           
             $this->load->view('administrador/alterarFederado', $dados);
+             
             $this->load->view('footer');
+            
         }
         else
         {
@@ -341,7 +355,7 @@ class administrador extends CI_Controller {
         $this->administrador->matricularFederado($matricula);
     }
 
-    function alterarMatricula($federado, $filial, $modalidade) 
+    function alterarMatricula($federado, $filial, $modalidade)
     {
         $this->load->model('Administrador_model', 'administrador');
         $matricula = array();
@@ -353,7 +367,8 @@ class administrador extends CI_Controller {
         $this->administrador->alterarMatricula($federado, $modalidade, $matricula);
     }
 
-    function criarLogin($federado, $nome){
+    function criarLogin($federado, $nome)
+    {
         $this->load->model('Administrador_model', 'administrador');
         $login = array();
         $login['id_federado'] = $federado;
@@ -362,7 +377,8 @@ class administrador extends CI_Controller {
         $this->administrador->criarLogin($login);
     }
 
-    function gerarLogin($nome){
+    function gerarLogin($nome)
+    {
         $arrNome = explode(" ", $nome);
         $retorno = substr($arrNome[0], 0, 1);
         $retorno .= end($arrNome);
@@ -371,8 +387,8 @@ class administrador extends CI_Controller {
         return $retorno;
     }
 
-    function gerarSenha($tamanho = 10, $maiusculas = true, $numeros = true) {
-    
+    function gerarSenha($tamanho = 10, $maiusculas = true, $numeros = true)
+    {
         $lmin = 'abcdefghijkmnopqrstuvwxyz';
         $lmai = 'ABCDEFGHJKLMNOPQRSTUVWXYZ';
         $num = '0123456789';
@@ -502,10 +518,35 @@ class administrador extends CI_Controller {
         $config['per_page'] = 10;
         $choice = $config['total_rows'] / $config['per_page'];
         $config['num_links'] = round($choice);
+        $config["anchor_class"] = "class='btn btn-link'";
+
+        $config['full_tag_open'] = "<div class='pagination pagination-centered'><ul>";
+        $config['full_tag_close'] = "</ul></div>";
+
+        $config['cur_tag_open'] = "<li class='disabled'><a><strong>";
+        $config['cur_tag_close'] = "</strong></a></li>";
+
+        $config['num_tag_open'] = "<li class='active'>";
+        $config['num_tag_close'] = "</li>";
+
+        $config['prev_link'] = "&lt;";
+        $config['prev_tag_open'] = $config['num_tag_open'];
+        $config['prev_tag_close'] = $config['num_tag_close'];
+
+        $config['next_link'] = '&gt;';
+        $config['next_tag_open'] = $config['num_tag_open'];
+        $config['next_tag_close'] = $config['num_tag_close'];
+
+        $config['first_link'] = "&laquo;";
+        $config['first_tag_open'] = $config['num_tag_open'];
+        $config['first_tag_close'] = $config['num_tag_close'];
+
+        $config['last_link'] = "&raquo;";
+        $config['last_tag_open'] = $config['num_tag_open'];
+        $config['last_tag_close'] = $config['num_tag_close'];
+
         $config['uri_segment'] = 3;
-        
-        //Felipe - - Diminui a declaração do seu paginate criei um arquivo chamado pagination na pasta config contendo as informações repetitivas
-        //fica mais simples para declarar o paginate essa função initialize primeiro passa nesse arquivo paginate para continuar
+
         $this->pagination->initialize($config);
 
         $pag = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
@@ -618,10 +659,7 @@ class administrador extends CI_Controller {
     {
         header('Content-type: text/html; charset=UTF-8');
         $this->load->model('Administrador_model', 'administrador');
-
         $historico = $this->administrador->getHistoricoNotas($federado);
-
-
 
         if (!empty($historico))
         {
@@ -743,7 +781,6 @@ class administrador extends CI_Controller {
         $endereco['cidade'] = $this->input->post('cidade');
         $endereco['uf'] = $this->input->post('uf');
 
-       
         $this->administrador->AtualizarEndereco($this->input->post('endereco'), $endereco);
 
         $filial['nome'] = $this->input->post('nome');
@@ -755,7 +792,6 @@ class administrador extends CI_Controller {
         $filial['email'] = $this->input->post('email');
 
         $this->administrador->AtualizarFilial($this->input->post('filial', $filial));
-        
 
         $dados['filial'] = $filial['nome'];
         $this->load->view('header');
@@ -843,7 +879,6 @@ class administrador extends CI_Controller {
     function maladireta()
     {
         $this->load->model('administrador_model', 'administrador');
-        
         $this->load->view('header');
         $dados['mensagem'] = $this->administrador->malaDireta();
         $this->load->view('administrador/malaDireta', $dados);
@@ -875,4 +910,4 @@ class administrador extends CI_Controller {
 
 }
 
-
+?>

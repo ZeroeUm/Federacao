@@ -43,19 +43,19 @@
 
         <!--sideBar-->
         <div id="sidebar">
-            <img width="140px" heigth="190px" src="<?php echo(($this->session->userdata('foto') != "sem foto") ? "federados/fotos/" . $this->session->userdata('foto') : "http://placehold.it/140x190/000000/FFFFFF&text=%3F") ?>" class="img-polaroid" style="margin: 20px;">
+            <img width="140px" heigth="190px" src="<?php echo(($this->session->userdata('foto')!= "sem foto")?"federados/fotos/".$this->session->userdata('foto'):"federados/default.gif") ?>" class="img-polaroid" style="margin: 20px;">
 
             <a href="#" class="visible-phone"><i class="icon icon-home"></i> Menu oculto</a>
             <ul style="display: block; ">
                 <li >
-                    <a href="#"><span>Nome: <?php echo $this->session->userdata('nome') ?></span></a> 
+                    <a href="#"><span>Nome: <?php echo $this->session->userdata('nome'); ?></span></a> 
                     <a href="#"><span>Categoria: <?php echo $this->session->userdata('modalidade') ?></span></a> 
 
                 </li>
 
 
                 <li><a href="<?php echo site_url(); ?>"><i class="icon icon-home"></i> <span>Home</span> </a></li>
-                <li class="submenu" >
+                <li class="submenu">
                     <a href="#"><i class="icon icon-pause"></i> <span>Alunos</span> </a>
                     <ul>
                         <li><a href="<?php echo site_url('alunos/notas'); ?>">Histórico pessoal de notas</a></li>
@@ -97,12 +97,12 @@
                 <li class="submenu " >
                     <a href="#"><i class="icon icon-th"></i> <span>Administrador</span> </a>
                     <ul>
-                        <li class="icn_folder"><a href="<?php echo site_url('administrador/notificacoes'); ?>">Enviar notificaçães via e-mail</a></li>
+                        <li class="icn_folder"><a href="<?php echo site_url('administrador/notificacoes'); ?>">Enviar notificações via e-mail</a></li>
                         <li class="icn_categories"><a href="<?php echo site_url('administrador/federados'); ?>">Manutenção de dados de Federados</a></li>
                         <li class="icn_money"><a href="<?php echo site_url('administrador/pedidos'); ?>">Manutenção de pedidos de compra de faixa</a></li>
                         <li class="icn_tags"><a href="<?php echo site_url('administrador/historico'); ?>">Verificar Histórico de atividades de Federado</a></li>
                         <li class="icn_categories"><a href="<?php echo site_url('administrador/filiais'); ?>">Manutenção de dados de Filiais</a></li>
-                        <li class="icn_edit_article"><a href="<?php echo site_url('administrador/maladireta'); ?>">Manutenção de mala-direta ó aniversariantes</a></li>
+                        <li class="icn_edit_article"><a href="<?php echo site_url('administrador/maladireta'); ?>">Manutenção de mala-direta à aniversariantes</a></li>
 
                     </ul>
                 </li>

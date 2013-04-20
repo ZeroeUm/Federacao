@@ -1,6 +1,3 @@
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/incluirFederado.js"></script>
 <script type="text/javascript">
     $(function () {
@@ -202,7 +199,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            echo form_dropdown('filial',array("#" => "Escolha uma filial"),set_value('filial',"#"),'id="filial" class="span3" required');
+            echo form_dropdown('filial',array("#" => "Escolha uma filial"),set_value('filial',"#"),'id="filial" class="span4" required');
             ?>
         </div>
     </div>
@@ -276,7 +273,7 @@ $label = array(
     </div>
     <?php
     $inBotao = 'id="btnIncluir" class="btn btn-primary"';
-    echo form_submit("btnIncluir", "Incluir informaçoes", $inBotao);
+    echo form_submit("btnIncluir", "Incluir informações", $inBotao);
     echo form_close();
     echo form_fieldset_close();
     ?>
