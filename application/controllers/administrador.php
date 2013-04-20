@@ -341,7 +341,7 @@ class administrador extends CI_Controller {
         $this->administrador->matricularFederado($matricula);
     }
 
-    function alterarMatricula($federado, $filial, $modalidade) {
+    function alterarMatricula($federado, $filial, $modalidade) 
     {
         $this->load->model('Administrador_model', 'administrador');
         $matricula = array();
@@ -353,7 +353,7 @@ class administrador extends CI_Controller {
         $this->administrador->alterarMatricula($federado, $modalidade, $matricula);
     }
 
-    function criarLogin($federado, $nome)
+    function criarLogin($federado, $nome){
         $this->load->model('Administrador_model', 'administrador');
         $login = array();
         $login['id_federado'] = $federado;
@@ -362,7 +362,7 @@ class administrador extends CI_Controller {
         $this->administrador->criarLogin($login);
     }
 
-    function gerarLogin($nome)
+    function gerarLogin($nome){
         $arrNome = explode(" ", $nome);
         $retorno = substr($arrNome[0], 0, 1);
         $retorno .= end($arrNome);
@@ -372,7 +372,7 @@ class administrador extends CI_Controller {
     }
 
     function gerarSenha($tamanho = 10, $maiusculas = true, $numeros = true) {
-    {
+    
         $lmin = 'abcdefghijkmnopqrstuvwxyz';
         $lmai = 'ABCDEFGHJKLMNOPQRSTUVWXYZ';
         $num = '0123456789';
