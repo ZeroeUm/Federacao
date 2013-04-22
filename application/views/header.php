@@ -1,3 +1,4 @@
+
 <html>
     <head>
         <title>FEPAMI</title>
@@ -26,7 +27,13 @@
 
 
     </head>
-
+    <script>
+    $(document).ready(function(){
+        $('.menu_<?php echo $this->uri->segment(1); ?>').addClass('open');
+    });
+    </script>
+    
+    
     <body>
         <div id="header">
 
@@ -55,7 +62,7 @@
 
 
                 <li><a href="<?php echo site_url(); ?>"><i class="icon icon-home"></i> <span>Home</span> </a></li>
-                <li class="submenu">
+                <li class="submenu menu_aluno">
                     <a href="#"><i class="icon icon-pause"></i> <span>Alunos</span> </a>
                     <ul>
                         <li><a href="<?php echo site_url('alunos/notas'); ?>">Histórico pessoal de notas</a></li>
@@ -66,7 +73,7 @@
                     </ul>
                 </li>
 
-                <li class="submenu ">
+                <li class="submenu menu_instrutores">
                     <a href="#"><i class="icon icon-th-list"></i> <span>Instrutores</span> </a>
                     <ul>
                         <li class="icn_edit_article"><a href="<?php echo site_url('instrutores/cadastro'); ?>">Manutençao de dados de alunos</a></li>
@@ -78,7 +85,7 @@
                     </ul>
                 </li>
 
-                <li class="submenu">
+                <li class="submenu menu_coordenador">
                     <a href="#"><i class="icon icon-th-large"></i> <span>Coordenadores</span> </a>
                     <ul>
                         <li class="icn_new_article"><a href="<?php echo site_url('coordenador/modalidade'); ?>">Verificar professores da modalidade</a></li>
@@ -94,7 +101,7 @@
                     </ul>
                 </li>
 
-                <li class="submenu " >
+                <li class="submenu menu_administrador " >
                     <a href="#"><i class="icon icon-th"></i> <span>Administrador</span> </a>
                     <ul>
                         <li class="icn_folder"><a href="<?php echo site_url('administrador/notificacoes'); ?>">Enviar notificações via e-mail</a></li>

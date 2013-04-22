@@ -16,7 +16,7 @@ $(document).ready(function(){
             Informe a filial
         </label>
         <select id="selecionar_filial" name="id_filial">
-            <option selected="false"> Selecione uma filial</option>
+            
              <?php foreach ($filiais as $i=>$v){?>
             <option value="<?php echo $v['id_filial'] ?>"><?php echo $v['nome']; ?></option>
             <?php }?>
