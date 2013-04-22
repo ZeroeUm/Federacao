@@ -20,6 +20,37 @@ class Coordenador_model extends CI_Model {
         array('endereco'=>'id_endereco')
         );
     
+    
+    function setAgendarAvaliacao($id_pre_avaliacao){
+        
+    }
+    
+    function getPreAvaliar($id_filial=null){
+        $sql = "SELECT
+                    pre_avaliacao.id_pre_avaliacao,
+                    federado.nome,
+                    pre_avaliacao.id_filial as filial_do_aluno,
+                    federado.data_nasc,
+                    status_avaliacao.descricao,
+                    graduacao.faixa as faixa_atual,
+                    graduacao.id_graduacao as id_faixa
+               FROM federacao.pre_avaliacao
+               join 
+                    federado using (id_federado)
+               join 
+                    graduacao_federado using (id_federado)
+               join 
+                    status_avaliacao using (id_status_avaliacao)
+               join 
+                    graduacao using (id_graduacao)
+               where 
+                    pre_avaliacao.id_filial = '$id_filial'
+               and 
+                    pre_avaliacao.id_status_avaliacao !='5'
+               order by graduacao.id_graduacao asc";
+       $query = $this->db->query($sql);
+       return $query->result_array();
+    }
    
     function getFaixas($id_modalidade){
         return $this->db->select('nome,id_faixa')
@@ -154,6 +185,30 @@ class Coordenador_model extends CI_Model {
                 ->result_array();
         
     }
+    
+    function FiliaisAgen(){
+    
+        $sql = "SELECT 
+                    pre_avaliacao.id_evento,
+                    pre_avaliacao.id_filial as filial,
+                    filial.nome,
+                    pre_avaliacao.id_filial
+                FROM 
+                    federacao.pre_avaliacao
+                inner join
+                    filial
+                on 
+                    pre_avaliacao.id_filial = filial.id_filial
+                where
+                    pre_avaliacao.id_status_avaliacao = 4
+                group by 
+                    pre_avaliacao.id_filial;";
+        
+        $query = $this->db->query($sql);
+        
+        return $query->result_array();
+    }
+    
     
     
     function deletarEvento($id_evento) {
