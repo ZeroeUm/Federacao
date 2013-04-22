@@ -130,12 +130,18 @@ class administrador extends CI_Controller
         $this->load->model('Administrador_model', 'administrador');
         header('Content-type: application/x-json; charset=utf-8');
         $fed = $this->administrador->MntFedDados($federado);
+       
         $nasc = new DateTime($fed[0]['dtNasc']);
         $fed[0]['dtNasc'] = $nasc->format('d-m-Y');
+        
         $hoje = new DateTime('now');
+        
         $idade = $hoje->diff($nasc)->format("%y");
+        
         $fed[0]['idade'] = $idade;
+        
         $resultado = array_map('htmlentities', $fed[0]);
+        
         foreach($fed[0] as $f):
             $f = htmlentities($f,ENT_QUOTES,'UTF-8');
         endforeach;

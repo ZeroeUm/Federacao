@@ -85,7 +85,7 @@
                         <li class="icn_categories"><a href="<?php echo site_url('administrador/filiais'); ?>">Manutenção de dados de filiais</a></li>
                         <li class="icn_new_article"><a href="<?php echo site_url('coordenador/certificado'); ?>">Emitir certificados</a></li>
                         <li class="icn_folder"><a href="<?php echo site_url('coordenador/index'); ?>">Enviar pedido de compra de faixa</a></li>
-                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/prontuario'); ?>">Emitir prontuário de notas para pré-avaliação</a></li>
+                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/pre_avaliar'); ?>">Lista de pré-avaliação</a></li>
                         <li class="icn_categories"><a href="<?php echo site_url('coordenador/curriculo'); ?>">Manutenção do Curriculo da modalidade</a></li>
                         <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/listaEventos'); ?>">Verificar relação de participantes em Graduação</a></li>
                         <li class="icn_new_article"><a href="<?php echo site_url('coordenador/criarEvento') ?>">Criar evento de Graduação</a></li>

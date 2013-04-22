@@ -12,10 +12,14 @@
  */
 class coordenador extends CI_Controller{
 
+     function __construct()
+    {
+        parent::__construct();
+        $this->load->model('coordenador_model', 'coordenador');
+        $this->load->library('funcoes');
+    }
+    
     function certificado(){
-                
-        
-        
                 $this->load->view('header');
                 $this->load->view('coordenador/certificado');
                 $this->load->view('footer');
@@ -33,33 +37,48 @@ class coordenador extends CI_Controller{
                 $this->load->view('footer');
     }
     
+   
+    function pre_avaliar(){
+                
+        
+                $dados['filiais'] = $this->coordenador->FiliaisAgen();
+        
+                               
+                $this->load->view('header');
+                $this->load->view('coordenador/lista_pre_avaliar',$dados);
+                $this->load->view('footer');
+                
+                if($this->input->post()){
+                    $id = $this->input->post('id_filial');
+                    redirect("coordenador/agendar_pre_avaliacao/$id");
+                }
+                
+               
+    }
+    
+    function agendar_pre_avaliacao($id_filial=null){
+                
+        
+                $dados['id_filial'] = $id_filial;
+                $dados['alunos'] = $this->coordenador->getPreAvaliar($id_filial);
+                $this->load->view('header');
+                $this->load->view('coordenador/lista_alunos_avaliacao',$dados);
+                $this->load->view('footer');
+                
+           if($this->input->post()){
+            
+            $this->funcoes->imprimir($this->input->post());
+            die('fim');
+            }
+                
+    }
+    
     function prontuario(){
             
             
          $this->load->model('coordenador_model','coordenador');   
-            $this->load->view('header');
-           
-            
-           
-           
-           if($this->input->post()){
-         
-         $data['dados'] =  $this->coordenador->getProntuario($this->input->post('data'));     
-          
-         print_r($data['dados'] );
-         
-          $this->load->view('/coordenador/prontuario',$data);
-         
-          
-         
-           }else{
-              
-               
-               $this->load->view('/coordenador/prontuario'); 
-               
-           }
-           
-           $this->load->view('footer');
+         $this->load->view('header');
+         $this->load->view('footer');
            
     }
     
