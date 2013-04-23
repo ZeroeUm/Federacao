@@ -1,3 +1,4 @@
+<?php header('Content-Type: text/html; charset=utf-8');?>
 <script type="text/javascript" src="<?php echo base_url() . 'assets/js/manterAlunos.js' ?>"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() . 'assets/css/instrutor.css' ?>" />
 
@@ -107,7 +108,7 @@ echo form_input($faixa);
 echo br();
 echo anchor("", "Imprimir Federado", array('class' => 'btn btn-large btn-primary', 'id' => 'imprimir'));
 echo nbs(4);
-echo anchor("","Alterar informações" , array('class' => 'btn btn-large btn-primary', 'id' => 'alterar'));
+echo anchor ("","Alterar informações" , array('class' => 'btn btn-large btn-primary', 'id' => 'alterar'));
 
 echo form_fieldset_close();
 ?>
