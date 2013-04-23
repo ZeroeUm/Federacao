@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: 22/04/2013 às 19:23:15
+-- Tempo de Geração: 23/04/2013 às 15:05:49
 -- Versão do Servidor: 5.1.66-0ubuntu0.11.10.3
 -- Versão do PHP: 5.3.6-13ubuntu3.10
 
@@ -523,8 +523,10 @@ CREATE TABLE IF NOT EXISTS `movimento_faixa` (
   `id_faixa` int(11) DEFAULT NULL,
   `id_modalidade` int(11) DEFAULT NULL,
   `nome_movimento` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id_movimento_faixa`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`id_movimento_faixa`),
+  KEY `fk_movimento_faixa_1` (`id_modalidade`),
+  KEY `fk_movimento_faixa_2` (`id_faixa`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -595,7 +597,7 @@ CREATE TABLE IF NOT EXISTS `pre_avaliacao` (
   KEY `fk_pre_avaliacao_2` (`id_federado`),
   KEY `fk_pre_avaliacao_3` (`id_status_avaliacao`),
   KEY `fk_pre_avaliacao_4` (`id_filial`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Extraindo dados da tabela `pre_avaliacao`
@@ -614,11 +616,15 @@ INSERT INTO `pre_avaliacao` (`id_pre_avaliacao`, `id_evento`, `id_federado`, `id
 CREATE TABLE IF NOT EXISTS `prontuario` (
   `id_prontuario` int(11) NOT NULL,
   `id_federado` int(11) DEFAULT NULL,
-  `id_evento` int(8) DEFAULT NULL,
+  `id_evento` int(11) DEFAULT NULL,
   `id_faixa` int(11) DEFAULT NULL,
-  `id_movimento` int(11) DEFAULT NULL,
+  `id_movimento_faixa` int(11) DEFAULT NULL,
   `nota` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id_prontuario`)
+  PRIMARY KEY (`id_prontuario`),
+  KEY `fk_prontuario_1` (`id_movimento_faixa`),
+  KEY `fk_prontuario_2` (`id_faixa`),
+  KEY `fk_prontuario_3` (`id_evento`),
+  KEY `fk_prontuario_4` (`id_federado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -713,9 +719,9 @@ CREATE TABLE IF NOT EXISTS `tipo_endereco` (
 --
 
 INSERT INTO `tipo_endereco` (`id`, `descricao`) VALUES
-(1, 'Casa'),
-(2, 'Apartamento'),
-(3, 'Evento');
+(1, 'Filial'),
+(2, 'Evento'),
+(3, 'Federado');
 
 -- --------------------------------------------------------
 
@@ -861,6 +867,13 @@ ALTER TABLE `modalidade`
   ADD CONSTRAINT `FK_coordenador_modalidade` FOREIGN KEY (`id_coordenador`) REFERENCES `coordenador` (`id_coordenador`) ON UPDATE CASCADE;
 
 --
+-- Restrições para a tabela `movimento_faixa`
+--
+ALTER TABLE `movimento_faixa`
+  ADD CONSTRAINT `fk_movimento_faixa_1` FOREIGN KEY (`id_modalidade`) REFERENCES `modalidade` (`id_modalidade`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_movimento_faixa_2` FOREIGN KEY (`id_faixa`) REFERENCES `faixa` (`id_faixa`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Restrições para a tabela `pedido`
 --
 ALTER TABLE `pedido`
@@ -876,6 +889,15 @@ ALTER TABLE `pre_avaliacao`
   ADD CONSTRAINT `fk_pre_avaliacao_2` FOREIGN KEY (`id_federado`) REFERENCES `federado` (`id_federado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_pre_avaliacao_3` FOREIGN KEY (`id_status_avaliacao`) REFERENCES `status_avaliacao` (`id_status_avaliacao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_pre_avaliacao_4` FOREIGN KEY (`id_filial`) REFERENCES `filial` (`id_filial`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Restrições para a tabela `prontuario`
+--
+ALTER TABLE `prontuario`
+  ADD CONSTRAINT `fk_prontuario_4` FOREIGN KEY (`id_federado`) REFERENCES `federado` (`id_federado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_prontuario_1` FOREIGN KEY (`id_movimento_faixa`) REFERENCES `movimento_faixa` (`id_movimento_faixa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_prontuario_2` FOREIGN KEY (`id_faixa`) REFERENCES `faixa` (`id_faixa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_prontuario_3` FOREIGN KEY (`id_evento`) REFERENCES `evento_graduacao` (`id_evento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

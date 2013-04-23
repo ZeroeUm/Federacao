@@ -25,6 +25,37 @@ class Coordenador_model extends CI_Model {
         
     }
     
+    
+    function agendar_avaliacao($dados){
+        $this->load->library('funcoes');
+        $data = $dados['pre_avaliacao']['data_agendamento'];
+        $alunos =  $dados['pre_avaliacao']['id_pre_avaliacao'];
+        
+        
+        $update = array(
+            'data_agendamento'=>$this->funcoes->data($data),
+            'id_status_avaliacao'=>'3'
+        );
+        
+        $cont = count($alunos);
+        $r = '0';
+        foreach ($alunos as $i=>$v){
+           $this->db->where('id_pre_avaliacao',$v);
+           $this->db->update('pre_avaliacao',$update);
+           $r++;
+        }
+        
+        if($cont==$r){
+            return true;
+        }else{
+            return false;
+        }
+        
+        
+        
+        
+    }
+    
     function getPreAvaliar($id_filial=null){
         $sql = "SELECT
                     pre_avaliacao.id_pre_avaliacao,

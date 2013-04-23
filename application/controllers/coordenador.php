@@ -67,6 +67,7 @@ class coordenador extends CI_Controller{
                 
            if($this->input->post()){
             
+            $this->coordenador->agendar_avaliacao($this->input->post());   
             $this->funcoes->imprimir($this->input->post());
             die('fim');
             }
