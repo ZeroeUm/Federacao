@@ -26,6 +26,25 @@ class Coordenador_model extends CI_Model {
     }
     
     
+    function getCompromissos($id_filial){
+        $sql = "SELECT 
+                    pre_avaliacao.id_pre_avaliacao,
+                    pre_avaliacao.data_agendamento,
+                    federado.nome,
+                    filial.nome as nome_filial
+                FROM 
+                    federacao.pre_avaliacao
+                join 
+                    federado using (id_federado)
+                join 
+                    filial using (id_filial)
+                where 
+                    id_status_avaliacao = 2 and id_filial = $id_filial";
+        $query = $this->db->query($sql);
+       return $query->result_array();
+    }
+    
+    
     function agendar_avaliacao($dados){
         $this->load->library('funcoes');
         $data = $dados['pre_avaliacao']['data_agendamento'];
@@ -34,7 +53,7 @@ class Coordenador_model extends CI_Model {
         
         $update = array(
             'data_agendamento'=>$this->funcoes->data($data),
-            'id_status_avaliacao'=>'3'
+            'id_status_avaliacao'=>'2'
         );
         
         $cont = count($alunos);
@@ -215,6 +234,14 @@ class Coordenador_model extends CI_Model {
                 ->get()                
                 ->result_array();
         
+    }
+    
+    function getFiliais(){
+        return $this->db
+                ->select('*')
+                ->from('filial')
+                ->get()
+                ->result_array();
     }
     
     function FiliaisAgen(){

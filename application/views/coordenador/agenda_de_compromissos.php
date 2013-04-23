@@ -1,19 +1,24 @@
+
 <script>
 $(document).ready(function(){
     $('#selecionar_filial').click(function(){
-        $('#form').submit();
+       
+       alert('fa');
     }) 
+    
+    
+    
 });
 </script>
 
 
-<h3>Pré-avaliação de alunos</h3>
+<h3>Compromissos agendados</h3>
 
 
 <div class="row-fluid">
     
     <div class="span5">
-    <form id="form" action="/coordenador/pre_avaliar" method="post">
+    <form id="form" action="#" method="get">
         <label>
             Informe a filial
         </label>
@@ -25,11 +30,4 @@ $(document).ready(function(){
         </select>
     </form>
     </div>
-    
-    <div class="span4">
-        <a href="/coordenador/agenda_de_compromissos" class="btn btn-success"/>Visualizar agenda</a>
-    </div>
-    
 </div>
-<hr>
-

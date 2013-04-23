@@ -56,6 +56,21 @@ class coordenador extends CI_Controller{
                
     }
     
+    function ajax_exibir_agenda($id_filial){
+       
+                    $dados['agenda'] = $this->coordenador->getCompromissos($id_filial);
+                    $this->load->view('coordenador/result_compromisso',$dados);
+               
+    }
+    
+    function agenda_de_compromissos($id_filial = null){
+                    $this->load->view('header');
+                    $dados['filiais'] = $this->coordenador->getFiliais();
+                    $this->load->view('coordenador/agenda_de_compromissos',$dados);
+                    $this->load->view('footer');
+    }
+    
+    
     function agendar_pre_avaliacao($id_filial=null){
                 
         
@@ -66,10 +81,13 @@ class coordenador extends CI_Controller{
                 $this->load->view('footer');
                 
            if($this->input->post()){
+            $d = $this->coordenador->agendar_avaliacao($this->input->post());
+            if($d==true){
+                 $this->session->set_flashdata('a','Agendado com sucesso');
+            }else{
+                 $this->session->set_flashdata('alerta_c','Erro ao agendar');
+            };   
             
-            $this->coordenador->agendar_avaliacao($this->input->post());   
-            $this->funcoes->imprimir($this->input->post());
-            die('fim');
             }
                 
     }
