@@ -329,11 +329,15 @@ class Instrutores extends CI_Controller {
     }
 
     function getInscrito($filial) {
+        
         $this->load->model('Instrutor_model', 'instrutor');
+        
         header('Content-type: application/x-json; charset=utf-8 ', true);
 
         //   echo (htmlentities(utf8_encode('�,n�o, tr�s')));
+        
         $filiais = $this->instrutor->getInscrito($filial);
+       
 //        print_r($filiais);
         if (!empty($filiais)) {
             for ($i = 0; $i < count($filiais); $i++) {
