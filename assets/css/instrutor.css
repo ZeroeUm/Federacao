@@ -45,57 +45,35 @@
     float:none;
     border: 1px solid #FFF;
 }
+input[type="checkbox"]{
+    position: absolute;
+    margin-left: 10px;
+    border-color: #0044cc;
+   
+}
+
 /*
-#result{
-    border: 1px solid #00f;
-    width: auto;
-    height: 500px;
+ Checkbox 
+input[type="checkbox"] {
+     IE opacity hacks 
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    opacity: 0;
+    margin-left: 100px;
 }
-
-
-#nome{
-    
+.cb-label {
+    position: relative;
 }
-#nome input #feder{
-    
+.cb-label:before {
+    content: ' ';
+    position: absolute;
+    background: transparent url(http://blog.parkji.co.uk/images/posts/styling-checkboxes/switch.jpg) no-repeat scroll 0 0;
+    height: 41px;
+    width: 143px;
+    left: -150px
 }
-
-#data{    
-  
-   }
-#idade{
- 
-    }
-
-#sexo{
-  
-}
-
-#telres{
-    
-}
-#telcel{
-}
-#email{
-   
-}
-#nacionalidade{
-    
-    
-}
-#escolaridade{
-   
-    
-}
-
-
-input{
-    float:left;
-    text-align:left;
-}
-label{
-    float: left;
-    text-align:left;
-}
-
-*/
+input[type="checkbox"]:checked ~ .cb-label:before,
+ the .checked class is used by IE only 
+input[type="checkbox"]:checked ~ .cb-label:before {
+    background-position: 0 -40px;
+}*/

@@ -25,6 +25,138 @@ class Coordenador_model extends CI_Model {
         
     }
     
+    
+    function movimentos($faixa){
+        $sql = "select
+                    nome_movimento,
+                    id_movimento_faixa
+                from 
+                movimento_faixa where ordem = $faixa";
+        
+        $query = $this->db->query($sql);
+       return $query->result_array();
+    }
+
+
+    function get_aluno_faixa($id_federado){
+        $sql = "SELECT
+                    federado.nome,
+                    graduacao.faixa as faixa_atual,
+                    graduacao.ordem+1 as ordem_futura,
+                    (select faixa as faixa_f from graduacao where ordem = ordem_futura) as faixa_futura
+              FROM 
+                    federacao.federado
+                    join graduacao_federado using (id_federado)
+                    join graduacao using (id_graduacao)
+              where id_federado = $id_federado";
+        $query = $this->db->query($sql);
+       return $query->result_array();
+    }
+    
+    
+    function get_alunos_notas($id_filial){
+        
+        $sql = "SELECT
+                    pre_avaliacao.id_pre_avaliacao,
+                    federado.id_federado,
+                    federado.nome,
+                    pre_avaliacao.id_filial as filial_do_aluno,
+                    federado.data_nasc,
+                    status_avaliacao.descricao,
+                    graduacao.faixa as faixa_atual,
+                    graduacao.id_graduacao as id_faixa
+               FROM federacao.pre_avaliacao
+               join 
+                    federado using (id_federado)
+               join 
+                    graduacao_federado using (id_federado)
+               join 
+                    status_avaliacao using (id_status_avaliacao)
+               join 
+                    graduacao using (id_graduacao)
+               where 
+                    pre_avaliacao.id_filial = '$id_filial'
+               and 
+                    pre_avaliacao.id_status_avaliacao = '2'
+               order by graduacao.id_graduacao asc";
+       $query = $this->db->query($sql);
+       return $query->result_array();
+        
+    }
+    
+    
+    function set_cancelar_agendado($alunos){
+        
+        
+        
+        $update = array(
+            'data_agendamento'=>'0000-00-00',
+            'id_status_avaliacao'=>'4'
+        );
+        $cont = count($alunos['id_pre_avaliacao']);
+        $r = '0';
+        foreach ($alunos['id_pre_avaliacao'] as $i=>$v){
+           $this->db->where('id_pre_avaliacao',$v);
+           $this->db->update('pre_avaliacao',$update);
+           $r++;
+        }
+        if($cont==$r){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    
+    function getCompromissos($id_filial){
+        $sql = "SELECT 
+                    pre_avaliacao.id_pre_avaliacao,
+                    date_format(pre_avaliacao.data_agendamento,'%d-%m-%Y') as data,
+                    federado.nome,
+                    filial.nome as nome_filial
+                FROM 
+                    federacao.pre_avaliacao
+                join 
+                    federado using (id_federado)
+                join 
+                    filial using (id_filial)
+                where 
+                    id_status_avaliacao = 2 and id_filial = $id_filial";
+        $query = $this->db->query($sql);
+       return $query->result_array();
+    }
+    
+    
+    function agendar_avaliacao($dados){
+        $this->load->library('funcoes');
+        $data = $dados['pre_avaliacao']['data_agendamento'];
+        $alunos =  $dados['pre_avaliacao']['id_pre_avaliacao'];
+        
+        
+        $update = array(
+            'data_agendamento'=>$this->funcoes->data($data),
+            'id_status_avaliacao'=>'2'
+        );
+        
+        $cont = count($alunos);
+        $r = '0';
+        foreach ($alunos as $i=>$v){
+           $this->db->where('id_pre_avaliacao',$v);
+           $this->db->update('pre_avaliacao',$update);
+           $r++;
+        }
+        
+        if($cont==$r){
+            return true;
+        }else{
+            return false;
+        }
+        
+        
+        
+        
+    }
+    
     function getPreAvaliar($id_filial=null){
         $sql = "SELECT
                     pre_avaliacao.id_pre_avaliacao,
@@ -46,7 +178,7 @@ class Coordenador_model extends CI_Model {
                where 
                     pre_avaliacao.id_filial = '$id_filial'
                and 
-                    pre_avaliacao.id_status_avaliacao !='5'
+                    pre_avaliacao.id_status_avaliacao = '4'
                order by graduacao.id_graduacao asc";
        $query = $this->db->query($sql);
        return $query->result_array();
@@ -184,6 +316,20 @@ class Coordenador_model extends CI_Model {
                 ->get()                
                 ->result_array();
         
+    }
+    
+    
+
+
+    function getFiliais(){
+        return $this->db
+                ->select('*')
+                ->from('filial')
+                ->join('pre_avaliacao','pre_avaliacao.id_filial = filial.id_filial')
+                ->where('pre_avaliacao.id_status_avaliacao','2')
+                ->group_by('pre_avaliacao.id_filial')
+                ->get()
+                ->result_array();
     }
     
     function FiliaisAgen(){
