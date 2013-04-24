@@ -7,7 +7,7 @@ $(document).ready(function(){
       
        $.ajax({
                 type: "POST",
-                url: "/coordenador/ajax_exibir_agenda/"+filial,
+                url: "/coordenador/ajax_lancar_notas_lista/"+filial,
                 data: "id_filial"+filial,
                 datatype: "html",
                 success: function (html){
@@ -23,7 +23,7 @@ $(document).ready(function(){
 </script>
 
 
-<h3>Compromissos agendados</h3>
+<h3>Lançar notas</h3>
 
 
 <div class="row-fluid">

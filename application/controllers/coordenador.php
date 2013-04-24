@@ -16,7 +16,15 @@ class coordenador extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('coordenador_model', 'coordenador');
-        $this->load->library('funcoes');
+        $this->load->library('funcoes','session');
+        
+    }
+    
+    
+    function index(){
+                $this->load->view('header');
+                $this->load->view('coordenador/index');
+                $this->load->view('footer');
     }
     
     function certificado(){
@@ -42,11 +50,14 @@ class coordenador extends CI_Controller{
                 
         
                 $dados['filiais'] = $this->coordenador->FiliaisAgen();
-        
+                $total = count($dados['filiais']);
+               
                                
                 $this->load->view('header');
                 $this->load->view('coordenador/lista_pre_avaliar',$dados);
                 $this->load->view('footer');
+                
+                
                 
                 if($this->input->post()){
                     $id = $this->input->post('id_filial');
@@ -56,11 +67,73 @@ class coordenador extends CI_Controller{
                
     }
     
+    function cancelar_agendamento(){
+        if($this->input->post()){
+           
+            $avaliacao = $this->coordenador->set_cancelar_agendado($this->input->post());
+            
+            if($avaliacao==true){
+                $this->session->set_flashdata('alerta','Cancelado com sucesso');
+                redirect('/coordenador/agenda_de_compromissos');
+            }else{
+                $this->session->set_flashdata('alerta','Não foi possivel cancelar esse agendamento');
+                redirect('/coordenador/agenda_de_compromissos');
+            }
+            
+        }else{
+            $this->session->set_flashdata('alerta','Nenhum aluno foi selecionado');
+            redirect('/coordenador/agenda_de_compromissos');
+        }
+    }
+    
     function ajax_exibir_agenda($id_filial){
-       
+                    
                     $dados['agenda'] = $this->coordenador->getCompromissos($id_filial);
-                    $this->load->view('coordenador/result_compromisso',$dados);
+                    
+                    $this->load->view('coordenador/result_ajax_lista_agendado',$dados);
                
+    }
+    
+    
+    function ajax_lancar_notas_lista($id_filial,$faixa = null){
+        
+                $dados['id_filial'] = $id_filial;
+                
+                $dados['alunos'] = $this->coordenador->get_alunos_notas($id_filial);
+               
+                
+                $this->load->view('coordenador/ajax_lancar_notas_lista',$dados);
+                
+        
+    }
+
+    function salvar_notas(){
+        
+    }
+    
+    function lancar_notas_aluno($id_federado){
+        //pegar dados de faixa do aluno
+        //pegar movimentos da faixa candidata
+        $dados['aluno'] = $this->coordenador->get_aluno_faixa($id_federado);
+        $id_faixa = $dados['aluno']['0']['ordem_futura'];
+        $dados['movimentos'] = $this->coordenador->movimentos($id_faixa);
+        
+        
+        $this->load->view('header');
+        $this->load->view('/coordenador/lancar_notas_aluno');
+        $this->load->view('footer');
+        
+        //preparar o prontuário com notas do aluno
+        //inclui-lo automáticamente no evento de graduação
+        
+    }
+    
+
+    function lancar_nota(){
+                    $this->load->view('header');
+                    $dados['filiais'] = $this->coordenador->getFiliais();
+                    $this->load->view('coordenador/lancar_nota',$dados);
+                    $this->load->view('footer');
     }
     
     function agenda_de_compromissos($id_filial = null){
@@ -74,21 +147,25 @@ class coordenador extends CI_Controller{
     function agendar_pre_avaliacao($id_filial=null){
                 
         
+            if($this->input->post()){
+            $d = $this->coordenador->agendar_avaliacao($this->input->post());
+            if($d==true){
+                 $this->session->set_flashdata('alerta','Operação realizada com sucesso');
+                 redirect("/coordenador/pre_avaliar");
+            }else{
+                 $this->session->set_flashdata('alerta','Não foi possivel alterar a participação dos alunos');
+                  redirect("/coordenador/pre_avaliar");
+            };   
+            
+            }
+        
                 $dados['id_filial'] = $id_filial;
                 $dados['alunos'] = $this->coordenador->getPreAvaliar($id_filial);
                 $this->load->view('header');
                 $this->load->view('coordenador/lista_alunos_avaliacao',$dados);
                 $this->load->view('footer');
                 
-           if($this->input->post()){
-            $d = $this->coordenador->agendar_avaliacao($this->input->post());
-            if($d==true){
-                 $this->session->set_flashdata('a','Agendado com sucesso');
-            }else{
-                 $this->session->set_flashdata('alerta_c','Erro ao agendar');
-            };   
-            
-            }
+           
                 
     }
     
@@ -134,10 +211,10 @@ class coordenador extends CI_Controller{
         
         $this->load->model('coordenador_model','coordenador');
         if($this->coordenador->deletarEvento($id_evento)){
-            $this->session->set_flashdata('msg','Removido com sucesso');
+            $this->session->set_flashdata('alerta','Removido com sucesso');
             redirect('/coordenador/listaEventos');
         }else{
-            $this->session->set_flashdata('msg','Não foi possivel remover o evento, pois o mesmo já possui Federados associados a ele');
+            $this->session->set_flashdata('alerta','Não foi possivel remover o evento, pois o mesmo já possui Federados associados a ele');
             redirect('/coordenador/listaEventos');
         };
     }
@@ -167,7 +244,7 @@ class coordenador extends CI_Controller{
         $data['faixa'] = $faixa;
         $contar = count($data['participantes']);
         if($contar==0){
-            $this->session->set_flashdata('erro', 'Nenhum participante cadastrado para essa categoria');
+            $this->session->set_flashdata('alerta', 'Nenhum participante cadastrado para essa categoria');
             redirect("/coordenador/listaEventos");
         }
         $data['faixas']= $this->coordenador->getFaixas($data['participantes']['0']['id_modalidade']);

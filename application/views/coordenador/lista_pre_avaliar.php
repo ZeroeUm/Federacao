@@ -5,7 +5,11 @@ $(document).ready(function(){
     }) 
 });
 </script>
-
+<?php if(count($filiais)=='0'){ ?>
+<div class="alert alert-error">
+    No momento nenhuma pré-avaliação foi solicitada.
+</div>
+    <?php } ?>
 
 <h3>Pré-avaliação de alunos</h3>
 
@@ -26,10 +30,9 @@ $(document).ready(function(){
     </form>
     </div>
     
-    <div class="span4">
-        <a href="/coordenador/agenda_de_compromissos" class="btn btn-success"/>Visualizar agenda</a>
-    </div>
+    
     
 </div>
+
 <hr>
 
