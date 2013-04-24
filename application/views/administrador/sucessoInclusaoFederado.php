@@ -2,10 +2,9 @@
 if (isset($error))
 {
     ?>
-    <div class="row-fluid">
+    <div class="row-fluid" style="height: 20px">
         <?php
         echo $error;
-        echo br();
         ?>
     </div>
     <?php

@@ -1,3 +1,4 @@
+<?php header('Content-Type: text/html; charset=utf-8');?>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
@@ -65,7 +66,7 @@ echo img($imagem);
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Filiaçao Paterna", "fPaterna", $label);
+        echo form_label("Filiação Paterna", "fPaterna", $label);
     ?>
     <div class="controls">
         <?php
@@ -168,7 +169,7 @@ echo img($imagem);
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Situaçao", "situacao", $label);
+        echo form_label("Situação", "situacao", $label);
     ?>
     <div class="controls">
         <?php
@@ -221,7 +222,7 @@ echo img($imagem);
 </div>
 <div class="control-group">
     <?php
-        echo form_label("Numero", "numero", $label);
+        echo form_label("Número", "numero", $label);
     ?>
     <div class="controls">
         <?php
