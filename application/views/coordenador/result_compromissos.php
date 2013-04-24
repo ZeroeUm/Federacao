@@ -1,0 +1,18 @@
+<table>
+    <thead>
+        <tr>
+            <td>Nome</td>
+            <td>Filial</td>
+            <td>Data</td>
+            <td>Cancelar</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
