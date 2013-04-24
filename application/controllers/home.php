@@ -14,19 +14,12 @@
 class Home extends CI_Controller{
    function __construct() {
         parent::__construct();
-        $this->checarAutentificacao();
     }
     
     function index(){
         $this->load->view('header');
         $this->load->view('home');
         $this->load->view('footer');    
-    }
-    
-    function checarAutentificacao()
-    {
-        if(!$this->session->userdata('autentificado'))
-            redirect('login','refresh');
     }
   
     
