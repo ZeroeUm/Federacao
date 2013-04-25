@@ -163,7 +163,7 @@ class administrador extends CI_Controller
     
     public function complemento($input)
     {
-        if(preg_match("/^[A-Za-z\s\d]+$/", $input)):
+        if(preg_match("/^[A-Za-z\s\d]+$/", $input) || ($input == "")):
             return true;
         else:
             $this->form_validation->set_message('complemento',"O campo %s deve conter somente letras e números.");
@@ -266,29 +266,20 @@ class administrador extends CI_Controller
             $this->load->model('Administrador_model', 'administrador');
             
             $this->load->view('header');
+
             $dados['federado'] = $this->administrador->DadosFederado($federado);
-            
-            
             $endereco = $dados['federado'][0]['id_endereco'];
             $modalidade = $dados['federado'][0]['modalidade'];
             $dados['nacionalidade'] = $this->administrador->getNacionalidade();
-            
             $dados['escolaridade'] = $this->administrador->getEscolaridade();
-            
             $dados['tipo'] = $this->administrador->getTipoFederado();
-           
             $dados['statusFederado'] = $this->administrador->getStatus();
-           
             $dados['endereco'] = $this->administrador->getEndereco($endereco);
-            
             $dados['uf'] = $this->administrador->getUF();
-            
             $dados['modalidade'] = $this->administrador->GetModalidades();
-            
             $dados['filiais'] = $this->administrador->getFiliaisModalidade($modalidade);
-           
+            
             $this->load->view('administrador/alterarFederado', $dados);
-             
             $this->load->view('footer');
             
         }
@@ -339,7 +330,7 @@ class administrador extends CI_Controller
 
         $endereco['logradouro'] = $this->input->post('logradouro');
         $endereco['numero'] = $this->input->post('numero');
-        $endereco['complemento'] = $this->input->post('compl');
+        $endereco['complemento'] = ($this->input->post('compl') ? $this->input->post('compl') : NULL);
         $endereco['bairro'] = $this->input->post('bairro');
         $endereco['cidade'] = $this->input->post('cidade');
         $endereco['uf'] = $this->input->post('uf');
@@ -487,7 +478,7 @@ class administrador extends CI_Controller
 
         $endereco['logradouro'] = $this->input->post('logradouro');
         $endereco['numero'] = $this->input->post('numero');
-        $endereco['complemento'] = $this->input->post('compl');
+        $endereco['complemento'] = ($this->input->post('compl') ? $this->input->post('compl') : NULL);
         $endereco['tipo_endereco'] = 1;
         $endereco['bairro'] = $this->input->post('bairro');
         $endereco['cidade'] = $this->input->post('cidade');
