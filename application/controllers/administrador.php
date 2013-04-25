@@ -13,6 +13,11 @@ class administrador extends CI_Controller
         parent::__construct();
         $this->checar_sessao();
     }
+    
+    function index()
+    {
+     
+    }
 
     function checar_sessao()
     {
