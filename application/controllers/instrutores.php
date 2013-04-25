@@ -228,7 +228,7 @@ class Instrutores extends CI_Controller {
 
         $dados['federado'] = $federado['nome'];
         $this->load->view('header');
-        $this->load->view('instrutores/sucessoInclusaoFederado', $dados);
+        $this->load->view('instrutores/sucessoinclusaoFederado', $dados);
         $this->load->view('footer');
     }
 

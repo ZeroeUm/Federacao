@@ -3,37 +3,41 @@
     <head>
         <title>FEPAMI</title>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-       
-        <script src="<?php echo base_url(); ?>assets/js/jquery-1.8.2.js"></script>
-        <script src="<?php echo base_url(); ?>assets/js/jquery-ui-1.9.2.custom.js"></script>
+
+        <script src="<?php echo base_url(); ?>assets/js/jquery-1.9.1.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/jquery-1.8.3.js"></script>
+
         <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/unicorn.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/jquery.chosen.js"></script>
-
         <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/chosen.jquery.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/jquery-ui.js"></script>
+        
+        
+       
+        <script src="<?php echo base_url(); ?>assets/js/meio.mask.js"></script>
 
+        <script src="<?php echo base_url(); ?>assets/js/mascaras.js"></script>
 
-<!--<script src="<?php // echo base_url();    ?>assets/js/unicorn.dashboard.js"></script>-->
-
-
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery-ui-1.9.2.custom.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap-responsive.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/unicorn.main.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/unicorn.grey.css" class="skin-color">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/chosen.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery-ui.css">
 
 
     </head>
     <script>
-    $(document).ready(function(){
-        $('.menu_<?php echo $this->uri->segment(1); ?>').addClass('open');
-    });
+        $(document).ready(function(){
+            $('.menu_<?php echo $this->uri->segment(1); ?>').addClass('open');
+        
+        });
     </script>
-    
-   
+
+
     <body>
         <div id="header">
 
@@ -50,7 +54,7 @@
 
         <!--sideBar-->
         <div id="sidebar">
-            <img width="140px" heigth="190px" src="<?php echo(($this->session->userdata('foto')!= "sem foto")?"federados/fotos/".$this->session->userdata('foto'):"federados/default.gif") ?>" class="img-polaroid" style="margin: 20px;">
+            <img width="140px" heigth="190px" src="<?php echo(($this->session->userdata('foto') != "sem foto") ? "federados/fotos/" . $this->session->userdata('foto') : "federados/default.gif") ?>" class="img-polaroid" style="margin: 20px;">
 
             <a href="#" class="visible-phone"><i class="icon icon-home"></i> Menu oculto</a>
             <ul style="display: block; ">
@@ -119,17 +123,17 @@
         </div>
 
         <div id="content" style="min-height:800px;padding-bottom: 50px;">
-<?php if(@$this->session->flashdata('alerta')!=''){?>
-<div class="alert alert-success">
- <button type="button" class="close" data-dismiss="alert">&times;</button>  
- <?php echo $this->session->flashdata('alerta');?>
-</div>
-<?php }?>
+            <?php if (@$this->session->flashdata('alerta') != '') { ?>
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>  
+                    <?php echo $this->session->flashdata('alerta'); ?>
+                </div>
+            <?php } ?>
             <ul class="breadcrumb">
                 <li><a href="/">Home</a> <span class="divider">/</span></li>
                 <li><a href="/<?php echo $this->uri->segment(1); ?>/"><?php echo ucfirst($this->uri->segment(1)); ?></a> <span class="divider">/</span></li>
-                <li class="active"><?php echo str_replace("_"," ",ucfirst($this->uri->segment(2))); ?></li>
+                <li class="active"><?php echo str_replace("_", " ", ucfirst($this->uri->segment(2))); ?></li>
             </ul>
-            
-            
- 
+
+
+
