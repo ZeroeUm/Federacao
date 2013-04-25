@@ -5,66 +5,149 @@
  */
 
 
-$(document).ready(function(){
-    $("select[name=instrutor]").change(function(){
-        beforeSend:$("select[name=filial]").html('<option value="0">Carregando...</option>');
-    $("select[name=status]").html('<option value="">Aguardando Filial...</option>');
-        var instrutor = $("#instrutor").val(); // Pega o valor selecionado
-        //alert(instrutor); //Só para debugg da variavel
-        $('#filial').load('getFiliais/'+instrutor); //controller onde está chamando a função
-    });
-    
-    /*
-    $("select[name=filial]").change(function(){
-        beforeSend:$("#federado").html('<h1>Carregando...</h1>');
-    var filial = $("#filial").val(); // Pega o valor selecionado
-         alert(filial); //Só para debugg da variavel
-        $('#federado').load('getInscrito/'+filial); //controller onde está chamando a função          
-        complete:$("#federado").html($tmp);
-    });
-    */
-   
-    $("select[name=filial]").change(function(){
-        var filiais = $("#filial").val();
-        //alert(filiais); //Só para debugg da variavel
-        if (filiais !=-"#")
-        {
-            $.ajax({
-                type: "POST",              
-                data: "federado="+filiais,
-                url: "getInscrito/"+filiais,
-                datatype: 'json',
-                success: function(federado)
-                {
-                    if (federado != null){
-                        // alert("yes");
-                        $("#resultado").css("display","block");
-                        $("#nomeFederado").val($('<div/>').html(federado.nome).text());
-                    }else{
-                        $("#resultado").css("display","none");
-                    }
-                        
-                }
-            })
-        }
-    })
-    
-    
-});
+$(document).ready(function() {
 
-/*
- *   
-    $("select[name=federado]").change(function (){
-        var fed = $("#federado").val();
-        if (fed !== "#")
+//
+//
+//    $('#formulario').submit(function() {
+//        alert('teste');
+//        return false;
+//    });
+//    
+//    $('#cad').click(function (){
+//        $('#formulario').submit();
+//        
+//    });
+
+    $("select[name=instrutor]").change(function() {
+        $("#mensagem").hide();
+        $("#formulario").empty();
+        $("#resultado").css("display", "none");
+        beforeSend:$("select[name=filial]").html('<option value="">Carregando...</option>');
+        //$("select[name=filial]").html('<option value="">Aguardando Filial...</option>');
+        var instrutor = $("#instrutor").val(); // Pega o valor selecionado
+        //alert(instrutor); //Sï¿½ para debugg da variavel
+        $('#filial').load('getFiliais/' + instrutor); //controller onde estï¿½ chamando a funï¿½ï¿½o
+    });
+
+
+
+
+
+
+    $("select[name=filial]").change(function() {
+        $("#mensagem").hide();
+        $("#formulario").empty();
+        var filiais = $("#filial").val();
+        //alert(filiais); //Sï¿½ para debugg da variavel
+        if (filiais !== "#")
         {
             $.ajax({
                 type: "POST",
-                data: "federado="+fed,
-                url: "getFederado/"+fed,
+                data: "federado=" + filiais,
+                url: "getInscrito/" + filiais,
                 datatype: 'json',
                 success: function(federado)
                 {
-                    $("#resultado").css("display","block");
-                    $("#nomeFederado").val($('<div/>').html(federado.nome).text());
- */
+                    if (federado === null) {
+                        $("#resultado").css("display", "none");
+                        $("#mensagem").show("slow").html('<h3> Desculpe, sem Resultado para esta pesquisa.<h3>');
+
+                    }
+                    if (federado !== null) {
+                        // alert("yes");
+                        $("#mensagem").hide();
+                        $("#formulario").empty();
+                        $("#resultado").css("display", "block");
+
+
+                        $("<input/>").attr({
+                            type: 'label',
+                            name: 'label',
+                            id: 'nome',
+                            value: 'Nome',
+                            class: 'span3',
+                            disabled: "disabled",
+                            style: 'text-align: center;margin-right:2px;margin-left:3px;border:none;color: #FFF;background:#000;'
+                        }).appendTo("#formulario");
+
+                        $("<input/>").attr({
+                            type: 'label',
+                            name: 'label',
+                            id: 'nome',
+                            value: 'Faixa',
+                            class: 'span3',
+                            disabled: "disabled",
+                            style: 'text-align: center;margin-right:2px;margin-left:3px;border:none;color: #FFF;background:#000;'
+                        }).appendTo("#formulario");
+
+                        $("<input/>").attr({
+                            type: 'label',
+                            name: 'label',
+                            id: 'nome',
+                            value: 'Filial',
+                            class: 'span4',
+                            disabled: "disabled",
+                            style: 'text-align: center;margin-right:2px;margin-left:3px;border:none;color: #FFF;background:#000;'
+
+                        }).appendTo("#formulario");
+                        $("<br/>").appendTo("#formulario");
+                        $("<br/>").appendTo("#formulario");
+
+                        $.each(federado, function(i, value) {
+                            //$("#mensagem").show().html('<h3> Resultado<h3>');
+                            $("<input type='text'/>").attr({
+                                readonly: 'readonly'
+                                        , class: 'span3'
+                                        , value: federado[i].nome
+                                        , style: 'margin-right:2px;margin-left:3px;'
+
+
+                            }).appendTo("#formulario");
+                            $("<input type='text'/>").attr({
+                                readonly: 'readonly'
+                                        , class: 'span3'
+                                        , value: federado[i].faixa
+                                        , style: 'margin-right:2px;margin-left:3px;'
+
+                            }).appendTo("#formulario");
+                            $("<input type='text'/>").attr({
+                                readonly: 'readonly'
+                                        , class: 'span4'
+                                        , value: federado[i].filial
+                                        , style: 'margin-right:2px;margin-left:3px;'
+
+                            }).appendTo("#formulario");
+
+                            $("<input/>").attr({
+                                type: 'checkbox',
+                                name: 'nodeCheck[]',
+                                id: federado[i].id,
+                                class: 'checkbox',
+                                value: federado[i].id
+                            }).appendTo("#formulario");
+
+                            $("<br/>").appendTo("#formulario");
+                        });
+                    }
+
+
+
+                    $("<input/>").attr({
+                        type: 'submit',
+                        name: 'cadastrar',
+                        class: 'btn btn-primary',
+                        value: 'Cadastrar Federados',
+                        id: 'cad'
+
+                    }).appendTo("#formulario");
+
+
+                }
+            });
+        }
+
+    });
+
+
+});

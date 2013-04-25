@@ -141,7 +141,7 @@ class Administrador_model extends CI_Model
                         ->join('tipo_federado', 'federado.id_tipo_federado = tipo_federado.id', 'join')
                         ->join('status_federado', 'federado.id_status = status_federado.id', 'inner')
                         ->join("graduacao_federado", "federado.id_federado = graduacao_federado.id_federado", "inner")
-                        ->join("graduacao", "graduacao_federado.id_modalidade = graduacao.id_modalidade AND graduacao_federado.grau = graduacao.grau", "inner")
+                        ->join("graduacao", "graduacao_federado.id_modalidade = graduacao.id_modalidade AND graduacao_federado.id_graduacao = graduacao.id_graduacao", "inner")
                         ->join('endereco', 'federado.id_endereco = endereco.id_endereco', 'inner')
                         ->join('estados', 'endereco.uf = estados.id_estados', 'inner')
                         ->where("federado.id_federado", $federado)

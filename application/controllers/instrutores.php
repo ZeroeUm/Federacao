@@ -73,21 +73,17 @@ class Instrutores extends CI_Controller {
     }
 
     function getFederado($federado) {
-        
-        
         $this->load->model('Instrutor_model', 'instrutor');
-          
+          header('Content-type: application/x-json; charset=utf-8');
         $fed = $this->instrutor->MntFedDados($federado);
-       
         $nasc = new DateTime($fed[0]['dtNasc']);
         $fed[0]['dtNasc'] = $nasc->format('d-m-Y');
         $hoje = new DateTime('now');
         $idade = $hoje->diff($nasc)->format("%y");
         $fed[0]['idade'] = $idade;
-        header('Content-type: application/x-json; charset=utf-8');
-        $resultado = array_map('htmlentities', $fed[0]);
+        $resultado = array_map ('htmlentities', $fed[0]);
 
-        echo(json_encode($resultado));
+        echo utf8_decode(json_encode($resultado));
     }
 
     function imprimirFederado($federado) {
@@ -106,13 +102,13 @@ class Instrutores extends CI_Controller {
         $this->form_validation->set_rules('dtNasc', 'Data', 'required|alpha_dash|trim');
         $this->form_validation->set_rules('rg', 'RG', 'required');
         $this->form_validation->set_rules('telefone', 'Telefone para contato', 'required|telephone|trim');
-        $this->form_validation->set_rules('celular', 'Celular para contato', 'required|trim');
+        $this->form_validation->set_rules('celular', 'Celular para contato');
         $this->form_validation->set_rules('email', 'E-mail para contato', 'required|valid_email|trim');
         $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required');
         $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required');
 
         $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('numero', 'Número do endereço', 'required|is_natural_no_zero|trim');
+        $this->form_validation->set_rules('numero', 'Número do endereo', 'required|is_natural_no_zero|trim');
         $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|alpha_acent|trim');
         $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|alpha_acent|trim');
         $this->form_validation->set_rules('uf', 'UF do endereço', 'required');
@@ -286,7 +282,7 @@ class Instrutores extends CI_Controller {
         $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required');
         $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required');
         $this->form_validation->set_rules('tipo', 'Tipo de federado na federação', 'required');
-        $this->form_validation->set_rules('logradouro', 'Logradouro do endereúo', 'required|alpha_acent|trim');
+        $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|alpha_acent|trim');
         $this->form_validation->set_rules('numero', 'Número do endereço', 'required|is_natural_no_zero|trim');
         $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|alpha_acent|trim');
         $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|alpha_acent|trim');
@@ -311,7 +307,7 @@ class Instrutores extends CI_Controller {
         $this->load->model('Instrutor_model');
         $tema["instrutor"] = $this->Instrutor_model->inscrever();
         $this->load->view('header');
-        $this->load->view('instrutores/inscricao',$tema);
+        $this->load->view('instrutores/inscricao', $tema);
         $this->load->view('footer');
     }
 
@@ -333,33 +329,66 @@ class Instrutores extends CI_Controller {
     }
 
     function getInscrito($filial) {
+        
         $this->load->model('Instrutor_model', 'instrutor');
-       
+        
+        header('Content-type: application/x-json; charset=utf-8 ', true);
 
-       
-        //   echo (htmlentities(utf8_encode('ç,nço, trçs')));
+        //   echo (htmlentities(utf8_encode('�,n�o, tr�s')));
+        
         $filiais = $this->instrutor->getInscrito($filial);
        
 //        print_r($filiais);
         if (!empty($filiais)) {
             for ($i = 0; $i < count($filiais); $i++) {
                 $filiais[$i]['nome'] = utf8_encode($filiais[$i]['nome']);
-                $filiais[$i]['graduacao'] = utf8_encode($filiais[$i]['graduacao']);
-                $filiais[$i]['filial'] = utf8_encode($filiais[$i]['nome']);
+                $filiais[$i]['faixa'] = utf8_encode($filiais[$i]['faixa']);
+                $filiais[$i]['filial'] = utf8_encode($filiais[$i]['filial']);
 
 
-                //$resultado = array_map('htmlentities', $filiais['2']);
+                //$resultado = array_map('htmlentities', $filiais[$i]);
             }
             //print_r(count($filiais));
-             header('Content-type: application/x-json; charset=iso-8859-1', true);
             echo (json_encode($filiais));
         }
     }
-/*federado.id_federado as id, federado.nome as nome,
-      graduacao_federado.grau as graduacao, filial.nome as filial
-        */
+    
+    function confirmar(){
+         $this->load->view('header');
         
+    
+        if($this->input->post('nodeCheck')){
+            $dados['msg'] = 'Inclusão de Federados no Evento realizada com sucesso.<br />';
+            $dados['status'] = true;
+        }else{
+            $dados['status'] = false;
+            $dados['msg'] = 'Nenhum Federado foi selecionado para inclusão no evento'.'<br/>'.'Favor Selecionar um ou mais Federado.<br />';
+        }
+        $this->load->view('instrutores/sucessoInclusaoEvento',$dados);
         
+      
+        $this->load->view('footer');
+//        echo "<pre>";
+//        var_dump( $this->input->post());
+//        echo "</pre>";
+//         $tmp = '';
+//        $data = $this->Instrutor_model->getFilial($id);
+//        if ($id == null) {
+//            $tmp .= "<option value=''>Selecione a Filial</option>";
+//        } else if (!empty($data)) {
+//            $tmp .= "<option value=''>Selecione uma Filial</option>";
+//            foreach ($data as $row) {
+//                $tmp .= "<option value='" . $row->id . "'>" . utf8_encode($row->nome) . "</option>";
+//            }
+//        } else {
+//            $tmp .= "<option value=''>Sem registro para esta Filial</option>";
+//        }
+//
+//        die($tmp);
+//    }
+        
+    }
+                    
     function manutencao($id = '1') {
         $this->load->model('Instrutor_model');
         $tema["instrutor"] = $this->Instrutor_model->getInscrito('1');

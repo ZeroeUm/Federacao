@@ -131,6 +131,8 @@ class administrador extends CI_Controller
         header('Content-type: application/x-json; charset=utf-8');
         $fed = $this->administrador->MntFedDados($federado);
        
+        
+        
         $nasc = new DateTime($fed[0]['dtNasc']);
         $fed[0]['dtNasc'] = $nasc->format('d-m-Y');
         
@@ -145,6 +147,7 @@ class administrador extends CI_Controller
         foreach($fed[0] as $f):
             $f = htmlentities($f,ENT_QUOTES,'UTF-8');
         endforeach;
+        header('Content-type: application/x-json; charset=utf-8');
         echo(json_encode($fed[0]));
     }
 

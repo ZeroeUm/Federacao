@@ -1,3 +1,4 @@
+
 <html>
     <head>
         <title>FEPAMI</title>
@@ -26,7 +27,13 @@
 
 
     </head>
-
+    <script>
+    $(document).ready(function(){
+        $('.menu_<?php echo $this->uri->segment(1); ?>').addClass('open');
+    });
+    </script>
+    
+   
     <body>
         <div id="header">
 
@@ -55,7 +62,7 @@
 
 
                 <li><a href="<?php echo site_url(); ?>"><i class="icon icon-home"></i> <span>Home</span> </a></li>
-                <li class="submenu">
+                <li class="submenu menu_aluno">
                     <a href="#"><i class="icon icon-pause"></i> <span>Alunos</span> </a>
                     <ul>
                         <li><a href="<?php echo site_url('alunos/notas'); ?>">Histórico pessoal de notas</a></li>
@@ -66,7 +73,7 @@
                     </ul>
                 </li>
 
-                <li class="submenu ">
+                <li class="submenu menu_instrutores">
                     <a href="#"><i class="icon icon-th-list"></i> <span>Instrutores</span> </a>
                     <ul>
                         <li class="icn_edit_article"><a href="<?php echo site_url('instrutores/cadastro'); ?>">Manutençao de dados de alunos</a></li>
@@ -78,14 +85,14 @@
                     </ul>
                 </li>
 
-                <li class="submenu">
+                <li class="submenu menu_coordenador">
                     <a href="#"><i class="icon icon-th-large"></i> <span>Coordenadores</span> </a>
                     <ul>
                         <li class="icn_new_article"><a href="<?php echo site_url('coordenador/modalidade'); ?>">Verificar professores da modalidade</a></li>
                         <li class="icn_categories"><a href="<?php echo site_url('administrador/filiais'); ?>">Manutenção de dados de filiais</a></li>
                         <li class="icn_new_article"><a href="<?php echo site_url('coordenador/certificado'); ?>">Emitir certificados</a></li>
                         <li class="icn_folder"><a href="<?php echo site_url('coordenador/index'); ?>">Enviar pedido de compra de faixa</a></li>
-                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/pre_avaliar'); ?>">Lista de pré-avaliação</a></li>
+                        <li class="icn_new_article"><a href="<?php echo site_url('coordenador/pre_avaliar'); ?>">Lista de inscritos para pré-avaliação</a></li>
                         <li class="icn_categories"><a href="<?php echo site_url('coordenador/curriculo'); ?>">Manutenção do Curriculo da modalidade</a></li>
                         <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/listaEventos'); ?>">Verificar relação de participantes em Graduação</a></li>
                         <li class="icn_new_article"><a href="<?php echo site_url('coordenador/criarEvento') ?>">Criar evento de Graduação</a></li>
@@ -94,7 +101,7 @@
                     </ul>
                 </li>
 
-                <li class="submenu " >
+                <li class="submenu menu_administrador " >
                     <a href="#"><i class="icon icon-th"></i> <span>Administrador</span> </a>
                     <ul>
                         <li class="icn_folder"><a href="<?php echo site_url('administrador/notificacoes'); ?>">Enviar notificações via e-mail</a></li>
@@ -112,6 +119,17 @@
         </div>
 
         <div id="content" style="min-height:800px;padding-bottom: 50px;">
-
-
-
+<?php if(@$this->session->flashdata('alerta')!=''){?>
+<div class="alert alert-success">
+ <button type="button" class="close" data-dismiss="alert">&times;</button>  
+ <?php echo $this->session->flashdata('alerta');?>
+</div>
+<?php }?>
+            <ul class="breadcrumb">
+                <li><a href="/">Home</a> <span class="divider">/</span></li>
+                <li><a href="/<?php echo $this->uri->segment(1); ?>/"><?php echo ucfirst($this->uri->segment(1)); ?></a> <span class="divider">/</span></li>
+                <li class="active"><?php echo str_replace("_"," ",ucfirst($this->uri->segment(2))); ?></li>
+            </ul>
+            
+            
+ 
