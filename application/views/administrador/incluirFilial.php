@@ -26,7 +26,7 @@ $label = array(
         <?php echo form_label("Nome Filial", "nome", $label) ?>
         <div class="controls">
             <?php
-            $inNome = "id='nome' class='span3' maxlength='60' required placeholder='Nome da filial'";
+            $inNome = "id='filial' class='span3' maxlength='60' required placeholder='Nome da filial'";
             echo form_input('nome', set_value("nome"), $inNome);
             ?>
         </div>

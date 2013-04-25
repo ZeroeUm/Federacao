@@ -28,7 +28,7 @@ $label = array(
         <?php echo form_label("Nome Filial", "nome", $label) ?>
         <div class="controls">
             <?php
-            $inNome = "id='nome' class='span3' maxlength='60' required";
+            $inNome = "id='filial' class='span3' maxlength='60' required";
             echo form_input('nome', set_value("nome", $filial['nome']), $inNome);
             ?>
         </div>

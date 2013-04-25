@@ -1,6 +1,6 @@
 $('document').ready(function(){
  
-    $('#rg').setMask('99.999.999-99');
+    $('#rg').setMask('99.999.999-9');
     $('#cnpj').setMask('999.999.999/9999-99');
     $('#cpf').setMask('999.999.999-99');
     $('#cep').setMask('99999-999');
@@ -35,7 +35,7 @@ $('document').ready(function(){
                     "padding": "2px"
                 });
             }else{
-                alert('formato do email é invalido');
+                alert('Formato do e-mail fornecido é invalido');
             }
         }else{
             $(this).css({

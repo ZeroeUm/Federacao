@@ -135,38 +135,28 @@ class administrador extends CI_Controller
         $this->load->model('Administrador_model', 'administrador');
         header('Content-type: application/x-json; charset=utf-8');
         $fed = $this->administrador->MntFedDados($federado);
-       
-        
-        
         $nasc = new DateTime($fed[0]['dtNasc']);
         $fed[0]['dtNasc'] = $nasc->format('d-m-Y');
-        
         $hoje = new DateTime('now');
-        
         $idade = $hoje->diff($nasc)->format("%y");
-        
         $fed[0]['idade'] = $idade;
-        
         $resultado = array_map('htmlentities', $fed[0]);
         
         foreach($fed[0] as $f):
             $f = htmlentities($f,ENT_QUOTES,'UTF-8');
         endforeach;
-        header('Content-type: application/x-json; charset=utf-8');
+        
         echo(json_encode($fed[0]));
     }
 
     public function alpha_acent($input)
     {
-        if (preg_match("/^[A-Za-záàãâéêíóôõú\s]+$/", $input))
-        {
+        if (preg_match("/^[A-Za-záàãâéêíóôõú\s]+$/", $input)):
             return true;
-        }
-        else
-        {
+        else:
             $this->form_validation->set_message('alpha_acent', 'O campo %s deve conter somente letras e letras acentuadas da língua portuguesa.');
             return false;
-        }
+        endif;
     }
     
     public function complemento($input)
@@ -191,15 +181,12 @@ class administrador extends CI_Controller
 
     public function telephone($input)
     {
-        if (preg_match("/^\(?\d{2}\)?\d{4}-?\d{4}$/", $input))//formato (11)3940-1294, sem espaço
-        {
+        if (preg_match("/^\(?\d{2}\)?\d{4}-?\d{4}$/", $input))://formato (11)3940-1294, sem espaço
             return true;   
-        }
-        else
-        {
+        else:
             $this->form_validation->set_message('telephone', 'O campo %s deve possuir um número de telefone ou fax no formato (12)3456-7890.');
             return false;
-        }
+        endif;
     }
 
     public function celular($input)
@@ -224,15 +211,12 @@ class administrador extends CI_Controller
 
     public function cnpj($input)
     {
-        if (preg_match("/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/", $input))
-        {
+        if (preg_match("/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/", $input)):
             return true;
-        }
-        else
-        {
+        else:
             $this->form_validation->set_messasge('cnpj', "O campo %s deve possuir um número de CNPJ no formato 12.345.678/0123-45");
             return false;
-        }
+        endif;
     }
     
     public function combo($input)
@@ -771,6 +755,7 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('logradouro', 'Logradouro', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('numero', 'número', 'required|is_natural_no_zero|trim');
         $this->form_validation->set_rules('bairro', 'Bairro', 'required|callback_alpha_acent|trim');
+        $this->form_validation->set_rules('compl', 'Complemento do endereço','callback_complemento|trim');
         $this->form_validation->set_rules('cidade', 'Cidade', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('uf', 'UF', 'required|callback_combo');
 
@@ -801,7 +786,7 @@ class administrador extends CI_Controller
 
         $endereco['logradouro'] = $this->input->post('logradouro');
         $endereco['numero'] = $this->input->post('numero');
-        $endereco['complemento'] = $this->input->post('compl');
+        $endereco['complemento'] = ($this->input->post('compl')?$this->input->post('compl'):NULL);
         $endereco['bairro'] = $this->input->post('bairro');
         $endereco['cidade'] = $this->input->post('cidade');
         $endereco['uf'] = $this->input->post('uf');
@@ -846,6 +831,7 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('instrutor', 'Instrutor', 'required|callback_combo');
         $this->form_validation->set_rules('logradouro', 'Logradouro', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('numero', 'número', 'required|is_natural_no_zero|trim');
+        $this->form_validation->set_rules('compl', 'Complemento do endereço','callback_complemento|trim');
         $this->form_validation->set_rules('bairro', 'Bairro', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('cidade', 'Cidade', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('uf', 'UF', 'required|callback_combo');
@@ -875,7 +861,7 @@ class administrador extends CI_Controller
         $endereco['logradouro'] = $this->input->post('logradouro');
         $endereco['numero'] = $this->input->post('numero');
         $endereco['tipo_endereco'] = 3;
-        $endereco['complemento'] = $this->input->post('compl');
+        $endereco['complemento'] = ($this->input->post('compl')?$this->input->post('compl'):NULL);
         $endereco['bairro'] = $this->input->post('bairro');
         $endereco['cidade'] = $this->input->post('cidade');
         $endereco['uf'] = $this->input->post('uf');
