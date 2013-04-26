@@ -199,7 +199,9 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            echo form_dropdown('filial',array("#" => "Escolha uma filial"),set_value('filial',"#"),'id="filial" class="span4" required');
+            foreach ($filial as $fil)
+                $opFilial[$fil['id']] = $fil['nome'];
+            echo form_dropdown('filial',$opFilial,set_value('filial',"#"),'id="filial" class="span4" required');
             ?>
         </div>
     </div>

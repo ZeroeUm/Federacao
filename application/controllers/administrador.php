@@ -113,7 +113,7 @@ class administrador extends CI_Controller
     function getFederados($filial, $status)
     {
         $this->load->model('Administrador_model', 'administrador');
-        header('Content-Type: application/x-json; charset=utf-8');
+        
         $federados = $this->administrador->MntFedFederado($filial, $status);
         if (!empty($federados))
         {
@@ -127,17 +127,17 @@ class administrador extends CI_Controller
             $federados[0]["id"] = "";
             $federados[0]["nome"] = htmlentities("Não foram encontrados federados nessa filial com essa situação.", ENT_QUOTES, 'UTF-8');
         }
+        
+        header('Content-Type: application/x-json; charset=utf-8');
         echo(json_encode($federados));
     }
 
     function getFederado($federado)
     {
         $this->load->model('Administrador_model', 'administrador');
-        header('Content-type: application/x-json; charset=utf-8');
+        
         $fed = $this->administrador->MntFedDados($federado);
        
-        
-        
         $nasc = new DateTime($fed[0]['dtNasc']);
         $fed[0]['dtNasc'] = $nasc->format('d-m-Y');
         
@@ -148,10 +148,12 @@ class administrador extends CI_Controller
         $fed[0]['idade'] = $idade;
         
         $resultado = array_map('htmlentities', $fed[0]);
+       
         
         foreach($fed[0] as $f):
             $f = htmlentities($f,ENT_QUOTES,'UTF-8');
         endforeach;
+       
         header('Content-type: application/x-json; charset=utf-8');
         echo(json_encode($fed[0]));
     }
@@ -466,6 +468,7 @@ class administrador extends CI_Controller
             $dados['nacionalidade'] = $this->administrador->getNacionalidade();
             $dados['escolaridade'] = $this->administrador->getEscolaridade();
             $dados['statusFederado'] = $this->administrador->getStatus();
+            $dados['filial'] = $this->administrador->MntFilial();
             $dados['uf'] = $this->administrador->getUF();
             $dados['tipo'] = $this->administrador->getTipoFederado();
             $dados['modalidade'] = $this->administrador->GetModalidades();
