@@ -49,6 +49,7 @@
     </div>
 
     <div class="span3">
+        <input type="hidden" value="" id="media" name="media">
         <input type="hidden" value="<?php echo $ultimo_evento['0']['id_evento']; ?>" name="id_evento">
         <?php echo $ultimo_evento['0']['numero_evento']; ?>
     </div>
@@ -126,7 +127,7 @@
                     parseFloat($('.faixa_<?php echo $v['id_movimento_faixa']?>').val())+
                             <?php } ?>0)/<?php echo $quant ?>;
                                 $('.result').text(total.toFixed(2));
-                                
+                                $('#media').val(total.toFixed(2));
                                 
                 
             })
