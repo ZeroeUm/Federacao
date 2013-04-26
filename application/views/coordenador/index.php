@@ -27,7 +27,7 @@
                       
                     </ul>
             </li>
-            <li><a href="">Consulta de instrutores</a></li>
+            <li><a href="<?php echo base_url(); ?>coordenador/modalidade">Consulta de instrutores</a></li>
             
             <li class="dropdown-submenu"><a href="">Curriculo Modalidades</a>
                 <ul class="dropdown-menu">
