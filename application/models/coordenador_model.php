@@ -60,10 +60,13 @@ class Coordenador_model extends CI_Model {
     
     function movimentos($faixa){
         $sql = "select
-                    nome_movimento,
-                    id_movimento_faixa
+                    movimento_faixa.nome_movimento,
+                    movimento_faixa.id_movimento_faixa,
+                    graduacao.faixa
                 from 
-                movimento_faixa where ordem = $faixa";
+                movimento_faixa
+                inner join graduacao on graduacao.ordem = movimento_faixa.ordem
+                where movimento_faixa.ordem = $faixa";
         
         $query = $this->db->query($sql);
        return $query->result_array();
@@ -77,7 +80,8 @@ class Coordenador_model extends CI_Model {
                 federado.data_nasc,
                 graduacao.faixa,
                 graduacao.ordem,
-                filial.nome as nome_filial
+                filial.nome as nome_filial,
+                filial.id_filial
                 FROM federacao.federado
                 inner join matricula
                 on matricula.id_federado = federado.id_federado
@@ -92,9 +96,20 @@ class Coordenador_model extends CI_Model {
        return $query->result_array();
     }
     
+    
+    function remarcar_pre_agendar($id){
+        
+        $update = array('id_status_avaliacao'=>'4');
+        $this->db->where('id_pre_avaliacao',$id);
+        $this->db->update('pre_avaliacao',$update);
+    }
+
+
     function get_ultimo_evento($id_federado){
         $sql = "SELECT 
+                    pre_avaliacao.id_pre_avaliacao,
                     pre_avaliacao.id_evento,
+                    date_format(pre_avaliacao.data_agendamento,'%d-%m-%Y')as data_agendamento,
                     evento_graduacao.numero_evento,
                     date_format(evento_graduacao.data_evento,'%d-%m-%Y') as data
                 FROM federacao.pre_avaliacao

@@ -28,9 +28,17 @@
     <div class="span3">
         <?php echo $aluno['0']['faixa']; ?>
     </div>
+    
+    <div class="span2">
+        <strong>Candidato a faixa:</strong>
+    </div>
+
+    <div class="span3">
+       <strong> <?php echo $movimentos['0']['faixa']; ?></strong>
+    </div>
 </div>
 
-    
+    <hr> 
     
 <div class="row-fluid">
     <div class="span2">
@@ -49,11 +57,26 @@
     </div>
 
     <div class="span3">
+        <input type="hidden" value="<?php echo $ultimo_evento['0']['id_pre_avaliacao']; ?>" name="id_pre_avaliacao">
+        <input type="hidden" value="<?php echo $aluno['0']['id_filial']; ?>" name="id_filial">
         <input type="hidden" value="" id="media" name="media">
         <input type="hidden" value="<?php echo $ultimo_evento['0']['id_evento']; ?>" name="id_evento">
         <?php echo $ultimo_evento['0']['numero_evento']; ?>
     </div>
 </div>
+   
+    
+<div class="row-fluid">
+    <div class="span2">
+        Data da avaliação:
+    </div>
+
+    <div class="span3">
+        <input type="text" id="calendario" value="<?php echo $ultimo_evento['0']['data_agendamento']; ?>" >
+    </div>
+</div>
+    
+    
     
     <div class="row-fluid">
 
@@ -88,7 +111,7 @@
     
     <div class="span6">
     
-    <br>Status final da avaliação = <span class="result label label-important"></span>
+    <br>Média final da avaliação = <span class="result label label-important"></span>
     </div>
     
     

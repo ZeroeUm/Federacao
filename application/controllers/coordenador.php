@@ -119,10 +119,12 @@ class coordenador extends CI_Controller{
             //Verificar se a média é ideal;
             //
             $media = $this->input->post('media');
+            $id_filial = $this->input->post('id_filial');
+            $id_pre_avaliacao = $this->input->post('id_pre_avaliacao');
             $status = 0;
             if($media>=9.51){
                 echo "Aprovado com faixa extra";
-                $status = 2;
+                $status = 3;
             }elseif ($media >=9) {
                 echo "Ótimo";
                 $status = 2;
@@ -141,6 +143,16 @@ class coordenador extends CI_Controller{
             }
             
              $this->funcoes->imprimir($this->input->post());
+             if($status==3){
+            //aumentar uma faixa alem da que será graduado (tabela Graduacao_federado)
+            //salvar as notas no prontuario do aluno
+            //incluir o aluno do evento de graduação
+            //mudar o status do pre-avaliação para aprovado
+            //Solicitar compra de faixa
+            //Confirmar participação no evento (insert evento_participante)
+            //Enviar email ao aluno informando sobre o evento  
+             }
+             
              if($status==2){
                  
             //salvar as notas no prontuario do aluno
@@ -153,6 +165,10 @@ class coordenador extends CI_Controller{
              }elseif ($status==1) {
             
             //Reagendar uma nova pré-avaliação mudar status da pre-avaliação para agendar
+                 
+                 $this->coordenador->remarcar_pre_agendar($id_pre_avaliacao);
+                 $this->session->set_flashdata('alerta','Será necessário reagendar a avaliação do aluno, informe a data ou clique <a href="/coordenador/lancar_nota">aqui</a> para continuar a lançar notas');
+                 redirect("/coordenador/agendar_pre_avaliacao/$id_filial");
                  
             }  else {
             
@@ -173,8 +189,8 @@ class coordenador extends CI_Controller{
         
         $dados['movimentos'] = $this->coordenador->movimentos($id_faixa);
         $dados['ultimo_evento'] = $this->coordenador->get_ultimo_evento($id_federado);
-       
         
+//        $this->funcoes->imprimir($dados['movimentos']);
         $this->load->view('header');
         $this->load->view('/coordenador/lancar_notas_aluno',$dados);
         $this->load->view('footer');

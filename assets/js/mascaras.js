@@ -1,5 +1,10 @@
 $('document').ready(function(){
  
+    $('#calendario').datepicker({dateFormat:'dd-mm-yy'});
+ 
+ 
+ 
+ 
     $('#rg').setMask('99.999.999-99');
     $('#cnpj').setMask('999.999.999/9999-99');
     $('#cpf').setMask('999.999.999-99');
