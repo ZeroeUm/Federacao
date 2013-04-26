@@ -12,12 +12,12 @@
         
          $("#form").validate({
             rules:{
-                'data_agendamento':{required: true}
+                'pre_avaliacao[data_agendamento]':{required: true}
                 
                 
             },
             messages:{
-                'data_agendamento':{required: "Campo data é obrigatório"}
+                'pre_avaliacao[data_agendamento]':{required: "Campo data é obrigatório"}
                
             }
         })
@@ -44,9 +44,9 @@
 <h3>Alunos para pré-avaliação</h3>
 
 
-<form action="/coordenador/agendar_pre_avaliacao/<?php echo $id_filial;?>" method="post" >
+<form action="<?php echo base_url(); ?>coordenador/agendar_pre_avaliacao/<?php echo $id_filial;?>" method="post" id="form" >
 <label>Informe a data para pré-avaliação</label>
-<input type="text" id="datepicker" name="pre_avaliacao[data_agendamento]" value="<?php echo date('d-m-Y');?>">
+<input type="text" id="datepicker" name="pre_avaliacao[data_agendamento]" value="">
 
 <hr>
 

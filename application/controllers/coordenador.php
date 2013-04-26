@@ -22,8 +22,12 @@ class coordenador extends CI_Controller{
     
     
     function index(){
+        
+        $dados['total']= $this->coordenador->agendamento_pendentes();
+        $dados['agenda']= $this->coordenador->compromisso_agendados();
+        
                 $this->load->view('header');
-                $this->load->view('coordenador/index');
+                $this->load->view('coordenador/index',$dados);
                 $this->load->view('footer');
     }
     
@@ -107,20 +111,31 @@ class coordenador extends CI_Controller{
         
     }
 
-    function salvar_notas(){
+   
+    function avaliacao(){
         
+        if($this->input->post()){
+            $this->funcoes->imprimir($this->input->post());
+            
+            //salvar as notas no prontuario do aluno
+            //incluir o aluno do evento de graduação
+            //mudar o status do pre-avaliação para aprovado / reagendar / Reprovado
+            
+            
+        }
     }
-    
     function lancar_notas_aluno($id_federado){
         //pegar dados de faixa do aluno
         //pegar movimentos da faixa candidata
-        $dados['aluno'] = $this->coordenador->get_aluno_faixa($id_federado);
-        $id_faixa = $dados['aluno']['0']['ordem_futura'];
-        $dados['movimentos'] = $this->coordenador->movimentos($id_faixa);
+        $dados['aluno']= $this->coordenador->get_aluno_faixa($id_federado);
+        $id_faixa = $dados['aluno']['0']['ordem']+1;
         
+        $dados['movimentos'] = $this->coordenador->movimentos($id_faixa);
+        $dados['ultimo_evento'] = $this->coordenador->get_ultimo_evento($id_federado);
+       $this->funcoes->imprimir($dados['ultimo_evento']);
         
         $this->load->view('header');
-        $this->load->view('/coordenador/lancar_notas_aluno');
+        $this->load->view('/coordenador/lancar_notas_aluno',$dados);
         $this->load->view('footer');
         
         //preparar o prontuário com notas do aluno
@@ -169,6 +184,9 @@ class coordenador extends CI_Controller{
                 
     }
     
+    
+
+
     function prontuario(){
             
             

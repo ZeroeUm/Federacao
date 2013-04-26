@@ -17,7 +17,7 @@ $(document).ready(function(){
 <div class="row-fluid">
     
     <div class="span5">
-    <form id="form" action="/coordenador/pre_avaliar" method="post">
+    <form id="form" action="<?php echo base_url(); ?>coordenador/pre_avaliar" method="post">
         <label>
             Informe a filial
         </label>

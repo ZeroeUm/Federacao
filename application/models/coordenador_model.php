@@ -20,6 +20,38 @@ class Coordenador_model extends CI_Model {
         array('endereco'=>'id_endereco')
         );
     
+    function compromisso_agendados(){
+        $sql = "SELECT 
+                    date_format(pre_avaliacao.data_agendamento,'%d-%m-%Y') as data,
+                    filial.nome
+                FROM federacao.pre_avaliacao
+                join filial using (id_filial)
+                join modalidade using (id_modalidade)
+                inner join coordenador 
+                    on modalidade.id_coordenador = coordenador.id_coordenador
+               inner join federado
+                    on coordenador.id_federado = federado.id_federado
+               where pre_avaliacao.id_status_avaliacao = 2
+               group by pre_avaliacao.data_agendamento
+                   ";
+        
+            return $this->db->query($sql)->result_array();
+        
+    }
+    
+    function agendamento_pendentes(){
+                    $sql = "SELECT 
+                                count(id_filial) as total
+                            FROM
+                                 federacao.pre_avaliacao
+                            join filial using (id_filial) 
+                            join modalidade using (id_modalidade)
+                            join coordenador using (id_coordenador)
+                            inner join federado on
+                                coordenador.id_federado = federado.id_federado
+                            where pre_avaliacao.id_status_avaliacao = 4";
+                    return $this->db->query($sql)->result_array();
+    }
     
     function setAgendarAvaliacao($id_pre_avaliacao){
         
@@ -39,18 +71,41 @@ class Coordenador_model extends CI_Model {
 
 
     function get_aluno_faixa($id_federado){
-        $sql = "SELECT
-                    federado.nome,
-                    graduacao.faixa as faixa_atual,
-                    graduacao.ordem+1 as ordem_futura,
-                    (select faixa as faixa_f from graduacao where ordem = ordem_futura) as faixa_futura
-              FROM 
-                    federacao.federado
-                    join graduacao_federado using (id_federado)
-                    join graduacao using (id_graduacao)
-              where id_federado = $id_federado";
+        $sql = "SELECT 
+                federado.nome,
+                federado.id_federado,
+                federado.data_nasc,
+                graduacao.faixa,
+                graduacao.ordem,
+                filial.nome as nome_filial
+                FROM federacao.federado
+                inner join matricula
+                on matricula.id_federado = federado.id_federado
+                inner join filial
+                on matricula.id_filial = filial.id_filial
+                inner join graduacao_federado
+                on graduacao_federado.id_federado = federado.id_federado
+                inner join graduacao
+                on graduacao.id_graduacao = graduacao_federado.id_graduacao 
+                where federado.id_federado = '$id_federado';";
         $query = $this->db->query($sql);
        return $query->result_array();
+    }
+    
+    function get_ultimo_evento($id_federado){
+        $sql = "SELECT 
+                    pre_avaliacao.id_evento,
+                    evento_graduacao.numero_evento,
+                    date_format(evento_graduacao.data_evento,'%d-%m-%Y') as data
+                FROM federacao.pre_avaliacao
+                    inner join evento_graduacao
+                    on 
+                    evento_graduacao.id_evento = pre_avaliacao.id_evento 
+                where pre_avaliacao.id_federado = $id_federado
+                    and   pre_avaliacao.id_status_avaliacao = 2;";
+       $query = $this->db->query($sql);
+       return $query->result_array();
+        
     }
     
     

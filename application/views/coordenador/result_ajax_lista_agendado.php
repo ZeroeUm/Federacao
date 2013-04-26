@@ -2,7 +2,7 @@
 <h3 class="alert-error">Nenhum aluno dessa filial possui agendamento</h3>
     <?php }?>
 
-<form action="/coordenador/cancelar_agendamento" method="post">
+<form action="<?php echo base_url(); ?>coordenador/cancelar_agendamento" method="post">
 <table class="table table-hover">
     <tr>
     <td> Nome </td>
