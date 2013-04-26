@@ -8,7 +8,7 @@ class Administrador_model extends CI_Model
         parent::__construct();
     }
 
-    // met�dos para Manter dados de Federados
+    // metódos para Manter dados de Federados
     /*
      * @return instrutores para serem colocados em um combobox
      */
@@ -24,8 +24,8 @@ class Administrador_model extends CI_Model
     }
 
     /*
-     * @param instrutor respons?vel por filiais
-     * @return filiais que o instrutor escolhido ? respons?vel
+     * @param instrutor responsável por filiais
+     * @return filiais que o instrutor escolhido ? responsável
      */
 
     public function MntFedFilial($instrutor)
@@ -40,8 +40,8 @@ class Administrador_model extends CI_Model
     }
 
     /*
-     * @param filial a ser pesquisada e a situa��o a ser abordada na pesquisa
-     * @return federados que perten?am a filial pesquisada e que est�o na situa��o pesquisada
+     * @param filial a ser pesquisada e a situação a ser abordada na pesquisa
+     * @return federados que pertençam a filial pesquisada e que estão na situação pesquisada
      */
 
     public function MntFedFederado($filial, $status)
@@ -90,13 +90,13 @@ class Administrador_model extends CI_Model
                         ->result_array();
     }
 
-    // fim met�dos para Manter dados de Federados
+    // fim metódos para Manter dados de Federados
     //CRU tabela de federados
     /*
-     * @param federado que se deseja alterar as informa��es
-     * #return todas as informa��es guardadas na tabela de federados
+     * @param federado que se deseja alterar as informações
+     * #return todas as informações guardadas na tabela de federados
      */
-    public function DadosFederado($federado)// met�do para puxar informa��es para p�gina de altera��o
+    public function DadosFederado($federado)// metódo para puxar informações para página de alteração
     {
         return $this->db
                         ->select("*,matricula.id_filial as filial,matricula.id_modalidade as modalidade")
@@ -151,7 +151,7 @@ class Administrador_model extends CI_Model
     }
 
     /*
-     * @param array associativo com as informa��es a serem inseridas no banco, onde as posi??es do array devem ser os campos da tabela e os valores as novas informa��es a serem inseridas
+     * @param array associativo com as informações a serem inseridas no banco, onde as posições do array devem ser os campos da tabela e os valores as novas informações a serem inseridas
      */
 
     public function InserirFederado($dados = array())
@@ -160,7 +160,7 @@ class Administrador_model extends CI_Model
     }
 
     /*
-     * @param identificador do federado a ter as informa��es alteradas junto com as altera��es em um array
+     * @param identificador do federado a ter as informações alteradas junto com as alterações em um array
      */
 
     public function AtualizarDadosFederado($id, $dados = array())
@@ -210,10 +210,10 @@ class Administrador_model extends CI_Model
                         ->result_array();
     }
 
-    //met?do para pegar os e-mails para envio de notifica??o
+    //met?do para pegar os e-mails para envio de notificação
     /*
      * @param criterio de pesquisa de e-mails no banco de dados -  de 1 a 7
-     * @return lista de e-mails dos federados alvo da notifica??o
+     * @return lista de e-mails dos federados alvo da notificação
      */
     public function NotifEmail($criterio)
     {
@@ -249,10 +249,10 @@ class Administrador_model extends CI_Model
                         ->result_array();
     }
 
-    // met�do para pegar o hist�rico de notas do federado no banco de dados
+    // metódo para pegar o histórico de notas do federado no banco de dados
     /*
      * #param federado a ser pesquisado no banco de dados
-     * @return as notas em gradua??es de faixa do federado passado como parametro
+     * @return as notas em graduações de faixa do federado passado como parametro
      */
     public function HistFederado($federado)
     {
@@ -265,9 +265,9 @@ class Administrador_model extends CI_Model
                         ->result_array();
     }
 
-    // CRU tabela de endere�o
+    // CRU tabela de endereço
     /*
-     * @param array associativo com as informa��es a serem inseridas no banco, onde as posi��es do array devem ser os campos da tabela e os valores as novas informa��es a serem inseridas
+     * @param array associativo com as informações a serem inseridas no banco, onde as posições do array devem ser os campos da tabela e os valores as novas informações a serem inseridas
      */
     public function InserirEndereco($dados = array())
     {
@@ -275,7 +275,7 @@ class Administrador_model extends CI_Model
     }
 
     /*
-     * @param identificador do endere�o a ter as informa��es atualizadas junto com o array com as novas informa��es
+     * @param identificador do endereço a ter as informações atualizadas junto com o array com as novas informações
      */
 
     public function AtualizarEndereco($id, $dados = array())
@@ -284,18 +284,18 @@ class Administrador_model extends CI_Model
     }
 
     /*
-     * @param numero de registro do endere�o que est� cadastrado no banco para ser alterado
-     * @return as informa��es guardadas no banco de dados para serem alterados 
+     * @param numero de registro do endereço que está cadastrado no banco para ser alterado
+     * @return as informações guardadas no banco de dados para serem alterados 
      */
 
-    public function AlterarEndereco($id)// met�do para puxar informa��es para p�gina de altera��o
+    public function AlterarEndereco($id)// metódo para puxar informações para página de alteração
     {
         $query = $this->db->get_where('endereco', array('id_endereco' => $id));
         return $query->result_array();
     }
 
-    //fim CRU tabela de endere�os
-    //met�dos para ser utilizado Manter dados de filiais
+    //fim CRU tabela de endereços
+    //metódos para ser utilizado Manter dados de filiais
     /*
       | @return lista das filiais para preencher o combobox
      */
@@ -311,7 +311,7 @@ class Administrador_model extends CI_Model
 
     /*
       | @param identificador da filial para pesquisa no banco
-      | @return informa��es para apresentar na tela de pesquisa de filiais
+      | @return informações para apresentar na tela de pesquisa de filiais
      */
 
     public function MntFilialDados($id)
@@ -350,7 +350,7 @@ class Administrador_model extends CI_Model
     // fim
     //CRU - tabela de filiais
     /*
-     * @param array associativo com as informa��es a serem inseridas no banco, onde as posi��es do array devem ser os campos da tabela e os valores as novas informa��es a serem inseridas
+     * @param array associativo com as informações a serem inseridas no banco, onde as posições do array devem ser os campos da tabela e os valores as novas informações a serem inseridas
      */
     public function InserirFilial($dados = array())
     {
@@ -368,11 +368,11 @@ class Administrador_model extends CI_Model
     }
 
     /*
-     * @param identificador da filial que ter? seus dados alterados
+     * @param identificador da filial que terá seus dados alterados
      * @return dados da filial que vai ser alterada
      */
 
-    public function AlterarDadoasFilial($id)// met�do para puxar informa��es para p?gina de altera��o
+    public function AlterarDadoasFilial($id)// metódo para puxar informações para página de alteração
     {
         $query = $this->db->get_where('filial', array('id_filial' => $id));
         return $query->result_array();
@@ -554,7 +554,21 @@ class Administrador_model extends CI_Model
     {
         $this->update('login',$dados,array('id_login' => $id));
     }
-
+    
+    public function getPrimeiraFaixa($modalidade)
+    {
+        return $this->db
+                        ->select('id_graduacao as faixa')
+                        ->from('graduacao')
+                        ->where('id_modalidade',$modalidade)
+                        ->where('ordem',1)
+                        ->get()
+                        ->result_array();
+    }
+    
+    public function primeiraFaixa($dados = array())
+    {
+        $this->db->insert('graduacao_federado',$dados);
+    }
 }
-
 ?>

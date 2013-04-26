@@ -361,7 +361,20 @@ class administrador extends CI_Controller
         $matricula['id_filial'] = $filial;
         $matricula['data_matricula'] = date('Y-m-d');
         $matricula['matricula_filial'] = date('Y-m-d');
+        $this->gerarGraduacao($federado, $modalidade);
         $this->administrador->matricularFederado($matricula);
+    }
+    
+    function gerarGraduacao($federado,$modalidade)
+    {
+        $this->load->model('Administrador_model','administrador');
+        $primeiraFaixa = $this->administrador->getPrimeiraFaixa($modalidade);
+        $graduacao['id_modalidade'] = $modalidade;
+        $graduacao['id_graduacao'] = $primeiraFaixa[0]['faixa'];
+        $graduacao['id_federado'] = $federado;
+        $graduacao['status'] = 1;
+        $graduacao['data_emissao'] = date('Y-m-d');
+        $this->administrador->primeiraFaixa($graduacao);
     }
 
     function alterarMatricula($federado, $filial, $modalidade)
@@ -385,7 +398,7 @@ class administrador extends CI_Controller
         $login['senha'] = $this->gerarSenha();
         $this->administrador->criarLogin($login);
     }
-
+    
     function gerarLogin($nome)
     {
         $arrNome = explode(" ", $nome);
