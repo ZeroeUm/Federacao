@@ -92,7 +92,7 @@ $data = explode('-',$Eventos['0']['data_evento']);
 ?>
 <h3>Editar evento</h3>
 <div class="span9">
-    <form action="/coordenador/editarEvento/<?php echo $id;?>" method="post" id="form">
+    <form action="<?php echo base_url(); ?>coordenador/editarEvento/<?php echo $id;?>" method="post" id="form">
     
      <label>Data do evento</label> 
      <input type="text" name="data[evento_graduacao][data_evento]" class="input-block-level" id="datepicker" placeholder="Data do Evento" value="<?php echo $data['2']."-".$data['1']."-".$data['0'] ?>">

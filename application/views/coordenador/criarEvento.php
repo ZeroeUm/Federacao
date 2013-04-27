@@ -89,7 +89,7 @@ label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; 
 <h3>Criar evento</h3>
 <a href="/coordenador/listaEventos" class="pull-right btn btn-primary">Lista de eventos</a>
 <div class="span9">
-    <form action="/coordenador/criarEvento" method="post" id="form">
+    <form action="<?php echo base_url(); ?>coordenador/criarEvento" method="post" id="form">
 
         <label>Data do evento</label> 
         <input type="text" name="data[evento_graduacao][data_evento]" class=" obrigatorio input-block-level" id="datepicker" placeholder="Data do Evento">

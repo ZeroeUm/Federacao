@@ -7,7 +7,7 @@ $(document).ready(function(){
       
        $.ajax({
                 type: "POST",
-                url: "/coordenador/ajax_lancar_notas_lista/"+filial,
+                url: "<?php echo base_url(); ?>coordenador/ajax_lancar_notas_lista/"+filial,
                 data: "id_filial"+filial,
                 datatype: "html",
                 success: function (html){

@@ -1,10 +1,16 @@
-$(document).ready(function(){
+$('document').ready(function(){
  
-    $('#rg').setMask('99.999.999-9');
+    $('#calendario').datepicker({dateFormat:'dd-mm-yy'});
+ 
+ 
+ 
+ 
+    $('#rg').setMask('99.999.999-99');
     $('#cnpj').setMask('999.999.999/9999-99');
     $('#cpf').setMask('999.999.999-99');
     $('#cep').setMask('99999-999');
     $('#telefone').setMask("(99)9999-9999"); 
+    
     
     $('#celular').setMask("(99)99999-9999").ready(function(event) {
         var target, phone, element;
@@ -15,7 +21,7 @@ $(document).ready(function(){
         if(phone.length > 10) {
             element.setMask("(99)99999-9999");
         } else {
-            element.setMask("(99)9999-99999");
+            element.setMask("(99)99999-9999");
         }
     });
     
@@ -44,6 +50,8 @@ $(document).ready(function(){
                 });
         }
     });
+    
+    
     
     
 })

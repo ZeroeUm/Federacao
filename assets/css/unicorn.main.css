@@ -1531,7 +1531,7 @@ form {
 }
 
 .alert{
-    margin-left: 30%;
+    
     position: absolute;
     z-index: 10;
 }
