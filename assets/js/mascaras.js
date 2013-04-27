@@ -1,4 +1,4 @@
-$('document').ready(function(){
+$(document).ready(function(){
  
     $('#rg').setMask('99.999.999-9');
     $('#cnpj').setMask('999.999.999/9999-99');
@@ -6,7 +6,7 @@ $('document').ready(function(){
     $('#cep').setMask('99999-999');
     $('#telefone').setMask("(99)9999-9999"); 
     
-    $('#celular').setMask("(99)9999-99999").ready(function(event) {
+    $('#celular').setMask("(99)99999-9999").ready(function(event) {
         var target, phone, element;
         target = (event.currentTarget) ? event.currentTarget : event.srcElement;
         phone = target.value.replace(/\D/g, '');

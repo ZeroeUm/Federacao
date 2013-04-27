@@ -570,5 +570,16 @@ class Administrador_model extends CI_Model
     {
         $this->db->insert('graduacao_federado',$dados);
     }
+    
+    public function getFilial()
+    {
+        return $this->db
+                        ->select('id_filial as id, nome')
+                        ->from('filial')
+                        ->order_by('nome','asc')
+                        ->get()
+                        ->result_array();
+                        
+    }
 }
 ?>

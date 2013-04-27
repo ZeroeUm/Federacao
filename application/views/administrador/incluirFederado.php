@@ -156,6 +156,21 @@ $label = array(
     </div>
     <div class="control-group">
         <?php
+        echo form_label('Tamanho da faixa','tamanhoFaixa',$label);
+        ?>
+        <div class="controls">
+            <?php
+            $opTamanho['#'] = "Escolha um tamnho";
+            $opTamanho['P'] = "Pequeno";
+            $opTamanho['M'] = "Médio";
+            $opTamanho['G'] = "Grande";
+            $opTamanho['GG'] = "Extra-grande";
+            echo form_dropdown('tamanhoFaixa',$opTamanho,  set_value('tamanhoFaixa','#'),'id="tamanhoFaixa" class="span3" required');
+            ?>
+        </div>
+    </div>
+    <div class="control-group">
+        <?php
         echo form_label("Nacionalidade", "nacionalidade", $label);
         ?>
         <div class="controls">
@@ -199,7 +214,10 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            echo form_dropdown('filial',array("#" => "Escolha uma filial"),set_value('filial',"#"),'id="filial" class="span4" required');
+            $opFilial['#'] = "Escolha uma filial";
+            foreach ($filial as $f)
+                $opFilial[$f['id']] = $f['nome'];
+            echo form_dropdown('filial',$opFilial,set_value('filial',"#"),'id="filial" class="span4" required');
             ?>
         </div>
     </div>

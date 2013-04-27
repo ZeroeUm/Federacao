@@ -163,6 +163,21 @@ $label = array(
     </div>
     <div class="control-group">
         <?php
+            echo form_label("Tamanho da Faixa",'tamanhoFaixa',$label);
+        ?>
+        <div class="controls">
+            <?php
+            $opTamanho['P'] = "Pequeno";
+            $opTamanho['M'] = "Médio";
+            $opTamanho['G'] = "Grande";
+            $opTamanho['GG'] = "Extra-grande";
+            $selTamanho = $federado['tamanho_faixa'];
+            echo form_dropdown('tamanhoFaixa',$opTamanho,  set_value('tamanhoFaixa',$selTamanho),'id="tamanhoFaixa" class="span3" required');
+            ?>
+        </div>
+    </div>
+    <div class="control-group">
+        <?php
         echo form_label("Situação", "situacao", $label);
         ?>
         <div class="controls">
@@ -255,7 +270,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $inComplemento = 'id="compl" class="span3" maxlength="20" required';
+            $inComplemento = 'id="compl" class="span3" maxlength="20"';
             echo form_input('compl', $endereco['complemento'], $inComplemento);
             ?>
         </div>

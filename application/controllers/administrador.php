@@ -13,10 +13,10 @@ class administrador extends CI_Controller
         parent::__construct();
         $this->checar_sessao();
     }
-    
+
     function index()
     {
-     
+        
     }
 
     function checar_sessao()
@@ -141,11 +141,11 @@ class administrador extends CI_Controller
         $idade = $hoje->diff($nasc)->format("%y");
         $fed[0]['idade'] = $idade;
         $resultado = array_map('htmlentities', $fed[0]);
-        
-        foreach($fed[0] as $f):
-            $f = htmlentities($f,ENT_QUOTES,'UTF-8');
+
+        foreach ($fed[0] as $f):
+            $f = htmlentities($f, ENT_QUOTES, 'UTF-8');
         endforeach;
-        
+
         echo(json_encode($fed[0]));
     }
 
@@ -158,23 +158,23 @@ class administrador extends CI_Controller
             return false;
         endif;
     }
-    
+
     public function complemento($input)
     {
-        if(preg_match("/^[A-Za-z\s\d]+$/", $input) || ($input == "")):
+        if (preg_match("/^[A-Za-z\s\d]+$/", $input) || ($input == "")):
             return true;
         else:
-            $this->form_validation->set_message('complemento',"O campo %s deve conter somente letras e números.");
+            $this->form_validation->set_message('complemento', "O campo %s deve conter somente letras e números.");
             return false;
         endif;
     }
-    
+
     public function filiacao($input)
     {
-        if((preg_match("/^[A-Za-záàãâéêíóôõú\s]+$/",$input)) || $input == ""):
+        if ((preg_match("/^[A-Za-záàãâéêíóôõú\s]+$/", $input)) || $input == ""):
             return true;
         else:
-            $this->form_validation->set_message('filiacao',"O campo %s deve conter somente letras e letras acentuadas da língua portuguesa.");
+            $this->form_validation->set_message('filiacao', "O campo %s deve conter somente letras e letras acentuadas da língua portuguesa.");
             return false;
         endif;
     }
@@ -182,7 +182,7 @@ class administrador extends CI_Controller
     public function telephone($input)
     {
         if (preg_match("/^\(?\d{2}\)?\d{4}-?\d{4}$/", $input))://formato (11)3940-1294, sem espaço
-            return true;   
+            return true;
         else:
             $this->form_validation->set_message('telephone', 'O campo %s deve possuir um número de telefone ou fax no formato (12)3456-7890.');
             return false;
@@ -218,11 +218,11 @@ class administrador extends CI_Controller
             return false;
         endif;
     }
-    
+
     public function combo($input)
     {
-        if($input == "#"):
-            $this->form_validation->set_message('combo','Na campo com opções de %s deve ser selecionada uma opção.');
+        if ($input == "#"):
+            $this->form_validation->set_message('combo', 'Na campo com opções de %s deve ser selecionada uma opção.');
             return FALSE;
         else:
             return TRUE;
@@ -241,13 +241,14 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('celular', 'Celular para contato', 'required|callback_celular|trim');
         $this->form_validation->set_rules('email', 'E-mail para contato', 'required|valid_email|trim');
         $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required|callback_combo');
+        $this->form_validation->set_rules('tamanhoFaixa', 'Tamanho da faixa', 'required|callback_combo');
         $this->form_validation->set_rules('situacao', 'Situação na federação', 'required|callback_combo');
         $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required|callback_combo');
         $this->form_validation->set_rules('tipo', 'Tipo de federado na federação', 'required|callback_combo');
         $this->form_validation->set_rules('filial', 'Filial', 'required|callback_combo');
         $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('numero', 'Número do endereço', 'required|is_natural_no_zero|trim');
-        $this->form_validation->set_rules('compl', 'Complemento do endereço','callback_complemento|trim');
+        $this->form_validation->set_rules('compl', 'Complemento do endereço', 'callback_complemento|trim');
         $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('uf', 'UF do endereço', 'required|callback_combo');
@@ -256,7 +257,6 @@ class administrador extends CI_Controller
         if ($this->form_validation->run() == FALSE)
         {
             $this->load->model('Administrador_model', 'administrador');
-            
             $this->load->view('header');
 
             $dados['federado'] = $this->administrador->DadosFederado($federado);
@@ -270,10 +270,9 @@ class administrador extends CI_Controller
             $dados['uf'] = $this->administrador->getUF();
             $dados['modalidade'] = $this->administrador->GetModalidades();
             $dados['filiais'] = $this->administrador->getFiliaisModalidade($modalidade);
-            
+
             $this->load->view('administrador/alterarFederado', $dados);
             $this->load->view('footer');
-            
         }
         else
         {
@@ -317,8 +316,8 @@ class administrador extends CI_Controller
         $this->load->model('Administrador_model', 'administrador');
         $endereco = array();
         $federado = array();
-        
-        (($this->input->post('antigaFilial') != $this->input->post('filial'))? $this->alterarMatricula($this->input->post('federado'), $this->input->post('filial'), 1):"");
+
+        (($this->input->post('antigaFilial') != $this->input->post('filial')) ? $this->alterarMatricula($this->input->post('federado'), $this->input->post('filial'), 1) : "");
 
         $endereco['logradouro'] = $this->input->post('logradouro');
         $endereco['numero'] = $this->input->post('numero');
@@ -340,8 +339,9 @@ class administrador extends CI_Controller
         $federado['id_status'] = $this->input->post('situacao');
         $federado['id_nacionalidade'] = $this->input->post('nacionalidade');
         $federado['id_tipo_federado'] = $this->input->post('tipo');
+        $federado['tamanho_faixa'] = $this->input->post('tamanhoFaixa');
         $federado['caminho_imagem'] = (isset($foto) ? "tkd/" . $foto : "sem foto");
-        
+
         $this->administrador->AtualizarDadosFederado($this->input->post('federado'), $federado);
 
         $this->administrador->AtualizarEndereco($this->input->post('endereco'), $endereco);
@@ -364,10 +364,10 @@ class administrador extends CI_Controller
         $this->gerarGraduacao($federado, $modalidade);
         $this->administrador->matricularFederado($matricula);
     }
-    
-    function gerarGraduacao($federado,$modalidade)
+
+    function gerarGraduacao($federado, $modalidade)
     {
-        $this->load->model('Administrador_model','administrador');
+        $this->load->model('Administrador_model', 'administrador');
         $primeiraFaixa = $this->administrador->getPrimeiraFaixa($modalidade);
         $graduacao['id_modalidade'] = $modalidade;
         $graduacao['id_graduacao'] = $primeiraFaixa[0]['faixa'];
@@ -398,7 +398,7 @@ class administrador extends CI_Controller
         $login['senha'] = $this->gerarSenha();
         $this->administrador->criarLogin($login);
     }
-    
+
     function gerarLogin($nome)
     {
         $arrNome = explode(" ", $nome);
@@ -446,12 +446,13 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('celular', 'Celular para contato', 'required|callback_celular|trim');
         $this->form_validation->set_rules('email', 'E-mail para contato', 'required|valid_email|trim');
         $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required|callback_combo');
+        $this->form_validation->set_rules('tamanhoFaixa', 'Tamanho da faixa', 'required|callback_combo');
         $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required|callback_combo');
         $this->form_validation->set_rules('tipo', 'Tipo de federado na federação', 'required|callback_combo');
         $this->form_validation->set_rules('filial', 'Filial', 'required|callback_combo');
         $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('numero', 'Número do endereço', 'required|is_natural_no_zero|trim');
-        $this->form_validation->set_rules('compl', 'Complemento do endereço','callback_complemento|trim');
+        $this->form_validation->set_rules('compl', 'Complemento do endereço', 'callback_complemento|trim');
         $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('uf', 'UF do endereço', 'required|callback_combo');
@@ -461,6 +462,7 @@ class administrador extends CI_Controller
             $this->load->model('Administrador_model', 'administrador');
             $this->load->view('header');
             $dados['nacionalidade'] = $this->administrador->getNacionalidade();
+            $dados['filial'] = $this->administrador->getFilial();
             $dados['escolaridade'] = $this->administrador->getEscolaridade();
             $dados['statusFederado'] = $this->administrador->getStatus();
             $dados['uf'] = $this->administrador->getUF();
@@ -505,6 +507,7 @@ class administrador extends CI_Controller
         $federado['id_escolaridade'] = $this->input->post('escolaridade');
         $federado['id_nacionalidade'] = $this->input->post('nacionalidade');
         $federado['id_tipo_federado'] = $this->input->post('tipo');
+        $federado['tamanho_faixa'] = $this->input->post('tamanhoFaixa');
         $federado['caminho_imagem'] = (isset($foto) ? "tkd/" . $foto : "sem foto");
 
         $this->administrador->InserirFederado($federado);
@@ -712,8 +715,8 @@ class administrador extends CI_Controller
         $this->load->model('Administrador_model', 'administrador');
         $filial = $this->administrador->MntFilialDados($filial);
         header('Content-type: application/x-json; charset=utf-8');
-        
-        foreach($filial[0] as $f):
+
+        foreach ($filial[0] as $f):
             $f = htmlentities($f, ENT_QUOTES, 'UTF-8');
         endforeach;
         echo(json_encode($filial[0]));
@@ -768,7 +771,7 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('logradouro', 'Logradouro', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('numero', 'número', 'required|is_natural_no_zero|trim');
         $this->form_validation->set_rules('bairro', 'Bairro', 'required|callback_alpha_acent|trim');
-        $this->form_validation->set_rules('compl', 'Complemento do endereço','callback_complemento|trim');
+        $this->form_validation->set_rules('compl', 'Complemento do endereço', 'callback_complemento|trim');
         $this->form_validation->set_rules('cidade', 'Cidade', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('uf', 'UF', 'required|callback_combo');
 
@@ -799,7 +802,7 @@ class administrador extends CI_Controller
 
         $endereco['logradouro'] = $this->input->post('logradouro');
         $endereco['numero'] = $this->input->post('numero');
-        $endereco['complemento'] = ($this->input->post('compl')?$this->input->post('compl'):NULL);
+        $endereco['complemento'] = ($this->input->post('compl') ? $this->input->post('compl') : NULL);
         $endereco['bairro'] = $this->input->post('bairro');
         $endereco['cidade'] = $this->input->post('cidade');
         $endereco['uf'] = $this->input->post('uf');
@@ -844,7 +847,7 @@ class administrador extends CI_Controller
         $this->form_validation->set_rules('instrutor', 'Instrutor', 'required|callback_combo');
         $this->form_validation->set_rules('logradouro', 'Logradouro', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('numero', 'número', 'required|is_natural_no_zero|trim');
-        $this->form_validation->set_rules('compl', 'Complemento do endereço','callback_complemento|trim');
+        $this->form_validation->set_rules('compl', 'Complemento do endereço', 'callback_complemento|trim');
         $this->form_validation->set_rules('bairro', 'Bairro', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('cidade', 'Cidade', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('uf', 'UF', 'required|callback_combo');
@@ -874,7 +877,7 @@ class administrador extends CI_Controller
         $endereco['logradouro'] = $this->input->post('logradouro');
         $endereco['numero'] = $this->input->post('numero');
         $endereco['tipo_endereco'] = 3;
-        $endereco['complemento'] = ($this->input->post('compl')?$this->input->post('compl'):NULL);
+        $endereco['complemento'] = ($this->input->post('compl') ? $this->input->post('compl') : NULL);
         $endereco['bairro'] = $this->input->post('bairro');
         $endereco['cidade'] = $this->input->post('cidade');
         $endereco['uf'] = $this->input->post('uf');
