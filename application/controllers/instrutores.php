@@ -16,6 +16,14 @@ class Instrutores extends CI_Controller {
         parent::__construct();
         $this->load->model('Instrutor_model');
     }
+    
+    
+    function index()
+    {
+            $this->load->view('header');
+            $this->load->view('index');
+            $this->load->view('footer');
+    }
 
     function cadastro() {
         $this->load->model('Instrutor_model');
@@ -306,6 +314,8 @@ class Instrutores extends CI_Controller {
     function inscricao() {
         $this->load->model('Instrutor_model');
         $tema["instrutor"] = $this->Instrutor_model->inscrever();
+        
+        
         $this->load->view('header');
         $this->load->view('instrutores/inscricao', $tema);
         $this->load->view('footer');
