@@ -54,7 +54,7 @@
 
         <!--sideBar-->
         <div id="sidebar" style="position: absolute">
-            <div style="width: 150px;height: 180px;">
+            <div style="width: 150px;height: 210px;">
             <img width="140px" heigth="190px" src="<?php echo base_url() . (($this->session->userdata('foto') != "sem foto") ? "federados/fotos/" . $this->session->userdata('foto') : "federados/default.gif") ?>" class="img-polaroid" style="margin: 20px;z-index: 1000;float: left">
             </div>    
             <a href="#" class="visible-phone"><i class="icon icon-home"></i> Menu oculto</a>

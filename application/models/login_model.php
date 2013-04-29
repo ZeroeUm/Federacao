@@ -44,11 +44,23 @@ class Login_model extends CI_Model
     public function dadosUsuario($id)
     {
         return $this->db
-                    ->select('federado.id_federado as id, federado.nome, federado.caminho_imagem as foto, federado.id_tipo_federado as tipo,modalidade.nome as modalidade')
+                    ->select('
+                                federado.id_federado AS id, 
+                                federado.nome, 
+                                federado.caminho_imagem AS foto, 
+                                federado.id_tipo_federado AS tipo,
+                                modalidade.id_modalidade AS idModalidade,
+                                modalidade.nome AS modalidade,
+                                graduacao.id_graduacao AS faixa,
+                                graduacao.faixa AS nomeFaixa
+                            ')
                     ->from('federado')
                     ->join('matricula','federado.id_federado = matricula.id_federado','inner')
                     ->join('modalidade','matricula.id_modalidade = modalidade.id_modalidade','inner')
+                    ->join('graduacao_federado','federado.id_federado = graduacao_federado.id_federado','inner')
+                    ->join('graduacao','graduacao_federado.id_graduacao = graduacao.id_graduacao','inner')
                     ->where('federado.id_federado', $id)
+                    ->where("graduacao_federado.status",1)
                     ->get()
                     ->result_array();
     }
