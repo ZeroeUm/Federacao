@@ -50,6 +50,22 @@ class coordenador extends CI_Controller{
     }
     
    
+    function alterar_curriculo(){
+        if($this->input->post()){
+            $this->funcoes->imprimir($this->input->post());
+        }
+    }
+    
+    function ajax_curriculo($id_graduacao){
+        
+        $dados['movimentos'] = $this->coordenador->movimentos($id_graduacao);
+        $dados['graduacao'] = $id_graduacao;
+        
+        $this->load->view('coordenador/ajax_curriculo',$dados);
+        
+    }
+
+
     function pre_avaliar(){
                 
         
