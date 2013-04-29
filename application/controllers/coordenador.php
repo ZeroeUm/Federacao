@@ -288,7 +288,6 @@ class coordenador extends CI_Controller{
           $dados['movimentos'] = $this->coordenador->movimentos($id_faixa);
           $dados['participantes'] = $this->coordenador->Participantes($id_faixa,$id_evento);
           
-           $this->load->view('header');
           $this->load->view('coordenador/imprimir_listagem',$dados);
           
           

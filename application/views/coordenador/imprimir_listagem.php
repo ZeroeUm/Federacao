@@ -1,3 +1,6 @@
+ <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.css">
+ <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+ 
 <?php $tabelas = count($movimentos); ?>
 <h3>Candidatos a <?php echo $movimentos['0']['faixa'];  ?></h3>
 <table class="table table-bordered">
@@ -37,6 +40,7 @@
         <?php foreach ($movimentos as $i => $v) { ?>
             <td><?php echo $v['sigla']; ?></td>
         <?php } ?>
+            <td>Resultado</td>
     </tr>
 
     <?php foreach ($participantes as $r => $t) { ?>
@@ -53,6 +57,10 @@
 
             <?php $i++;
         } ?>
+                <td></td>
+                
         </tr>
 <?php } ?>
 </table>
+
+<input type="button" name="imprimir" value="Imprimir" onclick="window.print();">
