@@ -314,6 +314,8 @@ class Instrutores extends CI_Controller {
     function inscricao() {
         $this->load->model('Instrutor_model');
         $tema["instrutor"] = $this->Instrutor_model->inscrever();
+        
+        
         $this->load->view('header');
         $this->load->view('instrutores/inscricao', $tema);
         $this->load->view('footer');

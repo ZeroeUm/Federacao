@@ -112,19 +112,19 @@
                         <li class="parent">
                             <a href="#" title="">Pré-Avaliação <i class="icon-forward pull-right" style="padding-right: 10px;"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="#" title="">Agendar pré-Avaliação</a></li>
-                                <li><a href="#" title="">Cancelar agendamento</a></li>
-                                <li><a href="#" title="">Listagem de Avaliados</a></li>
-                                <li><a href="#" title="">Lançar Notas</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/pre_avaliar" title="">Agendar pré-Avaliação</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/agenda_de_compromissos" title="">Cancelar agendamento</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/listagem" title="">Listagem de Avaliados</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/lancar_nota" title="">Lançar Notas</a></li>
                             </ul>
                         </li>
                         
                          <li class="parent">
                              <a href="#" title="">Eventos <i class="icon-forward pull-right" style="padding-right: 10px;"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="#" title="">Criar novo evento</a></li>
-                                <li><a href="#" title="">Lista de eventos cadastrados</a></li>
-                                <li><a href="#" title="">Solicitar Faixas</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/criarEvento" title="">Criar novo evento</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/listaEventos" title="">Lista de eventos cadastrados</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/solicitar_faixa" title="">Solicitar Faixas</a></li>
                             </ul>
                         </li>
                         
@@ -132,8 +132,8 @@
                         <li class="parent">
                             <a href="#" title="">Filiais <i class="icon-forward pull-right" style="padding-right: 10px;"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="#" title="">Cadastrar nova filial</a></li>
-                                <li><a href="#" title="">Lista de instrutores</a></li>
+                                <li><a href="<?php echo site_url(); ?>administrador/filiais" title="">Cadastrar nova filial</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/modalidade" title="">Lista de instrutores</a></li>
                             </ul>
                         </li>
                         
@@ -141,23 +141,13 @@
                         <li class="parent">
                             <a href="#" title="">Modalidade <i class="icon-forward pull-right" style="padding-right: 10px;"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="#" title="">Ver curriculo da modalidade</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/curriculo" title="">Ver curriculo da modalidade</a></li>
                                 
                             </ul>
                         </li>
                     </ul>    
 
-                    <!--                    <ul>
-                                            <li class="icn_new_article"><a href="<?php echo site_url('coordenador/modalidade'); ?>">Verificar professores da modalidade</a></li>
-                                            <li class="icn_categories"><a href="<?php echo site_url('administrador/filiais'); ?>">Manutenção de dados de filiais</a></li>
-                                            <li class="icn_new_article"><a href="<?php echo site_url('coordenador/certificado'); ?>">Emitir certificados</a></li>
-                                            <li class="icn_folder"><a href="<?php echo site_url('coordenador/index'); ?>">Enviar pedido de compra de faixa</a></li>
-                                            <li class="icn_new_article"><a href="<?php echo site_url('coordenador/pre_avaliar'); ?>">Lista de inscritos para pré-avaliação</a></li>
-                                            <li class="icn_categories"><a href="<?php echo site_url('coordenador/curriculo'); ?>">Manutenção do Curriculo da modalidade</a></li>
-                                            <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/listaEventos'); ?>">Verificar relação de participantes em Graduação</a></li>
-                                            <li class="icn_new_article"><a href="<?php echo site_url('coordenador/criarEvento') ?>">Criar evento de Graduação</a></li>
-                                            <li class="icn_edit_article"><a href="<?php echo site_url('coordenador/notas') ?>">Lançar Notas</a></li>
-                                        </ul>-->
+
                 </li>
 
                 <li class="submenu menu_administrador " >
