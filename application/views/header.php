@@ -110,7 +110,7 @@
                    
                     <ul id="menu">
                         <li class="parent">
-                            <a href="#" title="">Pré-Avaliação</a>
+                            <a href="#" title="">Pré-Avaliação <i class="icon-forward pull-right" style="padding-right: 10px;"></i></a>
                             <ul class="sub-menu">
                                 <li><a href="#" title="">Agendar pré-Avaliação</a></li>
                                 <li><a href="#" title="">Cancelar agendamento</a></li>
@@ -120,17 +120,17 @@
                         </li>
                         
                          <li class="parent">
-                            <a href="#" title="">Eventos</a>
+                             <a href="#" title="">Eventos <i class="icon-forward pull-right" style="padding-right: 10px;"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="#" title="">Cadastrar novo evento</a></li>
-                                <li><a href="#" title="">Lista de eventos</a></li>
+                                <li><a href="#" title="">Criar novo evento</a></li>
+                                <li><a href="#" title="">Lista de eventos cadastrados</a></li>
                                 <li><a href="#" title="">Solicitar Faixas</a></li>
                             </ul>
                         </li>
                         
                         
                         <li class="parent">
-                            <a href="#" title="">Filiais</a>
+                            <a href="#" title="">Filiais <i class="icon-forward pull-right" style="padding-right: 10px;"></i></a>
                             <ul class="sub-menu">
                                 <li><a href="#" title="">Cadastrar nova filial</a></li>
                                 <li><a href="#" title="">Lista de instrutores</a></li>
@@ -139,9 +139,9 @@
                         
                         
                         <li class="parent">
-                            <a href="#" title="">Modalidade</a>
+                            <a href="#" title="">Modalidade <i class="icon-forward pull-right" style="padding-right: 10px;"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="#" title="">Ver curriculo</a></li>
+                                <li><a href="#" title="">Ver curriculo da modalidade</a></li>
                                 
                             </ul>
                         </li>
