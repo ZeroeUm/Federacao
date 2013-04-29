@@ -109,6 +109,17 @@
                     <a href="#"><i class="icon icon-th-large"></i> <span>Coordenadores</span> </a>
                    
                     <ul id="menu">
+                        
+                         <li class="parent">
+                             <a href="#" title="">Eventos <i class="icon-forward pull-right" style="padding-right: 10px;"></i></a>
+                            <ul class="sub-menu">
+                                <li><a href="<?php echo site_url(); ?>coordenador/criarEvento" title="">Criar novo evento</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/listaEventos" title="">Lista de eventos cadastrados</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/solicitar_faixa" title="">Solicitar Faixas</a></li>
+                            </ul>
+                        </li>
+                        
+                        
                         <li class="parent">
                             <a href="#" title="">Pré-Avaliação <i class="icon-forward pull-right" style="padding-right: 10px;"></i></a>
                             <ul class="sub-menu">
@@ -119,14 +130,6 @@
                             </ul>
                         </li>
                         
-                         <li class="parent">
-                             <a href="#" title="">Eventos <i class="icon-forward pull-right" style="padding-right: 10px;"></i></a>
-                            <ul class="sub-menu">
-                                <li><a href="<?php echo site_url(); ?>coordenador/criarEvento" title="">Criar novo evento</a></li>
-                                <li><a href="<?php echo site_url(); ?>coordenador/listaEventos" title="">Lista de eventos cadastrados</a></li>
-                                <li><a href="<?php echo site_url(); ?>coordenador/solicitar_faixa" title="">Solicitar Faixas</a></li>
-                            </ul>
-                        </li>
                         
                         
                         <li class="parent">

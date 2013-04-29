@@ -20,7 +20,26 @@ class Coordenador_model extends CI_Model {
         array('endereco'=>'id_endereco')
         );
     
-    function compromisso_agendados(){
+    
+    
+        function get_faixas_avaliadas(){
+            $sql = "SELECT 
+                        count(pre_avaliacao.id_federado) as total,
+                        graduacao.id_graduacao,
+                        graduacao.faixa
+                        
+                        FROM federacao.pre_avaliacao
+                        inner join graduacao_federado 
+                        on graduacao_federado.id_federado = pre_avaliacao.id_federado
+                        inner join graduacao
+                        on graduacao_federado.id_graduacao+1 = graduacao.id_graduacao
+                        where pre_avaliacao.id_status_avaliacao = 2
+                        group by graduacao_federado.id_graduacao";
+         return $this->db->query($sql)->result_array();   
+        }
+
+
+        function compromisso_agendados(){
         $sql = "SELECT 
                     date_format(pre_avaliacao.data_agendamento,'%d-%m-%Y') as data,
                     filial.nome
@@ -62,11 +81,12 @@ class Coordenador_model extends CI_Model {
         $sql = "select
                     movimento_faixa.nome_movimento,
                     movimento_faixa.id_movimento_faixa,
-                    graduacao.faixa
+                    graduacao.faixa,
+                    movimento_faixa.sigla
                 from 
                 movimento_faixa
-                inner join graduacao on graduacao.ordem = movimento_faixa.ordem
-                where movimento_faixa.ordem = $faixa";
+                inner join graduacao on graduacao.id_graduacao = movimento_faixa.id_graduacao
+                where movimento_faixa.id_graduacao = $faixa";
         
         $query = $this->db->query($sql);
        return $query->result_array();
@@ -262,57 +282,38 @@ class Coordenador_model extends CI_Model {
                         ->result_array();
     }
     
-    function getParticipantes($id_evento,$faixa){
-       
-        
-//        $sql = "SELECT 
-//                    graduacao_participantes.id_evento,
-//                    federado.nome,
-//                    federado.rg,
-//                    federado.sexo,
-//                    federado.email,
-//                    federado.telefone
-//                FROM 
-//                    federacao.graduacao_participantes
-//                join
-//                    federado using (id_federado)
-//                where 
-//                    graduacao_participantes.id_evento  = $id_evento";
-//        
-//        
-//         $query =  $this->db->query($sql);;
-//
-//        return $query->result_array();
-        
-        
-        
-        
-        $query = $this->db->select(
-                "graduacao_participantes.id_evento,
-                    evento_graduacao.id_modalidade,
+    function participantes($id_faixa,$id_evento){
+        $id_faixa =  $id_faixa-1;
+        $sql = "SELECT 
                     federado.nome,
-                    federado.rg,
-                    federado.sexo,
-                    federado.email,
-                    federado.telefone"
-                            )
-                ->from('graduacao_participantes')
-                ->join('federado','graduacao_participantes.id_federado = federado.id_federado')
-                ->join('evento_graduacao','graduacao_participantes.id_evento = evento_graduacao.id_evento')
-                ->where('graduacao_participantes.id_evento',$id_evento);
-                
+                    graduacao_federado.id_graduacao
+                    
+                FROM federacao.pre_avaliacao
+                    inner join federado
+               on 
+                    pre_avaliacao.id_federado = federado.id_federado 
+               inner join graduacao_federado
+                    on graduacao_federado.id_federado = pre_avaliacao.id_federado
+               where 
+                    pre_avaliacao.id_evento = 13
+                    and
+                    graduacao_federado.id_graduacao = $id_faixa"
+        ;
+        $query =  $this->db->query($sql);;
+
+       return $query->result_array();
         
-        if($faixa == '0'){
-          
-        }else{
-           $query->where('graduacao_participantes.id_faixa',$faixa);
-        }
-       
-        
-            return $query->get()                
-                  ->result_array();
     }
+
     
+    function getUltimoEvento(){
+        $sql = "SELECT MAX(id_evento) as id_evento FROM federacao.evento_graduacao";
+        $query = $this->db->query($sql);
+       $dados = $query->result_array();
+       
+       return $dados['0']['id_evento'];
+    }
+
     function getProntuario($dados){
        
         $dados['nome'] = "Aluna Um";
@@ -357,22 +358,7 @@ class Coordenador_model extends CI_Model {
         
     }
     
-    function editEvento($dados){
-       
-        $data = explode('-',$dados['evento_graduacao']['data_evento']);
-        
-        $dados['evento_graduacao']['data_evento'] = $data['2']."-".$data['1']."-".$data['0'];
-        
-        $this->db->where('id_evento', $dados['evento_graduacao']['id_evento']);
-        $this->db->update('evento_graduacao', $dados['evento_graduacao']); 
-        
-        
-        $this->db->where('id_endereco', $dados['endereco']['id_endereco']);
-        $this->db->update('endereco', $dados['endereco']); 
-        
-       
-        
-    }
+    
     
     
     function getEventoUnico($id_evento){
@@ -469,20 +455,19 @@ class Coordenador_model extends CI_Model {
 
 
         
-        print_r($dados);
+        
         $dados['data']['endereco']['tipo_endereco'] = '3';
         $this->db->insert('endereco', $dados['data']['endereco']);
         $ultimo = $this->db->from("endereco")->insert_id();
-
-        $this->load->library('Funcoes', $dados);
+        
+        $data = explode('-',$dados['data']['evento_graduacao']['data_evento']);
         $dados['data']['evento_graduacao']['data_evento'] = $this->funcoes->data($dados['data']['evento_graduacao']['data_evento']);
-
-
-        $dados['data']['evento_graduacao']['id_endereco'] = $ultimo;
-        $modalidade = $dados['data']['evento_graduacao']['id_modalidade'];
-        $numero_evento = $dados['data']['evento_graduacao']['numero_evento'];
-
-        $dados['data']['evento_graduacao']['id_evento'] = date('Y') . $modalidade . $numero_evento . time();
+        $dados['data']['evento_graduacao']['id_endereco']= $ultimo;
+        $dados['data']['evento_graduacao']['numero_evento'] = $data['1'].'-'.$data['2'];
+        $dados['data']['evento_graduacao']['id_modalidade'] = '1';
+        $this->funcoes->imprimir($dados['data']['evento_graduacao']);
+       
+       
         if ($this->db->insert('evento_graduacao', $dados['data']['evento_graduacao'])) {
 
             return true;
@@ -492,6 +477,24 @@ class Coordenador_model extends CI_Model {
         };
     }
 
+    
+    function editEvento($dados){
+       
+        
+        
+        $dados['evento_graduacao']['data_evento'] = $this->funcoes->data($dados['evento_graduacao']['data_evento']);
+        $modalidade = 1;
+        
+        $this->db->where('id_evento', $dados['evento_graduacao']['id_evento']);
+        $this->db->update('evento_graduacao', $dados['evento_graduacao']); 
+        
+        
+        $this->db->where('id_endereco', $dados['endereco']['id_endereco']);
+        $this->db->update('endereco', $dados['endereco']); 
+        
+       
+        
+    }
     public function MntFilialDados($id) {
         return $this->db
                         ->select
