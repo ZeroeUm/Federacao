@@ -35,6 +35,13 @@ class alunos extends CI_Controller{
         $this->load->view('devel');
         $this->load->view('footer');
    }
+   
+   function index()
+    {
+            $this->load->view('header');
+            $this->load->view('index');
+            $this->load->view('footer');
+    }
 }
 
 ?>
