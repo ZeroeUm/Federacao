@@ -22,7 +22,7 @@ Lista de eventos
         <tr>
             <td>Numero do evento</td>
             <td>Data</td>
-            <td>Tipo de evento</td>
+            
             <td>Local</td>
             <td></td>
         </tr>
@@ -30,9 +30,9 @@ Lista de eventos
     <tbody>
         <?php foreach ($eventos as $i=>$v){?>
         <tr>
-            <td><?php echo $v['id_evento']?></td>
+            <td><?php echo $v['numero_evento']?></td>
             <td><?php echo $v['data_evento']?></td>
-             <td><?php echo $v['numero_evento']?></td>
+             
              <td><?php echo $v['logradouro']?> - <?php echo $v['numero']?> - <?php echo $v['cidade']?>- <?php echo $v['sigla']?></td>
              <td><a href="<?php echo base_url(); ?>coordenador/removerEvento/<?php echo $v['id_evento']?>" class="btn btn-success">Remover</a> 
                  <a href="<?php echo base_url(); ?>coordenador/editarEvento/<?php echo $v['id_evento']?>" class="btn btn-warning">Editar</a>

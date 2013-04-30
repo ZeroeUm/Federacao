@@ -50,6 +50,22 @@ class coordenador extends CI_Controller{
     }
     
    
+    function alterar_curriculo(){
+        if($this->input->post()){
+            $this->funcoes->imprimir($this->input->post());
+        }
+    }
+    
+    function ajax_curriculo($id_graduacao){
+        
+        $dados['movimentos'] = $this->coordenador->movimentos($id_graduacao);
+        $dados['graduacao'] = $id_graduacao;
+        
+        $this->load->view('coordenador/ajax_curriculo',$dados);
+        
+    }
+
+
     function pre_avaliar(){
                 
         
@@ -281,6 +297,32 @@ class coordenador extends CI_Controller{
         }
     }
 
+    function imprimir_listagem($id_faixa = null){
+       
+        if(!empty($id_faixa)){
+          $id_evento = $this->coordenador->getUltimoEvento(); 
+          $dados['movimentos'] = $this->coordenador->movimentos($id_faixa);
+          $dados['participantes'] = $this->coordenador->Participantes($id_faixa,$id_evento);
+          
+          $this->load->view('coordenador/imprimir_listagem',$dados);
+          
+          
+        }
+    }
+    function listagem(){
+        
+        
+        
+        
+        
+        $dados['faixas'] = $this->coordenador->get_faixas_avaliadas();
+        
+        
+        
+        $this->load->view('header');
+        $this->load->view('coordenador/listagem',$dados);
+        $this->load->view('footer');
+    }
     
     function removerEvento($id_evento){
         
@@ -311,25 +353,7 @@ class coordenador extends CI_Controller{
     }
 
  
-    function participantes($id_evento,$faixa='0'){
-        $this->load->model('coordenador_model','coordenador');   
-                
-        $data['participantes'] = $this->coordenador->getParticipantes($id_evento,$faixa);
-        $data['id_evento'] = $id_evento;
-        $data['faixa'] = $faixa;
-        $contar = count($data['participantes']);
-        if($contar==0){
-            $this->session->set_flashdata('alerta', 'Nenhum participante cadastrado para essa categoria');
-            redirect("/coordenador/listaEventos");
-        }
-        $data['faixas']= $this->coordenador->getFaixas($data['participantes']['0']['id_modalidade']);
-        
-        
-       
-        $this->load->view('header');
-        $this->load->view('coordenador/participantes',$data);
-        $this->load->view('footer');
-    }
+    
     
     
     function editarEvento($id_evento){
