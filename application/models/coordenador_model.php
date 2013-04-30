@@ -42,6 +42,7 @@ class Coordenador_model extends CI_Model {
         function compromisso_agendados(){
         $sql = "SELECT 
                     date_format(pre_avaliacao.data_agendamento,'%d-%m-%Y') as data,
+                    pre_avaliacao.horario,
                     filial.nome
                 FROM federacao.pre_avaliacao
                 join filial using (id_filial)
@@ -51,7 +52,7 @@ class Coordenador_model extends CI_Model {
                inner join federado
                     on coordenador.id_federado = federado.id_federado
                where pre_avaliacao.id_status_avaliacao = 2
-               group by pre_avaliacao.data_agendamento
+               group by pre_avaliacao.data_agendamento, pre_avaliacao.horario
                    ";
         
             return $this->db->query($sql)->result_array();
@@ -224,6 +225,7 @@ class Coordenador_model extends CI_Model {
         
         
         $update = array(
+            'horario'=>$dados['pre_avaliacao']['horario'],
             'data_agendamento'=>$this->funcoes->data($data),
             'id_status_avaliacao'=>'2'
         );
