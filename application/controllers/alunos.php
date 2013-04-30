@@ -54,6 +54,16 @@ class alunos extends CI_Controller
         $this->load->view('alunos/curriculoModalidade',$dados);
         $this->load->view('footer');
     }
+    
+    function curriculoFaixa($faixa)
+    {
+        $this->load->view('header');
+        $modalidade = $this->session->userdata('idModalidade');
+        $dados['faixas'] = $this->aluno->curriculoModalidade($modalidade);
+        $dados['inf'] = $this->aluno->curriculoFaixa($faixa);
+        $this->load->view('alunos/curriculoFaixa',$dados);
+        $this->load->view('footer');
+    }
 
 }
 

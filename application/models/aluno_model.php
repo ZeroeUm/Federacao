@@ -16,7 +16,18 @@ class Aluno_model extends CI_Model
                         ->select('graduacao.id_graduacao as id,graduacao.faixa')
                         ->from('graduacao')
                         ->where('id_modalidade',$modalidade)
+                        ->where('ordem <', 11)
                         ->order_by('ordem','asc')
+                        ->get()
+                        ->result_array();
+    }
+    
+    public function curriculoFaixa($faixa)
+    {
+        return $this->db
+                        ->select('id_graduacao, faixa, curriculo')
+                        ->from('graduacao')
+                        ->where('id_graduacao',$faixa)
                         ->get()
                         ->result_array();
     }
