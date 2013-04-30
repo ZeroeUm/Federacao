@@ -10,7 +10,7 @@ class Instrutor_model extends CI_Model {
                         ->DISTINCT()
                         ->from('instrutor')
                         ->join('federado', 'federado.id_federado = instrutor.id_federado', 'inner')
-                        ->where(array('federado.id_tipo_federado' => "2"))
+                        ->where(array('federado.id_tipo_federado' => "3"))
                         ->get()
                         ->result();
     }
@@ -43,7 +43,7 @@ class Instrutor_model extends CI_Model {
                         ->from('federado')
                         ->join('matricula', 'matricula.id_federado = federado.id_federado', 'inner')
                         ->join('filial', 'matricula.id_filial = filial.id_filial', 'inner')
-                        ->where(array('federado.id_tipo_federado' => '1', 'filial.id_filial' => $filial, 'federado.id_status' => $status))
+                        ->where(array('federado.id_tipo_federado' => '2', 'filial.id_filial' => $filial, 'federado.id_status' => $status))
                         ->get()->result();
     }
 
@@ -162,7 +162,7 @@ class Instrutor_model extends CI_Model {
         return $this->db
                         ->select('tipo, id')
                         ->from('tipo_federado')
-                        ->where('tipo_federado.id =', '1')
+                        ->where('tipo_federado.id =', '2')
                         ->get()
                         ->result_array();
     }
@@ -199,7 +199,7 @@ class Instrutor_model extends CI_Model {
                         ->DISTINCT()
                         ->from('instrutor')
                         ->join('federado', 'federado.id_federado = instrutor.id_federado', 'inner')
-                        ->where(array('federado.id_tipo_federado' => "2"))
+                        ->where(array('federado.id_tipo_federado' => "3"))
                         ->get()
                         ->result();
     }
@@ -232,7 +232,7 @@ class Instrutor_model extends CI_Model {
                         ->join('graduacao_federado', 'graduacao_federado.id_federado = federado.id_federado', 'inner')
                         ->join ('graduacao','graduacao_federado.id_modalidade = graduacao.id_modalidade AND graduacao_federado.id_graduacao = graduacao.id_graduacao','inner')
                         ->join('modalidade', 'modalidade.id_modalidade = graduacao_federado.id_modalidade', 'inner')
-                        ->where(array('federado.id_tipo_federado' => '1', 'graduacao_federado.status' => '1', 'filial.id_Filial' => $filial, 'federado.id_status' => '1'))
+                        ->where(array('federado.id_tipo_federado' => '2', 'graduacao_federado.status' => '1', 'filial.id_Filial' => $filial, 'federado.id_status' => '1'))
                         ->get()
                         ->result_array();
     }
