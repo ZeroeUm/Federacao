@@ -428,7 +428,7 @@ class administrador extends CI_Controller
 
         $len = strlen($caracteres);
 
-        for ($i = 0; $i <= $tamanho; $i++):
+        for ($i = 0; $i < $tamanho; $i++):
             $rand = mt_rand(1, $len);
             $retorno .= $caracteres[$rand - 1];
         endfor;

@@ -77,7 +77,9 @@
 
                     </ul>
                 </li>
-
+                <?php 
+                    if ($this->session->userdata("tipo") > 1):
+                ?>
                 <li class="submenu menu_instrutores">
                     <a href="#"><i class="icon icon-th-list"></i> <span>Instrutores</span> </a>
                     <ul>
@@ -89,7 +91,10 @@
 
                     </ul>
                 </li>
-
+                <?php 
+                    endif;
+                    if($this->session->userdata("tipo") > 2):
+                ?>
                 <li class="submenu menu_coordenador">
                     <a href="#"><i class="icon icon-th-large"></i> <span>Coordenadores</span> </a>
                     <ul>
@@ -105,7 +110,10 @@
 
                     </ul>
                 </li>
-
+                <?php
+                    endif;
+                    if($this->session->userdata("tipo") > 3):
+                ?>
                 <li class="submenu menu_administrador " >
                     <a href="#"><i class="icon icon-th"></i> <span>Administrador</span> </a>
                     <ul>
@@ -118,7 +126,9 @@
 
                     </ul>
                 </li>
-
+                <?php
+                    endif;
+                ?>
             </ul>
 
         </div>
