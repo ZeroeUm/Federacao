@@ -20,8 +20,20 @@ class Coordenador_model extends CI_Model {
         array('endereco'=>'id_endereco')
         );
     
-    
-    
+        function remover_movimento_id($id){
+            return $this->db->delete('movimento_faixa',array('id_movimento_faixa'=>$id));
+        }
+
+        function incluir_movimento_faixa($dados){
+            $inserir['id_graduacao'] = $dados['id_graduacao'];
+            foreach ($dados['descricao'] as $v){
+                $inserir['nome_movimento'] = $v;
+                $inserir['id_modalidade'] = 1;
+                $this->db->insert('movimento_faixa',$inserir);
+            }
+           
+        }
+
         function get_faixas_avaliadas(){
             $sql = "SELECT 
                         count(pre_avaliacao.id_federado) as total,

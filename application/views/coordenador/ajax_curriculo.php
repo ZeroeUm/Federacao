@@ -41,9 +41,23 @@
         $('.novo_campo').append('<input type="text" name="descricao[]" class="input-large" /><br>');
     }
     function remover_campo(id){
+         $.ajax({
+            type:"POST",
+            url:"/coordenador/ajax_remover_curriculo/"+id,
+            data:id_graduacao,
+            datatype:"html",
+            success: function(data)
+            {
+              alert(data);
+              $('.'+id).remove();
+              
+            },
+            error: function(){
+                alert('Erro ao realizar o ajax');
+            }
+        })
         
-       // $('.'+id).remove();
-        alert(id);
+        
     }
      
 </script>

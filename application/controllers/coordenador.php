@@ -20,7 +20,21 @@ class coordenador extends CI_Controller{
         
     }
     
+   
     
+    function ajax_remover_curriculo($id){
+        
+        $dados = $this->coordenador->remover_movimento_id($id);
+        if($dados){
+            echo "Removido com sucesso";
+        }else{
+            echo "Não foi possível remover esse movimento de faixa";
+        }
+    }
+
+
+
+
     function index(){
         
         $dados['total']= $this->coordenador->agendamento_pendentes();
@@ -56,7 +70,10 @@ class coordenador extends CI_Controller{
    
     function alterar_curriculo(){
         if($this->input->post()){
-            $this->funcoes->imprimir($this->input->post());
+            
+            $this->coordenador->incluir_movimento_faixa($this->input->post());
+            $this->session->set_flashdata('alerta','Incluido com sucesso');
+            redirect('/coordenador/curriculo');
         }
     }
     
