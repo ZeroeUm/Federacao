@@ -22,11 +22,11 @@ $inf = $inf[0];
     ?>
 </ul>
 <fieldset>
-    <legend><?= nl2br($inf['faixa'])?> </legend>
+    <legend><?= $inf['faixa']?> </legend>
 </fieldset>
 <div class="row-fluid">
     <p>
-        <?= $inf['curriculo'] ?>
+        <?= nl2br($inf['curriculo']) ?>
     </p>
 </div>
     
