@@ -24,8 +24,9 @@
 
 <label>Selecione uma faixa</label>
 <select id="faixas" name="faixas">
-    <option value="1">Branca</option>
-    <option value="2">Amarela</option>
+    <?php foreach ($faixas as $i=>$v){?>
+    <option value="<?php echo $v['id_graduacao']; ?>"><?php echo $v['faixa'];?></option>
+    <?php }?>
 </select>
 
 <div class="editar">

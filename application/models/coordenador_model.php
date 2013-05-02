@@ -276,9 +276,11 @@ class Coordenador_model extends CI_Model {
        return $query->result_array();
     }
    
+    
+    
     function getFaixas($id_modalidade){
-        return $this->db->select('nome,id_faixa')
-                        ->from('faixa')
+        return $this->db->select('id_graduacao,faixa')
+                        ->from('graduacao')
                         ->where('id_modalidade',$id_modalidade)
                         ->get()
                         ->result_array();

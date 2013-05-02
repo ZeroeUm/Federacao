@@ -44,8 +44,12 @@ class coordenador extends CI_Controller{
                 $this->load->view('footer');
     }
     function  curriculo(){
+        
+                $dados['faixas'] = $this->coordenador->getFaixas('1');
+                
+                
                 $this->load->view('header');
-                $this->load->view('coordenador/curriculo');
+                $this->load->view('coordenador/curriculo',$dados);
                 $this->load->view('footer');
     }
     
