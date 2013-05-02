@@ -15,8 +15,9 @@ Relação de participantes
 
 <div class="pagination">
   <ul>
+      <li class="_faixa"><a href="<?php echo base_url() ?>coordenador/participantes/<?php echo $id_evento; ?>">Todos</a></li>
     <?php foreach ($faixas as $i){ ?>
-      <li class="<?php echo $i['id_graduacao']."_faixa"; ?>"><a href="/coordenador/participantes/<?php echo $id_evento; ?>/<?php echo $i['id_graduacao'];?>"><?php echo $i['faixa'];?></a></li>
+      <li class="<?php echo $i['id_graduacao']."_faixa"; ?>"><a href="<?php echo base_url(); ?>coordenador/participantes/<?php echo $id_evento; ?>/<?php echo $i['id_graduacao'];?>"><?php echo $i['faixa'];?></a></li>
     <?php }?>
   </ul>
 </div>
