@@ -81,8 +81,8 @@
     <div class="row-fluid">
 
     <h3>Notas</h3>
-    <div class="span5">
-        <table class="table table-bordered">
+    <div class="span6" >
+        <table class="table table-bordered"  style="font-size: 12px;">
             <tr>
                 <td>Movimento</td>
                 <td>Nota</td>
@@ -92,13 +92,13 @@
             <?php foreach ($movimentos as $i => $v) { ?>
                 <tr>
                     <td><?php echo $v['nome_movimento'] ?></td>
-                    <td><input type="text" class="nota faixa_<?php echo $v['id_movimento_faixa']; ?>" name="id_faixa[<?php echo $v['id_movimento_faixa']; ?>]" onclick="javascript:mascara()" min="2" value="0"></td>
+                    <td><input type="text" class="nota faixa_<?php echo $v['id_movimento_faixa']; ?>" name="id_movimento_faixa[<?php echo $v['id_movimento_faixa']; ?>]" onclick="javascript:mascara()" min="2" value="0"></td>
                 </tr>
             <?php } ?>
         </table>
     </div>
 
-    <div class="span5" id="check">
+    <div class="span4" id="check">
         Confirma inscrição no evento de graduação?
 
 
@@ -106,12 +106,12 @@
         <img src="<?php echo base_url() ?>/assets/images/icons/16/remove.png" style="display: none" id="imagem_remove">
         <input type="checkbox" name="participacao" checked="true" style="opacity:0;display: none" id="check_box">
         <input type="hidden" name="id_federado" value="<?php echo $aluno['0']['id_federado']; ?>">
-        
+        <br>Média final da avaliação = <span class="result label label-important"></span>
     </div>
     
     <div class="span6">
     
-    <br>Média final da avaliação = <span class="result label label-important"></span>
+    
     </div>
     
     

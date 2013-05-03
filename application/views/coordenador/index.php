@@ -5,7 +5,7 @@
 
 Você tem <span class="label label-important"><?php echo $total['0']['total']; ?> alunos</span> aguardando agendamento para pré-avaliação - <a href="<?php echo base_url(); ?>coordenador/pre_avaliar">Verificar agora</a>
 <hr>
-<br>Imprimir listagem de avaliação <a href="<?php echo base_url(); ?>coordenador/listagem">Imprimir Listagem</a>
+<br>Imprimir listagem de pré-avaliação <a href="<?php echo base_url(); ?>coordenador/listagem">Imprimir Listagem</a>
 
 <hr>
 
