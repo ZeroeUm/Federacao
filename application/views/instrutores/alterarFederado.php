@@ -18,7 +18,7 @@
 $federado = $federado[0];
 
 $endereco = $endereco[0];
-$hidden = array("federado" => $federado['id_federado'],"endereco" => $endereco['id_endereco']);
+$hidden = array("federado" => $federado['id_federado'],"endereco" => $endereco['id_endereco'],"antigaFilial"=>$federado['filial']);
 $attr = array(
     "class" => "form-horizontal",
     "id" => "frmAlterar",
@@ -167,6 +167,25 @@ echo img($imagem);
         ?>
     </div>
 </div>
+
+<div class="control-group">
+<?php
+echo form_label("Tamanho da Faixa", "faixa", $label);
+?>
+    <div class="controls">
+    <?php
+    
+    $opTamanho["P"] = "Pequeno";
+    $opTamanho["M"] = "Médio";
+    $opTamanho["G"] = "Grande";
+    $opTamanho["GG"] = "Extra-grande";
+    $selTamanho = $federado['tamanho_faixa'];
+
+    echo form_dropdown('faixa', $opTamanho, set_value('faixa', $selTamanho), 'id="faixa" class="span3" required');
+    ?>
+    </div>
+</div>
+
 <div class="control-group">
     <?php
         echo form_label("Situação", "situacao", $label);
@@ -195,20 +214,22 @@ echo img($imagem);
         ?>
     </div>
 </div>
+
+
 <div class="control-group">
     <?php
-        echo form_label("Tipo de federado", "tipo", $label);
+    echo form_label("Filial", "filial", $label);
     ?>
     <div class="controls">
         <?php
-            $opTipo = array();
-            foreach($tipo as $t)
-                $opTipo[$t['id']] = $t['tipo'];
-            $selTipo = $federado['id_tipo_federado'];
-            echo form_dropdown('tipo', $opTipo, set_value('tipo',$selTipo), 'id="tipo" class="span2" required');
+        
+        foreach ($filial as $f)
+            $opFilial[$f->id] = $f->nome;
+        echo form_dropdown("filial", $opFilial, set_value('filial', $federado['filial']), 'id="filial" class="span4" required')
         ?>
     </div>
 </div>
+
 <div class="control-group">
     <?php
         echo form_label("Logradouro", "logradouro", $label);

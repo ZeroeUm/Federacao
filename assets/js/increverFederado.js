@@ -19,16 +19,16 @@ $(document).ready(function() {
 //        
 //    });
 
-    $("select[name=instrutor]").change(function() {
-        $("#mensagem").hide();
-        $("#formulario").empty();
-        $("#resultado").css("display", "none");
-        beforeSend:$("select[name=filial]").html('<option value="">Carregando...</option>');
-        //$("select[name=filial]").html('<option value="">Aguardando Filial...</option>');
-        var instrutor = $("#instrutor").val(); // Pega o valor selecionado
-        //alert(instrutor); //S� para debugg da variavel
-        $('#filial').load('getFiliais/' + instrutor); //controller onde est� chamando a fun��o
-    });
+//    $("select[name=instrutor]").change(function() {
+//        $("#mensagem").hide();
+//        $("#formulario").empty();
+//        $("#resultado").css("display", "none");
+//        beforeSend:$("select[name=filial]").html('<option value="">Carregando...</option>');
+//        //$("select[name=filial]").html('<option value="">Aguardando Filial...</option>');
+//        var instrutor = $("#instrutor").val(); // Pega o valor selecionado
+//        //alert(instrutor); //S� para debugg da variavel
+//        $('#filial').load('getFiliais/' + instrutor); //controller onde est� chamando a fun��o
+//    });
 
 
 
@@ -36,7 +36,7 @@ $(document).ready(function() {
 
 
     $("select[name=filial]").change(function() {
-        $("#mensagem").hide();
+        $("#resultado").css("display", "none");
         $("#formulario").empty();
         var filiais = $("#filial").val();
         //alert(filiais); //S� para debugg da variavel
@@ -50,7 +50,8 @@ $(document).ready(function() {
                 success: function(federado)
                 {
                     if (federado === null) {
-                        $("#resultado").css("display", "none");
+                        $("#resultado").hide();
+                        $("#formulario").empty();
                         $("#mensagem").show("slow").html('<h3> Desculpe, sem Resultado para esta pesquisa.<h3>');
 
                     }

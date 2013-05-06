@@ -97,7 +97,7 @@
                     <a href="#"><i class="icon icon-th-list"></i> <span>Instrutores</span> </a>
                     <ul>
                         <li class="icn_edit_article"><a href="<?php echo site_url('instrutores/cadastro'); ?>">Manutençao de dados de alunos</a></li>
-                        <li class="icn_add_user"><a href="<?php echo site_url('instrutores/novoaluno'); ?>">Cadastrar novo aluno na Federação</a></li>
+                        <li class="icn_add_user"><a href="<?php echo site_url('instrutores/incluirFederado'); ?>">Cadastrar novo aluno na Federação</a></li>
                         <li class="icn_tags"><a href="<?php echo site_url('instrutores/inscricao'); ?>">Inscrever alunos em Graduação de Faixa</a></li>
                         <li class="icn_categories"><a href="<?php echo site_url('instrutores/manutencao'); ?>">Manutenção de participantes em Graduação de Faixa</a></li>
                         <li class="icn_folder"><a href="<?php echo site_url('instrutores/evento') ?>">Verificar notas de Graduação de faixa</a></li>
