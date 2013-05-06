@@ -69,7 +69,7 @@
 
         <!--sideBar-->
         <div id="sidebar" style="position: absolute">
-            <div style="width: 150px;height: 180px;">
+            <div style="width: 150px;height: 230px;">
                 <img width="140px" heigth="190px" src="<?php echo base_url() . (($this->session->userdata('foto') != "sem foto") ? "federados/fotos/" . $this->session->userdata('foto') : "federados/default.gif") ?>" class="img-polaroid" style="margin: 20px;z-index: 1000;float: left">
             </div>    
             <a href="#" class="visible-phone"><i class="icon icon-home"></i> Menu oculto</a>
@@ -82,7 +82,7 @@
 
 
                 <li><a href="<?php echo site_url(); ?>"><i class="icon icon-home"></i> <span>Home</span> </a></li>
-                <li class="submenu menu_aluno">
+                <li class="submenu menu_alunos">
                     <a href="#"><i class="icon icon-pause"></i> <span>Alunos</span> </a>
                     <ul>
                         <li><a href="<?php echo site_url('alunos/notas'); ?>">Histórico pessoal de notas</a></li>
@@ -92,23 +92,40 @@
 
                     </ul>
                 </li>
-
+                <?php 
+                    if ($this->session->userdata("tipo") > 1):
+                ?>
                 <li class="submenu menu_instrutores">
                     <a href="#"><i class="icon icon-th-list"></i> <span>Instrutores</span> </a>
                     <ul>
                         <li class="icn_edit_article"><a href="<?php echo site_url('instrutores/cadastro'); ?>">Manutençao de dados de alunos</a></li>
-                        <li class="icn_add_user"><a href="<?php echo site_url('instrutores/incluirFederado'); ?>">Cadastrar novo aluno na Federação</a></li>
+                        <li class="icn_add_user"><a href="<?php echo site_url('instrutores/novoaluno'); ?>">Cadastrar novo aluno na Federação</a></li>
                         <li class="icn_tags"><a href="<?php echo site_url('instrutores/inscricao'); ?>">Inscrever alunos em Graduação de Faixa</a></li>
                         <li class="icn_categories"><a href="<?php echo site_url('instrutores/manutencao'); ?>">Manutenção de participantes em Graduação de Faixa</a></li>
                         <li class="icn_folder"><a href="<?php echo site_url('instrutores/evento') ?>">Verificar notas de Graduação de faixa</a></li>
 
                     </ul>
                 </li>
-
+                <?php 
+                    endif;
+                    if($this->session->userdata("tipo") > 2):
+                ?>
                 <li class="submenu menu_coordenador">
                     <a href="#"><i class="icon icon-th-large"></i> <span>Coordenadores</span> </a>
                    
                     <ul id="menu">
+                        
+                         <li class="parent">
+                             <a href="#" title="">Eventos <i class="icon-forward pull-right" style="padding-right: 10px;"></i></a>
+                            <ul class="sub-menu">
+                                <li><a href="<?php echo site_url(); ?>coordenador/criarEvento" title="">Criar novo evento</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/listaEventos" title="">Lista de eventos cadastrados</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/listaEventos" title="">Aprovados para evento</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/solicitar_faixa" title="">Solicitar Faixas</a></li>
+                            </ul>
+                        </li>
+                        
+                        
                         <li class="parent">
                             <a href="#" title="">Pré-Avaliação <i class="icon-forward pull-right" style="padding-right: 10px;"></i></a>
                             <ul class="sub-menu">
@@ -119,14 +136,6 @@
                             </ul>
                         </li>
                         
-                         <li class="parent">
-                             <a href="#" title="">Eventos <i class="icon-forward pull-right" style="padding-right: 10px;"></i></a>
-                            <ul class="sub-menu">
-                                <li><a href="<?php echo site_url(); ?>coordenador/criarEvento" title="">Criar novo evento</a></li>
-                                <li><a href="<?php echo site_url(); ?>coordenador/listaEventos" title="">Lista de eventos cadastrados</a></li>
-                                <li><a href="<?php echo site_url(); ?>coordenador/solicitar_faixa" title="">Solicitar Faixas</a></li>
-                            </ul>
-                        </li>
                         
                         
                         <li class="parent">
@@ -149,7 +158,10 @@
 
 
                 </li>
-
+                <?php
+                    endif;
+                    if($this->session->userdata("tipo") > 3):
+                ?>
                 <li class="submenu menu_administrador " >
                     <a href="#"><i class="icon icon-th"></i> <span>Administrador</span> </a>
                     <ul>
@@ -162,7 +174,9 @@
 
                     </ul>
                 </li>
-
+                <?php
+                    endif;
+                ?>
             </ul>
 
         </div>

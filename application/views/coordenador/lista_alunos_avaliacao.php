@@ -1,5 +1,10 @@
 
-
+<style>
+    .error{
+        font-size: 12px;
+        color: red;
+    }
+</style>
 <script>
   $(document).ready(function(){
         $( "#datepicker" ).datepicker({
@@ -12,12 +17,14 @@
         
          $("#form").validate({
             rules:{
-                'pre_avaliacao[data_agendamento]':{required: true}
+                'pre_avaliacao[data_agendamento]':{required: true},
+                'pre_avaliacao[horario]':{required: true}
                 
                 
             },
             messages:{
-                'pre_avaliacao[data_agendamento]':{required: "Campo data é obrigatório"}
+                'pre_avaliacao[data_agendamento]':{required: "Campo data é obrigatório"},
+                'pre_avaliacao[horario]':{required: "informe um horário para a pré-avaliação"}
                
             }
         })
@@ -46,7 +53,13 @@
 
 <form action="<?php echo base_url(); ?>coordenador/agendar_pre_avaliacao/<?php echo $id_filial;?>" method="post" id="form" >
 <label>Informe a data para pré-avaliação</label>
-<input type="text" id="datepicker" name="pre_avaliacao[data_agendamento]" value="">
+<input type="text" id="datepicker" class="input-large" name="pre_avaliacao[data_agendamento]" value="">
+<label>Horário para a pré-avaliação</label>
+<select type="text" id="horario" name="pre_avaliacao[horario]">
+    <option value="1">Manhã</option>
+    <option value="2">Tarde</option>
+    <option value="3">Noite</option>
+</select>
 
 <hr>
 

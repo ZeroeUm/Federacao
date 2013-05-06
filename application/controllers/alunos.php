@@ -1,47 +1,87 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of alunos
  *
- * @author felipe
+ * @author Humberto
  */
-class alunos extends CI_Controller{
-    
-   function notas(){
-       $this->load->view('header');
-         $this->load->view('alunos/notas');
-        $this->load->view('footer');
-   }
-   
-   function eventos(){
-       $this->load->view('header');
-        $this->load->view('devel');
-        $this->load->view('footer');
-   }
-   
-   function historico(){
-       $this->load->view('header');
-         $this->load->view('devel');
-        $this->load->view('footer');
-   }
-   
-   function modalidade(){
-       $this->load->view('header');
-        $this->load->view('devel');
-        $this->load->view('footer');
-   }
-   
-   function index()
+class alunos extends CI_Controller
+{
+
+    function __construct()
     {
-            $this->load->view('header');
-            $this->load->view('index');
-            $this->load->view('footer');
+        parent::__construct();
+        $this->load->model('Aluno_model','aluno');
+        $this->checar_sessao();
     }
+
+    function index()
+    {
+        redirect('/alunos/eventos');
+    }
+    
+    function historico_de_notas($id_evento){
+        
+        
+        
+        
+        $data['historico'] = $this->aluno->get_historico($this->session->userdata("id"),$id_evento);
+        
+        
+        
+        $this->load->view('header');
+        $this->load->view('alunos/historico_notas',$data);
+        $this->load->view('footer');
+    }
+
+    function checar_sessao()
+    {
+        if (!$this->session->userdata('autentificado'))
+            redirect('login', 'refresh');
+    }
+
+    function notas()
+    {
+        $this->load->view('header');
+        $this->load->view('alunos/notas');
+        $this->load->view('footer');
+    }
+
+    function eventos()
+    {
+        
+        $data['eventos']= $this->aluno->get_eventos();
+       
+        $this->load->view('header');
+        $this->load->view('alunos/lista_de_evento',$data);
+        $this->load->view('footer');
+    }
+
+    function historico()
+    {
+        $this->load->view('header');
+        $this->load->view('devel');
+        $this->load->view('footer');
+    }
+
+    function modalidade()
+    {
+        $this->load->view('header');
+        $modalidade = $this->session->userdata('idModalidade');
+        $dados['faixas'] = $this->aluno->curriculoModalidade($modalidade);
+        $this->load->view('alunos/curriculoModalidade',$dados);
+        $this->load->view('footer');
+    }
+    
+    function curriculoFaixa($faixa)
+    {
+        $this->load->view('header');
+        $modalidade = $this->session->userdata('idModalidade');
+        $dados['faixas'] = $this->aluno->curriculoModalidade($modalidade);
+        $dados['inf'] = $this->aluno->curriculoFaixa($faixa);
+        $this->load->view('alunos/curriculoFaixa',$dados);
+        $this->load->view('footer');
+    }
+
 }
 
 ?>

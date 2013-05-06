@@ -16,9 +16,7 @@ class administrador extends CI_Controller
     
     function index()
     {
-            $this->load->view('header');
-            $this->load->view('index');
-            $this->load->view('footer');
+        
     }
 
     function checar_sessao()
@@ -226,7 +224,7 @@ class administrador extends CI_Controller
     public function combo($input)
     {
         if ($input == "#"):
-            $this->form_validation->set_message('combo', 'Na campo com opções de %s deve ser selecionada uma opção.');
+            $this->form_validation->set_message('combo', 'No campo com opções de %s deve ser selecionada uma opção.');
             return FALSE;
         else:
             return TRUE;
@@ -430,7 +428,7 @@ class administrador extends CI_Controller
 
         $len = strlen($caracteres);
 
-        for ($i = 0; $i <= $tamanho; $i++):
+        for ($i = 0; $i < $tamanho; $i++):
             $rand = mt_rand(1, $len);
             $retorno .= $caracteres[$rand - 1];
         endfor;

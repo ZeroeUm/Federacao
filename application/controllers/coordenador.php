@@ -18,10 +18,78 @@ class coordenador extends CI_Controller{
         $this->load->model('coordenador_model', 'coordenador');
         $this->load->library('funcoes','session');
         
+        
+    }
+   
+    function participantes($id_evento,$faixa=null){
+       
+        
+       $dados['faixa'] = $faixa;
+       $dados['id_evento'] = $id_evento; 
+       $dados['faixas'] = $this->coordenador->faixas_por_evento($id_evento); 
+       $dados['participantes'] = $this->coordenador->participantes_evento($id_evento,$faixa);
+       
+      
+                $this->load->view('header');
+                $this->load->view('coordenador/participantes',$dados);
+                $this->load->view('footer');
     }
     
+    function salvar_pedido(){
+        $faixa = $this->input->post('faixa');
+        $id_evento = $this->input->post('id_evento');
+        foreach ($faixa as $i=>$v){
+            $i = explode('X',$i);
+            $id_graduacao = $i['0'];
+            $tamanho = $i['1'];
+            $quantidade = $v;
+            
+                $v = $this->coordenador->pedidos($id_evento,$id_graduacao,$quantidade,$tamanho);
+            if($v!=true){
+                $this->session->set_flashdata('alerta','Já foi realizado pedido de faixa para esse evento');
+                redirect("/coordenador/totalizar_faixa/$id_evento");
+            }
+        }
+        $this->session->set_flashdata('alerta','Pedido de faixas realizado com sucesso');
+        redirect('/coordenador/solicitar_faixa');
+    }
+
+    function totalizar_faixa($id_evento=null){
+        
+        $dados['totais'] = $this->coordenador->totalizar_faixas_por_evento($id_evento);
+        $dados['evento'] = $this->coordenador->getEventoUnico($id_evento);
+       
+                $this->load->view('header');
+                $this->load->view('coordenador/totalizar_faixa',$dados);
+                $this->load->view('footer');
+    }
     
+    function solicitar_faixa(){
+        
+        $dados['eventos'] = $this->coordenador->pedidos_para_evento();
+            
+                $this->load->view('header');
+                $this->load->view('coordenador/solicitar_faixa',$dados);
+                $this->load->view('footer');
+    }
+
+
+    function ajax_remover_curriculo($id){
+        
+        $dados = $this->coordenador->remover_movimento_id($id);
+        if($dados){
+            echo "Removido com sucesso";
+        }else{
+            echo "Não foi possível remover esse movimento de faixa";
+        }
+    }
+
+
+
+
     function index(){
+        $dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
+        
         
         $dados['total']= $this->coordenador->agendamento_pendentes();
         $dados['agenda']= $this->coordenador->compromisso_agendados();
@@ -44,12 +112,35 @@ class coordenador extends CI_Controller{
                 $this->load->view('footer');
     }
     function  curriculo(){
+        
+                $dados['faixas'] = $this->coordenador->getFaixas('1');
+                
+                
                 $this->load->view('header');
-                $this->load->view('coordenador/curriculo');
+                $this->load->view('coordenador/curriculo',$dados);
                 $this->load->view('footer');
     }
     
    
+    function alterar_curriculo(){
+        if($this->input->post()){
+            
+            $this->coordenador->incluir_movimento_faixa($this->input->post());
+            $this->session->set_flashdata('alerta','Incluido com sucesso');
+            redirect('/coordenador/curriculo');
+        }
+    }
+    
+    function ajax_curriculo($id_graduacao){
+        
+        $dados['movimentos'] = $this->coordenador->movimentos($id_graduacao);
+        $dados['graduacao'] = $id_graduacao;
+        
+        $this->load->view('coordenador/ajax_curriculo',$dados);
+        
+    }
+
+
     function pre_avaliar(){
                 
         
@@ -123,45 +214,52 @@ class coordenador extends CI_Controller{
             $id_pre_avaliacao = $this->input->post('id_pre_avaliacao');
             $status = 0;
             if($media>=9.51){
-                echo "Aprovado com faixa extra";
+                $texto=  "Aprovado com faixa extra";
                 $status = 3;
             }elseif ($media >=9) {
-                echo "Ótimo";
+                $texto= "Ótimo";
                 $status = 2;
             }elseif ($media>=8) {
-                echo "Bom";
+                $texto= "Bom";
                 $status = 2;
             }elseif ($media>=7) {
-                echo "Regular";
+                $texto= "Regular";
                 $status = 2;
             }elseif ($media>=6) {
-                echo "Refazer o exame";
+                $texto= "Refazer o exame";
                 $status = 1;
             }else{
-                echo "Reprovado";
+                $texto= "Reprovado";
                 $status = 0;
             }
             
-             $this->funcoes->imprimir($this->input->post());
-             if($status==3){
-            //aumentar uma faixa alem da que será graduado (tabela Graduacao_federado)
-            //salvar as notas no prontuario do aluno
-            //incluir o aluno do evento de graduação
+            if($status==3){
+              //salvar as notas no prontuario do aluno
+            $this->coordenador->salvarProntuario($this->input->post());
+             //incluir o aluno do evento de graduação
+            $this->coordenador->incluir_em_evento($this->input->post());
             //mudar o status do pre-avaliação para aprovado
-            //Solicitar compra de faixa
-            //Confirmar participação no evento (insert evento_participante)
-            //Enviar email ao aluno informando sobre o evento  
+            $this->coordenador->result_pre_avaliacao($this->input->post('id_federado'),$this->input->post('id_evento'),'1');
+            //Atualizar a faixa do aluno
+            $this->coordenador->atualiza_faixa($this->input->post('id_federado'),'2');
+            //Enviar email ao aluno informando sobre o evento
+            $this->session->set_flashdata('alerta',"Lançamento realizado, status de avaliação = $texto");
+            redirect('/coordenador/lancar_nota');
              }
              
              if($status==2){
                  
             //salvar as notas no prontuario do aluno
-            //incluir o aluno do evento de graduação
+            $this->coordenador->salvarProntuario($this->input->post());
+             //incluir o aluno do evento de graduação
+            $this->coordenador->incluir_em_evento($this->input->post());
             //mudar o status do pre-avaliação para aprovado
-            //Solicitar compra de faixa
-            //Confirmar participação no evento (insert evento_participante)
+            $this->coordenador->result_pre_avaliacao($this->input->post('id_federado'),$this->input->post('id_evento'),'1');
+            //Atualizar a faixa do aluno
+            $this->coordenador->atualiza_faixa($this->input->post('id_federado'),'1');
             //Enviar email ao aluno informando sobre o evento
-                 
+            $this->session->set_flashdata('alerta',"Lançamento realizado, status de avaliação = $texto");
+            redirect('/coordenador/lancar_nota');     
              }elseif ($status==1) {
             
             //Reagendar uma nova pré-avaliação mudar status da pre-avaliação para agendar
@@ -171,7 +269,10 @@ class coordenador extends CI_Controller{
                  redirect("/coordenador/agendar_pre_avaliacao/$id_filial");
                  
             }  else {
-            
+            $this->coordenador->result_pre_avaliacao($this->input->post('id_federado'),$this->input->post('id_evento'),'2');
+            $this->session->set_flashdata('alerta',"Lançamento realizado, status de avaliação = $texto");
+            redirect('/coordenador/lancar_nota');
+                
              //Aluno foi reprovado cancela participação no evento, mudar status da pré-avaliação para reprovado
             }
 
@@ -245,8 +346,6 @@ class coordenador extends CI_Controller{
 
 
     function prontuario(){
-            
-            
          $this->load->model('coordenador_model','coordenador');   
          $this->load->view('header');
          $this->load->view('footer');
@@ -255,23 +354,15 @@ class coordenador extends CI_Controller{
     
     function criarEvento() {
         $this->load->view('header');
-
-
-
-
         if ($this->input->post()) {
-
             $this->load->model('coordenador_model', 'coordenador');
-
-            
             $dados = $this->input->post();
-           
             $inserido = $this->coordenador->insertEvento($dados);
-
             if ($inserido) {
                      redirect('/coordenador/listaEventos');
             } else {
-               
+                $this->session->set_flashdata('alerta','Você já possui um evento para o mês Selecionado');   
+                redirect('/coordenador/criarEvento'); 
             };
         } else {
             $this->load->model('Modalidade_model', 'modalidades');
@@ -281,6 +372,32 @@ class coordenador extends CI_Controller{
         }
     }
 
+    function imprimir_listagem($id_faixa = null){
+       
+        if(!empty($id_faixa)){
+          $id_evento = $this->coordenador->getUltimoEvento(); 
+          $dados['movimentos'] = $this->coordenador->movimentos($id_faixa);
+          $dados['participantes'] = $this->coordenador->Participantes($id_faixa,$id_evento);
+          
+          $this->load->view('coordenador/imprimir_listagem',$dados);
+          
+          
+        }
+    }
+    function listagem(){
+        
+        
+        
+        
+        
+        $dados['faixas'] = $this->coordenador->get_faixas_avaliadas();
+        
+        
+        
+        $this->load->view('header');
+        $this->load->view('coordenador/listagem',$dados);
+        $this->load->view('footer');
+    }
     
     function removerEvento($id_evento){
         
@@ -311,25 +428,7 @@ class coordenador extends CI_Controller{
     }
 
  
-    function participantes($id_evento,$faixa='0'){
-        $this->load->model('coordenador_model','coordenador');   
-                
-        $data['participantes'] = $this->coordenador->getParticipantes($id_evento,$faixa);
-        $data['id_evento'] = $id_evento;
-        $data['faixa'] = $faixa;
-        $contar = count($data['participantes']);
-        if($contar==0){
-            $this->session->set_flashdata('alerta', 'Nenhum participante cadastrado para essa categoria');
-            redirect("/coordenador/listaEventos");
-        }
-        $data['faixas']= $this->coordenador->getFaixas($data['participantes']['0']['id_modalidade']);
-        
-        
-       
-        $this->load->view('header');
-        $this->load->view('coordenador/participantes',$data);
-        $this->load->view('footer');
-    }
+    
     
     
     function editarEvento($id_evento){
