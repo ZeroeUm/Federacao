@@ -15,7 +15,7 @@ lista de eventos
             <td><?php if ($status == '0') { ?>
                 <span class="label label-important">Sem Participação</span>
                 <?php } else { ?>         
-                <a href="<?php echo base_url();?>aluno/historico_notas/<?php echo $id_evento; ?>" class="label label-success">Ver minhas notas</a>
+                <a href="<?php echo base_url();?>alunos/historico_de_notas/<?php echo $id_evento; ?>" class="label label-success">Ver minhas notas</a>
                     <?php } ?>
             </td>
         </tr>

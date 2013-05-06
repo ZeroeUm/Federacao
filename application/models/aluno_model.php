@@ -11,6 +11,26 @@ class Aluno_model extends CI_Model
     }
     
     
+    public function get_historico($id_federado,$id_evento){
+        $sql = "SELECT 
+prontuario.id_movimento_faixa,
+date_format(evento_graduacao.data_evento,'%d-%m-%Y') as data,
+prontuario.nota,
+graduacao.faixa,
+movimento_faixa.nome_movimento
+ FROM federacao.prontuario 
+inner join movimento_faixa using (id_movimento_faixa)
+inner join graduacao using (id_graduacao)
+inner join evento_graduacao using (id_evento)
+where 
+prontuario.id_evento = $id_evento 
+and
+prontuario.id_federado = $id_federado;";
+        
+        return $this->db->query($sql)->result_array();
+        
+    }
+    
     public function get_eventos(){
         $sql = 'SELECT
 if(id_prontuario!=\'\',true,false)as status,
