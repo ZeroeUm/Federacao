@@ -16,7 +16,21 @@ class alunos extends CI_Controller
 
     function index()
     {
+        redirect('/alunos/eventos');
+    }
+    
+    function historico_de_notas($id_evento){
         
+        
+        
+        
+        $data['historico'] = $this->aluno->get_historico($this->session->userdata("id"),$id_evento);
+        
+        
+        
+        $this->load->view('header');
+        $this->load->view('alunos/historico_notas',$data);
+        $this->load->view('footer');
     }
 
     function checar_sessao()
@@ -34,8 +48,11 @@ class alunos extends CI_Controller
 
     function eventos()
     {
+        
+        $data['eventos']= $this->aluno->get_eventos();
+       
         $this->load->view('header');
-        $this->load->view('devel');
+        $this->load->view('alunos/lista_de_evento',$data);
         $this->load->view('footer');
     }
 

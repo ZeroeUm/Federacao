@@ -35,6 +35,44 @@ class coordenador extends CI_Controller{
                 $this->load->view('footer');
     }
     
+    function salvar_pedido(){
+        $faixa = $this->input->post('faixa');
+        $id_evento = $this->input->post('id_evento');
+        foreach ($faixa as $i=>$v){
+            $i = explode('X',$i);
+            $id_graduacao = $i['0'];
+            $tamanho = $i['1'];
+            $quantidade = $v;
+            
+                $v = $this->coordenador->pedidos($id_evento,$id_graduacao,$quantidade,$tamanho);
+            if($v!=true){
+                $this->session->set_flashdata('alerta','Já foi realizado pedido de faixa para esse evento');
+                redirect("/coordenador/totalizar_faixa/$id_evento");
+            }
+        }
+        $this->session->set_flashdata('alerta','Pedido de faixas realizado com sucesso');
+        redirect('/coordenador/solicitar_faixa');
+    }
+
+    function totalizar_faixa($id_evento=null){
+        
+        $dados['totais'] = $this->coordenador->totalizar_faixas_por_evento($id_evento);
+        $dados['evento'] = $this->coordenador->getEventoUnico($id_evento);
+       
+                $this->load->view('header');
+                $this->load->view('coordenador/totalizar_faixa',$dados);
+                $this->load->view('footer');
+    }
+    
+    function solicitar_faixa(){
+        
+        $dados['eventos'] = $this->coordenador->pedidos_para_evento();
+            
+                $this->load->view('header');
+                $this->load->view('coordenador/solicitar_faixa',$dados);
+                $this->load->view('footer');
+    }
+
 
     function ajax_remover_curriculo($id){
         
@@ -50,6 +88,8 @@ class coordenador extends CI_Controller{
 
 
     function index(){
+        $dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
+        
         
         $dados['total']= $this->coordenador->agendamento_pendentes();
         $dados['agenda']= $this->coordenador->compromisso_agendados();
@@ -314,23 +354,15 @@ class coordenador extends CI_Controller{
     
     function criarEvento() {
         $this->load->view('header');
-
-
-
-
         if ($this->input->post()) {
-
             $this->load->model('coordenador_model', 'coordenador');
-
-            
             $dados = $this->input->post();
-           
             $inserido = $this->coordenador->insertEvento($dados);
-
             if ($inserido) {
                      redirect('/coordenador/listaEventos');
             } else {
-               
+                $this->session->set_flashdata('alerta','Você já possui um evento para o mês Selecionado');   
+                redirect('/coordenador/criarEvento'); 
             };
         } else {
             $this->load->model('Modalidade_model', 'modalidades');
