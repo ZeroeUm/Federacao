@@ -1,0 +1,23 @@
+lista de eventos
+<hr>
+
+<table class="table table-bordered">
+    <tr>
+        <td>Data do Evento</td>
+        <td>Local</td>
+        <td>Histórico de notas</td>
+    </tr>
+    <?php foreach ($eventos as $v) {
+        extract($v); ?>
+        <tr>
+            <td><?php echo $data ?></td>
+            <td><?php echo utf8_encode($endereco_evento); ?></td>
+            <td><?php if ($status == '0') { ?>
+                <span class="label label-important">Sem Participação</span>
+                <?php } else { ?>         
+                <a href="<?php echo base_url();?>aluno/historico_notas/<?php echo $id_evento; ?>" class="label label-success">Ver minhas notas</a>
+                    <?php } ?>
+            </td>
+        </tr>
+<?php } ?>
+</table>

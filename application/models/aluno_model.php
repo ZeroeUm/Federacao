@@ -10,6 +10,24 @@ class Aluno_model extends CI_Model
         parent::__construct();
     }
     
+    
+    public function get_eventos(){
+        $sql = 'SELECT
+if(id_prontuario!=\'\',true,false)as status,
+evento_graduacao.id_evento,
+concat(endereco.logradouro," ",endereco.numero, " - ",endereco.bairro," - ",endereco.cidade) as endereco_evento,
+date_format(evento_graduacao.data_evento,\'%d-%m-%Y\') as data
+FROM 
+federacao.evento_graduacao
+left join prontuario using (id_evento)
+inner join endereco using (id_endereco)
+group by id_evento
+order by status,id_evento DESC';
+        return $this->db->query($sql)->result_array();
+    }
+
+    
+
     public function curriculoModalidade($modalidade)
     {
         return $this->db

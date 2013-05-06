@@ -34,8 +34,11 @@ class alunos extends CI_Controller
 
     function eventos()
     {
+        
+        $data['eventos']= $this->aluno->get_eventos();
+       
         $this->load->view('header');
-        $this->load->view('devel');
+        $this->load->view('alunos/lista_de_evento',$data);
         $this->load->view('footer');
     }
 

@@ -82,7 +82,7 @@
 
 
                 <li><a href="<?php echo site_url(); ?>"><i class="icon icon-home"></i> <span>Home</span> </a></li>
-                <li class="submenu menu_aluno">
+                <li class="submenu menu_alunos">
                     <a href="#"><i class="icon icon-pause"></i> <span>Alunos</span> </a>
                     <ul>
                         <li><a href="<?php echo site_url('alunos/notas'); ?>">Histórico pessoal de notas</a></li>
