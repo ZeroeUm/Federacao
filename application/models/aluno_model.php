@@ -35,16 +35,19 @@ class Aluno_model extends CI_Model
     public function historicoNotas($aluno)
     {
         return $this->db
-                        ->select('
-                                    modalidade.nome AS modalidade, 
-                                    evento_graduacao.data_evento as data,
-                                    AVG(prontuario.nota) as media
-                                ')
+                        ->select("
+                                    DATE_FORMAT(evento_graduacao.data_evento,'%d-%m-%Y') AS data_aprovacao,
+                                    AVG(prontuario.nota) AS media,
+                                    graduacao.faixa,
+                                    modalidade.nome
+                                ")
                         ->from('prontuario')
                         ->join('evento_graduacao','prontuario.id_evento = evento_graduacao.id_evento','inner')
+                        ->join('movimento_faixa','prontuario.id_movimento_faixa = movimento_faixa.id_movimento_faixa','inner')
                         ->join('modalidade','evento_graduacao.id_modalidade = modalidade.id_modalidade','inner')
-                        ->join('','','inner')
+                        ->join('graduacao','movimento_faixa.id_graduacao = graduacao.id_graduacao','inner')
                         ->where('prontuario.id_federado',$aluno)
+                        ->group_by('prontuario.id_evento')
                         ->order_by('evento_graduacao.data_evento','asc')
                         ->get()
                         ->result_array();
