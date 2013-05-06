@@ -160,7 +160,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $opTamanho['#'] = "Escolha um tamnho";
+            $opTamanho['#'] = "Escolha um tamanho";
             $opTamanho['P'] = "Pequeno";
             $opTamanho['M'] = "Médio";
             $opTamanho['G'] = "Grande";

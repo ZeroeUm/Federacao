@@ -224,7 +224,7 @@ class administrador extends CI_Controller
     public function combo($input)
     {
         if ($input == "#"):
-            $this->form_validation->set_message('combo', 'Na campo com opções de %s deve ser selecionada uma opção.');
+            $this->form_validation->set_message('combo', 'No campo com opções de %s deve ser selecionada uma opção.');
             return FALSE;
         else:
             return TRUE;
