@@ -14,7 +14,7 @@ class Instrutores extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('Instrutor_model');
+        $this->load->model('Instrutor_model','instrutor');
     }
 
     function index() {
@@ -424,23 +424,22 @@ class Instrutores extends CI_Controller {
 
 //        print_r($filiais);
         if (!empty($filiais)) {
-            for ($i = 0; $i < count($filiais); $i++) {
-                $filiais[$i]['nome'] = utf8_encode($filiais[$i]['nome']);
-                $filiais[$i]['faixa'] = utf8_encode($filiais[$i]['faixa']);
-                $filiais[$i]['filial'] = utf8_encode($filiais[$i]['filial']);
-
-
-                //$resultado = array_map('htmlentities', $filiais[$i]);
-            }
-            //print_r(count($filiais));
             echo (json_encode($filiais));
-        }
+            }
     }
 
     function confirmar() {
         $this->load->view('header');
 
+        
+       
         if ($this->input->post('nodeCheck')) {
+       
+            
+            //salvar alunos na tabela pre-avaliação
+            $this->instrutor->pre_avaliacao($this->input->post());
+            
+            
             $dados['msg'] = 'Inclusão de Federados no Evento realizada com sucesso.<br />';
             $dados['status'] = true;
         } else {

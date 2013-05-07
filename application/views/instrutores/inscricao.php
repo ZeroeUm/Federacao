@@ -32,8 +32,6 @@
 
 echo form_fieldset("Resultado da pesquisa", array('id' => 'resultado', 'style' => 'display: none'));
 echo form_open('instrutores/confirmar', array('id' => 'formulario'));
-    
-
 echo form_close();
 echo form_fieldset_close();
 

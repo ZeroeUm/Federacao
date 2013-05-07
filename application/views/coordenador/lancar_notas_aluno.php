@@ -92,7 +92,7 @@
             <?php foreach ($movimentos as $i => $v) { ?>
                 <tr>
                     <td><?php echo $v['nome_movimento'] ?></td>
-                    <td><input type="text" class="nota faixa_<?php echo $v['id_movimento_faixa']; ?>" name="id_movimento_faixa[<?php echo $v['id_movimento_faixa']; ?>]" onclick="javascript:mascara()" min="2" value="0"></td>
+                    <td><input type="text" class="nota faixa_<?php echo $v['id_movimento_faixa']; ?>" name="id_movimento_faixa[<?php echo $v['id_movimento_faixa']; ?>]" onfocus="javascript:mascara()" min="2" value="0"></td>
                 </tr>
             <?php } ?>
         </table>
