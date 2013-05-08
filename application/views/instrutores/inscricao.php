@@ -8,21 +8,18 @@
     <table>
         <tr>
             <!--<td>Instrutor</td>-->
-            <td>
-                <select name="instrutor" id="instrutor">
-                    <option value="" >Selecione o Instrutor</option>
-                    <?php
-                    foreach ($instrutor as $row)
-                        echo "<option value='" . $row->id . "'>" . $row->nome . "</option>";
-                    ?>
-                </select>
-            </td>
+            
 
-            <td>
-                <select name="filial" id="filial">
-                    <option value=""  >Selecione uma Filial</option>
-                </select>
-            </td>
+           <td>
+                    <select name="filial" id="filial">
+                        <option value="" >Selecione uma Filial</option>
+                        <?php
+                        foreach ($filial as $row)
+                            echo "<option value='" . $row->id . "'>" . $row->nome . "</option>";
+                        ?>
+                    </select>
+                    </select>
+                </td>
         </tr>
     </table>
 </div>
@@ -35,8 +32,6 @@
 
 echo form_fieldset("Resultado da pesquisa", array('id' => 'resultado', 'style' => 'display: none'));
 echo form_open('instrutores/confirmar', array('id' => 'formulario'));
-    
-
 echo form_close();
 echo form_fieldset_close();
 

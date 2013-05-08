@@ -14,20 +14,18 @@ class Instrutores extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('Instrutor_model');
+        $this->load->model('Instrutor_model','instrutor');
     }
-    
-    
-    function index()
-    {
-            $this->load->view('header');
-            $this->load->view('index');
-            $this->load->view('footer');
+
+    function index() {
+        $this->load->view('header');
+        $this->load->view('index');
+        $this->load->view('footer');
     }
 
     function cadastro() {
         $this->load->model('Instrutor_model');
-        $tema["instrutor"] = $this->Instrutor_model->cadastro();
+        $tema["filial"] = $this->Instrutor_model->getFilial($this->session->userdata('id'));
         $this->load->view('header');
         $this->load->view('instrutores/cadastro', $tema);
         $this->load->view('footer');
@@ -82,14 +80,14 @@ class Instrutores extends CI_Controller {
 
     function getFederado($federado) {
         $this->load->model('Instrutor_model', 'instrutor');
-          header('Content-type: application/x-json; charset=utf-8');
+        header('Content-type: application/x-json; charset=utf-8');
         $fed = $this->instrutor->MntFedDados($federado);
         $nasc = new DateTime($fed[0]['dtNasc']);
         $fed[0]['dtNasc'] = $nasc->format('d-m-Y');
         $hoje = new DateTime('now');
         $idade = $hoje->diff($nasc)->format("%y");
         $fed[0]['idade'] = $idade;
-        $resultado = array_map ('htmlentities', $fed[0]);
+        $resultado = array_map('htmlentities', $fed[0]);
 
         echo utf8_decode(json_encode($resultado));
     }
@@ -128,7 +126,7 @@ class Instrutores extends CI_Controller {
             $dados['escolaridade'] = $this->instrutor->getEscolaridade();
             $dados['statusFederado'] = $this->instrutor->getStatus();
             $dados['uf'] = $this->instrutor->getUF();
-
+            $dados["filial"] = $this->Instrutor_model->getFilial($this->session->userdata('id'));
             $this->load->view('instrutores/incluirFederado', $dados);
             $this->load->view('footer');
         } else {
@@ -149,7 +147,6 @@ class Instrutores extends CI_Controller {
         $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required');
         $this->form_validation->set_rules('situacao', 'Situação na federação', 'required');
         $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required');
-        $this->form_validation->set_rules('tipo', 'Tipo de federado na federação', 'required');
         $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|alpha_acent|trim');
         $this->form_validation->set_rules('numero', 'Número do endereço', 'required|is_natural_no_zero|trim');
         $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|alpha_acent|trim');
@@ -168,6 +165,7 @@ class Instrutores extends CI_Controller {
             $dados['statusFederado'] = $this->instrutor->getStatu();
             $dados['endereco'] = $this->instrutor->getEndereco($endereco);
             $dados['uf'] = $this->instrutor->getUF();
+            $dados["filial"] = $this->Instrutor_model->getFilial($this->session->userdata('id'));
             $this->load->view('instrutores/alterarFederado', $dados);
             $this->load->view('footer');
         } else {
@@ -234,6 +232,13 @@ class Instrutores extends CI_Controller {
 
         $this->instrutor->InserirFederado($federado);
 
+        $novoFederado = $this->db->insert_id();
+
+        $this->matricularFederado($novoFederado, $this->input->post('filial'), 1);
+        $this->criarLogin($novoFederado, $federado['nome']);
+
+
+
         $dados['federado'] = $federado['nome'];
         $this->load->view('header');
         $this->load->view('instrutores/sucessoinclusaoFederado', $dados);
@@ -264,7 +269,7 @@ class Instrutores extends CI_Controller {
         $federado['id_escolaridade'] = $this->input->post('escolaridade');
         $federado['id_status'] = $this->input->post('situacao');
         $federado['id_nacionalidade'] = $this->input->post('nacionalidade');
-        $federado['id_tipo_federado'] = $this->input->post('tipo');
+            
         $federado['caminho_imagem'] = (isset($foto) ? "tkd/" . $foto : "sem foto");
 
         $this->instrutor->AtualizarEndereco($this->input->post('endereco'), $endereco);
@@ -277,45 +282,113 @@ class Instrutores extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function novoaluno() {
-        $this->form_validation->set_rules('nome', 'Nome', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('fMaterna', 'Filiação Materna', 'alpha_acent|trim');
-        $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'alpha_acent|trim');
-        $this->form_validation->set_rules('sexo', 'Sexo', 'required');
-        $this->form_validation->set_rules('dtNasc', 'Data', 'required|alpha_dash|trim');
-        $this->form_validation->set_rules('rg', 'RG', 'required');
-        $this->form_validation->set_rules('telefone', 'Telefone para contato', 'required|telephone|trim');
-        $this->form_validation->set_rules('celular', 'Celular para contato', 'required|trim');
-        $this->form_validation->set_rules('email', 'E-mail para contato', 'required|valid_email|trim');
-        $this->form_validation->set_rules('escolaridade', 'Escolaridade', 'required');
-        $this->form_validation->set_rules('nacionalidade', 'Nacionalidade', 'required');
-        $this->form_validation->set_rules('tipo', 'Tipo de federado na federação', 'required');
-        $this->form_validation->set_rules('logradouro', 'Logradouro do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('numero', 'Número do endereço', 'required|is_natural_no_zero|trim');
-        $this->form_validation->set_rules('bairro', 'Bairro do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|alpha_acent|trim');
-        $this->form_validation->set_rules('uf', 'UF do endereço', 'required');
+   
 
-        if ($this->form_validation->run() == FALSE) {
-            $this->load->model('Instrutor_model', 'instrutor');
-            $this->load->view('header');
-            $dados['nacionalidade'] = $this->instrutor->getNacionalidade();
-            $dados['escolaridade'] = $this->instrutor->getEscolaridade();
-            $dados['statusFederado'] = $this->instrutor->getStatus();
-            $dados['uf'] = $this->instrutor->getUF();
-            $dados['tipo'] = $this->instrutor->getTipoFederado();
-            $this->load->view('instrutores/novoaluno', $dados);
-            $this->load->view('footer');
-        } else {
-            $this->fotoFederado(0);
-        }
+    function matricularFederado($federado, $filial, $modalidade) {
+        $this->load->model('Instrutor_model', 'instrutor');
+        $matricula = array();
+        $matricula['id_federado'] = $federado;
+        $matricula['id_modalidade'] = $modalidade;
+        $matricula['id_filial'] = $filial;
+        $matricula['data_matricula'] = date('Y-m-d');
+        $matricula['matricula_filial'] = date('Y-m-d');
+        $this->gerarGraduacao($federado, $modalidade);
+        $this->instrutor->matricularFederado($matricula);
     }
 
+    function gerarGraduacao($federado, $modalidade) {
+        $this->load->model('Instrutor_model', 'instrutor');
+        $primeiraFaixa = $this->instrutor->getPrimeiraFaixa($modalidade);
+        $graduacao['id_modalidade'] = $modalidade;
+        $graduacao['id_graduacao'] = $primeiraFaixa[0]['faixa'];
+        $graduacao['id_federado'] = $federado;
+        $graduacao['status'] = 1;
+        $graduacao['data_emissao'] = date('Y-m-d');
+        $this->instrutor->primeiraFaixa($graduacao);
+    }
+
+    function alterarMatricula($federado, $filial, $modalidade) {
+        $this->load->model('Instrutor_model', 'instrutor');
+        $matricula = array();
+        $matricula['id_federado'] = $federado;
+        $matricula['id_modalidade'] = $modalidade;
+        $matricula['id_filial'] = $filial;
+        $matricula['matricula_filial'] = date("Y-m-d");
+
+        $this->instrutor->alterarMatricula($federado, $modalidade, $matricula);
+    }
+
+    function criarLogin($federado, $nome) {
+        $this->load->model('Instrutor_model', 'instrutor');
+        $login = array();
+        $login['id_federado'] = $federado;
+        $login['login'] = strtolower($this->gerarLogin($nome));
+        $login['senha'] = $this->gerarSenha();
+        $this->instrutor->criarLogin($login);
+    }
+
+    function gerarLogin($nome) {
+        $arrNome = explode(" ", $nome);
+        $retorno = substr($arrNome[0], 0, 1);
+        $retorno .= end($arrNome);
+        if (strlen($retorno) > 20)
+            $retorno = substr($retorno, 0, 20);
+        return $retorno;
+    }
+
+    function gerarSenha($tamanho = 10, $maiusculas = true, $numeros = true) {
+        $lmin = 'abcdefghijkmnopqrstuvwxyz';
+        $lmai = 'ABCDEFGHJKLMNOPQRSTUVWXYZ';
+        $num = '0123456789';
+
+        $caracteres = '';
+        $retorno = '';
+
+        $caracteres .= $lmin;
+        if ($maiusculas)
+            $caracteres .= $lmai;
+        if ($numeros)
+            $caracteres .= $num;
+
+        $len = strlen($caracteres);
+
+        for ($i = 0; $i <= $tamanho; $i++):
+            $rand = mt_rand(1, $len);
+            $retorno .= $caracteres[$rand - 1];
+        endfor;
+
+        return $retorno;
+    }
+    
+    //function cadastro() {
+//        $this->load->model('Instrutor_model');
+//        $tema["filial"] = $this->Instrutor_model->getFilial($this->session->userdata('id'));
+//        $this->load->view('header');
+//        $this->load->view('instrutores/cadastro', $tema);
+//        $this->load->view('footer');
+//    }
+//
+//    function getFilial($id) {
+//        $tmp = '';
+//        $data = $this->Instrutor_model->getFilial($id);
+//        if ($id == null) {
+//            $tmp .= "<option value=''>Selecione a Filial</option>";
+//        } else if (!empty($data)) {
+//            $tmp .= "<option value=''>Selecione uma Filial</option>";
+//            foreach ($data as $row) {
+//                $tmp .= "<option value='" . $row->id . "'>" . utf8_encode($row->nome) . "</option>";
+//            }
+//        } else {
+//            $tmp .= "<option value=''>Sem registro para esta Filial</option>";
+//        }
+//
+//        die($tmp);
+//    }
+
     function inscricao() {
-        $this->load->model('Instrutor_model');
-        $tema["instrutor"] = $this->Instrutor_model->inscrever();
-        
-        
+        $this->load->model('Instrutor_model');        
+        $tema["filial"] = $this->Instrutor_model->getFilial($this->session->userdata('id'));
+
         $this->load->view('header');
         $this->load->view('instrutores/inscricao', $tema);
         $this->load->view('footer');
@@ -339,68 +412,51 @@ class Instrutores extends CI_Controller {
     }
 
     function getInscrito($filial) {
-        
+
         $this->load->model('Instrutor_model', 'instrutor');
-        
+
         header('Content-type: application/x-json; charset=utf-8 ', true);
 
         //   echo (htmlentities(utf8_encode('�,n�o, tr�s')));
-        
+
         $filiais = $this->instrutor->getInscrito($filial);
-       
+        
+
 //        print_r($filiais);
         if (!empty($filiais)) {
-            for ($i = 0; $i < count($filiais); $i++) {
-                $filiais[$i]['nome'] = utf8_encode($filiais[$i]['nome']);
-                $filiais[$i]['faixa'] = utf8_encode($filiais[$i]['faixa']);
-                $filiais[$i]['filial'] = utf8_encode($filiais[$i]['filial']);
-
-
-                //$resultado = array_map('htmlentities', $filiais[$i]);
-            }
-            //print_r(count($filiais));
             echo (json_encode($filiais));
-        }
+            }
     }
-    
-    function confirmar(){
-         $this->load->view('header');
-      
-        if($this->input->post('nodeCheck')){
+
+    function confirmar() {
+        $this->load->view('header');
+
+        
+       
+        if ($this->input->post('nodeCheck')) {
+       
+            
+            //salvar alunos na tabela pre-avaliação
+            $this->instrutor->pre_avaliacao($this->input->post());
+            
+            
             $dados['msg'] = 'Inclusão de Federados no Evento realizada com sucesso.<br />';
             $dados['status'] = true;
-        }else{
+        } else {
             $dados['status'] = false;
-            $dados['msg'] = 'Nenhum Federado foi selecionado para inclusão no evento'.'<br/>'.'Favor Selecionar um ou mais Federado.<br />';
+            $dados['msg'] = 'Nenhum Federado foi selecionado para inclusão no evento' . '<br/>' . 'Favor Selecionar um ou mais Federado.<br />';
         }
-        $this->load->view('instrutores/sucessoInclusaoEvento',$dados);
-        
-      
+        $this->load->view('instrutores/sucessoInclusaoEvento', $dados);
+
+
         $this->load->view('footer');
-//        echo "<pre>";
-//        var_dump( $this->input->post());
-//        echo "</pre>";
-//         $tmp = '';
-//        $data = $this->Instrutor_model->getFilial($id);
-//        if ($id == null) {
-//            $tmp .= "<option value=''>Selecione a Filial</option>";
-//        } else if (!empty($data)) {
-//            $tmp .= "<option value=''>Selecione uma Filial</option>";
-//            foreach ($data as $row) {
-//                $tmp .= "<option value='" . $row->id . "'>" . utf8_encode($row->nome) . "</option>";
-//            }
-//        } else {
-//            $tmp .= "<option value=''>Sem registro para esta Filial</option>";
-//        }
-//
-//        die($tmp);
-//    }
-        
+
     }
-                    
+
     function manutencao($id = '1') {
         $this->load->model('Instrutor_model');
-        $tema["instrutor"] = $this->Instrutor_model->getInscrito('1');
+         $tema["instrutor"] = $this->Instrutor_model->getInscrito($this->session->userdata('id'));
+        
         $this->load->view('header');
         $this->load->view('instrutores/manutencao', $tema);
         $this->load->view('footer');

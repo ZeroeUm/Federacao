@@ -7,36 +7,9 @@
 
 $(document).ready(function() {
 
-//
-//
-//    $('#formulario').submit(function() {
-//        alert('teste');
-//        return false;
-//    });
-//    
-//    $('#cad').click(function (){
-//        $('#formulario').submit();
-//        
-//    });
-
-    $("select[name=instrutor]").change(function() {
-        $("#mensagem").hide();
-        $("#formulario").empty();
-        $("#resultado").css("display", "none");
-        beforeSend:$("select[name=filial]").html('<option value="">Carregando...</option>');
-        //$("select[name=filial]").html('<option value="">Aguardando Filial...</option>');
-        var instrutor = $("#instrutor").val(); // Pega o valor selecionado
-        //alert(instrutor); //S� para debugg da variavel
-        $('#filial').load('getFiliais/' + instrutor); //controller onde est� chamando a fun��o
-    });
-
-
-
-
-
 
     $("select[name=filial]").change(function() {
-        $("#mensagem").hide();
+        $("#resultado").css("display", "none");
         $("#formulario").empty();
         var filiais = $("#filial").val();
         //alert(filiais); //S� para debugg da variavel
@@ -50,7 +23,8 @@ $(document).ready(function() {
                 success: function(federado)
                 {
                     if (federado === null) {
-                        $("#resultado").css("display", "none");
+                        $("#resultado").hide();
+                        $("#formulario").empty();
                         $("#mensagem").show("slow").html('<h3> Desculpe, sem Resultado para esta pesquisa.<h3>');
 
                     }
@@ -91,9 +65,14 @@ $(document).ready(function() {
                             style: 'text-align: center;margin-right:2px;margin-left:3px;border:none;color: #FFF;background:#000;'
 
                         }).appendTo("#formulario");
+                        
+                        
+                        
                         $("<br/>").appendTo("#formulario");
                         $("<br/>").appendTo("#formulario");
 
+                        $("<input/>").attr({'type':'hidden','name':'id_filial'}).val(filiais).appendTo("#formulario");
+                            
                         $.each(federado, function(i, value) {
                             //$("#mensagem").show().html('<h3> Resultado<h3>');
                             $("<input type='text'/>").attr({

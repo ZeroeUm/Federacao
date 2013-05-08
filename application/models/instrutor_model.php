@@ -4,6 +4,26 @@ class Instrutor_model extends CI_Model {
 
     //SELECT federado.nome FROM federado INNER
     // JOIN filial WHERE federado.registro = filial.instrutor
+    
+    function pre_avaliacao($dados){
+        $this->load->model('Coordenador_model','coordenador');
+        $id_evento = $this->coordenador->getUltimoEvento();
+        
+        
+        foreach ($dados['nodeCheck'] as $i=>$v){
+            $insert = array(
+                'id_evento'=>$id_evento,
+                'id_federado'=>$v,
+                'id_status_avaliacao'=>'4',
+                'id_filial'=>$dados['id_filial']
+            );
+            
+            $this->db->insert('pre_avaliacao',$insert);
+        }
+  
+    }
+
+
     function cadastro() {
         $this->db->order_by('federado.nome', 'ASC');
         return $this->db->select('instrutor.id_instrutor as id, federado.nome as nome')
@@ -221,20 +241,41 @@ class Instrutor_model extends CI_Model {
 
     function getInscrito($filial) {
         
-        $this->db->order_by('graduacao.ordem', 'ASC');
-        return $this->db
-                        ->select('federado.id_federado as id, federado.nome as nome,
-      graduacao.faixa as faixa, filial.nome as filial')
-                        ->DISTINCT()
-                        ->from('federado')
-                        ->join('matricula', 'matricula.id_federado = federado.id_federado', 'inner')
-                        ->join('filial', 'matricula.id_filial = filial.id_filial', 'inner')
-                        ->join('graduacao_federado', 'graduacao_federado.id_federado = federado.id_federado', 'inner')
-                        ->join ('graduacao','graduacao_federado.id_modalidade = graduacao.id_modalidade AND graduacao_federado.id_graduacao = graduacao.id_graduacao','inner')
-                        ->join('modalidade', 'modalidade.id_modalidade = graduacao_federado.id_modalidade', 'inner')
-                        ->where(array('federado.id_tipo_federado' => '1', 'graduacao_federado.status' => '1', 'filial.id_Filial' => $filial, 'federado.id_status' => '1'))
-                        ->get()
-                        ->result_array();
+        $sql = "
+            SELECT 
+federado.id_federado as id,
+federado.nome,
+filial.nome as filial,
+graduacao.faixa
+FROM 
+    federacao.matricula
+left join 
+    pre_avaliacao
+on 
+    pre_avaliacao.id_federado = matricula.id_federado
+inner join 
+    federado
+on
+    matricula.id_federado = federado.id_federado
+inner join 
+    filial
+on
+    matricula.id_filial = filial.id_filial
+inner join 
+    graduacao_federado
+on  
+    matricula.id_federado = graduacao_federado.id_federado
+inner join
+    graduacao
+on
+    graduacao_federado.id_graduacao = graduacao.id_graduacao
+where 
+    matricula.id_filial = 1
+and
+    federado.id_status = 1
+and
+    id_pre_avaliacao is null;";
+        return $this->db->query($sql)->result_array();
     }
 
 }
