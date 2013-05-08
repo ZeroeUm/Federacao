@@ -16,17 +16,12 @@ class alunos extends CI_Controller
 
     function index()
     {
-        redirect('/alunos/eventos');
+        redirect('alunos/eventos','refresh');
     }
     
-    function historico_de_notas($id_evento){
-        
-        
-        
-        
+    function historico_de_notas($id_evento)
+    {
         $data['historico'] = $this->aluno->get_historico($this->session->userdata("id"),$id_evento);
-        
-        
         
         $this->load->view('header');
         $this->load->view('alunos/historico_notas',$data);
@@ -42,13 +37,14 @@ class alunos extends CI_Controller
     function notas()
     {
         $this->load->view('header');
-        $this->load->view('alunos/notas');
+        $aluno = $this->session->userdata('id');
+        $dados['historico'] = $this->aluno->historicoNotas($aluno);
+        $this->load->view('alunos/notas',$dados);
         $this->load->view('footer');
     }
 
     function eventos()
     {
-        
         $data['eventos']= $this->aluno->get_eventos();
        
         $this->load->view('header');
