@@ -22,7 +22,50 @@ class Instrutor_model extends CI_Model {
         }
   
     }
-
+function get_status_avaliacao() {
+        $this->load->model('Coordenador_model','coordenador');
+        $ultimo_evento = $this->coordenador->getUltimoEvento();
+        
+        $sql = "SELECT 
+                federado.nome,
+                graduacao.faixa,
+                date_format(pre_avaliacao.data_agendamento,'%d-%m-%Y') as data,
+                pre_avaliacao.horario,
+                status_avaliacao.id_status_avaliacao as avaliacao
+                FROM federacao.pre_avaliacao
+                inner join federado
+                on federado.id_federado = pre_avaliacao.id_federado
+                inner join graduacao_federado 
+                on graduacao_federado.id_federado = federado.id_federado
+                inner join graduacao using (id_graduacao)
+                inner join status_avaliacao using (id_status_avaliacao)
+                where pre_avaliacao.id_evento = $ultimo_evento";
+        $dados = $this->db->query($sql)->result_array();
+       
+       
+        $avaliacao = array();
+        
+        foreach ($dados as $v){
+        
+            if($v['avaliacao']=='1'){
+               $avaliacao['aprovados']['nome'][] = $v['nome']; 
+               $avaliacao['aprovados']['faixa'][] = $v['faixa']; 
+            }elseif ($v['avaliacao']=='2') {
+               $avaliacao['reprovados']['nome'][] = $v['nome']; 
+               $avaliacao['reprovados']['faixa'][] = $v['faixa']; 
+            }elseif ($v['avaliacao']=='3') {
+               $avaliacao['aguardando']['nome'][] = $v['nome']; 
+               $avaliacao['aguardando']['data_avaliacao'][] = $v['data']; 
+               $avaliacao['aguardando']['horario'][] = $v['horario']; 
+            }else{
+               $avaliacao['nao_agendado']['nome'][] = $v['nome']; 
+               $avaliacao['nao_agendado']['faixa'][] = $v['faixa'];   
+            }
+       
+        }
+       
+        return $avaliacao;
+    }
 
     function cadastro() {
         $this->db->order_by('federado.nome', 'ASC');
@@ -41,7 +84,8 @@ class Instrutor_model extends CI_Model {
         return $this->db->select('filial.id_filial as id, filial.nome as nome')
                         ->DISTINCT()
                         ->from('filial')
-                        ->where(array('filial.id_instrutor' => $id))
+                        ->join('instrutor',"instrutor.id_instrutor = filial.id_instrutor",'inner')
+                        ->where(array('instrutor.id_federado' => $id))
                         ->get()->result();
     }
 
@@ -240,6 +284,8 @@ class Instrutor_model extends CI_Model {
      */
 
     function getInscrito($filial) {
+        $this->load->model('Coordenador_model','coordenador');
+        $ultimo_evento = $this->coordenador->getUltimoEvento();
         
         $sql = "
             SELECT 
@@ -248,15 +294,11 @@ federado.nome,
 filial.nome as filial,
 graduacao.faixa
 FROM 
-    federacao.matricula
-left join 
-    pre_avaliacao
-on 
-    pre_avaliacao.id_federado = matricula.id_federado
-inner join 
-    federado
+federacao.federado
+inner join federacao.matricula
 on
-    matricula.id_federado = federado.id_federado
+
+matricula.id_federado = federado.id_federado
 inner join 
     filial
 on
@@ -270,11 +312,9 @@ inner join
 on
     graduacao_federado.id_graduacao = graduacao.id_graduacao
 where 
-    matricula.id_filial = 1
+not exists (select pre_avaliacao.id_federado from pre_avaliacao where pre_avaliacao.id_federado = federado.id_federado and pre_avaliacao.id_evento = $ultimo_evento )
 and
-    federado.id_status = 1
-and
-    id_pre_avaliacao is null;";
+federado.id_tipo_federado = 1";
         return $this->db->query($sql)->result_array();
     }
 

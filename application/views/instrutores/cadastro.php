@@ -46,7 +46,7 @@ echo br();
                 <td>
                     <select name="status" id="status">
                         <option value="">Selecione o Status</option>
-                    </select>
+                        </select>
                 </td>
 
           <!--  <td>Federado</td>-->

@@ -18,14 +18,18 @@ class Instrutores extends CI_Controller {
     }
 
     function index() {
+        
+        $dados['resultado'] = $this->instrutor->get_status_avaliacao();
+        
+       
         $this->load->view('header');
-        $this->load->view('index');
+        $this->load->view('instrutores/index',$dados);
         $this->load->view('footer');
     }
 
     function cadastro() {
         $this->load->model('Instrutor_model');
-        $tema["filial"] = $this->Instrutor_model->getFilial($this->session->userdata('id'));
+        $tema["filial"] = $this->instrutor->getFilial($this->session->userdata('id'));
         $this->load->view('header');
         $this->load->view('instrutores/cadastro', $tema);
         $this->load->view('footer');
@@ -33,7 +37,7 @@ class Instrutores extends CI_Controller {
 
     function getFilial($id) {
         $tmp = '';
-        $data = $this->Instrutor_model->getFilial($id);
+        $data = $this->instrutor->getFilial($id);
         if ($id == null) {
             $tmp .= "<option value=''>Selecione a Filial</option>";
         } else if (!empty($data)) {
@@ -51,7 +55,7 @@ class Instrutores extends CI_Controller {
     function getStatus($id) {
         if ($id != null || !empty($id)) {
             $tmp = '';
-            $data = $this->Instrutor_model->getStatus();
+            $data = $this->instrutor->getStatus();
         }
         if (!empty($data)) {
             $tmp .= "<option value=''>Selecione o Status</option>";
@@ -66,7 +70,7 @@ class Instrutores extends CI_Controller {
 
     function getAluno($filial, $status) {
         $tmp = '';
-        $data = $this->Instrutor_model->getAluno($filial, $status);
+        $data = $this->instrutor->getAluno($filial, $status);
         if (!empty($data)) {
             $tmp .= "<option value=''>Selecione o Federado</option>";
             foreach ($data as $row) {
@@ -126,7 +130,7 @@ class Instrutores extends CI_Controller {
             $dados['escolaridade'] = $this->instrutor->getEscolaridade();
             $dados['statusFederado'] = $this->instrutor->getStatus();
             $dados['uf'] = $this->instrutor->getUF();
-            $dados["filial"] = $this->Instrutor_model->getFilial($this->session->userdata('id'));
+            $dados["filial"] = $this->instrutor->getFilial($this->session->userdata('id'));
             $this->load->view('instrutores/incluirFederado', $dados);
             $this->load->view('footer');
         } else {
@@ -155,7 +159,6 @@ class Instrutores extends CI_Controller {
 
 
         if ($this->form_validation->run() == FALSE) {
-            $this->load->model('Instrutor_model', 'instrutor');
             $this->load->view('header');
             $dados['federado'] = $this->instrutor->DadosFederado($federado);
             $endereco = $dados['federado'][0]['id_endereco'];
@@ -165,7 +168,9 @@ class Instrutores extends CI_Controller {
             $dados['statusFederado'] = $this->instrutor->getStatu();
             $dados['endereco'] = $this->instrutor->getEndereco($endereco);
             $dados['uf'] = $this->instrutor->getUF();
-            $dados["filial"] = $this->Instrutor_model->getFilial($this->session->userdata('id'));
+            
+            
+            $dados["filial"] = $this->instrutor->getFilial($id);
             $this->load->view('instrutores/alterarFederado', $dados);
             $this->load->view('footer');
         } else {
@@ -362,7 +367,7 @@ class Instrutores extends CI_Controller {
     
     //function cadastro() {
 //        $this->load->model('Instrutor_model');
-//        $tema["filial"] = $this->Instrutor_model->getFilial($this->session->userdata('id'));
+//        $tema["filial"] = $this->instrutor->getFilial($this->session->userdata('id'));
 //        $this->load->view('header');
 //        $this->load->view('instrutores/cadastro', $tema);
 //        $this->load->view('footer');
@@ -370,7 +375,7 @@ class Instrutores extends CI_Controller {
 //
 //    function getFilial($id) {
 //        $tmp = '';
-//        $data = $this->Instrutor_model->getFilial($id);
+//        $data = $this->instrutor->getFilial($id);
 //        if ($id == null) {
 //            $tmp .= "<option value=''>Selecione a Filial</option>";
 //        } else if (!empty($data)) {
@@ -386,8 +391,10 @@ class Instrutores extends CI_Controller {
 //    }
 
     function inscricao() {
-        $this->load->model('Instrutor_model');        
-        $tema["filial"] = $this->Instrutor_model->getFilial($this->session->userdata('id'));
+        $this->load->model('Instrutor_model');  
+        
+        
+        $tema["filial"] = $this->instrutor->getFilial($this->session->userdata('id'));
 
         $this->load->view('header');
         $this->load->view('instrutores/inscricao', $tema);
@@ -396,7 +403,7 @@ class Instrutores extends CI_Controller {
 
     function getFiliais($id) {
         $tmp = '';
-        $data = $this->Instrutor_model->getFilial($id);
+        $data = $this->instrutor->getFilial($id);
         if ($id == null) {
             $tmp .= "<option value='' >Selecione a Filial</option>";
         } else if (!empty($data)) {
@@ -455,7 +462,7 @@ class Instrutores extends CI_Controller {
 
     function manutencao($id = '1') {
         $this->load->model('Instrutor_model');
-         $tema["instrutor"] = $this->Instrutor_model->getInscrito($this->session->userdata('id'));
+         $tema["instrutor"] = $this->instrutor->getInscrito($this->session->userdata('id'));
         
         $this->load->view('header');
         $this->load->view('instrutores/manutencao', $tema);

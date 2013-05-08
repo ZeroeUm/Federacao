@@ -358,7 +358,7 @@ class Coordenador_model extends CI_Model {
         return $query->result_array();
     }
 
-    function totalizar_faixas_por_evento($id_evento){
+    function totalizar_faixas_por_evento($id_evento) {
         $sql = "SELECT 
                     count(graduacao_participantes.id_federado)as total,
                     federado.tamanho_faixa,
@@ -370,27 +370,26 @@ class Coordenador_model extends CI_Model {
                     on graduacao_participantes.id_federado = federado.id_federado
                     inner join graduacao
                     on graduacao.id_graduacao = graduacao_participantes.id_graduacao
-                    where graduacao_participantes.id_evento = $id_evento
+                    where graduacao_participantes.id_evento = $id_evento and graduacao_participantes.status_participacao = 1
                     group by federado.tamanho_faixa,graduacao_participantes.id_graduacao
                     order by ordem;";
         $query = $this->db->query($sql);
         return $query->result_array();
     }
-    
-    function ultimo_evento(){
+
+    function ultimo_evento() {
         $sql = "select * from evento_graduacao order by data_evento DESC";
         $query = $this->db->query($sql);
         $result = $query->result_array();
         return $result['0'];
     }
 
-
     function participantes_evento($id_evento, $id_faixa) {
 
-        if($id_faixa!=null){
-        $complemento = " and graduacao.id_graduacao = '$id_faixa';";
-        }  else {
-        $complemento = ";";    
+        if ($id_faixa != null) {
+            $complemento = " and graduacao.id_graduacao = '$id_faixa';";
+        } else {
+            $complemento = ";";
         }
         $sql = "SELECT 
                     federado.nome,
@@ -403,23 +402,22 @@ class Coordenador_model extends CI_Model {
                 join 
                     graduacao using (id_graduacao)
                 where
-                     graduacao_participantes.id_evento = '$id_evento'".$complemento;
+                     graduacao_participantes.id_evento = '$id_evento' and graduacao_participantes.status_participacao = 1" . $complemento;
         $query = $this->db->query($sql);
         return $query->result_array();
     }
 
-    function pedidos($id_evento,$id_graduacao,$quantidade,$tamanho){
+    function pedidos($id_evento, $id_graduacao, $quantidade, $tamanho) {
         $insert = array(
-            'id_evento'=>$id_evento,
-            'id_graduacao'=>$id_graduacao,
-            'quantidade'=>$quantidade,
-            'tamanho'=>$tamanho
+            'id_evento' => $id_evento,
+            'id_graduacao' => $id_graduacao,
+            'quantidade' => $quantidade,
+            'tamanho' => $tamanho
         );
-        return  $this->db->insert('pedido_faixa',$insert);
-        
+        return $this->db->insert('pedido_faixa', $insert);
     }
 
-    function pedidos_para_evento(){
+    function pedidos_para_evento() {
         $sql = "
                 SELECT 
                     id_evento as evento,
@@ -574,7 +572,7 @@ class Coordenador_model extends CI_Model {
     }
 
     
-    
+
     function getEventos() {
         $query = $this->db
                 ->select("evento_graduacao.id_evento,
@@ -590,7 +588,7 @@ class Coordenador_model extends CI_Model {
                 ->join('endereco', 'evento_graduacao.id_endereco = endereco.id_endereco')
                 ->join('estados', 'endereco.uf = estados.id_estados')
                 ->join('modalidade', 'evento_graduacao.id_modalidade = modalidade.id_modalidade')
-                ->order_by('data_evento','ASC')
+                ->order_by('data_evento', 'DESC')
                 ->get()
                 ->result_array();
 

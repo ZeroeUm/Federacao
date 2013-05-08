@@ -18,7 +18,7 @@
 $federado = $federado[0];
 
 $endereco = $endereco[0];
-$hidden = array("federado" => $federado['id_federado'],"endereco" => $endereco['id_endereco'],"antigaFilial"=>$federado['filial']);
+$hidden = array("federado" => $federado['id_federado'],"endereco" => $endereco['id_endereco'],"antigaFilial"=>''/* */);
 $attr = array(
     "class" => "form-horizontal",
     "id" => "frmAlterar",
@@ -225,7 +225,7 @@ echo form_label("Tamanho da Faixa", "faixa", $label);
         
         foreach ($filial as $f)
             $opFilial[$f->id] = $f->nome;
-        echo form_dropdown("filial", $opFilial, set_value('filial', $federado['filial']), 'id="filial" class="span4" required')
+        echo form_dropdown("filial", $opFilial, set_value('filial','' /*$federado['filial']*/), 'id="filial" class="span4" required')
         ?>
     </div>
 </div>
