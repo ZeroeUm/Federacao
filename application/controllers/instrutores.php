@@ -20,7 +20,11 @@ class Instrutores extends CI_Controller {
     function index() {
         
         $dados['resultado'] = $this->instrutor->get_status_avaliacao();
-        
+       $dados['total_alunos'] = $this->instrutor->total_alunos($this->session->userdata('id'),'total'); 
+       
+       $this->load->model('Coordenador_model', 'coordenador');
+       $evento = $this->coordenador->ultimo_evento();
+       $dados['ultimo_evento'] = $this->funcoes->data($evento['data_evento'],1);
        
         $this->load->view('header');
         $this->load->view('instrutores/index',$dados);
@@ -134,6 +138,7 @@ class Instrutores extends CI_Controller {
             $this->load->view('instrutores/incluirFederado', $dados);
             $this->load->view('footer');
         } else {
+            
             $this->fotoFederado(0);
         }
     }
@@ -195,16 +200,19 @@ class Instrutores extends CI_Controller {
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
 
+        
         if (!$this->upload->do_upload("foto")) {
-            $dados = array('error' => $this->upload->display_errors('<div class="alert-error"><b>', '</b></div>'));
+             $dados = array('error' => $this->upload->display_errors('<div class="alert-error"><b>', '</b></div>'));
             (($op) ? $this->atualizarFederado($dados) : $this->salvarFederado($dados));
         } else {
+            
             $dados = array('upload_foto' => $this->upload->data());
             (($op) ? $this->atualizarFederado($dados, $config['file_name']) : $this->salvarFederado($dados, $config['file_name']));
         }
     }
 
     function salvarFederado($dados, $foto = NULL) {
+       
         $this->load->model('Instrutor_model', 'instrutor');
         $endereco = array();
         $federado = array();
@@ -220,7 +228,6 @@ class Instrutores extends CI_Controller {
         $this->instrutor->InserirEndereco($endereco);
 
         $federado['id_endereco'] = $this->db->insert_id();
-
         $federado['nome'] = $this->input->post('nome');
         $federado['filiacao_materna'] = ($this->input->post('fMaterna') ? $this->input->post('fMaterna') : NULL);
         $federado['filiacao_paterna'] = ($this->input->post('fPaterna') ? $this->input->post('fPaterna') : NULL);

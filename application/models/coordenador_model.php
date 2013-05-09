@@ -203,7 +203,7 @@ class Coordenador_model extends CI_Model {
                     on 
                     evento_graduacao.id_evento = pre_avaliacao.id_evento 
                 where pre_avaliacao.id_federado = $id_federado
-                    and   pre_avaliacao.id_status_avaliacao = 2;";
+                    and   pre_avaliacao.id_status_avaliacao = 3;";
         $query = $this->db->query($sql);
         return $query->result_array();
     }
@@ -231,7 +231,7 @@ class Coordenador_model extends CI_Model {
                where 
                     pre_avaliacao.id_filial = '$id_filial'
                and 
-                    pre_avaliacao.id_status_avaliacao = '2'
+                    pre_avaliacao.id_status_avaliacao = '3'
                order by graduacao.id_graduacao asc";
         $query = $this->db->query($sql);
         return $query->result_array();
@@ -272,7 +272,7 @@ class Coordenador_model extends CI_Model {
                 join 
                     filial using (id_filial)
                 where 
-                    id_status_avaliacao = 2 and id_filial = $id_filial";
+                    id_status_avaliacao = 3 and id_filial = $id_filial";
         $query = $this->db->query($sql);
         return $query->result_array();
     }
@@ -282,11 +282,11 @@ class Coordenador_model extends CI_Model {
         $data = $dados['pre_avaliacao']['data_agendamento'];
         $alunos = $dados['pre_avaliacao']['id_pre_avaliacao'];
 
-
+//3 para aguardando aprovação
         $update = array(
             'horario' => $dados['pre_avaliacao']['horario'],
             'data_agendamento' => $this->funcoes->data($data),
-            'id_status_avaliacao' => '2'
+            'id_status_avaliacao' => '3'
         );
 
         $cont = count($alunos);
@@ -527,7 +527,7 @@ class Coordenador_model extends CI_Model {
                         ->select('*')
                         ->from('filial')
                         ->join('pre_avaliacao', 'pre_avaliacao.id_filial = filial.id_filial')
-                        ->where('pre_avaliacao.id_status_avaliacao', '2')
+                        ->where('pre_avaliacao.id_status_avaliacao', '3')
                         ->group_by('pre_avaliacao.id_filial')
                         ->get()
                         ->result_array();

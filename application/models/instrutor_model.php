@@ -4,28 +4,54 @@ class Instrutor_model extends CI_Model {
 
     //SELECT federado.nome FROM federado INNER
     // JOIN filial WHERE federado.registro = filial.instrutor
-    
-    function pre_avaliacao($dados){
-        $this->load->model('Coordenador_model','coordenador');
+
+    function pre_avaliacao($dados) {
+        $this->load->model('Coordenador_model', 'coordenador');
         $id_evento = $this->coordenador->getUltimoEvento();
-        
-        
-        foreach ($dados['nodeCheck'] as $i=>$v){
+
+
+        foreach ($dados['nodeCheck'] as $i => $v) {
             $insert = array(
-                'id_evento'=>$id_evento,
-                'id_federado'=>$v,
-                'id_status_avaliacao'=>'4',
-                'id_filial'=>$dados['id_filial']
+                'id_evento' => $id_evento,
+                'id_federado' => $v,
+                'id_status_avaliacao' => '4',
+                'id_filial' => $dados['id_filial']
             );
-            
-            $this->db->insert('pre_avaliacao',$insert);
+
+            $this->db->insert('pre_avaliacao', $insert);
         }
-  
     }
-function get_status_avaliacao() {
-        $this->load->model('Coordenador_model','coordenador');
-        $ultimo_evento = $this->coordenador->getUltimoEvento();
+    
+    
+    //Função total_alunos se passar qualquer coisa como 2 parametro a função
+    //irá mostrar o total de alunos do instrutor caso contrario somente irá lista-los por nome
+    function total_alunos($id_instrutor,$count = null){
+       if($count!=null){
+           $count = "count(matricula.id_federado) as total_alunos,";
+       }else{
+           $count = "";
+       }
         
+        $sql = "SELECT 
+                $count            
+                matricula.id_federado,
+                federado.nome
+                FROM federacao.filial
+                inner join instrutor
+                on instrutor.id_instrutor = filial.id_instrutor
+                inner join matricula
+                on matricula.id_filial = filial.id_filial
+                inner join federado
+                on  matricula.id_federado = federado.id_federado
+                where instrutor.id_federado = $id_instrutor;";
+        return $this->db->query($sql)->result_array();
+        
+    }
+
+    function get_status_avaliacao() {
+        $this->load->model('Coordenador_model', 'coordenador');
+        $ultimo_evento = $this->coordenador->getUltimoEvento();
+
         $sql = "SELECT 
                 federado.nome,
                 graduacao.faixa,
@@ -41,29 +67,41 @@ function get_status_avaliacao() {
                 inner join status_avaliacao using (id_status_avaliacao)
                 where pre_avaliacao.id_evento = $ultimo_evento";
         $dados = $this->db->query($sql)->result_array();
-       
-       
+
+
         $avaliacao = array();
         
-        foreach ($dados as $v){
+        //Necessário para não dar erro na exibição
+        $avaliacao['aprovados']['nome'] = array();
+        $avaliacao['aprovados']['faixa'] = array();
+        $avaliacao['reprovados']['nome'] = array();
+        $avaliacao['reprovados']['faixa'] = array();
+        $avaliacao['aguardando']['nome'] = array();
+        $avaliacao['aguardando']['data_avaliacao'] = array();
+        $avaliacao['aguardando']['horario'] = array();
+        $avaliacao['nao_agendado']['nome'] = array();
+        $avaliacao['nao_agendado']['faixa']= array();
+        //final
         
-            if($v['avaliacao']=='1'){
-               $avaliacao['aprovados']['nome'][] = $v['nome']; 
-               $avaliacao['aprovados']['faixa'][] = $v['faixa']; 
-            }elseif ($v['avaliacao']=='2') {
-               $avaliacao['reprovados']['nome'][] = $v['nome']; 
-               $avaliacao['reprovados']['faixa'][] = $v['faixa']; 
-            }elseif ($v['avaliacao']=='3') {
-               $avaliacao['aguardando']['nome'][] = $v['nome']; 
-               $avaliacao['aguardando']['data_avaliacao'][] = $v['data']; 
-               $avaliacao['aguardando']['horario'][] = $v['horario']; 
-            }else{
-               $avaliacao['nao_agendado']['nome'][] = $v['nome']; 
-               $avaliacao['nao_agendado']['faixa'][] = $v['faixa'];   
+        foreach ($dados as $v) {
+
+            if ($v['avaliacao'] == '1') {
+                $avaliacao['aprovados']['nome'][] = $v['nome'];
+                $avaliacao['aprovados']['faixa'][] = $v['faixa'];
+            } elseif ($v['avaliacao'] == '2') {
+                $avaliacao['reprovados']['nome'][] = $v['nome'];
+                $avaliacao['reprovados']['faixa'][] = $v['faixa'];
+            } elseif ($v['avaliacao'] == '3') {
+                $avaliacao['aguardando']['nome'][] = $v['nome'];
+                $avaliacao['aguardando']['data_avaliacao'][] = $v['data'];
+                $avaliacao['aguardando']['horario'][] = $v['horario'];
+            } else {
+                $avaliacao['nao_agendado']['nome'][] = $v['nome'];
+                $avaliacao['nao_agendado']['faixa'][] = $v['faixa'];
             }
-       
         }
-       
+
+
         return $avaliacao;
     }
 
@@ -84,7 +122,7 @@ function get_status_avaliacao() {
         return $this->db->select('filial.id_filial as id, filial.nome as nome')
                         ->DISTINCT()
                         ->from('filial')
-                        ->join('instrutor',"instrutor.id_instrutor = filial.id_instrutor",'inner')
+                        ->join('instrutor', "instrutor.id_instrutor = filial.id_instrutor", 'inner')
                         ->where(array('instrutor.id_federado' => $id))
                         ->get()->result();
     }
@@ -284,9 +322,9 @@ function get_status_avaliacao() {
      */
 
     function getInscrito($filial) {
-        $this->load->model('Coordenador_model','coordenador');
+        $this->load->model('Coordenador_model', 'coordenador');
         $ultimo_evento = $this->coordenador->getUltimoEvento();
-        
+
         $sql = "
             SELECT 
 federado.id_federado as id,

@@ -286,6 +286,8 @@ class coordenador extends CI_Controller{
         //pegar dados de faixa do aluno
         //pegar movimentos da faixa candidata
         $dados['aluno']= $this->coordenador->get_aluno_faixa($id_federado);
+        
+        
         $id_faixa = $dados['aluno']['0']['ordem']+1;
         
         $dados['movimentos'] = $this->coordenador->movimentos($id_faixa);
