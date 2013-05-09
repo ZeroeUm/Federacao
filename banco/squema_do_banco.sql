@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: 08/05/2013 às 19:13:48
+-- Tempo de Geração: 09/05/2013 às 18:13:10
 -- Versão do Servidor: 5.1.66-0ubuntu0.11.10.3
 -- Versão do PHP: 5.3.6-13ubuntu3.10
 
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `endereco` (
   PRIMARY KEY (`id_endereco`),
   KEY `FK_endereco_tipo_endereco` (`tipo_endereco`),
   KEY `FK_endereco_uf` (`uf`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
 
 --
 -- Extraindo dados da tabela `endereco`
@@ -102,7 +102,8 @@ INSERT INTO `endereco` (`id_endereco`, `logradouro`, `numero`, `complemento`, `b
 (31, 'Rua dos eventos', 161, '', '', 'São paulo', 1, 3),
 (32, 'Novo Evento', 78, '', 'Bela Vista', 'São paulo', 1, 3),
 (33, 'Av Paulista ', 325, '', 'Bela Vista', 'são paulo', 1, 3),
-(34, 'Av Paulista ', 325, '', 'Bela Vista', 'São Paulo', 1, 3);
+(34, 'Av Paulista ', 325, '', 'Bela Vista', 'São Paulo', 1, 3),
+(35, 'Endereco da filiaal 1', 22, '', 'Penha', 'São Paulo', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -165,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `evento_graduacao` (
   UNIQUE KEY `validacao` (`numero_evento`),
   KEY `FK_evento_graduacao_endereco` (`id_endereco`),
   KEY `FK_evento_graduacao_modalidade` (`id_modalidade`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 --
 -- Extraindo dados da tabela `evento_graduacao`
@@ -220,7 +221,7 @@ CREATE TABLE IF NOT EXISTS `federado` (
   KEY `FK_federado_nacionalidade` (`id_nacionalidade`),
   KEY `FK_federado_status_federado` (`id_status`),
   KEY `FK_federado_tipo_federado` (`id_tipo_federado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Extraindo dados da tabela `federado`
@@ -235,7 +236,8 @@ INSERT INTO `federado` (`id_federado`, `nome`, `filiacao_materna`, `filiacao_pat
 (8, 'Maria Fernanda', 'não declarado', 'não declarado', 'M', '1985-05-31', '55.444.444-5', '(11)1111-1111', '(11)99999-9999', 'email.re@email.com', 'sem foto', 4, 1, 23, 1, 1, 'M'),
 (9, 'Caetano silveira', 'Não declarado', 'não declarado', 'M', '1969-12-31', '88.888.888-8', '(22)2222-2222', '(99)99999-9999', 'mail@mail.com', 'sem foto', 6, 1, 24, 1, 1, 'GG'),
 (10, 'Paula Fernandes', 'não declarado', 'não declarado', 'F', '1985-04-30', '22.222.222-2', '(11)2222-2222', '(11)96666-6666', 'mail@mail.com', 'sem foto', 6, 1, 25, 1, 1, 'G'),
-(11, 'Mariana silveira', 'não declarado', 'não declarado', 'F', '1970-05-22', '88.888.888-8', '(11)9999-9999', '(99)99999-9999', 'mail@mail.com', 'sem foto', 6, 1, 26, 1, 1, 'G');
+(11, 'Mariana silveira', 'não declarado', 'não declarado', 'F', '1970-05-22', '88.888.888-8', '(11)9999-9999', '(99)99999-9999', 'mail@mail.com', 'sem foto', 6, 1, 26, 1, 1, 'G'),
+(12, 'Felipe de Oliveira da Silva', 'não declarado', 'não declarado', 'M', '1985-11-23', '55.444.444-5', '(11)96666-666', '(11)96666-6666', 'felipe@chipsetdesenvolvimento.com', 'sem foto', 6, 1, 35, 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -342,13 +344,13 @@ CREATE TABLE IF NOT EXISTS `graduacao_federado` (
 
 INSERT INTO `graduacao_federado` (`id_graduacao_federado`, `id_modalidade`, `id_graduacao`, `id_federado`, `status`, `data_emissao`) VALUES
 (1, 1, '13', 1, 1, '1990-05-05'),
-(2, 1, '4', 6, 1, '2013-05-08'),
+(2, 1, '1', 6, 1, '2013-05-08'),
 (3, 1, '10', 5, 1, '1999-10-10'),
 (4, 1, '11', 3, 1, '2000-01-10'),
-(5, 1, '5', 7, 1, '2013-05-08'),
-(6, 1, '5', 8, 1, '2013-05-08'),
-(7, 1, '7', 9, 1, '2013-05-08'),
-(8, 1, '8', 11, 1, '2013-05-08');
+(5, 1, '1', 7, 1, '2013-05-08'),
+(6, 1, '3', 8, 1, '2013-05-09'),
+(7, 1, '2', 9, 1, '2013-05-09'),
+(8, 1, '2', 11, 1, '2013-05-09');
 
 -- --------------------------------------------------------
 
@@ -700,7 +702,7 @@ CREATE TABLE IF NOT EXISTS `pedido_faixa` (
   UNIQUE KEY `index4` (`id_evento`,`id_graduacao`,`tamanho`,`quantidade`),
   KEY `fk_pedido_faixa_1` (`id_graduacao`),
   KEY `fk_pedido_faixa_2` (`id_evento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -721,18 +723,18 @@ CREATE TABLE IF NOT EXISTS `pre_avaliacao` (
   KEY `fk_pre_avaliacao_2` (`id_federado`),
   KEY `fk_pre_avaliacao_3` (`id_status_avaliacao`),
   KEY `fk_pre_avaliacao_4` (`id_filial`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=51 ;
 
 --
 -- Extraindo dados da tabela `pre_avaliacao`
 --
 
 INSERT INTO `pre_avaliacao` (`id_pre_avaliacao`, `id_evento`, `id_federado`, `id_status_avaliacao`, `data_agendamento`, `id_filial`, `horario`) VALUES
-(41, 18, 6, 1, '2013-05-28', 1, 1),
-(42, 18, 7, 1, '2013-05-28', 1, 1),
-(43, 18, 8, 2, '2013-05-28', 1, 1),
-(44, 18, 9, 4, '2013-05-28', 1, 1),
-(45, 18, 11, 3, '2013-05-28', 1, 1);
+(46, 18, 6, 4, '2013-05-31', 1, 2),
+(47, 18, 7, 2, '2013-05-31', 1, 2),
+(48, 18, 8, 1, '2013-05-31', 1, 2),
+(49, 18, 9, 1, '2013-05-31', 1, 2),
+(50, 18, 11, 1, '2013-05-31', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -752,123 +754,31 @@ CREATE TABLE IF NOT EXISTS `prontuario` (
   KEY `fk_prontuario_1` (`id_movimento_faixa`),
   KEY `fk_prontuario_3` (`id_evento`),
   KEY `fk_prontuario_4` (`id_federado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=233 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=251 ;
 
 --
 -- Extraindo dados da tabela `prontuario`
 --
 
 INSERT INTO `prontuario` (`id_prontuario`, `id_federado`, `id_evento`, `ordem`, `id_movimento_faixa`, `nota`) VALUES
-(123, 7, 17, NULL, 4, '8'),
-(124, 7, 17, NULL, 5, '8'),
-(125, 7, 17, NULL, 6, '8'),
-(126, 7, 17, NULL, 7, '8'),
-(127, 7, 17, NULL, 8, '8'),
-(128, 7, 17, NULL, 9, '8'),
-(129, 11, 17, NULL, 4, '9.9'),
-(130, 11, 17, NULL, 5, '9.9'),
-(131, 11, 17, NULL, 6, '9.9'),
-(132, 11, 17, NULL, 7, '9.9'),
-(133, 11, 17, NULL, 8, '9.9'),
-(134, 11, 17, NULL, 9, '9.9'),
-(135, 8, 17, NULL, 4, '7.7'),
-(136, 8, 17, NULL, 5, '7.7'),
-(137, 8, 17, NULL, 6, '7.8'),
-(138, 8, 17, NULL, 7, '8.9'),
-(139, 8, 17, NULL, 8, '7.7'),
-(140, 8, 17, NULL, 9, '8.5'),
-(141, 9, 17, NULL, 10, '9.9'),
-(142, 9, 17, NULL, 11, '9.9'),
-(143, 9, 17, NULL, 12, '9.9'),
-(144, 9, 17, NULL, 13, '9.9'),
-(145, 9, 17, NULL, 14, '9.9'),
-(146, 9, 17, NULL, 15, '9.9'),
-(147, 8, 18, NULL, 10, '8'),
-(148, 8, 18, NULL, 11, '9.9'),
-(149, 8, 18, NULL, 12, '5.5'),
-(150, 8, 18, NULL, 13, '6.6'),
-(151, 8, 18, NULL, 14, '7.8'),
-(152, 8, 18, NULL, 15, '5.5'),
-(153, 7, 18, NULL, 10, '7.8'),
-(154, 7, 18, NULL, 11, '9.9'),
-(155, 7, 18, NULL, 12, '7.8'),
-(156, 7, 18, NULL, 13, '5.8'),
-(157, 7, 18, NULL, 14, '4.7'),
-(158, 7, 18, NULL, 15, '9.9'),
-(159, 11, 18, NULL, 16, '9'),
-(160, 11, 18, NULL, 17, '9'),
-(161, 11, 18, NULL, 18, '9'),
-(162, 11, 18, NULL, 19, '9'),
-(163, 11, 18, NULL, 20, '9'),
-(164, 11, 18, NULL, 21, '9'),
-(165, 6, 18, NULL, 10, '9.9'),
-(166, 6, 18, NULL, 11, '9.9'),
-(167, 6, 18, NULL, 12, '7.7'),
-(168, 6, 18, NULL, 13, '8.8'),
-(169, 6, 18, NULL, 14, '8.8'),
-(170, 6, 18, NULL, 15, '9.9'),
-(171, 7, 18, NULL, 16, '7.7'),
-(172, 7, 18, NULL, 17, '8.8'),
-(173, 7, 18, NULL, 18, '5.9'),
-(174, 7, 18, NULL, 19, '8.8'),
-(175, 7, 18, NULL, 20, '7.7'),
-(176, 7, 18, NULL, 21, '5.5'),
-(177, 8, 18, NULL, 16, '7.89'),
-(178, 8, 18, NULL, 17, '9.9'),
-(179, 8, 18, NULL, 18, '8.8'),
-(180, 8, 18, NULL, 19, '7.9'),
-(181, 8, 18, NULL, 20, '6.6'),
-(182, 8, 18, NULL, 21, '5.5'),
-(183, 9, 18, NULL, 22, '9.9'),
-(184, 9, 18, NULL, 23, '9.9'),
-(185, 9, 18, NULL, 24, '9.9'),
-(186, 9, 18, NULL, 25, '9.9'),
-(187, 9, 18, NULL, 26, '9.9'),
-(188, 9, 18, NULL, 27, '9.9'),
-(189, 11, 18, NULL, 22, '9.9'),
-(190, 11, 18, NULL, 23, '9.99'),
-(191, 11, 18, NULL, 24, '9.9'),
-(192, 11, 18, NULL, 25, '9'),
-(193, 11, 18, NULL, 26, '9.9'),
-(194, 11, 18, NULL, 27, '9.9'),
-(195, 6, 18, NULL, 16, '9'),
-(196, 6, 18, NULL, 17, '9'),
-(197, 6, 18, NULL, 18, '9'),
-(198, 6, 18, NULL, 19, '9'),
-(199, 6, 18, NULL, 20, '9'),
-(200, 6, 18, NULL, 21, '9'),
-(201, 8, 18, NULL, 22, '8.9'),
-(202, 8, 18, NULL, 23, '8.9'),
-(203, 8, 18, NULL, 24, '8.9'),
-(204, 8, 18, NULL, 25, '8.9'),
-(205, 8, 18, NULL, 26, '8.8'),
-(206, 8, 18, NULL, 27, '9.9'),
-(207, 7, 18, NULL, 22, '7.7'),
-(208, 7, 18, NULL, 23, '8.8'),
-(209, 7, 18, NULL, 24, '9.9'),
-(210, 7, 18, NULL, 25, '8.8'),
-(211, 7, 18, NULL, 26, '7.7'),
-(212, 7, 18, NULL, 27, '4.4'),
-(213, 9, 18, NULL, 37, '9.9'),
-(214, 9, 18, NULL, 38, '9'),
-(215, 9, 18, NULL, 39, '9.9'),
-(216, 9, 18, NULL, 40, '9.9'),
-(217, 9, 18, NULL, 41, '9.9'),
-(218, 9, 18, NULL, 42, '8.8'),
-(219, 9, 18, NULL, 43, '9.9'),
-(220, 9, 18, NULL, 44, '9.9'),
-(221, 9, 18, NULL, 45, '8.8'),
-(222, 9, 18, NULL, 46, '7.7'),
-(223, 11, 18, NULL, 37, '9.99'),
-(224, 11, 18, NULL, 38, '9.9'),
-(225, 11, 18, NULL, 39, '8.8'),
-(226, 11, 18, NULL, 40, '9.99'),
-(227, 11, 18, NULL, 41, '9.9'),
-(228, 11, 18, NULL, 42, '9.9'),
-(229, 11, 18, NULL, 43, '9.99'),
-(230, 11, 18, NULL, 44, '9.99'),
-(231, 11, 18, NULL, 45, '9.9'),
-(232, 11, 18, NULL, 46, '9.9');
+(233, 11, 18, NULL, 4, '9'),
+(234, 11, 18, NULL, 5, '9'),
+(235, 11, 18, NULL, 6, '9'),
+(236, 11, 18, NULL, 7, '9'),
+(237, 11, 18, NULL, 8, '9'),
+(238, 11, 18, NULL, 9, '8'),
+(239, 8, 18, NULL, 4, '9.9'),
+(240, 8, 18, NULL, 5, '9.9'),
+(241, 8, 18, NULL, 6, '9.9'),
+(242, 8, 18, NULL, 7, '9.9'),
+(243, 8, 18, NULL, 8, '9.9'),
+(244, 8, 18, NULL, 9, '9.9'),
+(245, 9, 18, NULL, 4, '7'),
+(246, 9, 18, NULL, 5, '7'),
+(247, 9, 18, NULL, 6, '7'),
+(248, 9, 18, NULL, 7, '7'),
+(249, 9, 18, NULL, 8, '7'),
+(250, 9, 18, NULL, 9, '7');
 
 -- --------------------------------------------------------
 
