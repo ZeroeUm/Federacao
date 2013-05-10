@@ -53,9 +53,10 @@ label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; 
         <label>Endereço</label>
 
         <input type="text" name="data[endereco][logradouro]" class="input-block-level" placeholder="Endereço">
-        <input type="text" name="data[endereco][cidade]" class="input-block-level" placeholder="Cidade">
         <input type="text" name="data[endereco][numero]" class="input-block-level" placeholder="Numero">
 
+        <input type="text" name="data[endereco][cidade]" class="input-block-level" placeholder="Cidade">
+        
         <select name="data[endereco][uf]" class="input-block-level">
             <option value="1">SP</option>
         </select>

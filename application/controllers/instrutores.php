@@ -15,20 +15,21 @@ class Instrutores extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('Instrutor_model','instrutor');
+        $this->load->library('funcoes','session');
     }
 
     function index() {
         
         $dados['resultado'] = $this->instrutor->get_status_avaliacao();
-       $dados['total_alunos'] = $this->instrutor->total_alunos($this->session->userdata('id'),'total'); 
+      
+        $dados['total_alunos'] = $this->instrutor->total_alunos($this->session->userdata('id'),'total'); 
        
        $this->load->model('Coordenador_model', 'coordenador');
        $evento = $this->coordenador->ultimo_evento();
-       $dados['ultimo_evento'] = $this->funcoes->data($evento['data_evento'],1);
-       
-        $this->load->view('header');
-        $this->load->view('instrutores/index',$dados);
-        $this->load->view('footer');
+       $dados['ultimo_evento'] = $this->funcoes->data($evento['data_evento'],2);
+       $this->load->view('header');
+       $this->load->view('instrutores/index',$dados);
+       $this->load->view('footer');
     }
 
     function cadastro() {

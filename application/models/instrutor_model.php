@@ -52,6 +52,24 @@ class Instrutor_model extends CI_Model {
         $this->load->model('Coordenador_model', 'coordenador');
         $ultimo_evento = $this->coordenador->getUltimoEvento();
 
+        if($ultimo_evento==""){
+           
+            $avaliacao = array();
+        
+        //Necessário para não dar erro na exibição
+        $avaliacao['aprovados']['verifica_dados'] = '3';    
+        $avaliacao['aprovados']['nome'] = array();
+        $avaliacao['aprovados']['faixa'] = array();
+        $avaliacao['reprovados']['nome'] = array();
+        $avaliacao['reprovados']['faixa'] = array();
+        $avaliacao['aguardando']['nome'] = array();
+        $avaliacao['aguardando']['data_avaliacao'] = array();
+        $avaliacao['aguardando']['horario'] = array();
+        $avaliacao['nao_agendado']['nome'] = array();
+        $avaliacao['nao_agendado']['faixa']= array();
+        return $avaliacao;
+        }
+        
         $sql = "SELECT 
                 federado.nome,
                 graduacao.faixa,
@@ -68,10 +86,28 @@ class Instrutor_model extends CI_Model {
                 where pre_avaliacao.id_evento = $ultimo_evento";
         $dados = $this->db->query($sql)->result_array();
 
+        if(empty($dados)){
+       
+        $avaliacao = array();
+        $avaliacao['aprovados']['verifica_dados'] = '0';    
+        $avaliacao['aprovados']['nome'] = array();
+        $avaliacao['aprovados']['faixa'] = array();
+        $avaliacao['reprovados']['nome'] = array();
+        $avaliacao['reprovados']['faixa'] = array();
+        $avaliacao['aguardando']['nome'] = array();
+        $avaliacao['aguardando']['data_avaliacao'] = array();
+        $avaliacao['aguardando']['horario'] = array();
+        $avaliacao['nao_agendado']['nome'] = array();
+        $avaliacao['nao_agendado']['faixa']= array();
+        return $avaliacao;
+            
+        };
+        
 
         $avaliacao = array();
         
         //Necessário para não dar erro na exibição
+        $avaliacao['aprovados']['verifica_dados'] = '1';    
         $avaliacao['aprovados']['nome'] = array();
         $avaliacao['aprovados']['faixa'] = array();
         $avaliacao['reprovados']['nome'] = array();
@@ -101,6 +137,7 @@ class Instrutor_model extends CI_Model {
             }
         }
 
+        
 
         return $avaliacao;
     }

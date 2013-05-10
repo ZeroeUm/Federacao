@@ -24,7 +24,7 @@ a:hover {
 }
 
 #header h1 {
-    xbackground: url("/Federacao/assets/images/logo.png") no-repeat scroll 0 0 transparent;
+    xbackground: url("/assets/images/logo.png") no-repeat scroll 0 0 transparent;
     height: 31px;
     left: 15px;
     line-height: 600px;
@@ -99,7 +99,7 @@ a:hover {
 }
 #user-nav > ul > li > a > i, #sidebar li a i {
 	vertical-align: top;
-	background-image: url('/Federacao/assets/images/glyphicons-halflings-white.png');
+	background-image: url('/assets/images/glyphicons-halflings-white.png');
 	opacity: .5;
 	margin-top: 2px;
 }
@@ -160,7 +160,7 @@ a:hover {
 }
 
 #sidebar > ul > li.active > a {
-	background: url("/Federacao/assets/images/menu-active.png") no-repeat scroll right center transparent !important;
+	background: url("/assets/images/menu-active.png") no-repeat scroll right center transparent !important;
 }
 
 #sidebar > ul > li > a > .label {
@@ -264,7 +264,7 @@ a:hover {
 #breadcrumb a {
 	padding: 8px 20px 8px 10px;
 	display: inline-block;
-	background-image: url('/Federacao/assets/images/breadcrumb.png');
+	background-image: url('/assets/images/breadcrumb.png');
 	background-position: center right;
 	background-repeat: no-repeat;
 	font-size: 11px;
