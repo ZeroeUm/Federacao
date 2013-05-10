@@ -17,14 +17,45 @@ class Instrutores extends CI_Controller {
         $this->load->model('Instrutor_model','instrutor');
     }
 
+    
+    function remover_pre_avaliacao($id_federado,$id_evento){
+        
+        $remover = $this->instrutor->remover_pre_avalicacao($id_federado,$id_evento);
+        if($remover){
+         $this->session->set_flashdata('alerta',"Removido com sucesso");
+           
+            redirect('/instrutores/');
+        }  else {
+             $this->session->set_flashdata('alerta',"Não foi possivel remover");
+           
+        redirect('/instrutores/');    
+        }
+    }
+    
+    function remover_evento_graduacao($id_federado,$id_evento){
+        
+        $remover = $this->instrutor->remover_evento_graduacao($id_federado,$id_evento);
+        
+         if($remover){
+         $this->session->set_flashdata('alerta',"Removido com sucesso");
+           
+            redirect('/instrutores/');
+        }  else {
+             $this->session->set_flashdata('alerta',"Não foi possivel remover");
+           
+        redirect('/instrutores/');    
+        }
+    }
+
+
     function index() {
         
         $dados['resultado'] = $this->instrutor->get_status_avaliacao();
        $dados['total_alunos'] = $this->instrutor->total_alunos($this->session->userdata('id'),'total'); 
        
        $this->load->model('Coordenador_model', 'coordenador');
-       $evento = $this->coordenador->ultimo_evento();
-       $dados['ultimo_evento'] = $this->funcoes->data($evento['data_evento'],1);
+       $dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
+        
        
         $this->load->view('header');
         $this->load->view('instrutores/index',$dados);

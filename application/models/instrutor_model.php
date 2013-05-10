@@ -23,6 +23,31 @@ class Instrutor_model extends CI_Model {
     }
     
     
+    function remover_evento_graduacao($id_federado,$id_evento){
+        $conditions = array(
+            'id_evento'=>$id_evento,
+            'id_federado'=>$id_federado
+        );
+        $update = array(
+            'status_participacao'=>'0'
+        );
+        $this->db->where($conditions);
+       return  $this->db->update('graduacao_participante',$update);
+        
+    }
+
+
+    function remover_pre_avalicacao($id_federado,$id_evento){
+        $conditions = array(
+            'id_evento'=>$id_evento,
+            'id_federado'=>$id_federado
+        );
+       return $this->db->delete('pre_avaliacao',$conditions);
+    }
+
+
+
+
     //Função total_alunos se passar qualquer coisa como 2 parametro a função
     //irá mostrar o total de alunos do instrutor caso contrario somente irá lista-los por nome
     function total_alunos($id_instrutor,$count = null){
@@ -53,6 +78,7 @@ class Instrutor_model extends CI_Model {
         $ultimo_evento = $this->coordenador->getUltimoEvento();
 
         $sql = "SELECT 
+                federado.id_federado as id,
                 federado.nome,
                 graduacao.faixa,
                 date_format(pre_avaliacao.data_agendamento,'%d-%m-%Y') as data,
@@ -81,23 +107,28 @@ class Instrutor_model extends CI_Model {
         $avaliacao['aguardando']['horario'] = array();
         $avaliacao['nao_agendado']['nome'] = array();
         $avaliacao['nao_agendado']['faixa']= array();
-        //final
+        
+    //final
         
         foreach ($dados as $v) {
 
             if ($v['avaliacao'] == '1') {
                 $avaliacao['aprovados']['nome'][] = $v['nome'];
                 $avaliacao['aprovados']['faixa'][] = $v['faixa'];
+                $avaliacao['aprovados']['id'][] = $v['id'];
             } elseif ($v['avaliacao'] == '2') {
                 $avaliacao['reprovados']['nome'][] = $v['nome'];
                 $avaliacao['reprovados']['faixa'][] = $v['faixa'];
+                $avaliacao['reprovados']['id'][] = $v['id'];
             } elseif ($v['avaliacao'] == '3') {
                 $avaliacao['aguardando']['nome'][] = $v['nome'];
                 $avaliacao['aguardando']['data_avaliacao'][] = $v['data'];
                 $avaliacao['aguardando']['horario'][] = $v['horario'];
+                $avaliacao['aguardando']['id'][] = $v['id'];
             } else {
                 $avaliacao['nao_agendado']['nome'][] = $v['nome'];
                 $avaliacao['nao_agendado']['faixa'][] = $v['faixa'];
+                $avaliacao['nao_agendado']['id'][] = $v['id'];
             }
         }
 
