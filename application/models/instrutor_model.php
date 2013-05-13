@@ -110,7 +110,9 @@ class Instrutor_model extends CI_Model {
                 inner join status_avaliacao using (id_status_avaliacao)
                 left join graduacao_participantes 
                 on pre_avaliacao.id_federado = graduacao_participantes.id_federado
-                where pre_avaliacao.id_evento = $ultimo_evento ";
+                where pre_avaliacao.id_evento = $ultimo_evento
+                
+                order by pre_avaliacao.id_evento ASC";
         $dados = $this->db->query($sql)->result_array();
 
         $avaliacao = array();

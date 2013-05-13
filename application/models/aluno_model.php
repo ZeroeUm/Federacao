@@ -77,23 +77,21 @@ class Aluno_model extends CI_Model
 
     public function historicoNotas($aluno)
     {
-        return $this->db
-                        ->select("
-                                    DATE_FORMAT(evento_graduacao.data_evento,'%d-%m-%Y') AS data_aprovacao,
-                                    AVG(prontuario.nota) AS media,
-                                    graduacao.faixa,
-                                    modalidade.nome as modalidade
-                                ")
-                        ->from('prontuario')
-                        ->join('evento_graduacao', 'prontuario.id_evento = evento_graduacao.id_evento', 'inner')
-                        ->join('movimento_faixa', 'prontuario.id_movimento_faixa = movimento_faixa.id_movimento_faixa', 'inner')
-                        ->join('modalidade', 'evento_graduacao.id_modalidade = modalidade.id_modalidade', 'inner')
-                        ->join('graduacao', 'movimento_faixa.id_graduacao = graduacao.id_graduacao', 'inner')
-                        ->where('prontuario.id_federado', $aluno)
-                        ->group_by('prontuario.id_evento')
-                        ->order_by('evento_graduacao.data_evento', 'asc')
-                        ->get()
-                        ->result_array();
+        $sql = "SELECT
+  date_format(evento_graduacao.data_evento,'%d-%m-%Y') as data_aprovacao,
+  avg(nota) as media,
+  graduacao.faixa,
+  modalidade.nome
+FROM federacao.prontuario 
+inner join evento_graduacao using(id_evento)
+inner join movimento_faixa using (id_movimento_faixa)
+inner join modalidade
+on modalidade.id_modalidade = movimento_faixa.id_modalidade
+inner join graduacao using (id_graduacao)
+where id_federado = 7 
+group by id_evento;";
+        
+        return $this->db->query($sql)->result_array();
     }
 
 }
