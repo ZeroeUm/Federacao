@@ -22,6 +22,18 @@ class Instrutor_model extends CI_Model {
         }
     }
     
+    function confirma_participacao($id_federado,$id_evento){
+     $conditions = array(
+            'id_evento'=>$id_evento,
+            'id_federado'=>$id_federado
+        );
+        $update = array(
+            'status_participacao'=>'1'
+        );
+        $this->db->where($conditions);
+      
+        return  $this->db->update('graduacao_participantes',$update);   
+    }
     
     function remover_evento_graduacao($id_federado,$id_evento){
         $conditions = array(
@@ -32,7 +44,8 @@ class Instrutor_model extends CI_Model {
             'status_participacao'=>'0'
         );
         $this->db->where($conditions);
-       return  $this->db->update('graduacao_participante',$update);
+      
+        return  $this->db->update('graduacao_participantes',$update);
         
     }
 
@@ -74,16 +87,20 @@ class Instrutor_model extends CI_Model {
     }
 
     function get_status_avaliacao() {
+       
+        
         $this->load->model('Coordenador_model', 'coordenador');
         $ultimo_evento = $this->coordenador->getUltimoEvento();
 
+        
         $sql = "SELECT 
                 federado.id_federado as id,
                 federado.nome,
                 graduacao.faixa,
                 date_format(pre_avaliacao.data_agendamento,'%d-%m-%Y') as data,
                 pre_avaliacao.horario,
-                status_avaliacao.id_status_avaliacao as avaliacao
+                status_avaliacao.id_status_avaliacao as avaliacao,
+                graduacao_participantes.status_participacao
                 FROM federacao.pre_avaliacao
                 inner join federado
                 on federado.id_federado = pre_avaliacao.id_federado
@@ -91,9 +108,10 @@ class Instrutor_model extends CI_Model {
                 on graduacao_federado.id_federado = federado.id_federado
                 inner join graduacao using (id_graduacao)
                 inner join status_avaliacao using (id_status_avaliacao)
-                where pre_avaliacao.id_evento = $ultimo_evento";
+                left join graduacao_participantes 
+                on pre_avaliacao.id_federado = graduacao_participantes.id_federado
+                where pre_avaliacao.id_evento = $ultimo_evento ";
         $dados = $this->db->query($sql)->result_array();
-
 
         $avaliacao = array();
         
@@ -116,6 +134,7 @@ class Instrutor_model extends CI_Model {
                 $avaliacao['aprovados']['nome'][] = $v['nome'];
                 $avaliacao['aprovados']['faixa'][] = $v['faixa'];
                 $avaliacao['aprovados']['id'][] = $v['id'];
+                $avaliacao['aprovados']['status'][] = $v['status_participacao'];
             } elseif ($v['avaliacao'] == '2') {
                 $avaliacao['reprovados']['nome'][] = $v['nome'];
                 $avaliacao['reprovados']['faixa'][] = $v['faixa'];

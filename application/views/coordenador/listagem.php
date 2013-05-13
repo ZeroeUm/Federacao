@@ -4,7 +4,7 @@
     <td>Faixa</td>
     
      <?php foreach ($faixas as $i=>$v){?>
-    <td><?php echo $v['faixa'];?></td>
+    <td>Candidato a <?php echo $v['faixa'];?></td>
     <?php } ?>
 </tr>
 

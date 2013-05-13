@@ -32,6 +32,22 @@ class Instrutores extends CI_Controller {
         }
     }
     
+    function confirma_participacao($id_federado,$id_evento){
+        
+        $remover = $this->instrutor->confirma_participacao($id_federado,$id_evento);
+        
+         if($remover){
+         $this->session->set_flashdata('alerta',"Confirmado com sucesso");
+           
+            redirect('/instrutores/');
+        }  else {
+             $this->session->set_flashdata('alerta',"Não foi possivel confirmar");
+           
+        redirect('/instrutores/');    
+        }
+    }
+
+
     function remover_evento_graduacao($id_federado,$id_evento){
         
         $remover = $this->instrutor->remover_evento_graduacao($id_federado,$id_evento);
@@ -49,12 +65,15 @@ class Instrutores extends CI_Controller {
 
 
     function index() {
-        
-        $dados['resultado'] = $this->instrutor->get_status_avaliacao();
+       //lista de participantes para o proximo evento 
+       $dados['resultado'] = $this->instrutor->get_status_avaliacao();
+       
+       //total de alunos do instrutor
        $dados['total_alunos'] = $this->instrutor->total_alunos($this->session->userdata('id'),'total'); 
        
+       //Carregar data do próximo evento
        $this->load->model('Coordenador_model', 'coordenador');
-       $dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
+       @$dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
         
        
         $this->load->view('header');
