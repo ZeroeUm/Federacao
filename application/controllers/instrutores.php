@@ -518,11 +518,19 @@ class Instrutores extends CI_Controller {
     }
 
     function manutencao($id = '1') {
-        $this->load->model('Instrutor_model');
-         $tema["instrutor"] = $this->instrutor->getInscrito($this->session->userdata('id'));
+        //lista de participantes para o proximo evento 
+       $dados['resultado'] = $this->instrutor->get_status_avaliacao();
+       
+       //total de alunos do instrutor
+       $dados['total_alunos'] = $this->instrutor->total_alunos($this->session->userdata('id'),'total'); 
+       
+       //Carregar data do próximo evento
+       $this->load->model('Coordenador_model', 'coordenador');
+       @$dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
         
+       
         $this->load->view('header');
-        $this->load->view('instrutores/manutencao', $tema);
+        $this->load->view('instrutores/manutencao',$dados);
         $this->load->view('footer');
     }
 

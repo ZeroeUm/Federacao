@@ -23,7 +23,7 @@
     <?php } ?>
     <tr>
         <td>Média</td>
-        <td><?php echo $valor/$divisor; ?></td>
+        <td><?php echo round($valor/$divisor,1); ?></td>
     </tr>
 </table>
 </div>

@@ -88,7 +88,7 @@ inner join movimento_faixa using (id_movimento_faixa)
 inner join modalidade
 on modalidade.id_modalidade = movimento_faixa.id_modalidade
 inner join graduacao using (id_graduacao)
-where id_federado = 7 
+where id_federado = $aluno 
 group by id_evento;";
         
         return $this->db->query($sql)->result_array();

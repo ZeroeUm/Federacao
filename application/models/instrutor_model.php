@@ -98,7 +98,7 @@ class Instrutor_model extends CI_Model {
                     inner join graduacao_federado using (id_federado)
                     inner join federado using (id_federado)
                     inner join graduacao using (id_graduacao)
-                 where pre_avaliacao.id_evento = 20 and pre_avaliacao.id_status_avaliacao !=1";
+                 where pre_avaliacao.id_evento = $ultimo_evento and pre_avaliacao.id_status_avaliacao !=1";
 
         $tabela = $this->db->query($sql)->result_array();
 
@@ -131,7 +131,7 @@ class Instrutor_model extends CI_Model {
                             on graduacao_federado.id_federado = graduacao_participantes.id_federado
                             inner join graduacao
                             on graduacao.id_graduacao = graduacao_participantes.id_graduacao
-                            where graduacao_participantes.id_evento = 20;";
+                            where graduacao_participantes.id_evento = $ultimo_evento;";
         $dados['aprovados'] = $this->db->query($sql_aprovados)->result_array();
 
         

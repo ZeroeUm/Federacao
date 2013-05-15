@@ -27,7 +27,7 @@
                         <?php if ($v['avaliacao'] == '1') { ?>
                             <a href="<?php base_url() ?>instrutores/remover_evento_graduacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-important">Cancelar Participação</a>
                         <?php } else { ?>
-                            <a href="<?php base_url() ?>instrutores/confirma_participacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-success">Confirma participação</a>
+                            <a href="<?php base_url() ?>instrutores/confirma_participacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-success">Confirma Participação</a>
 
                         <?php } ?>
                         <br>

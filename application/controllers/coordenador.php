@@ -379,7 +379,7 @@ class coordenador extends CI_Controller{
         if(!empty($id_faixa)){
           $id_evento = $this->coordenador->getUltimoEvento(); 
           $dados['movimentos'] = $this->coordenador->movimentos($id_faixa);
-          $dados['participantes'] = $this->coordenador->Participantes($id_faixa-1,$id_evento);
+          $dados['participantes'] = $this->coordenador->participantes($id_faixa-1,$id_evento);
           
           $this->load->view('coordenador/imprimir_listagem',$dados);
           
