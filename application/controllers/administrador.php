@@ -16,7 +16,9 @@ class administrador extends CI_Controller
     
     function index()
     {
-        
+      $this->load->view('header');
+            $this->load->view('administrador/index');
+            $this->load->view('footer');  
     }
 
     function checar_sessao()
