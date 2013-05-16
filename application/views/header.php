@@ -115,7 +115,20 @@
                    
                     <ul id="menu">
                         
-                         <li class="parent">
+                         
+                        <li class="parent">
+                            <a href="#" title="">Pré-Avaliação <i class="icon-forward pull-right" style="padding-right: 10px;"></i></a>
+                            <ul class="sub-menu">
+                                <li><a href="<?php echo site_url(); ?>coordenador/pre_avaliar" title="">Agendar pré-Avaliação</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/agenda_de_compromissos" title="">Cancelar agendamento</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/listagem" title="">Listagem de Avaliados</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/lancar_nota" title="">Lançar Notas</a></li>
+                            </ul>
+                        </li>
+                        
+                        
+                        
+                        <li class="parent">
                              <a href="#" title="">Eventos <i class="icon-forward pull-right" style="padding-right: 10px;"></i></a>
                             <ul class="sub-menu">
                                 <li><a href="<?php echo site_url(); ?>coordenador/criarEvento" title="">Criar novo evento</a></li>
@@ -126,15 +139,6 @@
                         </li>
                         
                         
-                        <li class="parent">
-                            <a href="#" title="">Pré-Avaliação <i class="icon-forward pull-right" style="padding-right: 10px;"></i></a>
-                            <ul class="sub-menu">
-                                <li><a href="<?php echo site_url(); ?>coordenador/pre_avaliar" title="">Agendar pré-Avaliação</a></li>
-                                <li><a href="<?php echo site_url(); ?>coordenador/agenda_de_compromissos" title="">Cancelar agendamento</a></li>
-                                <li><a href="<?php echo site_url(); ?>coordenador/listagem" title="">Listagem de Avaliados</a></li>
-                                <li><a href="<?php echo site_url(); ?>coordenador/lancar_nota" title="">Lançar Notas</a></li>
-                            </ul>
-                        </li>
                         
                         
                         
