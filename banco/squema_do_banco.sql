@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: 13/05/2013 às 19:53:06
+-- Tempo de Geração: 16/05/2013 às 17:26:35
 -- Versão do Servidor: 5.1.66-0ubuntu0.11.10.3
 -- Versão do PHP: 5.3.6-13ubuntu3.10
 
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `endereco` (
   PRIMARY KEY (`id_endereco`),
   KEY `FK_endereco_tipo_endereco` (`tipo_endereco`),
   KEY `FK_endereco_uf` (`uf`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=39 ;
 
 --
 -- Extraindo dados da tabela `endereco`
@@ -105,7 +105,8 @@ INSERT INTO `endereco` (`id_endereco`, `logradouro`, `numero`, `complemento`, `b
 (34, 'Av Paulista ', 325, '', 'Bela Vista', 'São Paulo', 1, 3),
 (35, 'Endereco da filiaal 1', 22, '', 'Penha', 'São Paulo', 1, 1),
 (36, 'Rua do Evento ', 151, '', 'Bela Vista', 'São paulo', 1, 3),
-(37, 'Novo evento 2', 0, '', '', 'São paulo', 1, 3);
+(37, 'Novo evento 2', 0, '', '', 'São paulo', 1, 3),
+(38, 'Av Paulista 252 - Bela Vista', 161, '', 'jaçana', 'São Paulo', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -168,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `evento_graduacao` (
   UNIQUE KEY `validacao` (`numero_evento`),
   KEY `FK_evento_graduacao_endereco` (`id_endereco`),
   KEY `FK_evento_graduacao_modalidade` (`id_modalidade`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
 -- Extraindo dados da tabela `evento_graduacao`
@@ -176,7 +177,8 @@ CREATE TABLE IF NOT EXISTS `evento_graduacao` (
 
 INSERT INTO `evento_graduacao` (`id_evento`, `numero_evento`, `data_evento`, `id_endereco`, `id_modalidade`, `descricao`) VALUES
 (19, '05-2013', '2013-05-31', 36, 1, 'Evento de graduação de faixa, para todos os filiados    \n        '),
-(20, '06-2013', '2013-06-30', 37, 1, '    \n        asdasdasdas');
+(20, '06-2013', '2013-06-30', 37, 1, '    \n        asdasdasdas'),
+(21, '07-2013', '2013-07-30', 38, 1, '    \n        asdasdasdasd');
 
 -- --------------------------------------------------------
 
@@ -346,13 +348,13 @@ CREATE TABLE IF NOT EXISTS `graduacao_federado` (
 
 INSERT INTO `graduacao_federado` (`id_graduacao_federado`, `id_modalidade`, `id_graduacao`, `id_federado`, `status`, `data_emissao`) VALUES
 (1, 1, '13', 1, 1, '1990-05-05'),
-(2, 1, '4', 6, 1, '2013-05-13'),
+(2, 1, '6', 6, 1, '2013-05-16'),
 (3, 1, '10', 5, 1, '1999-10-10'),
 (4, 1, '11', 3, 1, '2000-01-10'),
-(5, 1, '4', 7, 1, '2013-05-13'),
-(6, 1, '4', 8, 1, '2013-05-13'),
-(7, 1, '4', 9, 1, '2013-05-13'),
-(8, 1, '4', 11, 1, '2013-05-13');
+(5, 1, '5', 7, 1, '2013-05-15'),
+(6, 1, '5', 8, 1, '2013-05-15'),
+(7, 1, '6', 9, 1, '2013-05-15'),
+(8, 1, '6', 11, 1, '2013-05-16');
 
 -- --------------------------------------------------------
 
@@ -375,16 +377,12 @@ CREATE TABLE IF NOT EXISTS `graduacao_participantes` (
 --
 
 INSERT INTO `graduacao_participantes` (`id_evento`, `id_federado`, `id_graduacao`, `status_participacao`) VALUES
-(19, 6, 2, 1),
-(19, 7, 2, 1),
-(19, 8, 3, 1),
-(19, 9, 2, 1),
-(19, 11, 3, 1),
-(20, 6, 4, 1),
-(20, 7, 4, 1),
-(20, 8, 4, 1),
-(20, 9, 4, 1),
-(20, 11, 4, 1);
+(20, 7, 5, 1),
+(20, 8, 5, 1),
+(20, 9, 6, 1),
+(20, 11, 5, 1),
+(21, 6, 6, 1),
+(21, 11, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -726,23 +724,23 @@ CREATE TABLE IF NOT EXISTS `pre_avaliacao` (
   KEY `fk_pre_avaliacao_2` (`id_federado`),
   KEY `fk_pre_avaliacao_3` (`id_status_avaliacao`),
   KEY `fk_pre_avaliacao_4` (`id_filial`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=82 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=94 ;
 
 --
 -- Extraindo dados da tabela `pre_avaliacao`
 --
 
 INSERT INTO `pre_avaliacao` (`id_pre_avaliacao`, `id_evento`, `id_federado`, `id_status_avaliacao`, `data_agendamento`, `id_filial`, `horario`) VALUES
-(72, 19, 6, 1, '2013-05-13', 1, 1),
-(73, 19, 7, 1, '2013-05-13', 1, 1),
-(74, 19, 8, 1, '2013-05-13', 1, 1),
-(75, 19, 9, 1, '2013-05-13', 1, 1),
-(76, 19, 11, 1, '2013-05-13', 1, 1),
-(77, 20, 6, 1, '2013-06-26', 1, 1),
-(78, 20, 7, 1, '2013-06-26', 1, 1),
-(79, 20, 8, 1, '2013-06-26', 1, 1),
-(80, 20, 9, 1, '2013-06-26', 1, 1),
-(81, 20, 11, 1, '2013-06-26', 1, 1);
+(82, 20, 6, 2, '2013-05-27', 1, 1),
+(84, 20, 8, 1, '2013-05-27', 1, 1),
+(86, 20, 11, 1, '2013-05-27', 1, 1),
+(87, 20, 7, 1, '2013-05-28', 1, 3),
+(88, 20, 9, 1, '2013-05-28', 1, 3),
+(89, 21, 6, 1, '2013-05-28', 1, 3),
+(90, 21, 7, 3, '2013-05-28', 1, 3),
+(91, 21, 8, 3, '2013-05-28', 1, 3),
+(92, 21, 9, 2, '2013-05-28', 1, 3),
+(93, 21, 11, 1, '2013-05-28', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -762,7 +760,7 @@ CREATE TABLE IF NOT EXISTS `prontuario` (
   KEY `fk_prontuario_1` (`id_movimento_faixa`),
   KEY `fk_prontuario_3` (`id_evento`),
   KEY `fk_prontuario_4` (`id_federado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=383 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=422 ;
 
 --
 -- Extraindo dados da tabela `prontuario`
@@ -828,7 +826,46 @@ INSERT INTO `prontuario` (`id_prontuario`, `id_federado`, `id_evento`, `ordem`, 
 (379, 8, 20, NULL, 18, '8'),
 (380, 8, 20, NULL, 19, '8'),
 (381, 8, 20, NULL, 20, '8'),
-(382, 8, 20, NULL, 21, '8');
+(382, 8, 20, NULL, 21, '8'),
+(383, 11, 20, NULL, 22, '8'),
+(384, 11, 20, NULL, 23, '8'),
+(385, 11, 20, NULL, 24, '8'),
+(386, 11, 20, NULL, 25, '9'),
+(387, 11, 20, NULL, 26, '8'),
+(388, 11, 20, NULL, 27, '8'),
+(389, 8, 20, NULL, 22, '7.9'),
+(390, 8, 20, NULL, 23, '7.9'),
+(391, 8, 20, NULL, 24, '8.9'),
+(392, 8, 20, NULL, 25, '8.9'),
+(393, 8, 20, NULL, 26, '8.8'),
+(394, 8, 20, NULL, 27, '9.9'),
+(395, 7, 20, NULL, 22, '8.8'),
+(396, 7, 20, NULL, 23, '8.8'),
+(397, 7, 20, NULL, 24, '8.8'),
+(398, 7, 20, NULL, 25, '8.8'),
+(399, 7, 20, NULL, 26, '8.8'),
+(400, 7, 20, NULL, 27, '8.8'),
+(401, 9, 20, NULL, 22, '9'),
+(402, 9, 20, NULL, 23, '9'),
+(403, 9, 20, NULL, 24, '9.9'),
+(404, 9, 20, NULL, 25, '9.9'),
+(405, 9, 20, NULL, 26, '9.9'),
+(406, 9, 20, NULL, 27, '9.9'),
+(407, 6, 21, NULL, 22, '9.9'),
+(408, 6, 21, NULL, 23, '9.9'),
+(409, 6, 21, NULL, 24, '9.9'),
+(410, 6, 21, NULL, 25, '9.9'),
+(411, 6, 21, NULL, 26, '9.9'),
+(412, 6, 21, NULL, 27, '9.9'),
+(413, 11, 21, NULL, 28, '8'),
+(414, 11, 21, NULL, 29, '8'),
+(415, 11, 21, NULL, 30, '8'),
+(416, 11, 21, NULL, 31, '8'),
+(417, 11, 21, NULL, 32, '8'),
+(418, 11, 21, NULL, 33, '8'),
+(419, 11, 21, NULL, 34, '8'),
+(420, 11, 21, NULL, 35, '8.9'),
+(421, 11, 21, NULL, 36, '8.9');
 
 -- --------------------------------------------------------
 

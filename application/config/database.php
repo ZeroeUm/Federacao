@@ -45,13 +45,29 @@
 | the active record class
 */
 
+if($_SERVER ['REMOTE_ADDR']=='127.0.0.1'){
+
+$host = "localhost";
+$user = "root";
+$banco ="federacao";
+$senha = "jacfelipe";
+}else{
+    
+$host = "localhost";
+$user = "dwork628_federac";
+$banco ="dwork628_federacao";
+$senha = "1234federacao";    
+    
+}
+
+
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = 'jacfelipe';
-$db['default']['database'] = 'federacao';// nome do Banco
+$db['default']['hostname'] = $host;
+$db['default']['username'] = $user;
+$db['default']['password'] = $senha;
+$db['default']['database'] = $banco;// nome do Banco
 $db['default']['dbdriver'] = 'mysql'; 
 $db['default']['dbprefix'] = "";
 $db['default']['pconnect'] = TRUE;
