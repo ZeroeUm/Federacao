@@ -53,7 +53,7 @@ $label = array(
         
         <div class="login" style="">
            
-              <form action="http://federacao.local/login" method="post">
+            <form action="<?php echo base_url()?>login" method="post">
           
             <div class="">
                 <div class="">Usuario:</div>
