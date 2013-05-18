@@ -22,8 +22,36 @@ $label = array(
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.css">
 
     </head>
+    <style>
+        body{
+    background-image: url('federados')
+        }
+      
+        .logo{
+           position: absolute;
+           margin-left: 190px;
+           margin-top: 70px;
+        }
+        
+      
+        .login{
+            background-color: whitesmoke;
+            border: 1px solid;
+            border-radius: 30px;
+            width: 200px;
+            margin:10% auto 0px 60%;
+            text-align: left;
+            padding: 60px;
+        }
+    </style>
+    
     <body>
-        <div class="linha" style="border: 1px solid; width: 200px;margin:50px auto 0px auto; text-align: left;padding: 60px;">
+        <div class="logo">
+            <img src="federados/logo2.png">
+            
+        </div>
+        
+        <div class="login" style="">
            
               <form action="http://federacao.local/login" method="post">
           
@@ -34,7 +62,7 @@ $label = array(
           
             <div class="">
                 <div class="">Senha:</div>
-                <div class=""><input type="text" class="input-large" name="senha"></div>
+                <div class=""><input type="password" class="input-large" name="senha"></div>
             </div>
                   
                 
@@ -42,7 +70,7 @@ $label = array(
                 
             <div class="">
                 
-                <input type="submit" class="btn btn-primary" value="Entrar"> <span style="float: right">Lembrar senha</span>
+                <input type="submit" class="btn btn-primary" value="Entrar"> <span style="float: right;text-decoration: underline">Lembrar senha</span>
             
             </div>       
                

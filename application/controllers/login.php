@@ -14,6 +14,10 @@ class Login extends CI_Controller
         $this->load->model("Login_model", 'login', TRUE);
     }
 
+    function lembrar_senha(){
+        
+    }
+            
     function index()
     {
         $this->form_validation->set_rules('usuario', 'Usuário', 'trim|xss_clean|required');
