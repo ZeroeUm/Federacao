@@ -23,35 +23,36 @@ $label = array(
 
     </head>
     <body>
-        <div class="row-fluid">
+        <div class="linha" style="border: 1px solid; width: 200px;margin:50px auto 0px auto; text-align: left;padding: 60px;">
+           
+              <form action="http://federacao.local/login" method="post">
+          
+            <div class="">
+                <div class="">Usuario:</div>
+                <div class=""><input type="text" class="input-large" name="usuario"></div>
+            </div>
+          
+            <div class="">
+                <div class="">Senha:</div>
+                <div class=""><input type="text" class="input-large" name="senha"></div>
+            </div>
+                  
+                
+                  
+                
+            <div class="">
+                
+                <input type="submit" class="btn btn-primary" value="Entrar"> <span style="float: right">Lembrar senha</span>
+            
+            </div>       
+               
+                  
+                    
+            </form>
             <div class="alert-error">
                 <?php echo validation_errors(); ?>
             </div>
-            <?php
-            echo form_fieldset('Área de login ao SGAI');
-            echo form_open('login', $attr);
-            ?>
-            <div class="control-group">
-                <?php echo form_label('Usuário', 'usuario', $label); ?>
-                <div class="controls">
-                    <?php echo form_input('usuario', '', 'id="usuario" class="span3" maxlength="20" required placeholder="Usuário"'); ?>
-                </div>
-            </div>
-            <div class="control-group">
-                <?php echo form_label('Senha', 'senha', $label); ?>
-                <div class="controls">
-                    <?php echo form_password('senha', '', 'id="senha" class="span3" maxlength="10" required placeholder="Senha"'); ?>
-                </div>
-            </div>
-            <div class="controls">
-                <?php
-                echo form_submit('btnEntrar', 'Entrar', 'id="btnEntrar" class="btn btn-primary"');
-                ?>    
-            </div>
-            <?php
-            echo form_close();
-            echo form_fieldset_close();
-            ?>
+           
         </div>
     </body>
 </html>
