@@ -94,6 +94,7 @@ class Coordenador_model extends CI_Model {
     }
 
     function get_faixas_avaliadas() {
+       $ultimo_evento = $this->ultimo_evento();
         $sql = "SELECT 
                         count(pre_avaliacao.id_federado) as total,
                         graduacao.id_graduacao,
@@ -104,7 +105,7 @@ class Coordenador_model extends CI_Model {
                         on graduacao_federado.id_federado = pre_avaliacao.id_federado
                         inner join graduacao
                         on graduacao_federado.id_graduacao+1 = graduacao.id_graduacao
-                        where pre_avaliacao.id_status_avaliacao = 3
+                        where pre_avaliacao.id_evento = {$ultimo_evento['id_evento']}
                         group by graduacao_federado.id_graduacao";
         return $this->db->query($sql)->result_array();
     }

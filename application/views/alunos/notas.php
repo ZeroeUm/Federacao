@@ -20,7 +20,7 @@
                     <td align="center"><?php echo $nome;?></td>
                     <td align="center"><?php echo $data_aprovacao;?></td>
                     <td align="center"><?php echo $faixa;?></td>
-                    <td align="center"><?php echo $media;?></td>
+                    <td align="center"><?php echo round($media,1);?></td>
                 </tr>
                 <?php } ?>
             </tbody>

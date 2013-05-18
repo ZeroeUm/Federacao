@@ -45,6 +45,22 @@
 | the active record class
 */
 
+if($_SERVER ['REMOTE_ADDR']=='127.0.0.1'){
+
+$host = "localhost";
+$user = "root";
+$banco ="federacao";
+$senha = "jacfelipe";
+}else{
+    
+$host = "localhost";
+$user = "dwork628_federac";
+$banco ="dwork628_federacao";
+$senha = "1234federacao";    
+    
+}
+
+
 $active_group = 'default';
 $active_record = TRUE;
 

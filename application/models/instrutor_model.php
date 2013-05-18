@@ -21,55 +21,50 @@ class Instrutor_model extends CI_Model {
             $this->db->insert('pre_avaliacao', $insert);
         }
     }
-    
-    function confirma_participacao($id_federado,$id_evento){
-     $conditions = array(
-            'id_evento'=>$id_evento,
-            'id_federado'=>$id_federado
+
+    function confirma_participacao($id_federado, $id_evento) {
+        $conditions = array(
+            'id_evento' => $id_evento,
+            'id_federado' => $id_federado
         );
         $update = array(
-            'status_participacao'=>'1'
+            'status_participacao' => '1'
         );
         $this->db->where($conditions);
-      
-        return  $this->db->update('graduacao_participantes',$update);   
+
+        return $this->db->update('graduacao_participantes', $update);
     }
-    
-    function remover_evento_graduacao($id_federado,$id_evento){
+
+    function remover_evento_graduacao($id_federado, $id_evento) {
         $conditions = array(
-            'id_evento'=>$id_evento,
-            'id_federado'=>$id_federado
+            'id_evento' => $id_evento,
+            'id_federado' => $id_federado
         );
         $update = array(
-            'status_participacao'=>'0'
+            'status_participacao' => '0'
         );
         $this->db->where($conditions);
-      
-        return  $this->db->update('graduacao_participantes',$update);
-        
+
+        return $this->db->update('graduacao_participantes', $update);
     }
 
-
-    function remover_pre_avalicacao($id_federado,$id_evento){
+    function remover_pre_avalicacao($id_federado, $id_evento) {
         $conditions = array(
-            'id_evento'=>$id_evento,
-            'id_federado'=>$id_federado
+            'id_evento' => $id_evento,
+            'id_federado' => $id_federado
         );
-       return $this->db->delete('pre_avaliacao',$conditions);
+        return $this->db->delete('pre_avaliacao', $conditions);
     }
-
-
-
 
     //Função total_alunos se passar qualquer coisa como 2 parametro a função
     //irá mostrar o total de alunos do instrutor caso contrario somente irá lista-los por nome
-    function total_alunos($id_instrutor,$count = null){
-       if($count!=null){
-           $count = "count(matricula.id_federado) as total_alunos,";
-       }else{
-           $count = "";
-       }
-        
+    function total_alunos($id_instrutor, $count = null) {
+        if ($count != null) {
+            $count = "count(matricula.id_federado) as total_alunos,";
+        } else {
+            $count = "";
+        }
+
         $sql = "SELECT 
                 $count            
                 matricula.id_federado,
@@ -83,78 +78,64 @@ class Instrutor_model extends CI_Model {
                 on  matricula.id_federado = federado.id_federado
                 where instrutor.id_federado = $id_instrutor;";
         return $this->db->query($sql)->result_array();
-        
     }
 
     function get_status_avaliacao() {
-       
-        
+
+
         $this->load->model('Coordenador_model', 'coordenador');
         $ultimo_evento = $this->coordenador->getUltimoEvento();
 
-        
+
         $sql = "SELECT 
-                federado.id_federado as id,
-                federado.nome,
-                graduacao.faixa,
-                date_format(pre_avaliacao.data_agendamento,'%d-%m-%Y') as data,
-                pre_avaliacao.horario,
-                status_avaliacao.id_status_avaliacao as avaliacao,
-                graduacao_participantes.status_participacao
-                FROM federacao.pre_avaliacao
-                inner join federado
-                on federado.id_federado = pre_avaliacao.id_federado
-                inner join graduacao_federado 
-                on graduacao_federado.id_federado = federado.id_federado
-                inner join graduacao using (id_graduacao)
-                inner join status_avaliacao using (id_status_avaliacao)
-                left join graduacao_participantes 
-                on pre_avaliacao.id_federado = graduacao_participantes.id_federado
-                where pre_avaliacao.id_evento = $ultimo_evento
-                
-                order by pre_avaliacao.id_evento ASC";
-        $dados = $this->db->query($sql)->result_array();
+                    federado.id_federado as id,
+                    federado.nome,
+                    graduacao.faixa,
+                    date_format(pre_avaliacao.data_agendamento,'%d-%m-%Y') as data,
+                    pre_avaliacao.horario,
+                    pre_avaliacao.id_status_avaliacao as avaliacao
+                    FROM federacao.pre_avaliacao
+                    inner join graduacao_federado using (id_federado)
+                    inner join federado using (id_federado)
+                    inner join graduacao using (id_graduacao)
+                 where pre_avaliacao.id_evento = $ultimo_evento and pre_avaliacao.id_status_avaliacao !=1";
 
-        $avaliacao = array();
-        
-        //Necessário para não dar erro na exibição
-        $avaliacao['aprovados']['nome'] = array();
-        $avaliacao['aprovados']['faixa'] = array();
-        $avaliacao['reprovados']['nome'] = array();
-        $avaliacao['reprovados']['faixa'] = array();
-        $avaliacao['aguardando']['nome'] = array();
-        $avaliacao['aguardando']['data_avaliacao'] = array();
-        $avaliacao['aguardando']['horario'] = array();
-        $avaliacao['nao_agendado']['nome'] = array();
-        $avaliacao['nao_agendado']['faixa']= array();
-        
-    //final
-        
-        foreach ($dados as $v) {
+        $tabela = $this->db->query($sql)->result_array();
 
-            if ($v['avaliacao'] == '1') {
-                $avaliacao['aprovados']['nome'][] = $v['nome'];
-                $avaliacao['aprovados']['faixa'][] = $v['faixa'];
-                $avaliacao['aprovados']['id'][] = $v['id'];
-                $avaliacao['aprovados']['status'][] = $v['status_participacao'];
-            } elseif ($v['avaliacao'] == '2') {
-                $avaliacao['reprovados']['nome'][] = $v['nome'];
-                $avaliacao['reprovados']['faixa'][] = $v['faixa'];
-                $avaliacao['reprovados']['id'][] = $v['id'];
-            } elseif ($v['avaliacao'] == '3') {
-                $avaliacao['aguardando']['nome'][] = $v['nome'];
-                $avaliacao['aguardando']['data_avaliacao'][] = $v['data'];
-                $avaliacao['aguardando']['horario'][] = $v['horario'];
-                $avaliacao['aguardando']['id'][] = $v['id'];
-            } else {
-                $avaliacao['nao_agendado']['nome'][] = $v['nome'];
-                $avaliacao['nao_agendado']['faixa'][] = $v['faixa'];
-                $avaliacao['nao_agendado']['id'][] = $v['id'];
+        $dados['reprovados'] = array();
+        $dados['aguardando']= array();
+        $dados['nao_agendado'] = array();
+        foreach ($tabela as $i) {
+            if ($i['avaliacao'] == '2') {
+                $dados['reprovados'][] = $i;
+            }elseif($i['avaliacao'] == '3'){
+                $dados['aguardando'][] = $i;
+            }elseif($i['avaliacao'] == '4'){
+                $dados['nao_agendado'][] = $i;
             }
         }
 
 
-        return $avaliacao;
+
+        $sql_aprovados = "SELECT 
+                            federado.id_federado as id,
+                            federado.nome,
+                            graduacao.faixa,
+                            date_format(0000-00-00,'%d-%m-%Y') as data,
+                            0 as horario,
+                            graduacao_participantes.status_participacao as avaliacao
+                            FROM federacao.graduacao_participantes 
+                            inner join federado 
+                            on federado.id_federado = graduacao_participantes.id_federado
+                            inner join graduacao_federado 
+                            on graduacao_federado.id_federado = graduacao_participantes.id_federado
+                            inner join graduacao
+                            on graduacao.id_graduacao = graduacao_participantes.id_graduacao
+                            where graduacao_participantes.id_evento = $ultimo_evento;";
+        $dados['aprovados'] = $this->db->query($sql_aprovados)->result_array();
+
+        
+        return $dados;
     }
 
     function cadastro() {
