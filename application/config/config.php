@@ -14,7 +14,11 @@
   | path to your installation.
   |
  */
-$config['base_url'] = "http://federacao.local/";
+
+$producao = $_SERVER ['SERVER_NAME'];
+
+
+$config['base_url'] = "http://".$producao;
 
 /*
 |--------------------------------------------------------------------------

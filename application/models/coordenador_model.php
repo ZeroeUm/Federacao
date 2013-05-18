@@ -72,7 +72,7 @@ class Coordenador_model extends CI_Model {
     function incluir_em_evento($dados) {
         $faixa_federado = $this->get_faixa_aluno($dados['id_federado']);
         //Pego a graduação atual do aluno adiciono mais uma e entao incluo no evento
-        $insert['id_graduacao'] = $faixa_federado['0']['id_graduacao'] + 1;
+        $insert['id_graduacao'] = $faixa_federado['0']['id_graduacao'];
         $insert['id_evento'] = $dados['id_evento'];
         $insert['id_federado'] = $dados['id_federado'];
         $this->db->insert('graduacao_participantes', $insert);
@@ -94,6 +94,7 @@ class Coordenador_model extends CI_Model {
     }
 
     function get_faixas_avaliadas() {
+       $ultimo_evento = $this->ultimo_evento();
         $sql = "SELECT 
                         count(pre_avaliacao.id_federado) as total,
                         graduacao.id_graduacao,
@@ -104,13 +105,14 @@ class Coordenador_model extends CI_Model {
                         on graduacao_federado.id_federado = pre_avaliacao.id_federado
                         inner join graduacao
                         on graduacao_federado.id_graduacao+1 = graduacao.id_graduacao
-                        where pre_avaliacao.id_status_avaliacao = 2
+                        where pre_avaliacao.id_evento = {$ultimo_evento['id_evento']}
                         group by graduacao_federado.id_graduacao";
         return $this->db->query($sql)->result_array();
     }
 
     function compromisso_agendados() {
         $sql = "SELECT 
+                    count(pre_avaliacao.id_federado)as total,
                     date_format(pre_avaliacao.data_agendamento,'%d-%m-%Y') as data,
                     pre_avaliacao.horario,
                     filial.nome
@@ -121,7 +123,7 @@ class Coordenador_model extends CI_Model {
                     on modalidade.id_coordenador = coordenador.id_coordenador
                inner join federado
                     on coordenador.id_federado = federado.id_federado
-               where pre_avaliacao.id_status_avaliacao = 2
+               where pre_avaliacao.id_status_avaliacao = 3
                group by pre_avaliacao.data_agendamento, pre_avaliacao.horario
                    ";
 
@@ -209,7 +211,7 @@ class Coordenador_model extends CI_Model {
     }
 
     function get_alunos_notas($id_filial) {
-
+        $data_atual = date('Y-m-d');
         $sql = "SELECT
                     pre_avaliacao.id_pre_avaliacao,
                     federado.id_federado,
@@ -232,6 +234,7 @@ class Coordenador_model extends CI_Model {
                     pre_avaliacao.id_filial = '$id_filial'
                and 
                     pre_avaliacao.id_status_avaliacao = '3'
+                    
                order by graduacao.id_graduacao asc";
         $query = $this->db->query($sql);
         return $query->result_array();
@@ -346,14 +349,19 @@ class Coordenador_model extends CI_Model {
                     count(graduacao.id_graduacao) as total_participantes
                 FROM 
                     federacao.graduacao_participantes
-                join   
-                    federado using(id_federado)
+                inner join 
+                    graduacao_federado on
+                    graduacao_federado.id_federado = graduacao_participantes.id_federado
                 join 
-                    graduacao using (id_graduacao)
+                    graduacao on
+                graduacao.id_graduacao = graduacao_federado.id_graduacao
+                
                 where
                      graduacao_participantes.id_evento = '$id_evento'
+                         and
+                     graduacao_participantes.status_participacao = '1'
                 group by 
-                     graduacao.faixa";
+                     graduacao.id_graduacao";
         $query = $this->db->query($sql);
         return $query->result_array();
     }
@@ -370,7 +378,8 @@ class Coordenador_model extends CI_Model {
                     on graduacao_participantes.id_federado = federado.id_federado
                     inner join graduacao
                     on graduacao.id_graduacao = graduacao_participantes.id_graduacao
-                    where graduacao_participantes.id_evento = $id_evento and graduacao_participantes.status_participacao = 1
+                    where
+                    graduacao_participantes.id_evento = $id_evento and graduacao_participantes.status_participacao = 1
                     group by federado.tamanho_faixa,graduacao_participantes.id_graduacao
                     order by ordem;";
         $query = $this->db->query($sql);
@@ -392,22 +401,27 @@ class Coordenador_model extends CI_Model {
     function participantes_evento($id_evento, $id_faixa) {
 
         if ($id_faixa != null) {
-            $complemento = " and graduacao.id_graduacao = '$id_faixa';";
+            $complemento = " and graduacao_federado.id_graduacao = '$id_faixa';";
         } else {
             $complemento = ";";
         }
         $sql = "SELECT 
-                    federado.nome,
-                    federado.email,
-                    federado.telefone,
-                    graduacao.faixa
-                FROM federacao.graduacao_participantes
-                join 
-                    federado using(id_federado)
-                join 
-                    graduacao using (id_graduacao)
-                where
-                     graduacao_participantes.id_evento = '$id_evento' and graduacao_participantes.status_participacao = 1" . $complemento;
+federado.nome,
+federado.email,
+federado.telefone,
+graduacao_federado.id_graduacao,
+graduacao_participantes.id_evento,
+graduacao.faixa
+FROM federacao.graduacao_participantes
+inner join graduacao_federado 
+on graduacao_federado.id_federado= graduacao_participantes.id_federado
+inner join federado
+on federado.id_federado = graduacao_participantes.id_federado
+inner join graduacao
+on graduacao.id_graduacao = graduacao_federado.id_graduacao
+where graduacao_participantes.id_evento = $id_evento
+and
+graduacao_participantes.status_participacao = 1" . $complemento;
         $query = $this->db->query($sql);
         return $query->result_array();
     }
@@ -442,7 +456,7 @@ class Coordenador_model extends CI_Model {
     }
 
     function participantes($id_faixa, $id_evento) {
-        $id_faixa = $id_faixa - 1;
+        
         $sql = "SELECT 
                     federado.nome,
                     graduacao_federado.id_graduacao
@@ -469,7 +483,11 @@ class Coordenador_model extends CI_Model {
         $query = $this->db->query($sql);
         $dados = $query->result_array();
 
-        return $dados['0']['id_evento'];
+        if (!empty($dados['0']['id_evento'])) {
+            return $dados['0']['id_evento'];
+        } else {
+            return 0;
+        };
     }
 
     function getProntuario($dados) {
@@ -575,8 +593,6 @@ class Coordenador_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-
-    
 
     function getEventos() {
         $query = $this->db

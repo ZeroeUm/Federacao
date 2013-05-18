@@ -24,7 +24,7 @@ a:hover {
 }
 
 #header h1 {
-    xbackground: url("/assets/images/logo.png") no-repeat scroll 0 0 transparent;
+    xbackground: url("assets/images/logo.png") no-repeat scroll 0 0 transparent;
     height: 31px;
     left: 15px;
     line-height: 600px;
@@ -160,7 +160,7 @@ a:hover {
 }
 
 #sidebar > ul > li.active > a {
-	background: url("/assets/images/menu-active.png") no-repeat scroll right center transparent !important;
+	background: url("assets/images/menu-active.png") no-repeat scroll right center transparent !important;
 }
 
 #sidebar > ul > li > a > .label {
@@ -1259,7 +1259,7 @@ div.dataTables_wrapper .ui-widget-header {
 	opacity: 1;
 }
 .line {
-    background: url("/assets/images//line.png") repeat-x scroll 0 0 transparent;
+    background: url("assets/images//line.png") repeat-x scroll 0 0 transparent;
     display: block;
     height: 8px;
 }

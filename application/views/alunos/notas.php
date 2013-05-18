@@ -15,14 +15,14 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($historico as $h): ?>
+                <?php foreach($historico as $h=>$v){extract($v)?>
                 <tr>
-                    <td align="center"><?= $historico['modalidade'] ?></td>
-                    <td align="center"><?= $historico['data_aprovacao'] ?></td>
-                    <td align="center"><?= $historico['faixa'] ?></td>
-                    <td align="center"><?= $historico['media'] ?></td>
+                    <td align="center"><?php echo $nome;?></td>
+                    <td align="center"><?php echo $data_aprovacao;?></td>
+                    <td align="center"><?php echo $faixa;?></td>
+                    <td align="center"><?php echo round($media,1);?></td>
                 </tr>
-                <?php endforeach; ?>
+                <?php } ?>
             </tbody>
         </table>
     <?php

@@ -236,12 +236,12 @@ class coordenador extends CI_Controller{
             if($status==3){
               //salvar as notas no prontuario do aluno
             $this->coordenador->salvarProntuario($this->input->post());
-             //incluir o aluno do evento de graduação
+            //Atualizar a faixa do aluno
+            $this->coordenador->atualiza_faixa($this->input->post('id_federado'),'2');
+            //incluir o aluno do evento de graduação
             $this->coordenador->incluir_em_evento($this->input->post());
             //mudar o status do pre-avaliação para aprovado
             $this->coordenador->result_pre_avaliacao($this->input->post('id_federado'),$this->input->post('id_evento'),'1');
-            //Atualizar a faixa do aluno
-            $this->coordenador->atualiza_faixa($this->input->post('id_federado'),'2');
             //Enviar email ao aluno informando sobre o evento
             $this->session->set_flashdata('alerta',"Lançamento realizado, status de avaliação = $texto");
             redirect('/coordenador/lancar_nota');
@@ -251,12 +251,12 @@ class coordenador extends CI_Controller{
                  
             //salvar as notas no prontuario do aluno
             $this->coordenador->salvarProntuario($this->input->post());
-             //incluir o aluno do evento de graduação
+            //Atualizar a faixa do aluno
+            $this->coordenador->atualiza_faixa($this->input->post('id_federado'),'1');
+            //incluir o aluno do evento de graduação
             $this->coordenador->incluir_em_evento($this->input->post());
             //mudar o status do pre-avaliação para aprovado
             $this->coordenador->result_pre_avaliacao($this->input->post('id_federado'),$this->input->post('id_evento'),'1');
-            //Atualizar a faixa do aluno
-            $this->coordenador->atualiza_faixa($this->input->post('id_federado'),'1');
             //Enviar email ao aluno informando sobre o evento
             $this->session->set_flashdata('alerta',"Lançamento realizado, status de avaliação = $texto");
             redirect('/coordenador/lancar_nota');     
@@ -379,7 +379,7 @@ class coordenador extends CI_Controller{
         if(!empty($id_faixa)){
           $id_evento = $this->coordenador->getUltimoEvento(); 
           $dados['movimentos'] = $this->coordenador->movimentos($id_faixa);
-          $dados['participantes'] = $this->coordenador->Participantes($id_faixa,$id_evento);
+          $dados['participantes'] = $this->coordenador->participantes($id_faixa-1,$id_evento);
           
           $this->load->view('coordenador/imprimir_listagem',$dados);
           

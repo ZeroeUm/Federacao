@@ -27,6 +27,9 @@ $inf = $inf[0];
 <div class="row-fluid">
     <p>
         <?= nl2br($inf['curriculo']) ?>
+        
+        <iframe width="100%" height="480" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://www.mestrecarlos.com.br"></iframe>
+
     </p>
 </div>
     

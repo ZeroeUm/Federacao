@@ -15,21 +15,70 @@ class Instrutores extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('Instrutor_model','instrutor');
-        $this->load->library('funcoes','session');
     }
 
-    function index() {
+    
+    function remover_pre_avaliacao($id_federado,$id_evento){
         
-        $dados['resultado'] = $this->instrutor->get_status_avaliacao();
-      
-        $dados['total_alunos'] = $this->instrutor->total_alunos($this->session->userdata('id'),'total'); 
+        $remover = $this->instrutor->remover_pre_avalicacao($id_federado,$id_evento);
+        if($remover){
+         $this->session->set_flashdata('alerta',"Removido com sucesso");
+           
+            redirect('/instrutores/');
+        }  else {
+             $this->session->set_flashdata('alerta',"Não foi possivel remover");
+           
+        redirect('/instrutores/');    
+        }
+    }
+    
+    function confirma_participacao($id_federado,$id_evento){
+        
+        $remover = $this->instrutor->confirma_participacao($id_federado,$id_evento);
+        
+         if($remover){
+         $this->session->set_flashdata('alerta',"Confirmado com sucesso");
+           
+            redirect('/instrutores/');
+        }  else {
+             $this->session->set_flashdata('alerta',"Não foi possivel confirmar");
+           
+        redirect('/instrutores/');    
+        }
+    }
+
+
+    function remover_evento_graduacao($id_federado,$id_evento){
+        
+        $remover = $this->instrutor->remover_evento_graduacao($id_federado,$id_evento);
+        
+         if($remover){
+         $this->session->set_flashdata('alerta',"Removido com sucesso");
+           
+            redirect('/instrutores/');
+        }  else {
+             $this->session->set_flashdata('alerta',"Não foi possivel remover");
+           
+        redirect('/instrutores/');    
+        }
+    }
+
+
+    function index() {
+       //lista de participantes para o proximo evento 
+       $dados['resultado'] = $this->instrutor->get_status_avaliacao();
        
+       //total de alunos do instrutor
+       $dados['total_alunos'] = $this->instrutor->total_alunos($this->session->userdata('id'),'total'); 
+       
+       //Carregar data do próximo evento
        $this->load->model('Coordenador_model', 'coordenador');
-       $evento = $this->coordenador->ultimo_evento();
-       $dados['ultimo_evento'] = $this->funcoes->data($evento['data_evento'],2);
-       $this->load->view('header');
-       $this->load->view('instrutores/index',$dados);
-       $this->load->view('footer');
+       @$dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
+        
+       
+        $this->load->view('header');
+        $this->load->view('instrutores/index',$dados);
+        $this->load->view('footer');
     }
 
     function cadastro() {
@@ -469,11 +518,19 @@ class Instrutores extends CI_Controller {
     }
 
     function manutencao($id = '1') {
-        $this->load->model('Instrutor_model');
-         $tema["instrutor"] = $this->instrutor->getInscrito($this->session->userdata('id'));
+        //lista de participantes para o proximo evento 
+       $dados['resultado'] = $this->instrutor->get_status_avaliacao();
+       
+       //total de alunos do instrutor
+       $dados['total_alunos'] = $this->instrutor->total_alunos($this->session->userdata('id'),'total'); 
+       
+       //Carregar data do próximo evento
+       $this->load->model('Coordenador_model', 'coordenador');
+       @$dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
         
+       
         $this->load->view('header');
-        $this->load->view('instrutores/manutencao', $tema);
+        $this->load->view('instrutores/manutencao',$dados);
         $this->load->view('footer');
     }
 

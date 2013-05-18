@@ -1,48 +1,73 @@
 
 <div class="row-fluid">
-    Total de alunos do instrutor: <span class="badge"><?php echo $total_alunos['0']['total_alunos'];?></span>
+    Total de alunos do instrutor: <span class="badge"><?php echo $total_alunos['0']['total_alunos']; ?></span>
 </div>
 
 <div class="row-fluid" style="margin-top: 50px;">
-    <p>Resultado do Último evento da agenda: <span class="label label-important"> <?php echo $ultimo_evento;?></span></p>
+    <p>Resultado do Último evento da agenda: <span class="label label-important"> <?php echo @$this->funcoes->data($ultimo_evento['data_evento'], 2); ?></span></p>
     <table class="table table-bordered table-hover">
         <thead>
-        <tr>
-        <td>Alunos Aprovados</td>
-        <td>Alunos Pendentes de avaliação</td>
-        <td>Alunos Reprovados</td>
-        </tr>
-        </thead>
-   
-    <?php if($resultado['aprovados']['verifica_dados']=='1'){ ?>
-        <tbody>
             <tr>
-        <td>
-            <?php foreach ($resultado['aprovados']['nome'] as $i=>$v){?>
-            <p><?php echo $v;?> -  Faixa <?php echo $resultado['aprovados']['faixa'][$i];?> <a href=""><span class="icon-remove-circle"></span></a></p>
-            <?php } ?>
-        </td>
-        <td>
-            <?php foreach ($resultado['aguardando']['nome'] as $i=>$v){?>
-            <p><?php echo $v;?> - <span class="label label-success">data da avaliação <?php echo $resultado['aguardando']['data_avaliacao'][$i]; ?> - <?php echo $resultado['aguardando']['horario'][$i]; ?>º horário</span><a href=""><span class="icon-remove-circle"></span></a></p>
-            <?php } ?>
-            
-            <?php foreach ($resultado['nao_agendado']['nome'] as $i=>$v){?>
-            <p><?php echo $v;?> - <span class="label label-important">Não Agendado</span> <a href=""><span class="icon-remove-circle"></span></a></p>
-            <?php } ?>
-            
-        </td>
-        <td>
-             <?php foreach ($resultado['reprovados']['nome'] as $v){?>
-            <p style="color: red;"><?php echo $v;?></p>
-            <?php } ?>
-        </td>
-    </tr>
-    <?php }else{ ?>
-    <tr>
-        <td colspan="3" style="text-align: center;color: red;">Você não possui nenhum aluno cadastrado para o evento acima!</td>
-    </tr>
-    <?php }?>
-    </tbody>
-</table>
+                <th>Alunos Aprovados</th>
+                <th>Alunos Pendentes de avaliação</th>
+                <th>Alunos Reprovados</th>
+            </tr>
+        </thead>
+
+        <?php if (empty($resultado)) { ?>
+            <tr>
+                <td colspan="3" style="text-align: center;color: red;">Você não possui nenhum aluno cadastrado para o evento acima!</td>
+            </tr>
+        <?php } else { ?>
+            <tr style="font-size: 14px;">
+                <td>
+                    <?php foreach ($resultado['aprovados'] as $i => $v) { ?>
+
+                        <?php echo $v['nome']; ?>
+                        <?php if ($v['avaliacao'] == '1') { ?>
+                            <a href="<?php base_url() ?>instrutores/remover_evento_graduacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-important">Cancelar Participação</a>
+                        <?php } else { ?>
+                            <a href="<?php base_url() ?>instrutores/confirma_participacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-success">Confirma Participação</a>
+
+                        <?php } ?>
+                        <br>
+
+                    <?php } ?>
+                </td>           
+                <td>
+                    <table >
+
+                        <?php foreach ($resultado['aguardando'] as $i => $v) { ?>
+                            <tr style="font-size: 14px;">
+                                <td style="border: none;"><?php echo $v['nome']; ?></td>
+                                <td style="border: none;"><?php echo $v['data']; ?></td>
+                                <td style="border: none;"><?php echo $v['horario']; ?>º Horário</td>
+                                <td style="border: none;"><a href="<?php base_url() ?>instrutores/remover_pre_avaliacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-important">Remover</a></td>
+                            </tr>    
+                        <?php } ?>
+
+                        <?php foreach ($resultado['nao_agendado'] as $i => $v) { ?>
+                            <tr style="font-size: 14px;">
+                                <td style="border: none;"><?php echo $v['nome']; ?></td>
+                                <td style="border: none;">---------</td>
+                                <td style="border: none;">---------</td>
+                                <td style="border: none;"><a href="<?php base_url() ?>instrutores/remover_pre_avaliacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-important">Remover</a></td>
+
+                            </tr>    
+                        <?php } ?>
+
+
+                    </table>
+                </td>
+
+                <td>
+                    <?php foreach ($resultado['reprovados'] as $i => $v) { ?>
+
+                        <?php echo $v['nome']; ?><br>
+
+                    <?php } ?>  
+                </td>
+            </tr>
+        <?php } ?>
+    </table>
 </div>
