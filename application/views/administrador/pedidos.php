@@ -1,59 +1,26 @@
-<div class="row-fluid" style="height: 100px;">
-    <?php
-    /* 2013-02-11
-     * @author Humberto
-     */
-    echo($links);
-    ?>
-</div>
+
+
+
 <div class="row-fluid">
-    <table class="table table-condensed table-hover">
+    <table class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>Numero do evento</th>
                 <th>Data</th>
-                <th>Responsável</th>
-                <th>Fornecedor</th>
-                <th>Situação</th>
-                <th>Alterar</th>
+                <th>Quantidade de faixas</th>
+                <th>Detalhes do pedido</th>
+                
             </tr>
         </thead>
         <tbody>
-            <?php
-            foreach ($resultado as $row):
-                switch ($row->status):
-                    case 1:
-                        $classe = "warning";
-                        break;
-                    case 2:
-                        $classe = "info";
-                        break;
-                    case 3:
-                        $classe = "success";
-                        break;
-                    case 4:
-                        $classe = "error";
-                        break;
-                endswitch;
-                ?>
-                <tr class="<?= $classe ?>">
-                    <td style="text-align: center;"><?= $row->id ?></td>
-                    <td style="text-align: center;"><?= date('d-m-Y', strtotime($row->data)) ?></td>
-                    <td style="text-align: center;"><?= $row->responsavel ?></td>
-                    <td style="text-align: center;"><?= $row->fornecedor ?></td>
-                    <td style="text-align: center;"><?= $row->situacao ?></td>
-                    <td style="text-align: center;">
-                        <a href="<?php echo base_url() ?>administrador/alterarPedido/<?= $row->id ?>" class="btn btn-link">Informações</a>
-                    </td>            
-                </tr>
-                <?php
-            endforeach;
-            ?>
+            <?php foreach ($pedidos as $i=>$v){ extract($v); ?>
+            <tr>
+                <td><?php echo $numero_evento; ?></td>
+                <td><?php echo $this->funcoes->data($data); ?></td>
+                <td><?php echo $total; ?></td>
+                <td><a href="<?php echo base_url();?>administrador/detalhe_pedido/<?php echo $id; ?>" class="btn btn-small">Detalhes</a></td>
+            </tr>
+            <?php } ?>
         </tbody>
     </table>
-</div>
-<div class="row-fluid">
-    <?php
-    echo($links);
-    ?>
 </div>

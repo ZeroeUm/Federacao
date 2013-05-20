@@ -105,12 +105,12 @@ class Instrutor_model extends CI_Model {
         $dados['reprovados'] = array();
         $dados['aguardando']= array();
         $dados['nao_agendado'] = array();
+       
         $dados['exibir'] = 1;
         
         
-        if($tabela==null){
-           $dados['exibir'] = 0; 
-        }
+        
+        
         
       
         foreach ($tabela as $i) {
@@ -142,6 +142,12 @@ class Instrutor_model extends CI_Model {
                             where graduacao_participantes.id_evento = $ultimo_evento;";
         $dados['aprovados'] = $this->db->query($sql_aprovados)->result_array();
 
+        
+        
+        
+        if(empty($tabela) && empty($dados['aprovados']) && empty($dados['reprovados']) && empty($dados['nao_agendado']) && empty($dados['aguardando']) ){
+           $dados['exibir'] = 0; 
+        }
         
         return $dados;
     }

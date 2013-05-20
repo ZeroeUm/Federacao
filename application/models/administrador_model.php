@@ -435,11 +435,34 @@ class Administrador_model extends CI_Model
         $this->db->update('mala-direta', $dados, array('id' => $id));
     }
 
-    public function totalPedidos()
-    {
-        return $this->db->count_all('pedido');
+    public function detalhes_de_pedido_faixa($id_evento){
+                $sql = "SELECT 
+                        graduacao.faixa,
+                        pedido_faixa.tamanho,
+                        pedido_faixa.quantidade
+                        FROM 
+                        federacao.pedido_faixa
+                        join graduacao using (id_graduacao)
+                        where pedido_faixa.id_evento = $id_evento
+                        order by graduacao.id_graduacao;";
+         return $this->db->query($sql)->result_array();
     }
-    
+
+
+    public function get_pedidos_faixa(){
+        $sql  = "SELECT 
+                evento_graduacao.id_evento as id,
+                sum(quantidade) as total,
+                evento_graduacao.data_evento as data,
+                evento_graduacao.numero_evento
+                FROM 
+                federacao.pedido_faixa
+                join evento_graduacao using (id_evento)
+                group by pedido_faixa.id_evento order by pedido_faixa.id_evento DESC";
+        return $this->db->query($sql)->result_array();
+    }
+
+
     public function trocarStatusPedido($id,$novoStatus)
     {
         $this->db->update('pedido',array('status' => $novoStatus), array('id' => $id));

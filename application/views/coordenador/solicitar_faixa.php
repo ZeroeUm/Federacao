@@ -3,7 +3,7 @@ Selecione um evento
 <table class="table table-bordered">
     <tr>
         <td>Numero do Evento</td>
-        <td>Data</td>
+        <td>Data do evento</td>
         <td>Solicitação</td>
     </tr>
     
