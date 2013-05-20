@@ -249,10 +249,9 @@ class Instrutores extends CI_Controller {
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
-
-        
+       
         if (!$this->upload->do_upload("foto")) {
-             $dados = array('error' => $this->upload->display_errors('<div class="alert-error"><b>', '</b></div>'));
+            $dados = array('error' => $this->upload->display_errors('<div class="alert-error"><b>', '</b></div>'));
             (($op) ? $this->atualizarFederado($dados) : $this->salvarFederado($dados));
         } else {
             

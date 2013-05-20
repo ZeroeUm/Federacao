@@ -390,7 +390,12 @@ class Coordenador_model extends CI_Model {
         $sql = "select * from evento_graduacao order by data_evento DESC";
         $query = $this->db->query($sql);
         $result = $query->result_array();
+        
+       if(empty($result)){
+           return $result['0']=array('data_evento'=>'0000-00-00');
+       }else{
         return $result['0'];
+       }
     }
 
     function participantes_evento($id_evento, $id_faixa) {

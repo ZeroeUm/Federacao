@@ -163,7 +163,7 @@
     
         function mascara(){
         
-            $('.nota').setMask("9.99")
+            $('.nota').setMask("99.99")
     
         }
     </script>

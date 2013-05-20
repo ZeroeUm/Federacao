@@ -22,36 +22,65 @@ $label = array(
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.css">
 
     </head>
+    <style>
+        body{
+    background-image: url('federados')
+        }
+      
+        .logo{
+           position: absolute;
+           margin-left: 190px;
+           margin-top: 70px;
+        }
+        
+      
+        .login{
+            background-color: whitesmoke;
+            border: 1px solid;
+            border-radius: 30px;
+            width: 200px;
+            margin:10% auto 0px 60%;
+            text-align: left;
+            padding: 60px;
+        }
+    </style>
+    
     <body>
-        <div class="row-fluid">
+        <div class="logo">
+            <img src="federados/logo2.png">
+            
+        </div>
+        
+        <div class="login" style="">
+           
+              <form action="http://federacao.local/login" method="post">
+          
+            <div class="">
+                <div class="">Usuario:</div>
+                <div class=""><input type="text" class="input-large" name="usuario"></div>
+            </div>
+          
+            <div class="">
+                <div class="">Senha:</div>
+                <div class=""><input type="password" class="input-large" name="senha"></div>
+            </div>
+                  
+                
+                  
+                
+            <div class="">
+                
+                <input type="submit" class="btn btn-primary" value="Entrar"> <span style="float: right;text-decoration: underline">Lembrar senha</span>
+            
+            </div>       
+               
+                  
+                    
+            </form>
             <div class="alert-error">
                 <?php echo validation_errors(); ?>
             </div>
-            <?php
-            echo form_fieldset('Área de login ao SGAI');
-            echo form_open('login', $attr);
-            ?>
-            <div class="control-group">
-                <?php echo form_label('Usuário', 'usuario', $label); ?>
-                <div class="controls">
-                    <?php echo form_input('usuario', '', 'id="usuario" class="span3" maxlength="20" required placeholder="Usuário"'); ?>
-                </div>
-            </div>
-            <div class="control-group">
-                <?php echo form_label('Senha', 'senha', $label); ?>
-                <div class="controls">
-                    <?php echo form_password('senha', '', 'id="senha" class="span3" maxlength="10" required placeholder="Senha"'); ?>
-                </div>
-            </div>
-            <div class="controls">
-                <?php
-                echo form_submit('btnEntrar', 'Entrar', 'id="btnEntrar" class="btn btn-primary"');
-                ?>    
-            </div>
-            <?php
-            echo form_close();
-            echo form_fieldset_close();
-            ?>
+           
         </div>
     </body>
 </html>
