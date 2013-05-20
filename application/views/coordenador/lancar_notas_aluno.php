@@ -92,7 +92,7 @@
             <?php foreach ($movimentos as $i => $v) { ?>
                 <tr>
                     <td><?php echo $v['nome_movimento'] ?></td>
-                    <td><input type="text" class="nota faixa_<?php echo $v['id_movimento_faixa']; ?>" name="id_movimento_faixa[<?php echo $v['id_movimento_faixa']; ?>]" onfocus="javascript:mascara()" min="2" value="0"></td>
+                    <td><input type="text" class="nota faixa_<?php echo $v['id_movimento_faixa']; ?>" name="id_movimento_faixa[<?php echo $v['id_movimento_faixa']; ?>]" onfocus="javascript:mascara()" min="3" value="0"></td>
                 </tr>
             <?php } ?>
         </table>
@@ -118,11 +118,17 @@
 
 </div>
     
-    <input type="submit" class="btn btn-inverse" value="Salvar avaliação">
+    <a href="#" class="btn btn-inverse salvar" value="">Salvar avaliação</a>
 </form>
     <script>
     
         $(document).ready(function(){
+            
+                                    $('.salvar').click(function(){
+                                        $('#form').submit();    
+                                    });
+                                    
+            
             $('#check').click(function(){
             
                 dem = $('#check_box').is(":checked");
@@ -152,6 +158,12 @@
                                 $('.result').text(total.toFixed(2));
                                 $('#media').val(total.toFixed(2));
                                 
+                               if ($('#media').val()>'10.0'){
+                                   $('.salvar').hide()
+                               }else{
+                                   $('.salvar').show()
+                               }
+                                
                 
             })
         
@@ -163,7 +175,11 @@
     
         function mascara(){
         
-            $('.nota').setMask("99.99")
+        if($('.nota')>10){
+            alert('maior que 10');
+        }else{
+        $('.nota').numeric({allow:"."});
+        }
     
         }
     </script>

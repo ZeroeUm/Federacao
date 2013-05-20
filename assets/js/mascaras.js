@@ -12,6 +12,9 @@ $('document').ready(function(){
     $('#telefone').setMask("(99)9999-9999"); 
     
     
+    
+    
+    
     $('#celular').setMask("(99)99999-9999").ready(function(event) {
         var target, phone, element;
         target = (event.currentTarget) ? event.currentTarget : event.srcElement;

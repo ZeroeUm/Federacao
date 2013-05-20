@@ -28,11 +28,12 @@ class Login extends CI_Controller
          $this->email->to('felipe@chipsetdesenvolvimento.com');
          $this->email->subject('Assunto');
          
-         $mensagem = "Olá, {$dados['0']['nome']}
+         $mensagem = "Olá,<strong> {$dados['0']['nome']}</strong><br>
                       Sua solicitação de senha foi realizada.
-                      
-                      usuario:{$dados['0']['nome']}
-                      senha:{$dados['0']['senha']}";
+                      <br>
+                      <br>
+                      <strong>Usuário:</strong> {$dados['0']['nome']}<br>
+                      <strong>Senha:</strong> {$dados['0']['senha']}";
          $this->email->message($mensagem);
          $this->email->send();
          

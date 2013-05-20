@@ -6,7 +6,7 @@
        
         $.ajax({
             type:"POST",
-            url:"/federacao/coordenador/ajax_curriculo/"+id_graduacao,
+            url:"<?php echo base_url(); ?>coordenador/ajax_curriculo/"+id_graduacao,
             data:id_graduacao,
             datatype:"html",
             success: function(data)

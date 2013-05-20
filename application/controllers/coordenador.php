@@ -141,7 +141,9 @@ class coordenador extends CI_Controller{
     function ajax_curriculo($id_graduacao){
         
         $dados['movimentos'] = $this->coordenador->movimentos($id_graduacao);
+       
         $dados['graduacao'] = $id_graduacao;
+       
         
         $this->load->view('coordenador/ajax_curriculo',$dados);
         
