@@ -83,6 +83,8 @@
 
 
                 <li><a href="<?php echo site_url(); ?>"><i class="icon icon-home"></i> <span>Home</span> </a></li>
+               
+                <?php if ($this->session->userdata("tipo") == 1){?>
                 <li class="submenu menu_alunos">
                     <a href="#"><i class="icon icon-pause"></i> <span>Alunos</span> </a>
                     <ul>
@@ -93,6 +95,7 @@
 
                     </ul>
                 </li>
+                <?php } ?>
                 <?php 
                     if ($this->session->userdata("tipo") > 1):
                 ?>

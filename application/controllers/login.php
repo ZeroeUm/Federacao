@@ -58,6 +58,11 @@ class Login extends CI_Controller {
         $this->form_validation->set_rules('usuario', 'Usuário', 'trim|xss_clean|required');
         $this->form_validation->set_rules('senha', 'Senha', 'trim|callback_verificar_banco|xss_clean|required');
 
+        
+        if($this->session->userdata('autentificado')){
+             redirect('home', 'refresh');
+        }
+        
         if ($this->form_validation->run() == FALSE):
             $this->load->view('login');
         else:
