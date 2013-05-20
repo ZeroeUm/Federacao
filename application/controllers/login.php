@@ -16,6 +16,32 @@ class Login extends CI_Controller
 
     function lembrar_senha(){
         
+        
+        if($this->input->post()){
+          $email = $this->input->post('email');
+         //Localizar email
+         $dados = $this->login->get_email($email); 
+        
+         //Mandar a senha por email
+         $this->load->library('email'); 
+         $this->email->from('elder.f.silva@gmail.com', 'Felipe');
+         $this->email->to('felipe@chipsetdesenvolvimento.com');
+         $this->email->subject('Assunto');
+         
+         $mensagem = "Olá, {$dados['0']['nome']}
+                      Sua solicitação de senha foi realizada.
+                      
+                      usuario:{$dados['0']['nome']}
+                      senha:{$dados['0']['senha']}";
+         $this->email->message($mensagem);
+         $this->email->send();
+         
+        }
+        
+        $this->load->view('lembrar_senha');
+        
+        
+        
     }
             
     function index()

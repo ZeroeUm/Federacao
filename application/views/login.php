@@ -38,7 +38,7 @@ $label = array(
             background-color: whitesmoke;
             border: 1px solid;
             border-radius: 30px;
-            width: 200px;
+            width: 300px;
             margin:10% auto 0px 60%;
             text-align: left;
             padding: 60px;
@@ -56,21 +56,24 @@ $label = array(
             <form action="<?php echo base_url()?>login" method="post">
           
             <div class="">
-                <div class="">Usuario:</div>
-                <div class=""><input type="text" class="input-large" name="usuario"></div>
+               
+                <div class=""><input type="text" placeholder="Usuário "class="input-large" name="usuario" style="height: 44px;width: 100%;"></div>
             </div>
           
             <div class="">
-                <div class="">Senha:</div>
-                <div class=""><input type="password" class="input-large" name="senha"></div>
+                
+                <div class=""><input type="password" placeholder="Senha" class="input-large" name="senha"  style="height: 44px;width: 100%;"></div>
             </div>
                   
                 
                   
                 
             <div class="">
-                
-                <input type="submit" class="btn btn-primary" value="Entrar"> <span style="float: right;text-decoration: underline">Lembrar senha</span>
+                <br>
+                <input type="submit" class="btn btn-primary" value="Entrar" style="height: 44px;width: 100%"> 
+                <span style="float: right;text-decoration: underline">
+                    <a href="<?php echo base_url(); ?>login/lembrar_senha">Lembrar senha</a>
+                </span>
             
             </div>       
                

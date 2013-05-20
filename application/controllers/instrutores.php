@@ -15,8 +15,15 @@ class Instrutores extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('Instrutor_model','instrutor');
+        $this->checar_sessao();
     }
 
+    
+      function checar_sessao()
+    {
+        if (!$this->session->userdata('autentificado'))
+            redirect('login', 'refresh');
+    }
     
     function remover_pre_avaliacao($id_federado,$id_evento){
         

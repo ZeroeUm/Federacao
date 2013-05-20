@@ -18,9 +18,16 @@ class coordenador extends CI_Controller{
         $this->load->model('coordenador_model', 'coordenador');
         $this->load->library('funcoes','session');
         
-        
+         $this->checar_sessao();
     }
    
+    
+     function checar_sessao()
+    {
+        if (!$this->session->userdata('autentificado'))
+            redirect('login', 'refresh');
+    }
+    
     function participantes($id_evento,$faixa=null){
        
         
