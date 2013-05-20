@@ -24,66 +24,83 @@ $label = array(
     </head>
     <style>
         body{
-    background-image: url('federados')
+            background-image: url('federados')
         }
-      
+
         .logo{
-           position: absolute;
-           margin-left: 190px;
-           margin-top: 70px;
+            position: absolute;
+            margin-left: 190px;
+            margin-top: 70px;
         }
-        
-      
+
+
         .login{
             background-color: whitesmoke;
             border: 1px solid;
             border-radius: 30px;
             width: 300px;
-            margin:10% auto 0px 60%;
+            margin:50px auto 0px 60%;
             text-align: left;
             padding: 60px;
         }
+        .topo{
+            box-shadow: 0 1px 0 #333;
+            background-color: #333;
+            background-image: -webkit-gradient(linear, 0 0%, 0 100%, from(#3F3F3F), to(#222));
+            background-image: -webkit-linear-gradient(top, #3F3F3F 0%, #222 100%);
+            background-image: -moz-linear-gradient(top, #3F3F3F 0%, #222 100%);
+            background-image: -ms-linear-gradient(top, #3F3F3F 0%, #222 100%);
+            background-image: -o-linear-gradient(top, #3F3F3F 0%, #222 100%);
+            background-image: linear-gradient(top, #3F3F3F 0%, #222 100%);
+            border-bottom: 1px solid #555;
+            height: 78px;
+           
+        }
     </style>
-    
+
     <body>
+        <div class="topo">
+
+        </div>
+
         <div class="logo">
             <img src="federados/logo2.png">
-            
+
         </div>
-        
+
         <div class="login" style="">
-           
-            <form action="<?php echo base_url()?>login" method="post">
-          
-            <div class="">
-               
-                <div class=""><input type="text" placeholder="Usuário "class="input-large" name="usuario" style="height: 44px;width: 100%;"></div>
-            </div>
-          
-            <div class="">
-                
-                <div class=""><input type="password" placeholder="Senha" class="input-large" name="senha"  style="height: 44px;width: 100%;"></div>
-            </div>
-                  
-                
-                  
-                
-            <div class="">
-                <br>
-                <input type="submit" class="btn btn-primary" value="Entrar" style="height: 44px;width: 100%"> 
-                <span style="float: right;text-decoration: underline">
-                    <a href="<?php echo base_url(); ?>login/lembrar_senha">Lembrar senha</a>
-                </span>
-            
-            </div>       
-               
-                  
-                    
+
+            <form action="<?php echo base_url() ?>login" method="post">
+
+                <div class="">
+
+                    <div class=""><input type="text" placeholder="Usuário "class="input-large" name="usuario" style="height: 44px;width: 100%;"></div>
+                </div>
+
+                <div class="">
+
+                    <div class=""><input type="password" placeholder="Senha" class="input-large" name="senha"  style="height: 44px;width: 100%;"></div>
+                </div>
+
+
+
+
+                <div class="">
+                    <br>
+                    <input type="submit" class="btn btn-primary" value="Entrar" style="height: 44px;width: 100%"> 
+                    <span style="float: right;text-decoration: underline">
+                        <a href="<?php echo base_url(); ?>login/lembrar_senha">Lembrar senha</a>
+                    </span>
+
+                </div>       
+
+
+
             </form>
             <div class="alert-error">
                 <?php echo validation_errors(); ?>
             </div>
-           
+
         </div>
     </body>
 </html>
