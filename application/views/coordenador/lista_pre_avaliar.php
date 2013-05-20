@@ -9,7 +9,7 @@ $(document).ready(function(){
 <div class="alert alert-error">
     No momento nenhuma pré-avaliação foi solicitada.
 </div>
-    <?php } ?>
+    <?php }else{ ?>
 
 <h3>Pré-avaliação de alunos</h3>
 
@@ -33,6 +33,6 @@ $(document).ready(function(){
     
     
 </div>
-
+<?php } ?>
 <hr>
 

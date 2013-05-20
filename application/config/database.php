@@ -64,10 +64,10 @@ $senha = "1234federacao";
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = 'user';
-$db['default']['database'] = 'federacao';// nome do Banco
+$db['default']['hostname'] = $host;
+$db['default']['username'] = $user;
+$db['default']['password'] = $senha;
+$db['default']['database'] = $banco;// nome do Banco
 $db['default']['dbdriver'] = 'mysql'; 
 $db['default']['dbprefix'] = "";
 $db['default']['pconnect'] = TRUE;

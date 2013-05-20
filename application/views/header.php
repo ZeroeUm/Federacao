@@ -13,6 +13,7 @@
         <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/chosen.jquery.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/jquery-ui.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/jquery.alphanumeric.js"></script>
         
         
        

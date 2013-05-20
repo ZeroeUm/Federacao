@@ -105,6 +105,14 @@ class Instrutor_model extends CI_Model {
         $dados['reprovados'] = array();
         $dados['aguardando']= array();
         $dados['nao_agendado'] = array();
+        $dados['exibir'] = 1;
+        
+        
+        if($tabela==null){
+           $dados['exibir'] = 0; 
+        }
+        
+      
         foreach ($tabela as $i) {
             if ($i['avaliacao'] == '2') {
                 $dados['reprovados'][] = $i;

@@ -12,6 +12,18 @@ class Login_model extends CI_Model
     {
         parent::__construct();
     }
+    
+    
+    
+    public function get_email($email){
+        $sql = "SELECT nome,email,login.senha 
+                FROM 
+                federacao.federado
+                join login using (id_federado)
+                where email like  '$email'";
+        return $this->db->query($sql)->result_array();
+    }
+    
 
     public function login($usuario, $senha)
     {

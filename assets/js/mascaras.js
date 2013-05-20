@@ -1,5 +1,13 @@
 $('document').ready(function(){
  
+    
+    $('#content').click(function(){
+        $('.sub-menu').hide();
+        
+    })     
+    
+    
+    
     $('#calendario').datepicker({dateFormat:'dd-mm-yy'});
  
  
@@ -10,6 +18,9 @@ $('document').ready(function(){
     $('#cpf').setMask('999.999.999-99');
     $('#cep').setMask('99999-999');
     $('#telefone').setMask("(99)9999-9999"); 
+    
+    
+    
     
     
     $('#celular').setMask("(99)99999-9999").ready(function(event) {

@@ -18,9 +18,16 @@ class coordenador extends CI_Controller{
         $this->load->model('coordenador_model', 'coordenador');
         $this->load->library('funcoes','session');
         
-        
+         $this->checar_sessao();
     }
    
+    
+     function checar_sessao()
+    {
+        if (!$this->session->userdata('autentificado'))
+            redirect('login', 'refresh');
+    }
+    
     function participantes($id_evento,$faixa=null){
        
         
@@ -134,7 +141,9 @@ class coordenador extends CI_Controller{
     function ajax_curriculo($id_graduacao){
         
         $dados['movimentos'] = $this->coordenador->movimentos($id_graduacao);
+       
         $dados['graduacao'] = $id_graduacao;
+       
         
         $this->load->view('coordenador/ajax_curriculo',$dados);
         
@@ -390,7 +399,7 @@ class coordenador extends CI_Controller{
         
         
         
-        
+        $dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
         
         $dados['faixas'] = $this->coordenador->get_faixas_avaliadas();
         
