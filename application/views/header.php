@@ -125,7 +125,7 @@
                             <ul class="sub-menu">
                                 <li><a href="<?php echo site_url(); ?>coordenador/pre_avaliar" title="">Agendar pré-Avaliação</a></li>
                                 <li><a href="<?php echo site_url(); ?>coordenador/agenda_de_compromissos" title="">Cancelar agendamento</a></li>
-                                <li><a href="<?php echo site_url(); ?>coordenador/listagem" title="">Listagem de Avaliados</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/listagem" title="">Listagem dos Não-Avaliados</a></li>
                                 <li><a href="<?php echo site_url(); ?>coordenador/lancar_nota" title="">Lançar Notas</a></li>
                             </ul>
                         </li>
