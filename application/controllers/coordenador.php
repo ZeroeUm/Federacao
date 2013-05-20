@@ -399,7 +399,7 @@ class coordenador extends CI_Controller{
         
         
         
-        
+        $dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
         
         $dados['faixas'] = $this->coordenador->get_faixas_avaliadas();
         

@@ -3,8 +3,14 @@
     Total de alunos do instrutor: <span class="badge"><?php echo $total_alunos['0']['total_alunos']; ?></span>
 </div>
 
+
+<?php if($ultimo_evento['data_evento']=='0000-00-00'){?>
+
+<h3 style="color: red;">Nenhum evento cadastrado</h3>
+
+<?php }else{ ?>
 <div class="row-fluid" style="margin-top: 50px;">
-    <p>Resultado do Último evento da agenda: <span class="label label-important"> <?php echo @$this->funcoes->data($ultimo_evento['data_evento'], 2); ?></span></p>
+    <p>Último evento da agenda: <span class="label label-important"> <?php echo @$this->funcoes->data($ultimo_evento['data_evento'], 2); ?></span></p>
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
@@ -14,7 +20,7 @@
             </tr>
         </thead>
 
-        <?php if (empty($resultado)) { ?>
+        <?php if ($resultado['exibir']=='0') { ?>
             <tr>
                 <td colspan="3" style="text-align: center;color: red;">Você não possui nenhum aluno cadastrado para o evento acima!</td>
             </tr>
@@ -71,3 +77,4 @@
         <?php } ?>
     </table>
 </div>
+<?php } ?>

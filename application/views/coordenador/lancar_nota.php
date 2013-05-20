@@ -25,7 +25,11 @@ $(document).ready(function(){
 
 <h3>Lançar notas</h3>
 
+<?php if(empty($filiais)){?>
 
+<h4 style="color: red;text-align: center;">Nenhum aluno pendente de lançamento de notas</h4>
+
+<?php }else{ ?>
 <div class="row-fluid">
     
     <div class="span5">
@@ -46,3 +50,5 @@ $(document).ready(function(){
 <div class="lista_de_alunos">
     
 </div>
+
+<?php } ?>

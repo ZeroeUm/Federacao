@@ -1,5 +1,13 @@
 $('document').ready(function(){
  
+    
+    $('#content').click(function(){
+        $('.sub-menu').hide();
+        
+    })     
+    
+    
+    
     $('#calendario').datepicker({dateFormat:'dd-mm-yy'});
  
  

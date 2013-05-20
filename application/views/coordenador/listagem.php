@@ -1,10 +1,15 @@
 
+<?php $ultimo_evento;?>
+
+
+<h4>Lista dos participantes para o evento a ser realizado dia <span class="badge"><?php echo $this->funcoes->data($ultimo_evento['data_evento']);?></span></h4>
+
 <table class="table table-bordered">
 <tr>
     <td>Faixa</td>
     
      <?php foreach ($faixas as $i=>$v){?>
-    <td>Candidato a <?php echo $v['faixa'];?></td>
+    <td><?php echo $v['faixa'];?></td>
     <?php } ?>
 </tr>
 
