@@ -6,7 +6,7 @@
        
        $.ajax({
             type:"POST",
-            url:"/coordenador/professores_modalidade/"+id,
+            url:"professores_modalidade/"+id,
             data:id,
             datatype:"html",
             success: function(data)

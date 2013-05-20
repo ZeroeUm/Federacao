@@ -31,7 +31,7 @@
     
      
      <div class="row-fluid">
-    <div class="span2">email:</div>
+    <div class="span2">E-mail:</div>
     <div class="span4"><?php echo $t['email']; ?></div>
      </div>
     

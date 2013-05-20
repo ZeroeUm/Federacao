@@ -604,7 +604,7 @@ graduacao_participantes.status_participacao = 1" . $complemento;
                 ->join('endereco', 'evento_graduacao.id_endereco = endereco.id_endereco')
                 ->join('estados', 'endereco.uf = estados.id_estados')
                 ->join('modalidade', 'evento_graduacao.id_modalidade = modalidade.id_modalidade')
-                ->order_by('data_evento', 'DESC')
+                ->order_by('evento_graduacao.data_evento', 'DESC')
                 ->get()
                 ->result_array();
 
