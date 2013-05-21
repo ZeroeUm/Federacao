@@ -83,6 +83,8 @@
 
 
                 <li><a href="<?php echo site_url(); ?>"><i class="icon icon-home"></i> <span>Home</span> </a></li>
+               
+                <?php if ($this->session->userdata("tipo") == 1){?>
                 <li class="submenu menu_alunos">
                     <a href="#"><i class="icon icon-pause"></i> <span>Alunos</span> </a>
                     <ul>
@@ -93,6 +95,7 @@
 
                     </ul>
                 </li>
+                <?php } ?>
                 <?php 
                     if ($this->session->userdata("tipo") > 1):
                 ?>
@@ -122,7 +125,7 @@
                             <ul class="sub-menu">
                                 <li><a href="<?php echo site_url(); ?>coordenador/pre_avaliar" title="">Agendar pré-Avaliação</a></li>
                                 <li><a href="<?php echo site_url(); ?>coordenador/agenda_de_compromissos" title="">Cancelar agendamento</a></li>
-                                <li><a href="<?php echo site_url(); ?>coordenador/listagem" title="">Listagem de Avaliados</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/listagem" title="">Listagem dos Não-Avaliados</a></li>
                                 <li><a href="<?php echo site_url(); ?>coordenador/lancar_nota" title="">Lançar Notas</a></li>
                             </ul>
                         </li>

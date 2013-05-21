@@ -106,6 +106,8 @@ class Coordenador_model extends CI_Model {
                         inner join graduacao
                         on graduacao_federado.id_graduacao+1 = graduacao.id_graduacao
                         where pre_avaliacao.id_evento = {$ultimo_evento['id_evento']}
+                            and
+                            pre_avaliacao.id_status_avaliacao = 3
                         group by graduacao_federado.id_graduacao";
         return $this->db->query($sql)->result_array();
     }

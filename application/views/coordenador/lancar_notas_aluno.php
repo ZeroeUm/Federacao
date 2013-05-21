@@ -123,9 +123,25 @@
 <script>
     
     $(document).ready(function(){
-                                              
+                 
+                 
+        $('.minhanota').change(function(){
+            $('.minhanota').each(function(k,v){
+                valor = $(this).val();
+                if(valor>10){
+                    
+                    $(this).css({"border-color" : "#F00", "padding": "2px"});
+                }else{
+                    $(this).css({"border-color" :""});
+                }
+                
+            });
+        })
+                
+                 
+                 
         $('.salvar').click(function(){
-               verificar = 0;                         
+            verificar = 0;                         
             $('.minhanota').each(function(k,v){
                 valor = $(this).val();
                 if(valor>10){
@@ -139,9 +155,9 @@
             
             if(verificar==0){
                 $('#form').submit();
-                }else{
-                    alert('O prontúario não pode ser salvo, uma das notas é maior que 10')
-                }
+            }else{
+                alert('O prontúario não pode ser salvo, uma das notas é maior que 10')
+            }
                                         
         })
             
@@ -172,28 +188,28 @@
         $('input').change(function(){
             total = (
 <?php foreach ($movimentos as $i => $v) { ?>
-                                        parseFloat($('.faixa_<?php echo $v['id_movimento_faixa'] ?>').val())+
+                parseFloat($('.faixa_<?php echo $v['id_movimento_faixa'] ?>').val())+
 <?php } ?>0)/<?php echo $quant ?>;
-                                    $('.result').text(total.toFixed(2));
-                                    $('#media').val(total.toFixed(2));
+            $('.result').text(total.toFixed(2));
+            $('#media').val(total.toFixed(2));
                                 
                                 
                 
-                                })
+        })
         
-                            })
+    })
         
     
     
      
     
-                            function mascara(){
+    function mascara(){
         
-                                if($('.nota')>10){
-                                    alert('maior que 10');
-                                }else{
-                                    $('.nota').numeric({allow:"."});
-                                }
+        if($('.nota')>10){
+            alert('maior que 10');
+        }else{
+            $('.nota').numeric({allow:"."});
+        }
     
-                            }
+    }
 </script>

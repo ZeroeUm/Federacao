@@ -14,7 +14,7 @@
                 <td><?php echo $data ?></td>
                 <td><?php echo utf8_encode($endereco_evento); ?></td>
                 <td><?php if ($status == '0'): ?>
-                        <span class="label label-important">Sem participação</span>
+                        <span class="label label-important">Não possui notas</span>
                         <?php
                     else:
                         ?>         

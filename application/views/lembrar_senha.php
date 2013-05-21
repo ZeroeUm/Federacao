@@ -46,11 +46,22 @@
         <div class="login" style="">
             <form action="<?php echo base_url();?>login/lembrar_senha" method="post">
                 <div class="logo">
+                    <a href="<?php echo base_url(); ?>">   
             <img src="/federados/logo2.png">
-            
+                    </a>
         </div>
-                <input name="email" type="text" class="input-xxlarge" placeholder="Informe seu email" style="height: 50px;margin-top: 20px;"><br>
+                <input name="email" type="text" class="input-xxlarge" placeholder="Informe seu email" style="height: 50px;margin-top: 20px;">
+                
+                <?php if (@$this->session->flashdata('alerta') != '') { ?>
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>  
+                    <?php echo $this->session->flashdata('alerta'); ?>
+                </div>
+            <?php } ?>
+                <br>
+            
                 <input type="submit" value="Enviar" class="btn btn-primary" style="height: 50px; width: 100px;" >
+           
             </form>
         </div>
     </body>

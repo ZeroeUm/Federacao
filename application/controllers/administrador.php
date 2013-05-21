@@ -540,54 +540,22 @@ class administrador extends CI_Controller
     function pedidos()
     {
         $this->load->model('administrador_model', 'administrador');
-        $this->load->library("pagination");
-        $config = array();
-
-        $config['base_url'] = base_url() . 'administrador/pedidos';
-        $config['total_rows'] = $this->administrador->totalPedidos();
-        $config['per_page'] = 10;
-        $choice = $config['total_rows'] / $config['per_page'];
-        $config['num_links'] = round($choice);
-        $config["anchor_class"] = "class='btn btn-link'";
-
-        $config['full_tag_open'] = "<div class='pagination pagination-centered'><ul>";
-        $config['full_tag_close'] = "</ul></div>";
-
-        $config['cur_tag_open'] = "<li class='disabled'><a><strong>";
-        $config['cur_tag_close'] = "</strong></a></li>";
-
-        $config['num_tag_open'] = "<li class='active'>";
-        $config['num_tag_close'] = "</li>";
-
-        $config['prev_link'] = "&lt;";
-        $config['prev_tag_open'] = $config['num_tag_open'];
-        $config['prev_tag_close'] = $config['num_tag_close'];
-
-        $config['next_link'] = '&gt;';
-        $config['next_tag_open'] = $config['num_tag_open'];
-        $config['next_tag_close'] = $config['num_tag_close'];
-
-        $config['first_link'] = "&laquo;";
-        $config['first_tag_open'] = $config['num_tag_open'];
-        $config['first_tag_close'] = $config['num_tag_close'];
-
-        $config['last_link'] = "&raquo;";
-        $config['last_tag_open'] = $config['num_tag_open'];
-        $config['last_tag_close'] = $config['num_tag_close'];
-
-        $config['uri_segment'] = 3;
-
-        $this->pagination->initialize($config);
-
-        $pag = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-
-        $dados['resultado'] = $this->administrador->pedidos($config['per_page'], $pag);
-        $dados['links'] = $this->pagination->create_links();
+        $dados['pedidos'] = $this->administrador->get_pedidos_faixa();
 
         $this->load->view('header');
-        $this->load->view('administrador/pedidos', $dados);
+        $this->load->view('administrador/pedidos',$dados);
         $this->load->view('footer');
     }
+
+    function detalhe_pedido($id_evento){
+        $this->load->model('administrador_model', 'administrador');
+        $dados['detalhes'] = $this->administrador->detalhes_de_pedido_faixa($id_evento);
+        
+        $this->load->view('header');
+        $this->load->view('administrador/detalhe_pedido',$dados);
+        $this->load->view('footer');
+    }
+
 
     function alterarPedido($id)
     {
