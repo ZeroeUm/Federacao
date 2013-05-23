@@ -41,6 +41,7 @@ Relação de participantes
             <td><?php echo $i['nome'];?></td>
             <td><?php echo $i['email'];?></td>
             <td><?php echo $i['telefone'];?></td>
+            <td><a href="/coordenador/certificado/<?php echo $i['id_federado'];?>/<?php echo $faixa ?>" target="new" class="btn btn-small">Imprimir Certificado</a></td>
             
         </tr>
         <?php 
