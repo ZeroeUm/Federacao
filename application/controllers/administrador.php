@@ -297,7 +297,7 @@ class administrador extends CI_Controller
         $config['overwrite'] = TRUE;
         $config['remove_spaces'] = TRUE;
         $config['encrypt_name'] = FALSE;
-        $config['file_name'] = (isset($extensao) ? $this->input->post('nome') . "." . $extensao : NULL);
+        $config['file_name'] = (isset($extensao) ? hash($this->input->post('nome')) . "." . $extensao : NULL);
 
 
         $this->load->library('upload', $config);
@@ -369,16 +369,55 @@ class administrador extends CI_Controller
         $this->administrador->matricularFederado($matricula);
     }
 
+    
+    function enviarSenha($id_federado,$relembrar=null) {
+
+        $dados = $this->administrador->get_login($id_federado);
+        if(empty($dados)){
+            $this->session->set_flashdata('aviso','Operação ilegal realizada erro 404 -  usuário não encontrado');
+            redirect('/login/erro');
+        }
+        extract($dados['0']);
+
+        
+        $this->load->library('email');
+        $this->email->from('elder.f.silva@gmail.com', 'Felipe');
+        $this->email->to($email);
+        $this->email->subject('Acesso ao sistema FEPAMI');
+        
+        $mensagem = "<p>Caro Aluno(a) {$nome} </p>
+                  <p>Seu cadastro de acesso ao sistema FEPAMI foi realizado</p>
+                  <p>segue abaixo informações de acesso.</p>
+                  <p>Login: {$login}</p>
+                  <p>Senha: {$senha}</p>
+                  <p>ATENÇÃO: ao realizar seu primeiro acesso será obrigatório a troca de senha</p>";
+        
+            $this->email->message($mensagem);      
+        if($this->email->send()){
+           
+           if($relembrar!=null){
+               $this->session->set_flashdata('alerta','Email re-enviado com os dados de acesso para o aluno');
+               redirect('/instrutores');
+           }
+            
+        }else{
+            $this->session->set_flashdata('aviso','Não foi possivel enviar um email com os dados de acesso');
+            };
+
+        
+      
+    }
+    
     function gerarGraduacao($federado, $modalidade)
     {
         $this->load->model('Administrador_model', 'administrador');
-        $primeiraFaixa = $this->administrador->getPrimeiraFaixa($modalidade);
+        $primeiraFaixa = '1';
         $graduacao['id_modalidade'] = $modalidade;
-        $graduacao['id_graduacao'] = $primeiraFaixa[0]['faixa'];
+        $graduacao['id_graduacao'] = $primeiraFaixa;
         $graduacao['id_federado'] = $federado;
-        $graduacao['status'] = 1;
+        $graduacao['status'] = '1';
         $graduacao['data_emissao'] = date('Y-m-d');
-        $this->administrador->primeiraFaixa($graduacao);
+        $this->administrador->gerarGraduacao($graduacao);
     }
 
     function alterarMatricula($federado, $filial, $modalidade)
@@ -522,6 +561,10 @@ class administrador extends CI_Controller
         $this->matricularFederado($novoFederado, $this->input->post('filial'), 1);
         $this->criarLogin($novoFederado, $federado['nome']);
 
+        $this->enviarSenha($novoFederado);
+        
+        $dados['id_federado'] = $novoFederado;
+        
         $dados['federado'] = $federado['nome'];
         $this->load->view('header');
         $this->load->view('administrador/sucessoInclusaoFederado', $dados);

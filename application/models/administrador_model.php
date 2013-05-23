@@ -591,6 +591,23 @@ class Administrador_model extends CI_Model
                 return $dados;
     }
     
+     function get_login($id_federado){
+        $this->db->where('id_federado',$id_federado);
+        $this->db->update('login',array('status'=>'0'));
+        
+        return $this->db->select('login.login,login.senha,federado.nome,federado.email')
+                        ->from('login')
+                        ->join('federado', 'federado.id_federado = login.id_federado', 'inner')
+                        ->where(array('federado.id_federado' => $id_federado))
+                        ->get()
+                        ->result_array();
+        
+    }
+    
+    function gerarGraduacao($dados){
+         $this->db->insert('graduacao_federado', $dados);
+          }
+    
     public function primeiraFaixa($dados = array())
     {
         $this->db->insert('graduacao_federado',$dados);
