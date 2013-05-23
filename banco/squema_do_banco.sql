@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: 16/05/2013 às 17:26:35
+-- Tempo de Geração: 23/05/2013 às 18:37:07
 -- Versão do Servidor: 5.1.66-0ubuntu0.11.10.3
 -- Versão do PHP: 5.3.6-13ubuntu3.10
 
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `endereco` (
   PRIMARY KEY (`id_endereco`),
   KEY `FK_endereco_tipo_endereco` (`tipo_endereco`),
   KEY `FK_endereco_uf` (`uf`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=39 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=86 ;
 
 --
 -- Extraindo dados da tabela `endereco`
@@ -84,29 +84,10 @@ CREATE TABLE IF NOT EXISTS `endereco` (
 
 INSERT INTO `endereco` (`id_endereco`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`, `tipo_endereco`) VALUES
 (1, 'Rua do Administrador', 150, 'Complemento', 'Bela Vista', 'São Paulo', 1, 1),
-(2, 'Rua do aluno', 260, NULL, 'Penha', 'São Paulo', 1, 1),
-(3, 'Rua do aluno', 154, NULL, 'Penha', 'são paulo', 1, 1),
-(4, 'Rua do aluno', 154, 'asdasd', 'Penha', 'São paulo', 1, 1),
-(19, 'Rua dos eventos ', 161, '', '', 'São Paulo', 1, 3),
-(20, 'Rua dos eventos ', 161, '', '', 'São Paulo', 1, 3),
-(21, 'Rua dos eventos ', 161, '', '', 'São Paulo', 1, 3),
-(22, 'Rua dos eventos ', 150, '', 'Bela Vista', 'São Paulo', 1, 3),
-(23, 'asdasd', 154, 'asd', 'asd', 'São Paulo', 1, 1),
-(24, 'asdadasd', 123, 'dasdasd', 'asdasd', 'asdasd', 1, 1),
-(25, 'Endereco da filiaal 1', 154, '1', 'Penha', 'São paulo', 1, 1),
-(26, 'Rua blábláblá', 77, NULL, 'Bela Vista', 'São Paulo', 1, 1),
-(27, 'Rua dos eventos ', 161, '', 'jaçana', 'São Paulo', 1, 3),
-(28, 'Rua dos eventos ', 161, '', 'jaçana', 'São Paulo', 1, 3),
-(29, 'Rua dos eventos', 154, 'asad', 'Tucuruvi', 'São Paulo', 1, 3),
-(30, 'Rua dos eventos ', 0, '', '', 'São Paulo', 1, 3),
-(31, 'Rua dos eventos', 161, '', '', 'São paulo', 1, 3),
-(32, 'Novo Evento', 78, '', 'Bela Vista', 'São paulo', 1, 3),
-(33, 'Av Paulista ', 325, '', 'Bela Vista', 'são paulo', 1, 3),
-(34, 'Av Paulista ', 325, '', 'Bela Vista', 'São Paulo', 1, 3),
-(35, 'Endereco da filiaal 1', 22, '', 'Penha', 'São Paulo', 1, 1),
-(36, 'Rua do Evento ', 151, '', 'Bela Vista', 'São paulo', 1, 3),
-(37, 'Novo evento 2', 0, '', '', 'São paulo', 1, 3),
-(38, 'Av Paulista 252 - Bela Vista', 161, '', 'jaçana', 'São Paulo', 1, 3);
+(2, 'Rua do instrutor e coordenador', 260, NULL, 'Penha', 'São Paulo', 1, 1),
+(83, 'Endereco da filiaal 1', 123, 'asd', 'ads', 'as', 1, 1),
+(84, 'Endereco da filiaal 1', 123, 'asd', 'ads', 'as', 1, 1),
+(85, 'Rua tomé de lara', 161, '', 'Tucuruvi', 'São Paulo', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -169,16 +150,7 @@ CREATE TABLE IF NOT EXISTS `evento_graduacao` (
   UNIQUE KEY `validacao` (`numero_evento`),
   KEY `FK_evento_graduacao_endereco` (`id_endereco`),
   KEY `FK_evento_graduacao_modalidade` (`id_modalidade`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
-
---
--- Extraindo dados da tabela `evento_graduacao`
---
-
-INSERT INTO `evento_graduacao` (`id_evento`, `numero_evento`, `data_evento`, `id_endereco`, `id_modalidade`, `descricao`) VALUES
-(19, '05-2013', '2013-05-31', 36, 1, 'Evento de graduação de faixa, para todos os filiados    \n        '),
-(20, '06-2013', '2013-06-30', 37, 1, '    \n        asdasdasdas'),
-(21, '07-2013', '2013-07-30', 38, 1, '    \n        asdasdasdasd');
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
 
 -- --------------------------------------------------------
 
@@ -225,23 +197,17 @@ CREATE TABLE IF NOT EXISTS `federado` (
   KEY `FK_federado_nacionalidade` (`id_nacionalidade`),
   KEY `FK_federado_status_federado` (`id_status`),
   KEY `FK_federado_tipo_federado` (`id_tipo_federado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=49 ;
 
 --
 -- Extraindo dados da tabela `federado`
 --
 
 INSERT INTO `federado` (`id_federado`, `nome`, `filiacao_materna`, `filiacao_paterna`, `sexo`, `data_nasc`, `rg`, `telefone`, `celular`, `email`, `caminho_imagem`, `id_escolaridade`, `id_status`, `id_endereco`, `id_nacionalidade`, `id_tipo_federado`, `tamanho_faixa`) VALUES
-(1, 'Administrador Mestre Carlos', 'Não Declarada', 'Não declarada', 'M', '1980-04-05', '52.444.111-1', '(11)1111-2222', '(11)3333-4444', 'mail@mail.com', '', 6, 1, 1, 1, 4, 'G'),
-(3, 'Instrutor Roberto', 'Não declarado', 'Não declarado', 'M', '1980-11-01', '52.222.111-1', '(00)0000-0000', '(00)0000-0000', 'mail@mail.com', 'sem foto', 6, 1, 2, 1, 2, 'G'),
-(5, 'Coordenador Valter', 'Não Declarado', 'Não Declarado', 'M', '2000-01-01', '58.222.222-1', '(00)0000-0000', '(00)0000-0000', 'mail@mail.com', 'sem foto', 6, 1, 2, 1, 3, 'G'),
-(6, 'Aluno joão paulo', 'não declarado', 'não declarado', 'M', '1985-04-30', '55.444.444-5', '(11)2222-2222', '(11)96666-6666', 'mail@mail.com', 'sem foto', 4, 1, 3, 1, 1, 'M'),
-(7, 'Aluna maria de Paula', 'não declarado', 'não declarado', 'F', '1999-04-09', '22.222.222-2', '(11)2222-2222', '(11)90494-3904', 'mail.com@mna.com.br', 'sem foto', 6, 1, 4, 1, 1, 'M'),
-(8, 'Maria Fernanda', 'não declarado', 'não declarado', 'M', '1985-05-31', '55.444.444-5', '(11)1111-1111', '(11)99999-9999', 'email.re@email.com', 'sem foto', 4, 1, 23, 1, 1, 'M'),
-(9, 'Caetano silveira', 'Não declarado', 'não declarado', 'M', '1969-12-31', '88.888.888-8', '(22)2222-2222', '(99)99999-9999', 'mail@mail.com', 'sem foto', 6, 1, 24, 1, 1, 'GG'),
-(10, 'Paula Fernandes', 'não declarado', 'não declarado', 'F', '1985-04-30', '22.222.222-2', '(11)2222-2222', '(11)96666-6666', 'mail@mail.com', 'sem foto', 6, 1, 25, 1, 1, 'G'),
-(11, 'Mariana silveira', 'não declarado', 'não declarado', 'F', '1970-05-22', '88.888.888-8', '(11)9999-9999', '(99)99999-9999', 'mail@mail.com', 'sem foto', 6, 1, 26, 1, 1, 'G'),
-(12, 'Felipe de Oliveira da Silva', 'não declarado', 'não declarado', 'M', '1985-11-23', '55.444.444-5', '(11)96666-666', '(11)96666-6666', 'felipe@chipsetdesenvolvimento.com', 'sem foto', 6, 1, 35, 1, 1, NULL);
+(1, 'Carlos Mariano', 'Não Declarada', 'Não declarada', 'M', '1980-04-05', '52.444.111-1', '(11)1111-2222', '(11)3333-4444', 'mail@mail.com', '', 6, 1, 1, 1, 4, 'G'),
+(3, 'Erandi Olimpio', 'Não declarado', 'Não declarado', 'M', '1980-11-01', '52.222.111-1', '(00)0000-0000', '(00)0000-0000', 'mail@mail.com', 'sem foto', 6, 1, 2, 1, 2, 'G'),
+(5, 'Eloy Oliveira', 'Não Declarado', 'Não Declarado', 'M', '2000-01-01', '58.222.222-1', '(00)0000-0000', '(00)0000-0000', 'mail@mail.com', 'sem foto', 6, 1, 2, 1, 3, 'G'),
+(47, 'Jorge Gonçalves', 'não declarado', 'não declarado', 'M', '1985-05-23', '23.333.333-2', '(11)1111-1111', '(11)11111-1111', 'coanta@contato.com.br', 'sem foto', 6, 1, 84, 1, 1, 'M');
 
 -- --------------------------------------------------------
 
@@ -303,7 +269,7 @@ CREATE TABLE IF NOT EXISTS `graduacao` (
   `curriculo` blob COMMENT 'Curriculo da faixa na modalidade',
   PRIMARY KEY (`id_graduacao`),
   KEY `FK_graduacao_modalidade` (`id_modalidade`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Extraindo dados da tabela `graduacao`
@@ -323,7 +289,9 @@ INSERT INTO `graduacao` (`id_graduacao`, `id_modalidade`, `grau`, `ordem`, `faix
 (11, 1, '1º DAN', 11, 'Faixa Preta 1º DAN', NULL),
 (12, 1, '2º DAN', 12, 'Faixa Preta 2º DAN', NULL),
 (13, 1, '3º DAN', 13, 'Faixa Preta 3º DAN', NULL),
-(14, 1, '4º DAN', 14, 'Faixa Preta 4º DAN', NULL);
+(14, 1, '4º DAN', 14, 'Faixa Preta 4º DAN', NULL),
+(15, 1, '5º DAN', 15, 'Faixa Preta 5º DAN', NULL),
+(16, 1, '6º DAN', 16, 'Faixa Preta 6º DAN', NULL);
 
 -- --------------------------------------------------------
 
@@ -340,21 +308,17 @@ CREATE TABLE IF NOT EXISTS `graduacao_federado` (
   `data_emissao` date NOT NULL,
   PRIMARY KEY (`id_graduacao_federado`),
   KEY `FK_federado_graduacao` (`id_federado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Extraindo dados da tabela `graduacao_federado`
 --
 
 INSERT INTO `graduacao_federado` (`id_graduacao_federado`, `id_modalidade`, `id_graduacao`, `id_federado`, `status`, `data_emissao`) VALUES
-(1, 1, '13', 1, 1, '1990-05-05'),
-(2, 1, '6', 6, 1, '2013-05-16'),
-(3, 1, '10', 5, 1, '1999-10-10'),
-(4, 1, '11', 3, 1, '2000-01-10'),
-(5, 1, '5', 7, 1, '2013-05-15'),
-(6, 1, '5', 8, 1, '2013-05-15'),
-(7, 1, '6', 9, 1, '2013-05-15'),
-(8, 1, '6', 11, 1, '2013-05-16');
+(1, 1, '16', 1, 1, '1990-05-05'),
+(3, 1, '14', 5, 1, '1999-10-10'),
+(4, 1, '14', 3, 1, '2000-01-10'),
+(15, 1, '1', 47, 1, '2013-05-23');
 
 -- --------------------------------------------------------
 
@@ -371,18 +335,6 @@ CREATE TABLE IF NOT EXISTS `graduacao_participantes` (
   KEY `FK_participante` (`id_federado`),
   KEY `fk_graduacao_participantes_1` (`id_graduacao`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `graduacao_participantes`
---
-
-INSERT INTO `graduacao_participantes` (`id_evento`, `id_federado`, `id_graduacao`, `status_participacao`) VALUES
-(20, 7, 5, 1),
-(20, 8, 5, 1),
-(20, 9, 6, 1),
-(20, 11, 5, 1),
-(21, 6, 6, 1),
-(21, 11, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -439,23 +391,20 @@ CREATE TABLE IF NOT EXISTS `login` (
   `login` varchar(20) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `senha` varchar(32) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `id_federado` int(11) NOT NULL,
+  `status` int(1) DEFAULT '0' COMMENT '0 para inativo 1 para ativo\n',
   PRIMARY KEY (`id_login`),
   KEY `FK_login_federado` (`id_federado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Extraindo dados da tabela `login`
 --
 
-INSERT INTO `login` (`id_login`, `login`, `senha`, `id_federado`) VALUES
-(1, 'administrador', '1234', 1),
-(3, 'apaulo', 'pPRBUMewgO', 6),
-(4, 'apaula', 'ExBuOwUtWT', 7),
-(5, 'mfernanda', 'kBWkX5OUwr', 8),
-(6, 'csilveira', 'tpKGrPRXfv', 9),
-(7, 'iroberto', '1234', 3),
-(8, 'cvalter', '1234', 5),
-(9, 'msilveira', '1234', 11);
+INSERT INTO `login` (`id_login`, `login`, `senha`, `id_federado`, `status`) VALUES
+(1, 'administrador', '1234', 1, 1),
+(7, 'eolimpio', '1234', 3, 1),
+(8, 'coordenador', '1234', 5, 1),
+(10, 'jgonçalves', 'cbTsCwZEJ9z', 47, 0);
 
 -- --------------------------------------------------------
 
@@ -494,11 +443,7 @@ INSERT INTO `matricula` (`id_federado`, `id_modalidade`, `id_filial`, `data_matr
 (1, 1, 0, '2013-04-30', '2013-04-30'),
 (3, 1, 0, '2013-04-30', '2013-04-30'),
 (5, 1, 0, '2013-04-30', '2013-04-30'),
-(6, 1, 1, '2013-04-29', '2013-04-29'),
-(7, 1, 1, '2013-04-29', '2013-04-29'),
-(8, 1, 1, '2013-04-29', '2013-04-29'),
-(9, 1, 1, '2013-04-29', '2013-04-29'),
-(11, 1, 1, '2013-05-03', '2013-05-03');
+(47, 1, 1, '2013-05-23', '2013-05-23');
 
 --
 -- Gatilhos `matricula`
@@ -703,7 +648,7 @@ CREATE TABLE IF NOT EXISTS `pedido_faixa` (
   UNIQUE KEY `index4` (`id_evento`,`id_graduacao`,`tamanho`,`quantidade`),
   KEY `fk_pedido_faixa_1` (`id_graduacao`),
   KEY `fk_pedido_faixa_2` (`id_evento`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -724,23 +669,7 @@ CREATE TABLE IF NOT EXISTS `pre_avaliacao` (
   KEY `fk_pre_avaliacao_2` (`id_federado`),
   KEY `fk_pre_avaliacao_3` (`id_status_avaliacao`),
   KEY `fk_pre_avaliacao_4` (`id_filial`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=94 ;
-
---
--- Extraindo dados da tabela `pre_avaliacao`
---
-
-INSERT INTO `pre_avaliacao` (`id_pre_avaliacao`, `id_evento`, `id_federado`, `id_status_avaliacao`, `data_agendamento`, `id_filial`, `horario`) VALUES
-(82, 20, 6, 2, '2013-05-27', 1, 1),
-(84, 20, 8, 1, '2013-05-27', 1, 1),
-(86, 20, 11, 1, '2013-05-27', 1, 1),
-(87, 20, 7, 1, '2013-05-28', 1, 3),
-(88, 20, 9, 1, '2013-05-28', 1, 3),
-(89, 21, 6, 1, '2013-05-28', 1, 3),
-(90, 21, 7, 3, '2013-05-28', 1, 3),
-(91, 21, 8, 3, '2013-05-28', 1, 3),
-(92, 21, 9, 2, '2013-05-28', 1, 3),
-(93, 21, 11, 1, '2013-05-28', 1, 3);
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=110 ;
 
 -- --------------------------------------------------------
 
@@ -760,112 +689,7 @@ CREATE TABLE IF NOT EXISTS `prontuario` (
   KEY `fk_prontuario_1` (`id_movimento_faixa`),
   KEY `fk_prontuario_3` (`id_evento`),
   KEY `fk_prontuario_4` (`id_federado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=422 ;
-
---
--- Extraindo dados da tabela `prontuario`
---
-
-INSERT INTO `prontuario` (`id_prontuario`, `id_federado`, `id_evento`, `ordem`, `id_movimento_faixa`, `nota`) VALUES
-(317, 11, 19, NULL, 4, '9.9'),
-(318, 11, 19, NULL, 5, '9.9'),
-(319, 11, 19, NULL, 6, '9.9'),
-(320, 11, 19, NULL, 7, '9.9'),
-(321, 11, 19, NULL, 8, '9.9'),
-(322, 11, 19, NULL, 9, '9.9'),
-(323, 8, 19, NULL, 4, '9.9'),
-(324, 8, 19, NULL, 5, '9.9'),
-(325, 8, 19, NULL, 6, '9.9'),
-(326, 8, 19, NULL, 7, '9.9'),
-(327, 8, 19, NULL, 8, '9.9'),
-(328, 8, 19, NULL, 9, '9.9'),
-(329, 9, 19, NULL, 4, '8'),
-(330, 9, 19, NULL, 5, '8'),
-(331, 9, 19, NULL, 6, '8'),
-(332, 9, 19, NULL, 7, '8'),
-(333, 9, 19, NULL, 8, '8'),
-(334, 9, 19, NULL, 9, '8'),
-(335, 6, 19, NULL, 4, '8'),
-(336, 6, 19, NULL, 5, '8'),
-(337, 6, 19, NULL, 6, '8'),
-(338, 6, 19, NULL, 7, '8'),
-(339, 6, 19, NULL, 8, '8'),
-(340, 6, 19, NULL, 9, '8'),
-(341, 7, 19, NULL, 4, '8'),
-(342, 7, 19, NULL, 5, '8'),
-(343, 7, 19, NULL, 6, '8'),
-(344, 7, 19, NULL, 7, '8'),
-(345, 7, 19, NULL, 8, '8'),
-(347, 7, 19, NULL, 9, '8'),
-(353, 6, 20, NULL, 10, '9.9'),
-(354, 6, 20, NULL, 11, '9.9'),
-(355, 6, 20, NULL, 12, '9.9'),
-(356, 6, 20, NULL, 13, '9.9'),
-(357, 6, 20, NULL, 14, '9.9'),
-(358, 6, 20, NULL, 15, '9.9'),
-(359, 9, 20, NULL, 10, '9.9'),
-(360, 9, 20, NULL, 11, '9.9'),
-(361, 9, 20, NULL, 12, '9.9'),
-(362, 9, 20, NULL, 13, '9.9'),
-(363, 9, 20, NULL, 14, '9.9'),
-(364, 9, 20, NULL, 15, '9.9'),
-(365, 11, 20, NULL, 16, '8'),
-(366, 11, 20, NULL, 17, '8'),
-(367, 11, 20, NULL, 18, '8'),
-(368, 11, 20, NULL, 19, '8'),
-(369, 11, 20, NULL, 20, '8'),
-(370, 11, 20, NULL, 21, '8'),
-(371, 7, 20, NULL, 16, '8'),
-(372, 7, 20, NULL, 17, '8'),
-(373, 7, 20, NULL, 18, '8'),
-(374, 7, 20, NULL, 19, '8'),
-(375, 7, 20, NULL, 20, '8'),
-(376, 7, 20, NULL, 21, '8'),
-(377, 8, 20, NULL, 16, '8'),
-(378, 8, 20, NULL, 17, '8'),
-(379, 8, 20, NULL, 18, '8'),
-(380, 8, 20, NULL, 19, '8'),
-(381, 8, 20, NULL, 20, '8'),
-(382, 8, 20, NULL, 21, '8'),
-(383, 11, 20, NULL, 22, '8'),
-(384, 11, 20, NULL, 23, '8'),
-(385, 11, 20, NULL, 24, '8'),
-(386, 11, 20, NULL, 25, '9'),
-(387, 11, 20, NULL, 26, '8'),
-(388, 11, 20, NULL, 27, '8'),
-(389, 8, 20, NULL, 22, '7.9'),
-(390, 8, 20, NULL, 23, '7.9'),
-(391, 8, 20, NULL, 24, '8.9'),
-(392, 8, 20, NULL, 25, '8.9'),
-(393, 8, 20, NULL, 26, '8.8'),
-(394, 8, 20, NULL, 27, '9.9'),
-(395, 7, 20, NULL, 22, '8.8'),
-(396, 7, 20, NULL, 23, '8.8'),
-(397, 7, 20, NULL, 24, '8.8'),
-(398, 7, 20, NULL, 25, '8.8'),
-(399, 7, 20, NULL, 26, '8.8'),
-(400, 7, 20, NULL, 27, '8.8'),
-(401, 9, 20, NULL, 22, '9'),
-(402, 9, 20, NULL, 23, '9'),
-(403, 9, 20, NULL, 24, '9.9'),
-(404, 9, 20, NULL, 25, '9.9'),
-(405, 9, 20, NULL, 26, '9.9'),
-(406, 9, 20, NULL, 27, '9.9'),
-(407, 6, 21, NULL, 22, '9.9'),
-(408, 6, 21, NULL, 23, '9.9'),
-(409, 6, 21, NULL, 24, '9.9'),
-(410, 6, 21, NULL, 25, '9.9'),
-(411, 6, 21, NULL, 26, '9.9'),
-(412, 6, 21, NULL, 27, '9.9'),
-(413, 11, 21, NULL, 28, '8'),
-(414, 11, 21, NULL, 29, '8'),
-(415, 11, 21, NULL, 30, '8'),
-(416, 11, 21, NULL, 31, '8'),
-(417, 11, 21, NULL, 32, '8'),
-(418, 11, 21, NULL, 33, '8'),
-(419, 11, 21, NULL, 34, '8'),
-(420, 11, 21, NULL, 35, '8.9'),
-(421, 11, 21, NULL, 36, '8.9');
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=498 ;
 
 -- --------------------------------------------------------
 
@@ -1042,15 +866,15 @@ ALTER TABLE `graduacao`
 -- Restrições para a tabela `graduacao_federado`
 --
 ALTER TABLE `graduacao_federado`
-  ADD CONSTRAINT `FK_federado_graduacao` FOREIGN KEY (`id_federado`) REFERENCES `federado` (`id_federado`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_federado_graduacao` FOREIGN KEY (`id_federado`) REFERENCES `federado` (`id_federado`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Restrições para a tabela `graduacao_participantes`
 --
 ALTER TABLE `graduacao_participantes`
+  ADD CONSTRAINT `FK_participante` FOREIGN KEY (`id_federado`) REFERENCES `federado` (`id_federado`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_graduacao` FOREIGN KEY (`id_evento`) REFERENCES `evento_graduacao` (`id_evento`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_graduacao_participantes_1` FOREIGN KEY (`id_graduacao`) REFERENCES `graduacao` (`id_graduacao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_participante` FOREIGN KEY (`id_federado`) REFERENCES `federado` (`id_federado`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_graduacao_participantes_1` FOREIGN KEY (`id_graduacao`) REFERENCES `graduacao` (`id_graduacao`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Restrições para a tabela `instrutor`
@@ -1104,15 +928,15 @@ ALTER TABLE `pedido`
 -- Restrições para a tabela `pedido_faixa`
 --
 ALTER TABLE `pedido_faixa`
-  ADD CONSTRAINT `fk_pedido_faixa_1` FOREIGN KEY (`id_graduacao`) REFERENCES `graduacao` (`id_graduacao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_pedido_faixa_2` FOREIGN KEY (`id_evento`) REFERENCES `evento_graduacao` (`id_evento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_pedido_faixa_2` FOREIGN KEY (`id_evento`) REFERENCES `evento_graduacao` (`id_evento`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_pedido_faixa_1` FOREIGN KEY (`id_graduacao`) REFERENCES `graduacao` (`id_graduacao`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Restrições para a tabela `pre_avaliacao`
 --
 ALTER TABLE `pre_avaliacao`
+  ADD CONSTRAINT `fk_pre_avaliacao_2` FOREIGN KEY (`id_federado`) REFERENCES `federado` (`id_federado`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_pre_avaliacao_1` FOREIGN KEY (`id_evento`) REFERENCES `evento_graduacao` (`id_evento`) ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_pre_avaliacao_2` FOREIGN KEY (`id_federado`) REFERENCES `federado` (`id_federado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_pre_avaliacao_3` FOREIGN KEY (`id_status_avaliacao`) REFERENCES `status_avaliacao` (`id_status_avaliacao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_pre_avaliacao_4` FOREIGN KEY (`id_filial`) REFERENCES `filial` (`id_filial`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
@@ -1120,9 +944,9 @@ ALTER TABLE `pre_avaliacao`
 -- Restrições para a tabela `prontuario`
 --
 ALTER TABLE `prontuario`
+  ADD CONSTRAINT `fk_prontuario_4` FOREIGN KEY (`id_federado`) REFERENCES `federado` (`id_federado`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_prontuario_1` FOREIGN KEY (`id_movimento_faixa`) REFERENCES `movimento_faixa` (`id_movimento_faixa`) ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_prontuario_3` FOREIGN KEY (`id_evento`) REFERENCES `evento_graduacao` (`id_evento`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_prontuario_4` FOREIGN KEY (`id_federado`) REFERENCES `federado` (`id_federado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_prontuario_3` FOREIGN KEY (`id_evento`) REFERENCES `evento_graduacao` (`id_evento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

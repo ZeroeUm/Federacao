@@ -15,10 +15,10 @@
   |
  */
 
-$producao = $_SERVER ['SERVER_NAME'];
+//$producao = $_SERVER ['SERVER_NAME'];
 
 
-$config['base_url'] = "http://".$producao;
+$config['base_url'] = "http://localhost/Federacao/";
 
 /*
 |--------------------------------------------------------------------------

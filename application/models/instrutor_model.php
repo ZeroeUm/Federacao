@@ -402,5 +402,41 @@ and
 federado.id_tipo_federado = 1";
         return $this->db->query($sql)->result_array();
     }
+    
+    public function getPrimeiraFaixa($modalidade)
+    {
+        return $this->db
+                        ->select('id_graduacao as faixa')
+                        ->from('graduacao')
+                        ->where('id_modalidade',$modalidade)
+                        ->where('ordem',1)
+                        ->get()
+                        ->result_array();
+    }
+    
+    public function primeiraFaixa($dados = array())
+    {
+        $this->db->insert('graduacao_federado',$dados);
+    }
+    
+    public function matricularFederado($dados = array())
+    {
+        $this->db->insert('matricula',$dados);
+    }
+    
+    public function alterarMatricula($federado,$modalidade,$dados = array())
+    {
+        $this->db->update('matricula',$dados,array('id_federado' => $federado,'id_modalidade' => $modalidade));
+    }
+    
+    public function criarLogin($dados = array())
+    {
+        $this->db->insert('login',$dados);
+    }
+    
+    public function alterarLogin($id,$dados = array())
+    {
+        $this->update('login',$dados,array('id_login' => $id));
+    }
 
 }
