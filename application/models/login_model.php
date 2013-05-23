@@ -98,7 +98,7 @@ class Login_model extends CI_Model
                         ->where('login.login',$usuario)
                         ->get()
                         ->result_array();
-        if($query[0]['situacao'] == 0):
+        if(@$query[0]['situacao'] == 0):
             return FALSE;
         else:
             return TRUE;
