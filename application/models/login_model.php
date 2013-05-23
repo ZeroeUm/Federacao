@@ -53,6 +53,18 @@ class Login_model extends CI_Model
                         ->result_array();
     }
 
+    function primeiroAcesso($id){
+        $sql = "SELECT status FROM federacao.login where id_federado = $id";
+        $dados = $this->db->query($sql)->result_array();
+        if($dados['0']['status']=='0'){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+
+
     public function dadosUsuario($id)
     {
         return $this->db
@@ -86,7 +98,7 @@ class Login_model extends CI_Model
                         ->where('login.login',$usuario)
                         ->get()
                         ->result_array();
-        if($query[0]['situacao'] == 0):
+        if(@$query[0]['situacao'] == 0):
             return FALSE;
         else:
             return TRUE;
@@ -96,6 +108,7 @@ class Login_model extends CI_Model
     
     public function trocarSenha($usuario,$dados)
     {
+       
         $this->db->update('login',$dados,array('id_federado' => $usuario));
     }
 

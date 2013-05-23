@@ -4,6 +4,12 @@
 
 <h4>Lista dos participantes para o evento a ser realizado dia <span class="badge"><?php echo $this->funcoes->data($ultimo_evento['data_evento']);?></span></h4>
 
+<?php if(empty($faixas)){?>
+
+<h3 style="color: red;text-align: center;">Todos os alunos para o evento acima já foram avaliados</h3>
+
+<?php }else{ ?>
+
 <table class="table table-bordered">
 <tr>
     <td>Faixa</td>
@@ -21,5 +27,5 @@
     <?php } ?>
 </tr>
 </table>
-
+<?php } ?>
 <hr>

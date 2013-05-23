@@ -103,9 +103,12 @@ $faixa = array('id' => 'faixa', 'name' => 'faixa', 'maxlength' => '30', 'size' =
 echo form_label("Graduação atual", "faixa");
 echo form_input($faixa);
 echo br();
+
+?>
+<a href="" class="senha btn btn-large btn-primary">Reenviar senha</a>
+<?
 echo anchor("", "Imprimir Federado", array('class' => 'btn btn-large btn-primary', 'id' => 'imprimir'));
 echo nbs(4);
 echo anchor("", "Alterar informações", array('class' => 'btn btn-large btn-primary', 'id' => 'alterar'));
-
 echo form_fieldset_close();
 ?>

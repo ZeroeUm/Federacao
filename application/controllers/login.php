@@ -12,6 +12,15 @@ class Login extends CI_Controller {
         $this->load->model("Login_model", 'login', TRUE);
     }
 
+    
+    function erro(){
+        
+        $this->load->view('header');
+        $this->load->view('erro');
+        $this->load->view('footer');
+    }
+
+
     function lembrar_senha() {
 
 
@@ -58,16 +67,19 @@ class Login extends CI_Controller {
         $this->form_validation->set_rules('usuario', 'Usuário', 'trim|xss_clean|required');
         $this->form_validation->set_rules('senha', 'Senha', 'trim|callback_verificar_banco|xss_clean|required');
 
-        
-        if($this->session->userdata('autentificado')){
-             redirect('home', 'refresh');
-        }
-        
+                
         if ($this->form_validation->run() == FALSE):
             $this->load->view('login');
         else:
             redirect('home', 'refresh');
         endif;
+        
+        if($this->session->userdata('autentificado')){
+         
+            redirect('home', 'refresh');
+        
+            
+        }
     }
 
     function verificar_banco($senha) {
@@ -81,10 +93,25 @@ class Login extends CI_Controller {
 
     function verificaStatus($usuario, $senha) {
         if ($this->login->verificarStatus($usuario)):
+            
+            
+            
             if ($this->login->login($usuario, $senha)):
                 $resultado = $this->login->IDFedereado($usuario, $senha);
                 $dadosUsuario = $this->login->dadosUsuario($resultado[0]['id_federado']);
 
+                
+                
+                
+                $primeiro_acesso = $this->login->primeiroAcesso($dadosUsuario['0']['id']);
+                //se for o primeiro acesso cria a sessão de alteração que será verificada na home;
+                if($primeiro_acesso){
+                    $this->session->set_userdata('primeiro','0');
+                }else{
+                    $this->session->set_userdata('primeiro','1');
+                };
+                
+                
                 $this->session->set_userdata($dadosUsuario[0]);
                 $this->session->set_userdata('autentificado', TRUE);
                 return TRUE;
@@ -104,7 +131,10 @@ class Login extends CI_Controller {
         redirect('login', 'refresh');
     }
 
-    function trocarSenha($usuario) {
+    function trocarSenha() {
+        
+        $usuario = $this->session->userdata('id');
+        
         $this->form_validation->set_rules('novaSenha', 'Nova senha', 'trim|max_length[10]|xss_clean|required');
         $this->form_validation->set_rules('confirmar', 'Confirmação de senha', 'trim|max_length[10]|matches[novaSenha]|xss_clean|required');
         if ($this->form_validation->run() == FALSE):
@@ -120,7 +150,7 @@ class Login extends CI_Controller {
     function trocar() {
         $senha = $this->input->post('novaSenha');
         $usuario = $this->input->post('federado');
-        $dados = array('senha' => $senha);
+        $dados = array('senha' => $senha,'status'=>'1');
         $this->login->trocarSenha($usuario, $dados);
         $this->logoff();
     }

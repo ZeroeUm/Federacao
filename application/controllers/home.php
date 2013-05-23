@@ -34,8 +34,11 @@ class Home extends CI_Controller {
 
         $tipo = $this->session->userdata('tipo');
 
-
-        switch ($tipo) {
+        if($this->session->userdata('primeiro')=='0'){
+            redirect('/login/trocarSenha');
+        }else{
+           
+             switch ($tipo) {
             case '1';
                 redirect('/alunos');
                 break;
@@ -49,6 +52,12 @@ class Home extends CI_Controller {
                 redirect('/administrador');
                 break;
         }
+            
+        }
+        
+        
+
+       
 
         $this->load->view('header');
         $this->load->view('home');

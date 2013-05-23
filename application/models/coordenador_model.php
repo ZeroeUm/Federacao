@@ -69,14 +69,7 @@ class Coordenador_model extends CI_Model {
         return $this->db->update('pre_avaliacao', $update);
     }
 
-    function incluir_em_evento($dados) {
-        $faixa_federado = $this->get_faixa_aluno($dados['id_federado']);
-        //Pego a graduação atual do aluno adiciono mais uma e entao incluo no evento
-        $insert['id_graduacao'] = $faixa_federado['0']['id_graduacao'];
-        $insert['id_evento'] = $dados['id_evento'];
-        $insert['id_federado'] = $dados['id_federado'];
-        $this->db->insert('graduacao_participantes', $insert);
-    }
+   
 
     function incluir_movimento_faixa($dados) {
         $inserir['id_graduacao'] = $dados['id_graduacao'];
@@ -93,6 +86,16 @@ class Coordenador_model extends CI_Model {
         }
     }
 
+     function incluir_em_evento($dados) {
+        $faixa_federado = $this->get_faixa_aluno($dados['id_federado']);
+        //Pego a graduação atual do aluno adiciono mais uma e entao incluo no evento
+        $insert['id_graduacao'] = $faixa_federado['0']['id_graduacao'];
+        $insert['id_evento'] = $dados['id_evento'];
+        $insert['id_federado'] = $dados['id_federado'];
+        $this->db->insert('graduacao_participantes', $insert);
+    }
+    
+    
     function get_faixas_avaliadas() {
        $ultimo_evento = $this->ultimo_evento();
         $sql = "SELECT 
@@ -344,6 +347,9 @@ class Coordenador_model extends CI_Model {
                         ->result_array();
     }
 
+    
+    
+    
     function faixas_por_evento($id_evento) {
         $sql = "SELECT 
                     graduacao.id_graduacao,
@@ -408,6 +414,7 @@ class Coordenador_model extends CI_Model {
             $complemento = ";";
         }
         $sql = "SELECT 
+federado.id_federado,
 federado.nome,
 federado.email,
 federado.telefone,

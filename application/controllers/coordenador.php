@@ -106,10 +106,14 @@ class coordenador extends CI_Controller{
                 $this->load->view('footer');
     }
     
-    function certificado(){
-                $this->load->view('header');
+    function certificado($id_federado,$id_graduacao){
+               
+        //Validação - Verificar se o usuario logado é o coordenador
+        
+        //validação - Verificar se o aluno já possui nota para a graduacao
+        
                 $this->load->view('coordenador/certificado');
-                $this->load->view('footer');
+               
     }
     
     

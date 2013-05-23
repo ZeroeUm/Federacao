@@ -2,6 +2,14 @@
     <a href="<?php echo base_url(); ?>instrutores/inscricao" class="btn btn-primary">Inscrever para evento</a>
 </div>
 
+<?php if($ultimo_evento['data_evento']=='0000-00-00'){?>
+
+<h2 style="color: red;">
+    Nenhum evento cadastrado
+</h2>
+
+<?php }else{ ?>
+
 <div class="row-fluid" style="margin-top: 50px;">
     <p>Resultado do Último evento da agenda: <span class="label"> <?php echo @$this->funcoes->data($ultimo_evento['data_evento'], 2); ?></span></p>
     <table class="table table-bordered table-hover">
@@ -70,3 +78,5 @@
         <?php } ?>
     </table>
 </div>
+
+<?php } ?>
