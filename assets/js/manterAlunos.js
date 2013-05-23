@@ -10,23 +10,23 @@ $(document).ready(function(){
         beforeSend:$("select[name=filial]").html('<option value="0">Carregando...</option>');
     $("select[name=status]").html('<option value="">Aguardando Filial...</option>');
         var instrutor = $("#instrutor").val(); // Pega o valor selecionado
-        //alert(instrutor); //Só para debugg da variavel
-        $('#filial').load('getFilial/'+instrutor); //controller onde está chamando a função
+        //alert(instrutor); //Sï¿½ para debugg da variavel
+        $('#filial').load('getFilial/'+instrutor); //controller onde estï¿½ chamando a funï¿½ï¿½o
     });
     
     $("select[name=filial]").change(function(){
         beforeSend:$("select[name=status]").html('<option value="0">Carregando...</option>');
     var filial = $("#filial").val(); // Pega o valor selecionado
-        // alert(filial); //Só para debugg da variavel
-        $('#status').load('getStatus/'+filial); //controller onde está chamando a função          
+        // alert(filial); //Sï¿½ para debugg da variavel
+        $('#status').load('getStatus/'+filial); //controller onde estï¿½ chamando a funï¿½ï¿½o          
     });
     
     $("select[name=status]").change(function(){
         beforeSend:$("select[name=federado]").html('<option value="0">Carregando...</option>');
     var filial = $("#filial").val(); // Pega o valor selecionado do campo filial
         var status = $("#status").val(); // Pega o valor selecionado do campo status    
-        //alert(filial+status); //Só para debugg da variavel
-        $('#federado').load('getAluno/'+filial+"/"+status); //controller onde está chamando a função
+        //alert(filial+status); //Sï¿½ para debugg da variavel
+        $('#federado').load('getAluno/'+filial+"/"+status); //controller onde estï¿½ chamando a funï¿½ï¿½o
     });
     
     
@@ -41,6 +41,7 @@ $(document).ready(function(){
                 datatype: 'json',
                 success: function(federado)
                 {
+                    $(".senha").attr('href','/instrutores/enviarSenha/'+fed+"/1");
                     $("#resultado").css("display","block");
                     $("#nomeFederado").val($('<div/>').html(federado.nome).text());
                     $("#dataNasc").val($('<div/>').html(federado.dtNasc).text());

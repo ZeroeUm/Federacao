@@ -578,15 +578,17 @@ class Administrador_model extends CI_Model
         $this->update('login',$dados,array('id_login' => $id));
     }
     
-    public function getPrimeiraFaixa($modalidade)
-    {
-        return $this->db
-                        ->select('id_graduacao as faixa')
+    function getPrimeiraFaixa($modalidade)   {
+        
+        $dados =  $this->db
+                        ->select('id_graduacao')
                         ->from('graduacao')
                         ->where('id_modalidade',$modalidade)
-                        ->where('ordem',1)
+                        ->where('ordem','1')
                         ->get()
                         ->result_array();
+        echo $this->db->last_query();
+                return $dados;
     }
     
     public function primeiraFaixa($dados = array())

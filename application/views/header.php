@@ -63,7 +63,7 @@
         </div>
         <div id="user-nav" class="navbar navbar-inverse">
             <ul class="nav btn-group">
-                <li class="btn btn-inverse"><a title="Trocar senha de acesso" href="<?php echo base_url() ?>login/trocarSenha/<?php echo $this->session->userdata('id') ?>"><i class="icon icon-user"></i><span class="text">Trocar senha de acesso</span></a></li>
+                <li class="btn btn-inverse"><a title="Trocar senha de acesso" href="<?php echo base_url() ?>login/trocarSenha"><i class="icon icon-user"></i><span class="text">Trocar senha de acesso</span></a></li>
                 <li class="btn btn-inverse"><a title="Logoff do sistema" href="<?php echo base_url() ?>login/logoff"><i class="icon icon-off"></i> <span class="text">Logout</span></a></li>
             </ul>
         </div>
@@ -90,7 +90,7 @@
                     <ul>
                         <li><a href="<?php echo site_url('alunos/notas'); ?>">Histórico pessoal de notas</a></li>
                         <li><a href="<?php echo site_url('alunos/eventos'); ?>">Cronograma de eventos da Federação</a></li>
-                        <li><a href="<?php echo site_url('alunos/historico'); ?>">Histórico de atividades</a></li>
+<!--                        <li><a href="<?php echo site_url('alunos/historico'); ?>">Histórico de atividades</a></li>-->
                         <li><a href="<?php echo site_url('alunos/modalidade'); ?>">Currículo da modalidade</a></li>
 
                     </ul>
@@ -137,7 +137,7 @@
                             <ul class="sub-menu">
                                 <li><a href="<?php echo site_url(); ?>coordenador/criarEvento" title="">Criar novo evento</a></li>
                                 <li><a href="<?php echo site_url(); ?>coordenador/listaEventos" title="">Lista de eventos cadastrados</a></li>
-                                <li><a href="<?php echo site_url(); ?>coordenador/listaEventos" title="">Aprovados para evento</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/listaEventos" title="">Aprovados para evento (Certificados)</a></li>
                                 <li><a href="<?php echo site_url(); ?>coordenador/solicitar_faixa" title="">Solicitar Faixas</a></li>
                             </ul>
                         </li>

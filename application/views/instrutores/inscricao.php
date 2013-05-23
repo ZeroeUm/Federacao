@@ -4,6 +4,11 @@
 
 <?php header("setRequestHeader('Content-Type','application/xmlHttp.setRequestHeader('encoding','utf8_encode')", true) ?>
 
+<?php if($evento['data_evento']=='0000-00-00'){;?>
+
+<h2 style="color: red;">Nenhum evento cadastrado</h2>
+
+<?php }else{ ?>
 <div id="">
     <table>
         <tr>
@@ -34,7 +39,7 @@ echo form_fieldset("Resultado da pesquisa", array('id' => 'resultado', 'style' =
 echo form_open('instrutores/confirmar', array('id' => 'formulario'));
 echo form_close();
 echo form_fieldset_close();
-
+}
 ?>
 
    

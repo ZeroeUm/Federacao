@@ -5,6 +5,21 @@ class Instrutor_model extends CI_Model {
     //SELECT federado.nome FROM federado INNER
     // JOIN filial WHERE federado.registro = filial.instrutor
 
+    
+    function get_login($id_federado){
+        $this->db->where('id_federado',$id_federado);
+        $this->db->update('login',array('status'=>'0'));
+        
+        return $this->db->select('login.login,login.senha,federado.nome,federado.email')
+                        ->from('login')
+                        ->join('federado', 'federado.id_federado = login.id_federado', 'inner')
+                        ->where(array('federado.id_federado' => $id_federado))
+                        ->get()
+                        ->result_array();
+        
+    }
+
+
     function pre_avaliacao($dados) {
         $this->load->model('Coordenador_model', 'coordenador');
         $id_evento = $this->coordenador->getUltimoEvento();
@@ -280,10 +295,22 @@ class Instrutor_model extends CI_Model {
     /*
      * @param array associativo com as informa��es a serem inseridas no banco, onde as posi��es do array devem ser os campos da tabela e os valores as novas informa��es a serem inseridas
      */
+    
+    function pegar_ultimo($nome_tabela){
+        $this->db->from($nome_tabela);
+        $this->db->insert_id();
+    }
 
     public function InserirFederado($dados = array()) {
+       
         $this->db->insert('federado', $dados);
+       
     }
+
+    function gerarGraduacao($dados){
+         $this->db->insert('graduacao_federado', $dados);
+          }
+
 
     public function getNacionalidade() {
         return $this->db
@@ -341,6 +368,16 @@ class Instrutor_model extends CI_Model {
     public function InserirEndereco($dados = array()) {
         $this->db->insert('endereco', $dados);
     }
+
+    function matricularFederado($dados){
+        $this->db->insert('matricula',$dados);
+    }
+    
+    public function criarLogin($dados = array())
+    {
+        $this->db->insert('login',$dados);
+    }
+
 
     function inscrever() {
         $this->db->order_by('federado.nome', 'ASC');

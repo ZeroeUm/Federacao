@@ -14,77 +14,73 @@ class Instrutores extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('Instrutor_model','instrutor');
+        $this->load->model('Instrutor_model', 'instrutor');
         $this->checar_sessao();
     }
 
-    
-      function checar_sessao()
-    {
+    function checar_sessao() {
         if (!$this->session->userdata('autentificado'))
             redirect('login', 'refresh');
     }
-    
-    function remover_pre_avaliacao($id_federado,$id_evento){
-        
-        $remover = $this->instrutor->remover_pre_avalicacao($id_federado,$id_evento);
-        if($remover){
-         $this->session->set_flashdata('alerta',"Removido com sucesso");
-           
+
+    function remover_pre_avaliacao($id_federado, $id_evento) {
+
+        $remover = $this->instrutor->remover_pre_avalicacao($id_federado, $id_evento);
+        if ($remover) {
+            $this->session->set_flashdata('alerta', "Removido com sucesso");
+
             redirect('/instrutores/');
-        }  else {
-             $this->session->set_flashdata('alerta',"Não foi possivel remover");
-           
-        redirect('/instrutores/');    
-        }
-    }
-    
-    function confirma_participacao($id_federado,$id_evento){
-        
-        $remover = $this->instrutor->confirma_participacao($id_federado,$id_evento);
-        
-         if($remover){
-         $this->session->set_flashdata('alerta',"Confirmado com sucesso");
-           
+        } else {
+            $this->session->set_flashdata('alerta', "Não foi possivel remover");
+
             redirect('/instrutores/');
-        }  else {
-             $this->session->set_flashdata('alerta',"Não foi possivel confirmar");
-           
-        redirect('/instrutores/');    
         }
     }
 
+    function confirma_participacao($id_federado, $id_evento) {
 
-    function remover_evento_graduacao($id_federado,$id_evento){
-        
-        $remover = $this->instrutor->remover_evento_graduacao($id_federado,$id_evento);
-        
-         if($remover){
-         $this->session->set_flashdata('alerta',"Removido com sucesso");
-           
+        $remover = $this->instrutor->confirma_participacao($id_federado, $id_evento);
+
+        if ($remover) {
+            $this->session->set_flashdata('alerta', "Confirmado com sucesso");
+
             redirect('/instrutores/');
-        }  else {
-             $this->session->set_flashdata('alerta',"Não foi possivel remover");
-           
-        redirect('/instrutores/');    
+        } else {
+            $this->session->set_flashdata('alerta', "Não foi possivel confirmar");
+
+            redirect('/instrutores/');
         }
     }
 
+    function remover_evento_graduacao($id_federado, $id_evento) {
+
+        $remover = $this->instrutor->remover_evento_graduacao($id_federado, $id_evento);
+
+        if ($remover) {
+            $this->session->set_flashdata('alerta', "Removido com sucesso");
+
+            redirect('/instrutores/');
+        } else {
+            $this->session->set_flashdata('alerta', "Não foi possivel remover");
+
+            redirect('/instrutores/');
+        }
+    }
 
     function index() {
-       //lista de participantes para o proximo evento 
-       $dados['resultado'] = $this->instrutor->get_status_avaliacao();
-       
-       //total de alunos do instrutor
-       $dados['total_alunos'] = $this->instrutor->total_alunos($this->session->userdata('id'),'total'); 
-       
-       //Carregar data do próximo evento
-       $this->load->model('Coordenador_model', 'coordenador');
-       @$dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
-        
-       
+        //lista de participantes para o proximo evento 
+        $dados['resultado'] = $this->instrutor->get_status_avaliacao();
+
+        //total de alunos do instrutor
+        $dados['total_alunos'] = $this->instrutor->total_alunos($this->session->userdata('id'), 'total');
+
+        //Carregar data do próximo evento
+        $this->load->model('Coordenador_model', 'coordenador');
+        @$dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
+
+
         $this->load->view('header');
-        $this->load->view('instrutores/index',$dados);
+        $this->load->view('instrutores/index', $dados);
         $this->load->view('footer');
     }
 
@@ -195,7 +191,7 @@ class Instrutores extends CI_Controller {
             $this->load->view('instrutores/incluirFederado', $dados);
             $this->load->view('footer');
         } else {
-            
+
             $this->fotoFederado(0);
         }
     }
@@ -230,8 +226,8 @@ class Instrutores extends CI_Controller {
             $dados['statusFederado'] = $this->instrutor->getStatu();
             $dados['endereco'] = $this->instrutor->getEndereco($endereco);
             $dados['uf'] = $this->instrutor->getUF();
-            
-            
+
+
             $dados["filial"] = $this->instrutor->getFilial($id);
             $this->load->view('instrutores/alterarFederado', $dados);
             $this->load->view('footer');
@@ -241,6 +237,7 @@ class Instrutores extends CI_Controller {
     }
 
     function fotoFederado($op) {
+
         $path_info = ((isset($_FILES)) ? pathinfo($_FILES["foto"]["name"]) : NULL);
         $extensao = ((isset($path_info['extension'])) ? $path_info['extension'] : NULL);
 
@@ -256,19 +253,20 @@ class Instrutores extends CI_Controller {
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
-       
+
         if (!$this->upload->do_upload("foto")) {
+
             $dados = array('error' => $this->upload->display_errors('<div class="alert-error"><b>', '</b></div>'));
             (($op) ? $this->atualizarFederado($dados) : $this->salvarFederado($dados));
         } else {
-            
+            die('tem foto');
             $dados = array('upload_foto' => $this->upload->data());
             (($op) ? $this->atualizarFederado($dados, $config['file_name']) : $this->salvarFederado($dados, $config['file_name']));
         }
     }
 
     function salvarFederado($dados, $foto = NULL) {
-       
+
         $this->load->model('Instrutor_model', 'instrutor');
         $endereco = array();
         $federado = array();
@@ -283,6 +281,7 @@ class Instrutores extends CI_Controller {
 
         $this->instrutor->InserirEndereco($endereco);
 
+
         $federado['id_endereco'] = $this->db->insert_id();
         $federado['nome'] = $this->input->post('nome');
         $federado['filiacao_materna'] = ($this->input->post('fMaterna') ? $this->input->post('fMaterna') : NULL);
@@ -295,25 +294,72 @@ class Instrutores extends CI_Controller {
         $federado['email'] = $this->input->post('email');
         $federado['id_escolaridade'] = $this->input->post('escolaridade');
         $federado['id_nacionalidade'] = $this->input->post('nacionalidade');
+        $federado['tamanho_faixa'] = $this->input->post('faixa');
         $federado['id_tipo_federado'] = 1;
         $federado['caminho_imagem'] = (isset($foto) ? "tkd/" . $foto : "sem foto");
 
+
+
         $this->instrutor->InserirFederado($federado);
+
+
 
         $novoFederado = $this->db->insert_id();
 
-        $this->matricularFederado($novoFederado, $this->input->post('filial'), 1);
+        $this->matricularFederado($novoFederado, $this->input->post('filial'), '1');
+
         $this->criarLogin($novoFederado, $federado['nome']);
 
-
-
+        $this->enviarSenha($novoFederado);
+        
+        $dados['id_federado'] = $novoFederado;
         $dados['federado'] = $federado['nome'];
         $this->load->view('header');
         $this->load->view('instrutores/sucessoinclusaoFederado', $dados);
         $this->load->view('footer');
     }
 
+    function enviarSenha($id_federado,$relembrar=null) {
+
+        $dados = $this->instrutor->get_login($id_federado);
+        if(empty($dados)){
+            $this->session->set_flashdata('aviso','Operação ilegal realizada erro 404 -  usuário não encontrado');
+            redirect('/login/erro');
+        }
+        extract($dados['0']);
+
+        
+        $this->load->library('email');
+        $this->email->from('elder.f.silva@gmail.com', 'Felipe');
+        $this->email->to($email);
+        $this->email->subject('Acesso ao sistema FEPAMI');
+        
+        $mensagem = "<p>Caro Aluno(a) {$nome} </p>
+                  <p>Seu cadastro de acesso ao sistema FEPAMI foi realizado</p>
+                  <p>segue abaixo informações de acesso.</p>
+                  <p>Login: {$login}</p>
+                  <p>Senha: {$senha}</p>
+                  <p>ATENÇÃO: ao realizar seu primeiro acesso será obrigatório a troca de senha</p>";
+        
+            $this->email->message($mensagem);      
+        if($this->email->send()){
+           
+           if($relembrar!=null){
+               $this->session->set_flashdata('alerta','Email re-enviado com os dados de acesso para o aluno');
+               redirect('/instrutores');
+           }
+            
+        }else{
+            $this->session->set_flashdata('aviso','Não foi possivel enviar um email com os dados de acesso');
+            };
+
+        
+      
+    }
+
     function atualizarFederado($dados, $foto = NULL) {
+
+
         $this->load->model('Instrutor_model', 'instrutor');
         $endereco = array();
         $federado = array();
@@ -337,8 +383,9 @@ class Instrutores extends CI_Controller {
         $federado['id_escolaridade'] = $this->input->post('escolaridade');
         $federado['id_status'] = $this->input->post('situacao');
         $federado['id_nacionalidade'] = $this->input->post('nacionalidade');
-            
+
         $federado['caminho_imagem'] = (isset($foto) ? "tkd/" . $foto : "sem foto");
+
 
         $this->instrutor->AtualizarEndereco($this->input->post('endereco'), $endereco);
 
@@ -350,9 +397,8 @@ class Instrutores extends CI_Controller {
         $this->load->view('footer');
     }
 
-   
-
     function matricularFederado($federado, $filial, $modalidade) {
+
         $this->load->model('Instrutor_model', 'instrutor');
         $matricula = array();
         $matricula['id_federado'] = $federado;
@@ -360,19 +406,21 @@ class Instrutores extends CI_Controller {
         $matricula['id_filial'] = $filial;
         $matricula['data_matricula'] = date('Y-m-d');
         $matricula['matricula_filial'] = date('Y-m-d');
+
         $this->gerarGraduacao($federado, $modalidade);
+
         $this->instrutor->matricularFederado($matricula);
     }
 
     function gerarGraduacao($federado, $modalidade) {
-        $this->load->model('Instrutor_model', 'instrutor');
-        $primeiraFaixa = $this->instrutor->getPrimeiraFaixa($modalidade);
+
+        $primeiraFaixa = '1';
         $graduacao['id_modalidade'] = $modalidade;
-        $graduacao['id_graduacao'] = $primeiraFaixa[0]['faixa'];
+        $graduacao['id_graduacao'] = $primeiraFaixa;
         $graduacao['id_federado'] = $federado;
-        $graduacao['status'] = 1;
+        $graduacao['status'] = '1';
         $graduacao['data_emissao'] = date('Y-m-d');
-        $this->instrutor->primeiraFaixa($graduacao);
+        $this->instrutor->gerarGraduacao($graduacao);
     }
 
     function alterarMatricula($federado, $filial, $modalidade) {
@@ -392,6 +440,7 @@ class Instrutores extends CI_Controller {
         $login['id_federado'] = $federado;
         $login['login'] = strtolower($this->gerarLogin($nome));
         $login['senha'] = $this->gerarSenha();
+        $login['status'] = '0';
         $this->instrutor->criarLogin($login);
     }
 
@@ -427,7 +476,7 @@ class Instrutores extends CI_Controller {
 
         return $retorno;
     }
-    
+
     //function cadastro() {
 //        $this->load->model('Instrutor_model');
 //        $tema["filial"] = $this->instrutor->getFilial($this->session->userdata('id'));
@@ -454,11 +503,12 @@ class Instrutores extends CI_Controller {
 //    }
 
     function inscricao() {
-        $this->load->model('Instrutor_model');  
-        
-        
-        $tema["filial"] = $this->instrutor->getFilial($this->session->userdata('id'));
+        $this->load->model('Instrutor_model');
+        $this->load->model('Coordenador_model','coordenador');
 
+        $tema["filial"] = $this->instrutor->getFilial($this->session->userdata('id'));
+        
+        $tema['evento'] = $this->coordenador->ultimo_evento();
         $this->load->view('header');
         $this->load->view('instrutores/inscricao', $tema);
         $this->load->view('footer');
@@ -490,26 +540,26 @@ class Instrutores extends CI_Controller {
         //   echo (htmlentities(utf8_encode('�,n�o, tr�s')));
 
         $filiais = $this->instrutor->getInscrito($filial);
-        
+
 
 //        print_r($filiais);
         if (!empty($filiais)) {
             echo (json_encode($filiais));
-            }
+        }
     }
 
     function confirmar() {
         $this->load->view('header');
 
-        
-       
+
+
         if ($this->input->post('nodeCheck')) {
-       
-            
+
+
             //salvar alunos na tabela pre-avaliação
             $this->instrutor->pre_avaliacao($this->input->post());
-            
-            
+
+
             $dados['msg'] = 'Inclusão de Federados no Evento realizada com sucesso.<br />';
             $dados['status'] = true;
         } else {
@@ -520,23 +570,22 @@ class Instrutores extends CI_Controller {
 
 
         $this->load->view('footer');
-
     }
 
     function manutencao($id = '1') {
         //lista de participantes para o proximo evento 
-       $dados['resultado'] = $this->instrutor->get_status_avaliacao();
-       
-       //total de alunos do instrutor
-       $dados['total_alunos'] = $this->instrutor->total_alunos($this->session->userdata('id'),'total'); 
-       
-       //Carregar data do próximo evento
-       $this->load->model('Coordenador_model', 'coordenador');
-       @$dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
-        
-       
+        $dados['resultado'] = $this->instrutor->get_status_avaliacao();
+
+        //total de alunos do instrutor
+        $dados['total_alunos'] = $this->instrutor->total_alunos($this->session->userdata('id'), 'total');
+
+        //Carregar data do próximo evento
+        $this->load->model('Coordenador_model', 'coordenador');
+        @$dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
+
+
         $this->load->view('header');
-        $this->load->view('instrutores/manutencao',$dados);
+        $this->load->view('instrutores/manutencao', $dados);
         $this->load->view('footer');
     }
 
