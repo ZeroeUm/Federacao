@@ -12,12 +12,16 @@ class administrador extends CI_Controller
     {
         parent::__construct();
         $this->checar_sessao();
+         $this->load->model('Administrador_model', 'administrador');
     }
     
     function index()
     {
-      $this->load->view('header');
-            $this->load->view('administrador/index');
+        $this->load->model('Coordenador_model','coordenador');
+        $dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
+        $dados['numeros'] = $this->administrador->numero(); 
+            $this->load->view('header');
+            $this->load->view('administrador/index',$dados);
             $this->load->view('footer');  
     }
 
@@ -136,7 +140,7 @@ class administrador extends CI_Controller
 
     function getFederado($federado)
     {
-        $this->load->model('Administrador_model', 'administrador');
+        
         
         $fed = $this->administrador->MntFedDados($federado);
         $nasc = new DateTime($fed[0]['dtNasc']);
@@ -145,11 +149,9 @@ class administrador extends CI_Controller
         $idade = $hoje->diff($nasc)->format("%y");
         $fed[0]['idade'] = $idade;
         $resultado = array_map('htmlentities', $fed[0]);
-
         foreach ($fed[0] as $f):
             $f = htmlentities($f, ENT_QUOTES, 'UTF-8');
         endforeach;
-
         echo(json_encode($fed[0]));
     }
 

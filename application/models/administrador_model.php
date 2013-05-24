@@ -12,12 +12,29 @@ class Administrador_model extends CI_Model
     /*
      * @return instrutores para serem colocados em um combobox
      */
+    
+    function numero(){
+        
+        $alunos = array();
+        
+        $sql_aluno = "SELECT count(id_federado)as total FROM federado where id_tipo_federado = 1;";
+        $sql_instrutor = "SELECT count(id_federado)as total FROM federado where id_tipo_federado = 2;";
+        $sql_coordenador = "SELECT count(id_federado)as total FROM federado where id_tipo_federado = 3;";
+        $sql_filiais = "SELECT count(id_filial)as total FROM filial;";
+        
+        $alunos['alunos'] = $this->db->query($sql_aluno)->result_array();
+        $alunos['instrutores'] = $this->db->query($sql_instrutor)->result_array();
+        $alunos['filiais'] = $this->db->query($sql_filiais)->result_array();
+        
+        
+        return $alunos;
+    }
     public function MntFedInstrutor()
     {
         return $this->db
                         ->select("instrutor.id_instrutor AS id, federado.nome")
-                        ->from("federacao.instrutor")
-                        ->join('federacao.federado', 'instrutor.id_federado = federado.id_federado', 'inner')
+                        ->from("instrutor")
+                        ->join('federado', 'instrutor.id_federado = federado.id_federado', 'inner')
                         ->order_by("federado.nome", "asc")
                         ->get()
                         ->result_array();
@@ -441,7 +458,7 @@ class Administrador_model extends CI_Model
                         pedido_faixa.tamanho,
                         pedido_faixa.quantidade
                         FROM 
-                        federacao.pedido_faixa
+                        pedido_faixa
                         join graduacao using (id_graduacao)
                         where pedido_faixa.id_evento = $id_evento
                         order by graduacao.id_graduacao;";
@@ -456,7 +473,7 @@ class Administrador_model extends CI_Model
                 evento_graduacao.data_evento as data,
                 evento_graduacao.numero_evento
                 FROM 
-                federacao.pedido_faixa
+                pedido_faixa
                 join evento_graduacao using (id_evento)
                 group by pedido_faixa.id_evento order by pedido_faixa.id_evento DESC";
         return $this->db->query($sql)->result_array();

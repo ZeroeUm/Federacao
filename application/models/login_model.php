@@ -18,7 +18,7 @@ class Login_model extends CI_Model
     public function get_email($email){
         $sql = "SELECT nome,email,login.senha 
                 FROM 
-                federacao.federado
+                federado
                 join login using (id_federado)
                 where email like  '$email'";
         return $this->db->query($sql)->result_array();
@@ -54,7 +54,7 @@ class Login_model extends CI_Model
     }
 
     function primeiroAcesso($id){
-        $sql = "SELECT status FROM federacao.login where id_federado = $id";
+        $sql = "SELECT status FROM login where id_federado = $id";
         $dados = $this->db->query($sql)->result_array();
         if($dados['0']['status']=='0'){
             return true;

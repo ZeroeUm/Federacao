@@ -103,7 +103,7 @@ class Coordenador_model extends CI_Model {
                         graduacao.id_graduacao,
                         graduacao.faixa
                         
-                        FROM federacao.pre_avaliacao
+                        FROM pre_avaliacao
                         inner join graduacao_federado 
                         on graduacao_federado.id_federado = pre_avaliacao.id_federado
                         inner join graduacao
@@ -121,7 +121,7 @@ class Coordenador_model extends CI_Model {
                     date_format(pre_avaliacao.data_agendamento,'%d-%m-%Y') as data,
                     pre_avaliacao.horario,
                     filial.nome
-                FROM federacao.pre_avaliacao
+                FROM pre_avaliacao
                 join filial using (id_filial)
                 join modalidade using (id_modalidade)
                 inner join coordenador 
@@ -139,7 +139,7 @@ class Coordenador_model extends CI_Model {
         $sql = "SELECT 
                                 count(id_filial) as total
                             FROM
-                                 federacao.pre_avaliacao
+                                 pre_avaliacao
                             join filial using (id_filial) 
                             join modalidade using (id_modalidade)
                             join coordenador using (id_coordenador)
@@ -177,7 +177,7 @@ class Coordenador_model extends CI_Model {
                 graduacao.ordem,
                 filial.nome as nome_filial,
                 filial.id_filial
-                FROM federacao.federado
+                FROM federado
                 inner join matricula
                 on matricula.id_federado = federado.id_federado
                 inner join filial
@@ -205,7 +205,7 @@ class Coordenador_model extends CI_Model {
                     date_format(pre_avaliacao.data_agendamento,'%d-%m-%Y')as data_agendamento,
                     evento_graduacao.numero_evento,
                     date_format(evento_graduacao.data_evento,'%d-%m-%Y') as data
-                FROM federacao.pre_avaliacao
+                FROM pre_avaliacao
                     inner join evento_graduacao
                     on 
                     evento_graduacao.id_evento = pre_avaliacao.id_evento 
@@ -226,7 +226,7 @@ class Coordenador_model extends CI_Model {
                     status_avaliacao.descricao,
                     graduacao.faixa as faixa_atual,
                     graduacao.id_graduacao as id_faixa
-               FROM federacao.pre_avaliacao
+               FROM pre_avaliacao
                join 
                     federado using (id_federado)
                join 
@@ -274,7 +274,7 @@ class Coordenador_model extends CI_Model {
                     federado.nome,
                     filial.nome as nome_filial
                 FROM 
-                    federacao.pre_avaliacao
+                    pre_avaliacao
                 join 
                     federado using (id_federado)
                 join 
@@ -321,7 +321,7 @@ class Coordenador_model extends CI_Model {
                     status_avaliacao.descricao,
                     graduacao.faixa as faixa_atual,
                     graduacao.id_graduacao as id_faixa
-               FROM federacao.pre_avaliacao
+               FROM pre_avaliacao
                join 
                     federado using (id_federado)
                join 
@@ -356,7 +356,7 @@ class Coordenador_model extends CI_Model {
                     graduacao.faixa,
                     count(graduacao.id_graduacao) as total_participantes
                 FROM 
-                    federacao.graduacao_participantes
+                    graduacao_participantes
                 inner join 
                     graduacao_federado on
                     graduacao_federado.id_federado = graduacao_participantes.id_federado
@@ -381,7 +381,7 @@ class Coordenador_model extends CI_Model {
                     graduacao.faixa as nome_faixa,
                     graduacao.id_graduacao
                     FROM
-                     federacao.federado
+                     federado
                     left join graduacao_participantes
                     on graduacao_participantes.id_federado = federado.id_federado
                     inner join graduacao
@@ -421,7 +421,7 @@ federado.telefone,
 graduacao_federado.id_graduacao,
 graduacao_participantes.id_evento,
 graduacao.faixa
-FROM federacao.graduacao_participantes
+FROM graduacao_participantes
 inner join graduacao_federado 
 on graduacao_federado.id_federado= graduacao_participantes.id_federado
 inner join federado
@@ -457,7 +457,7 @@ graduacao_participantes.status_participacao = 1" . $complemento;
                     true,false
                     ) as validar
                 FROM
-                     federacao.evento_graduacao
+                     evento_graduacao
                 order by data_evento DESC;            
                     ";
         $query = $this->db->query($sql);
@@ -470,7 +470,7 @@ graduacao_participantes.status_participacao = 1" . $complemento;
                     federado.nome,
                     graduacao_federado.id_graduacao
                     
-                FROM federacao.pre_avaliacao
+                FROM pre_avaliacao
                     inner join federado
                on 
                     pre_avaliacao.id_federado = federado.id_federado 
@@ -488,7 +488,7 @@ graduacao_participantes.status_participacao = 1" . $complemento;
     }
 
     function getUltimoEvento() {
-        $sql = "SELECT MAX(id_evento) as id_evento FROM federacao.evento_graduacao";
+        $sql = "SELECT MAX(id_evento) as id_evento FROM evento_graduacao";
         $query = $this->db->query($sql);
         $dados = $query->result_array();
 
@@ -573,7 +573,7 @@ graduacao_participantes.status_participacao = 1" . $complemento;
                     filial.nome,
                     pre_avaliacao.id_filial
                 FROM 
-                    federacao.pre_avaliacao
+                    pre_avaliacao
                 inner join
                     filial
                 on 
@@ -603,6 +603,17 @@ graduacao_participantes.status_participacao = 1" . $complemento;
         }
     }
 
+    
+    public function get_modalidade(){
+        
+         $query =  $this->db->select('*')
+                           ->from('modalidade')
+                           ->get();
+        
+         return $query->result_array();
+       
+    }
+    
     function getEventos() {
         $query = $this->db
                 ->select("evento_graduacao.id_evento,
