@@ -456,21 +456,12 @@ federado.id_tipo_federado = 1";
         $this->db->insert('graduacao_federado',$dados);
     }
     
-    public function matricularFederado($dados = array())
-    {
-        $this->db->insert('matricula',$dados);
-    }
-    
+        
     public function alterarMatricula($federado,$modalidade,$dados = array())
     {
         $this->db->update('matricula',$dados,array('id_federado' => $federado,'id_modalidade' => $modalidade));
     }
-    
-    public function criarLogin($dados = array())
-    {
-        $this->db->insert('login',$dados);
-    }
-    
+            
     public function alterarLogin($id,$dados = array())
     {
         $this->update('login',$dados,array('id_login' => $id));

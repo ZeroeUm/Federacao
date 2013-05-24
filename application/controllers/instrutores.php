@@ -131,7 +131,7 @@ class Instrutores extends CI_Controller {
         if (!empty($data)) {
             $tmp .= "<option value=''>Selecione o Federado</option>";
             foreach ($data as $row) {
-                $tmp .="<option value ='" . $row->id . "'>" . utf8_encode($row->nome) . "</option>";
+                $tmp .="<option value ='" . $row->id . "'>" . $row->nome . "</option>";
             }
         } else {
             $tmp .="<option value=''>Sem registro para com os parametros informados</option>";
@@ -148,9 +148,10 @@ class Instrutores extends CI_Controller {
         $hoje = new DateTime('now');
         $idade = $hoje->diff($nasc)->format("%y");
         $fed[0]['idade'] = $idade;
-        $resultado = array_map('htmlentities', $fed[0]);
-
-        echo utf8_decode(json_encode($resultado));
+        $fed[0]['nome'] = htmlentities($fed[0]['nome'], ENT_QUOTES, 'UTF-8');
+        $fed[0]['nacionalidade'] = htmlentities($fed[0]['nacionalidade'],ENT_QUOTES,'UTF-8');
+        
+        echo json_encode($fed[0]);
     }
 
     function imprimirFederado($federado) {
