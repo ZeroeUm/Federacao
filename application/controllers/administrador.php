@@ -288,6 +288,8 @@ class administrador extends CI_Controller
 
     function fotoFederado($op)
     {
+        
+        
         $path_info = ((isset($_FILES)) ? pathinfo($_FILES["foto"]["name"]) : NULL);
         $extensao = ((isset($path_info['extension'])) ? $path_info['extension'] : NULL);
 
@@ -299,7 +301,7 @@ class administrador extends CI_Controller
         $config['overwrite'] = TRUE;
         $config['remove_spaces'] = TRUE;
         $config['encrypt_name'] = FALSE;
-        $config['file_name'] = (isset($extensao) ? hash($this->input->post('nome')) . "." . $extensao : NULL);
+        $config['file_name'] = (isset($extensao) ? time() . "." . $extensao : NULL);
 
 
         $this->load->library('upload', $config);
