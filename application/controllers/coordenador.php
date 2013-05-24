@@ -380,8 +380,8 @@ class coordenador extends CI_Controller{
                 redirect('/coordenador/criarEvento'); 
             };
         } else {
-            $this->load->model('Modalidade_model', 'modalidades');
-            $data['modalidades'] = $this->modalidades->get_modalidade();
+            
+            $data['modalidades'] = $this->coordenador->get_modalidade();
             $this->load->view('coordenador/criarEvento', $data);
             $this->load->view('footer');
         }

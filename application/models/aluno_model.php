@@ -82,7 +82,7 @@ class Aluno_model extends CI_Model
   avg(nota) as media,
   graduacao.faixa,
   modalidade.nome
-FROM federacao.prontuario 
+FROM prontuario 
 inner join evento_graduacao using(id_evento)
 inner join movimento_faixa using (id_movimento_faixa)
 inner join modalidade

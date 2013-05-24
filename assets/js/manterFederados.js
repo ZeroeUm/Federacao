@@ -95,6 +95,8 @@ $(document).ready(function(){
                 datatype: 'json',
                 success: function(federado)
                 {
+                   
+                   
                     $("#resultado").css("display","block");
                     $("#nomeFederado").val($('<div/>').html(federado.nome).text());
                     $("#dataNasc").val($('<div/>').html(federado.dtNasc).text());

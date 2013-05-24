@@ -12,12 +12,16 @@ class administrador extends CI_Controller
     {
         parent::__construct();
         $this->checar_sessao();
+         $this->load->model('Administrador_model', 'administrador');
     }
     
     function index()
     {
-      $this->load->view('header');
-            $this->load->view('administrador/index');
+        $this->load->model('Coordenador_model','coordenador');
+        $dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
+        $dados['numeros'] = $this->administrador->numero(); 
+            $this->load->view('header');
+            $this->load->view('administrador/index',$dados);
             $this->load->view('footer');  
     }
 
@@ -285,6 +289,8 @@ class administrador extends CI_Controller
 
     function fotoFederado($op)
     {
+        
+        
         $path_info = ((isset($_FILES)) ? pathinfo($_FILES["foto"]["name"]) : NULL);
         $extensao = ((isset($path_info['extension'])) ? $path_info['extension'] : NULL);
 
@@ -296,7 +302,7 @@ class administrador extends CI_Controller
         $config['overwrite'] = TRUE;
         $config['remove_spaces'] = TRUE;
         $config['encrypt_name'] = FALSE;
-        $config['file_name'] = (isset($extensao) ? hash($this->input->post('nome')) . "." . $extensao : NULL);
+        $config['file_name'] = (isset($extensao) ? time() . "." . $extensao : NULL);
 
 
         $this->load->library('upload', $config);

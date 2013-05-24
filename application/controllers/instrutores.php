@@ -250,7 +250,7 @@ class Instrutores extends CI_Controller {
         $config['overwrite'] = TRUE;
         $config['remove_spaces'] = TRUE;
         $config['encrypt_name'] = FALSE;
-        $config['file_name'] = (isset($extensao) ? hash($this->input->post('nome')) . "." . $extensao : NULL);
+        $config['file_name'] = (isset($extensao) ? time() . "." . $extensao : NULL);
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);

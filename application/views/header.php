@@ -197,7 +197,7 @@
                 </div>
             <?php } ?>
             <ul class="breadcrumb">
-                <li><a href="/">Home</a> <span class="divider">/</span></li>
+                <li><a href="/">Pagina inicial</a> <span class="divider">/</span></li>
                 <li><a href="/<?php echo $this->uri->segment(1); ?>/"><?php echo ucfirst($this->uri->segment(1)); ?></a> <span class="divider">/</span></li>
                 <li class="active"><?php echo str_replace("_", " ", ucfirst($this->uri->segment(2))); ?></li>
             </ul>

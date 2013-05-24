@@ -84,7 +84,7 @@ class Instrutor_model extends CI_Model {
                 $count            
                 matricula.id_federado,
                 federado.nome
-                FROM federacao.filial
+                FROM filial
                 inner join instrutor
                 on instrutor.id_instrutor = filial.id_instrutor
                 inner join matricula
@@ -109,7 +109,7 @@ class Instrutor_model extends CI_Model {
                     date_format(pre_avaliacao.data_agendamento,'%d-%m-%Y') as data,
                     pre_avaliacao.horario,
                     pre_avaliacao.id_status_avaliacao as avaliacao
-                    FROM federacao.pre_avaliacao
+                    FROM pre_avaliacao
                     inner join graduacao_federado using (id_federado)
                     inner join federado using (id_federado)
                     inner join graduacao using (id_graduacao)
@@ -147,7 +147,7 @@ class Instrutor_model extends CI_Model {
                             date_format(0000-00-00,'%d-%m-%Y') as data,
                             0 as horario,
                             graduacao_participantes.status_participacao as avaliacao
-                            FROM federacao.graduacao_participantes 
+                            FROM graduacao_participantes 
                             inner join federado 
                             on federado.id_federado = graduacao_participantes.id_federado
                             inner join graduacao_federado 
@@ -416,8 +416,8 @@ federado.nome,
 filial.nome as filial,
 graduacao.faixa
 FROM 
-federacao.federado
-inner join federacao.matricula
+federado
+inner join matricula
 on
 
 matricula.id_federado = federado.id_federado
