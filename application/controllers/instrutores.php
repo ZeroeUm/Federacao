@@ -590,9 +590,26 @@ class Instrutores extends CI_Controller {
     }
 
     function evento() {
+        $id = $this->session->userdata('id');
+        $dados["filial"] = $this->instrutor->getFilial($id);
         $this->load->view('header');
-        $this->load->view('devel');
-        $this->load->view('instrutores/evento');
+        $this->load->view('instrutores/historico_select_alun',$dados);
+        $this->load->view('footer');
+    }
+    
+    function ajax_listar_alunos($filial){
+        
+        
+                
+        $dados['alunos'] = $this->instrutor->alunos_por_filial($filial);
+        $this->load->view('instrutores/lista_dos_alunos',$dados);
+      
+    }
+    
+    function historico_pessoal($id_federado){
+        $dados['notas'] = $this->instrutor->get_historico($id_federado);
+        $this->load->view('header');
+        $this->load->view('instrutores/historico_pessoal',$dados);
         $this->load->view('footer');
     }
 

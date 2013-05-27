@@ -5,20 +5,18 @@ class Instrutor_model extends CI_Model {
     //SELECT federado.nome FROM federado INNER
     // JOIN filial WHERE federado.registro = filial.instrutor
 
-    
-    function get_login($id_federado){
-        $this->db->where('id_federado',$id_federado);
-        $this->db->update('login',array('status'=>'0'));
-        
+
+    function get_login($id_federado) {
+        $this->db->where('id_federado', $id_federado);
+        $this->db->update('login', array('status' => '0'));
+
         return $this->db->select('login.login,login.senha,federado.nome,federado.email')
                         ->from('login')
                         ->join('federado', 'federado.id_federado = login.id_federado', 'inner')
                         ->where(array('federado.id_federado' => $id_federado))
                         ->get()
                         ->result_array();
-        
     }
-
 
     function pre_avaliacao($dados) {
         $this->load->model('Coordenador_model', 'coordenador');
@@ -118,22 +116,22 @@ class Instrutor_model extends CI_Model {
         $tabela = $this->db->query($sql)->result_array();
 
         $dados['reprovados'] = array();
-        $dados['aguardando']= array();
+        $dados['aguardando'] = array();
         $dados['nao_agendado'] = array();
-       
+
         $dados['exibir'] = 1;
-        
-        
-        
-        
-        
-      
+
+
+
+
+
+
         foreach ($tabela as $i) {
             if ($i['avaliacao'] == '2') {
                 $dados['reprovados'][] = $i;
-            }elseif($i['avaliacao'] == '3'){
+            } elseif ($i['avaliacao'] == '3') {
                 $dados['aguardando'][] = $i;
-            }elseif($i['avaliacao'] == '4'){
+            } elseif ($i['avaliacao'] == '4') {
                 $dados['nao_agendado'][] = $i;
             }
         }
@@ -157,13 +155,13 @@ class Instrutor_model extends CI_Model {
                             where graduacao_participantes.id_evento = $ultimo_evento;";
         $dados['aprovados'] = $this->db->query($sql_aprovados)->result_array();
 
-        
-        
-        
-        if(empty($tabela) && empty($dados['aprovados']) && empty($dados['reprovados']) && empty($dados['nao_agendado']) && empty($dados['aguardando']) ){
-           $dados['exibir'] = 0; 
+
+
+
+        if (empty($tabela) && empty($dados['aprovados']) && empty($dados['reprovados']) && empty($dados['nao_agendado']) && empty($dados['aguardando'])) {
+            $dados['exibir'] = 0;
         }
-        
+
         return $dados;
     }
 
@@ -295,22 +293,20 @@ class Instrutor_model extends CI_Model {
     /*
      * @param array associativo com as informa��es a serem inseridas no banco, onde as posi��es do array devem ser os campos da tabela e os valores as novas informa��es a serem inseridas
      */
-    
-    function pegar_ultimo($nome_tabela){
+
+    function pegar_ultimo($nome_tabela) {
         $this->db->from($nome_tabela);
         $this->db->insert_id();
     }
 
     public function InserirFederado($dados = array()) {
-       
+
         $this->db->insert('federado', $dados);
-       
     }
 
-    function gerarGraduacao($dados){
-         $this->db->insert('graduacao_federado', $dados);
-          }
-
+    function gerarGraduacao($dados) {
+        $this->db->insert('graduacao_federado', $dados);
+    }
 
     public function getNacionalidade() {
         return $this->db
@@ -369,15 +365,13 @@ class Instrutor_model extends CI_Model {
         $this->db->insert('endereco', $dados);
     }
 
-    function matricularFederado($dados){
-        $this->db->insert('matricula',$dados);
-    }
-    
-    public function criarLogin($dados = array())
-    {
-        $this->db->insert('login',$dados);
+    function matricularFederado($dados) {
+        $this->db->insert('matricula', $dados);
     }
 
+    public function criarLogin($dados = array()) {
+        $this->db->insert('login', $dados);
+    }
 
     function inscrever() {
         $this->db->order_by('federado.nome', 'ASC');
@@ -404,6 +398,92 @@ class Instrutor_model extends CI_Model {
      * 
      *   ->where(array('federado.id_tipo_federado' => '1', 'filial.id_filial' => $filial, 'federado.id_status' => $status))
      */
+
+    function get_historico($id_federado) {
+       
+        $faixas = $this->get_faixas($id_federado);
+        
+        $dados = array();
+        $f = $this->DadosFederado($id_federado); 
+        $dados['0']['federado'] =  $f['0'];
+        foreach ($faixas as $i=>$v){
+            
+            
+            $sql = "SELECT 
+                    prontuario.id_prontuario,
+                    prontuario.nota,
+                    prontuario.data,
+                    movimento_faixa.nome_movimento
+                    FROM prontuario
+                    inner join movimento_faixa
+                    on movimento_faixa.id_movimento_faixa = prontuario.id_movimento_faixa
+                    inner join graduacao
+                    on graduacao.id_graduacao = movimento_faixa.id_graduacao
+                    inner join federado
+                    on federado.id_federado = prontuario.id_federado
+                    where prontuario.id_federado = '$id_federado' and graduacao.id_graduacao = '{$v['id_graduacao']}'";
+        
+        
+        $dados[$i]['id_graduacao'] = $v['id_graduacao'];  
+        $dados[$i]['nome_faixa'] = $v['faixa'];  
+        $notas =  $this->db->query($sql)->result_array();
+        $dados[$i]['notas'] = $notas;
+        
+        }
+        
+        return $dados;
+        
+        
+    }
+
+    function get_faixas($id_federado){
+        $sql = "SELECT 
+                    federado.nome,
+                    graduacao.faixa,
+                    graduacao.id_graduacao
+                    FROM prontuario
+                    inner join movimento_faixa
+                    on movimento_faixa.id_movimento_faixa = prontuario.id_movimento_faixa
+                    inner join graduacao
+                    on graduacao.id_graduacao = movimento_faixa.id_graduacao
+                    inner join federado
+                    on federado.id_federado = prontuario.id_federado
+                    where prontuario.id_federado = $id_federado group by graduacao.id_graduacao ";
+        return $this->db->query($sql)->result_array();
+    }
+
+
+    function alunos_por_filial($id_filial) {
+        $sql = "
+            SELECT 
+                    federado.id_federado as id,
+                    federado.nome,
+                    filial.nome as filial,
+                    graduacao.faixa
+                    FROM 
+                    federado
+                    inner join matricula
+                    on
+
+                    matricula.id_federado = federado.id_federado
+                    inner join 
+                        filial
+                    on
+                        matricula.id_filial = filial.id_filial
+                    inner join 
+                        graduacao_federado
+                    on  
+                        matricula.id_federado = graduacao_federado.id_federado
+                    inner join
+                        graduacao
+                    on
+                        graduacao_federado.id_graduacao = graduacao.id_graduacao
+                    where 
+                        federado.id_tipo_federado = 1
+                        and
+                        matricula.id_filial = '$id_filial'";
+        return $this->db->query($sql)->result_array();
+    }
 
     function getInscrito($filial) {
         $this->load->model('Coordenador_model', 'coordenador');
