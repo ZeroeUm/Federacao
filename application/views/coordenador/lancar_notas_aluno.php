@@ -128,12 +128,14 @@
         $('.minhanota').change(function(){
             $('.minhanota').each(function(k,v){
                 valor = $(this).val();
+                
                 if(valor>10){
                     
                     $(this).css({"border-color" : "#F00", "padding": "2px"});
                 }else{
                     $(this).css({"border-color" :""});
                 }
+                
                 
             });
         })
@@ -144,11 +146,17 @@
             verificar = 0;                         
             $('.minhanota').each(function(k,v){
                 valor = $(this).val();
-                if(valor>10){
+               
+               
+               if(valor>10){
                     verificar = 1
                     $(this).css({"border-color" : "#F00", "padding": "2px"});
                 }else{
                     $(this).css({"border-color" :""});
+                }
+                if(valor==''){
+                    verificar = 1;
+                    $(this).css({"border-color" : "#F00", "padding": "2px"});
                 }
                 
             });
@@ -156,7 +164,7 @@
             if(verificar==0){
                 $('#form').submit();
             }else{
-                alert('O prontúario não pode ser salvo, uma das notas é maior que 10')
+                alert('O prontúario não pode ser salvo, uma das notas é maior que 10 nem nula')
             }
                                         
         })
