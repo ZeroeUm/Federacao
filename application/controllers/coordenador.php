@@ -87,7 +87,7 @@ class coordenador extends CI_Controller{
         if($dados){
             echo "Removido com sucesso";
         }else{
-            echo "Não foi possível remover esse movimento de faixa";
+            echo "Algum aluno já recebeu nota para esse movimento não é possivel remover-lo pois afetaria o curriculo do aluno em questão";
         }
     }
 
