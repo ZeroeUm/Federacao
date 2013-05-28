@@ -12,17 +12,17 @@ class administrador extends CI_Controller
     {
         parent::__construct();
         $this->checar_sessao();
-         $this->load->model('Administrador_model', 'administrador');
+        $this->load->model('Administrador_model', 'administrador');
     }
-    
+
     function index()
     {
-        $this->load->model('Coordenador_model','coordenador');
+        $this->load->model('Coordenador_model', 'coordenador');
         $dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
-        $dados['numeros'] = $this->administrador->numero(); 
-            $this->load->view('header');
-            $this->load->view('administrador/index',$dados);
-            $this->load->view('footer');  
+        $dados['numeros'] = $this->administrador->numero();
+        $this->load->view('header');
+        $this->load->view('administrador/index', $dados);
+        $this->load->view('footer');
     }
 
     function checar_sessao()
@@ -119,7 +119,7 @@ class administrador extends CI_Controller
     function getFederados($filial, $status)
     {
         $this->load->model('Administrador_model', 'administrador');
-        
+
         $federados = $this->administrador->MntFedFederado($filial, $status);
         if (!empty($federados))
         {
@@ -133,7 +133,7 @@ class administrador extends CI_Controller
             $federados[0]["id"] = "";
             $federados[0]["nome"] = htmlentities("Não foram encontrados federados nessa filial com essa situação.", ENT_QUOTES, 'UTF-8');
         }
-        
+
         header('Content-Type: application/x-json; charset=utf-8');
         echo(json_encode($federados));
     }
@@ -148,11 +148,11 @@ class administrador extends CI_Controller
         $hoje = new DateTime('now');
         $idade = $hoje->diff($nasc)->format("%y");
         $fed[0]['idade'] = $idade;
-        
-        
+
+
         $fed[0]['nome'] = htmlentities($fed[0]['nome'], ENT_QUOTES, 'UTF-8');
-        $fed[0]['nacionalidade'] = htmlentities($fed[0]['nacionalidade'],ENT_QUOTES,'UTF-8');
-        
+        $fed[0]['nacionalidade'] = htmlentities($fed[0]['nacionalidade'], ENT_QUOTES, 'UTF-8');
+
         echo json_encode($fed[0]);
     }
 
@@ -289,8 +289,8 @@ class administrador extends CI_Controller
 
     function fotoFederado($op)
     {
-        
-        
+
+
         $path_info = ((isset($_FILES)) ? pathinfo($_FILES["foto"]["name"]) : NULL);
         $extensao = ((isset($path_info['extension'])) ? $path_info['extension'] : NULL);
 
@@ -374,45 +374,46 @@ class administrador extends CI_Controller
         $this->administrador->matricularFederado($matricula);
     }
 
-    
-    function enviarSenha($id_federado,$relembrar=null) {
+    function enviarSenha($id_federado, $relembrar = null)
+    {
 
         $dados = $this->administrador->get_login($id_federado);
-        if(empty($dados)){
-            $this->session->set_flashdata('aviso','Operação ilegal realizada erro 404 -  usuário não encontrado');
+        if (empty($dados))
+        {
+            $this->session->set_flashdata('aviso', 'Operação ilegal realizada erro 404 -  usuário não encontrado');
             redirect('/login/erro');
         }
         extract($dados['0']);
 
-        
+
         $this->load->library('email');
         $this->email->from('elder.f.silva@gmail.com', 'Felipe');
         $this->email->to($email);
         $this->email->subject('Acesso ao sistema FEPAMI');
-        
+
         $mensagem = "<p>Caro Aluno(a) {$nome} </p>
                   <p>Seu cadastro de acesso ao sistema FEPAMI foi realizado</p>
                   <p>segue abaixo informações de acesso.</p>
                   <p>Login: {$login}</p>
                   <p>Senha: {$senha}</p>
                   <p>ATENÇÃO: ao realizar seu primeiro acesso será obrigatório a troca de senha</p>";
-        
-            $this->email->message($mensagem);      
-        if($this->email->send()){
-           
-           if($relembrar!=null){
-               $this->session->set_flashdata('alerta','Email re-enviado com os dados de acesso para o aluno');
-               redirect('/instrutores');
-           }
-            
-        }else{
-            $this->session->set_flashdata('aviso','Não foi possivel enviar um email com os dados de acesso');
-            };
 
-        
-      
+        $this->email->message($mensagem);
+        if ($this->email->send())
+        {
+
+            if ($relembrar != null)
+            {
+                $this->session->set_flashdata('alerta', 'Email re-enviado com os dados de acesso para o aluno');
+                redirect('/instrutores');
+            }
+        }
+        else
+        {
+            $this->session->set_flashdata('aviso', 'Não foi possivel enviar um email com os dados de acesso');
+        };
     }
-    
+
     function gerarGraduacao($federado, $modalidade)
     {
         $this->load->model('Administrador_model', 'administrador');
@@ -567,9 +568,9 @@ class administrador extends CI_Controller
         $this->criarLogin($novoFederado, $federado['nome']);
 
         $this->enviarSenha($novoFederado);
-        
+
         $dados['id_federado'] = $novoFederado;
-        
+
         $dados['federado'] = $federado['nome'];
         $this->load->view('header');
         $this->load->view('administrador/sucessoInclusaoFederado', $dados);
@@ -591,19 +592,19 @@ class administrador extends CI_Controller
         $dados['pedidos'] = $this->administrador->get_pedidos_faixa();
 
         $this->load->view('header');
-        $this->load->view('administrador/pedidos',$dados);
+        $this->load->view('administrador/pedidos', $dados);
         $this->load->view('footer');
     }
 
-    function detalhe_pedido($id_evento){
+    function detalhe_pedido($id_evento)
+    {
         $this->load->model('administrador_model', 'administrador');
         $dados['detalhes'] = $this->administrador->detalhes_de_pedido_faixa($id_evento);
-        
+
         $this->load->view('header');
-        $this->load->view('administrador/detalhe_pedido',$dados);
+        $this->load->view('administrador/detalhe_pedido', $dados);
         $this->load->view('footer');
     }
-
 
     function alterarPedido($id)
     {
