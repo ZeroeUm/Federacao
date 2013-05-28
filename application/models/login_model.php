@@ -27,6 +27,7 @@ class Login_model extends CI_Model
 
     public function login($usuario, $senha)
     {
+        
         $query = $this->db
                         ->select('id_federado')
                         ->from('login')
@@ -34,10 +35,11 @@ class Login_model extends CI_Model
                         ->where('senha', $senha)
                         ->limit(1)
                         ->get();
-
-        if ($query->num_rows() == 1)
+$ret = $query->num_rows();
+        if ($ret == 1)
             return TRUE;
         else
+          
             return FALSE;
     }
     
@@ -54,8 +56,10 @@ class Login_model extends CI_Model
     }
 
     function primeiroAcesso($id){
+        
         $sql = "SELECT status FROM login where id_federado = $id";
         $dados = $this->db->query($sql)->result_array();
+        
         if($dados['0']['status']=='0'){
             return true;
         }else{
@@ -91,6 +95,8 @@ class Login_model extends CI_Model
     
     public function verificarStatus($usuario)
     {
+        
+        
         $query = $this->db
                         ->select('federado.id_status as situacao')
                         ->from('login')
@@ -98,7 +104,9 @@ class Login_model extends CI_Model
                         ->where('login.login',$usuario)
                         ->get()
                         ->result_array();
-        if(@$query[0]['situacao'] == 0):
+        
+        
+        if(@$query['0']['situacao'] == '0'):
             return FALSE;
         else:
             return TRUE;

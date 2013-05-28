@@ -22,8 +22,6 @@ class Home extends CI_Controller {
         
     }
             function checar_sessao() {
-                
-     
             if (!$this->session->userdata('autentificado'))
             redirect('login', 'refresh');
          } 
@@ -32,8 +30,11 @@ class Home extends CI_Controller {
 
     function index() {
 
+        
+      
         $tipo = $this->session->userdata('tipo');
 
+        
         if($this->session->userdata('primeiro')=='0'){
             redirect('/login/trocarSenha');
         }else{

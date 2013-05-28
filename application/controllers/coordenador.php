@@ -95,6 +95,20 @@ class coordenador extends CI_Controller{
 
 
     function index(){
+        $tipo = $this->session->userdata('tipo');
+             switch ($tipo) {
+            case '1';
+                redirect('/alunos');
+                break;
+            case '2';
+                redirect('/instrutores');
+                break;
+            case '4';
+                redirect('/administrador');
+                break;
+        }
+        
+        
         $dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
         
         

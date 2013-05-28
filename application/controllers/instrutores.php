@@ -68,6 +68,20 @@ class Instrutores extends CI_Controller {
     }
 
     function index() {
+
+        $tipo = $this->session->userdata('tipo');
+        switch ($tipo) {
+            case '1';
+                redirect('/alunos');
+                break;
+            case '3';
+                redirect('/coordenador');
+                break;
+            case '4';
+                redirect('/administrador');
+                break;
+        }
+
         //lista de participantes para o proximo evento 
         $dados['resultado'] = $this->instrutor->get_status_avaliacao();
 
@@ -259,7 +273,7 @@ class Instrutores extends CI_Controller {
             $dados = array('error' => $this->upload->display_errors('<div class="alert-error"><b>', '</b></div>'));
             (($op) ? $this->atualizarFederado($dados) : $this->salvarFederado($dados));
         } else {
-            
+
             $dados = array('upload_foto' => $this->upload->data());
             (($op) ? $this->atualizarFederado($dados, $config['file_name']) : $this->salvarFederado($dados, $config['file_name']));
         }
@@ -311,7 +325,7 @@ class Instrutores extends CI_Controller {
         $this->criarLogin($novoFederado, $federado['nome']);
 
         $this->enviarSenha($novoFederado);
-        
+
         $dados['id_federado'] = $novoFederado;
         $dados['federado'] = $federado['nome'];
         $this->load->view('header');
@@ -319,42 +333,48 @@ class Instrutores extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function enviarSenha($id_federado,$relembrar=null) {
+    function enviarSenha($id_federado, $relembrar = null) {
 
         $dados = $this->instrutor->get_login($id_federado);
-        if(empty($dados)){
-            $this->session->set_flashdata('aviso','Operação ilegal realizada erro 404 -  usuário não encontrado');
+        if (empty($dados)) {
+            $this->session->set_flashdata('aviso', 'Operação ilegal realizada erro 404 -  usuário não encontrado');
             redirect('/login/erro');
         }
         extract($dados['0']);
 
-        
+
+
         $this->load->library('email');
         $this->email->from('elder.f.silva@gmail.com', 'Felipe');
         $this->email->to($email);
         $this->email->subject('Acesso ao sistema FEPAMI');
-        
-        $mensagem = "<p>Caro Aluno(a) {$nome} </p>
+
+        if ($this->uri->segment(2) == 'trocarSenha') {
+            $mensagem = "<p>Caro Aluno(a) {$nome} </p>
+                  <p>A alteração da sua senha foi realizada com sucesso</p>
+                  <p>segue abaixo informações de acesso.</p>
+                  <p>Login: {$login}</p>
+                  <p>Senha: {$senha}</p>
+                  <p>ATENÇÃO: ao realizar seu primeiro acesso será obrigatório a troca de senha</p>";
+        } else {
+            $mensagem = "<p>Caro Aluno(a) {$nome} </p>
                   <p>Seu cadastro de acesso ao sistema FEPAMI foi realizado</p>
                   <p>segue abaixo informações de acesso.</p>
                   <p>Login: {$login}</p>
                   <p>Senha: {$senha}</p>
                   <p>ATENÇÃO: ao realizar seu primeiro acesso será obrigatório a troca de senha</p>";
-        
-            $this->email->message($mensagem);      
-        if($this->email->send()){
-           
-           if($relembrar!=null){
-               $this->session->set_flashdata('alerta','Email re-enviado com os dados de acesso para o aluno');
-               redirect('/instrutores');
-           }
-            
-        }else{
-            $this->session->set_flashdata('aviso','Não foi possivel enviar um email com os dados de acesso');
-            };
+        }
 
-        
-      
+        $this->email->message($mensagem);
+        if ($this->email->send()) {
+
+            if ($relembrar != null) {
+                $this->session->set_flashdata('alerta', 'Email re-enviado com os dados de acesso para o aluno');
+                redirect('/instrutores');
+            }
+        } else {
+            $this->session->set_flashdata('aviso', 'Não foi possivel enviar um email com os dados de acesso');
+        };
     }
 
     function atualizarFederado($dados, $foto = NULL) {
@@ -504,10 +524,10 @@ class Instrutores extends CI_Controller {
 
     function inscricao() {
         $this->load->model('Instrutor_model');
-        $this->load->model('Coordenador_model','coordenador');
+        $this->load->model('Coordenador_model', 'coordenador');
 
         $tema["filial"] = $this->instrutor->getFilial($this->session->userdata('id'));
-        
+
         $tema['evento'] = $this->coordenador->ultimo_evento();
         $this->load->view('header');
         $this->load->view('instrutores/inscricao', $tema);
@@ -593,23 +613,22 @@ class Instrutores extends CI_Controller {
         $id = $this->session->userdata('id');
         $dados["filial"] = $this->instrutor->getFilial($id);
         $this->load->view('header');
-        $this->load->view('instrutores/historico_select_alun',$dados);
+        $this->load->view('instrutores/historico_select_alun', $dados);
         $this->load->view('footer');
     }
-    
-    function ajax_listar_alunos($filial){
-        
-        
-                
+
+    function ajax_listar_alunos($filial) {
+
+
+
         $dados['alunos'] = $this->instrutor->alunos_por_filial($filial);
-        $this->load->view('instrutores/lista_dos_alunos',$dados);
-      
+        $this->load->view('instrutores/lista_dos_alunos', $dados);
     }
-    
-    function historico_pessoal($id_federado){
+
+    function historico_pessoal($id_federado) {
         $dados['notas'] = $this->instrutor->get_historico($id_federado);
         $this->load->view('header');
-        $this->load->view('instrutores/historico_pessoal',$dados);
+        $this->load->view('instrutores/historico_pessoal', $dados);
         $this->load->view('footer');
     }
 

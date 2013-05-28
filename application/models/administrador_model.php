@@ -13,6 +13,9 @@ class Administrador_model extends CI_Model
      * @return instrutores para serem colocados em um combobox
      */
     
+    
+    
+    
     function numero(){
         
         $alunos = array();
@@ -29,6 +32,10 @@ class Administrador_model extends CI_Model
         
         return $alunos;
     }
+    
+    
+    
+    
     public function MntFedInstrutor()
     {
         return $this->db

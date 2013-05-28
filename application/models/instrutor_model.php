@@ -7,8 +7,8 @@ class Instrutor_model extends CI_Model {
 
 
     function get_login($id_federado) {
-        $this->db->where('id_federado', $id_federado);
-        $this->db->update('login', array('status' => '0'));
+//        $this->db->where('id_federado', $id_federado);
+//        $this->db->update('login', array('status' => '0'));
 
         return $this->db->select('login.login,login.senha,federado.nome,federado.email')
                         ->from('login')
