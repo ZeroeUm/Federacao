@@ -17,8 +17,8 @@ $(document).ready(function () {
                     $("#resultado").css("display","block");
                     $("#nome").val($('<div/>').html(filial.nome).text());
                     $("#telefone").val($('<div/>').html(filial.telefone).text());
-                    $("#fax").val($('<div/>').html(filial.email).text());
-                    $("#email").val($('<div/>').html(filial.fax).text());
+                    $("#fax").val($('<div/>').html(filial.fax).text());
+                    $("#email").val($('<div/>').html(filial.email).text());
                     $("#representante").val($('<div/>').html(filial.representante).text());
                     $("#instrutor").val($('<div/>').html(filial.instrutor).text());
                     $("#logradouro").val($('<div/>').html(filial.logradouro).text());

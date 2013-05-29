@@ -240,9 +240,8 @@ class Instrutores extends CI_Controller {
             $dados['statusFederado'] = $this->instrutor->getStatu();
             $dados['endereco'] = $this->instrutor->getEndereco($endereco);
             $dados['uf'] = $this->instrutor->getUF();
-
-
-            $dados["filial"] = $this->instrutor->getFilial($id);
+            $dados['id_instrutor'] = $this->instrutor->get_filial_do_aluno($federado);
+            $dados["filial"] = $this->instrutor->getFilial($dados['id_instrutor']);
             $this->load->view('instrutores/alterarFederado', $dados);
             $this->load->view('footer');
         } else {
@@ -336,6 +335,8 @@ class Instrutores extends CI_Controller {
     function enviarSenha($id_federado, $relembrar = null) {
 
         $dados = $this->instrutor->get_login($id_federado);
+
+       
         if (empty($dados)) {
             $this->session->set_flashdata('aviso', 'Operação ilegal realizada erro 404 -  usuário não encontrado');
             redirect('/login/erro');
@@ -368,6 +369,7 @@ class Instrutores extends CI_Controller {
         $this->email->message($mensagem);
         if ($this->email->send()) {
 
+         
             if ($relembrar != null) {
                 $this->session->set_flashdata('alerta', 'Email re-enviado com os dados de acesso para o aluno');
                 redirect('/instrutores');

@@ -1,3 +1,7 @@
+<?php if(empty($eventos)){?>
+<h2 style="color: red">Nenhum evento</h2>
+<?php }else{ ?>
+
 <fieldset>
     <legend>Lista de Eventos</legend>
     <table class="table table-bordered">
@@ -25,3 +29,4 @@
         <?php endforeach; ?>
     </table>
 </fieldset>
+<?php } ?>

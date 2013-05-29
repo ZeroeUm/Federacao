@@ -24,12 +24,14 @@ $inf = $inf[0];
 <fieldset>
     <legend><?= $inf['faixa']?> </legend>
 </fieldset>
-<div class="row-fluid">
-    <p>
-        <?= nl2br($inf['curriculo']) ?>
-        
-        <iframe width="100%" height="480" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://www.mestrecarlos.com.br"></iframe>
 
+
+
+<div class="row-fluid " id="faixa_<?php echo $id_faixa; ?>">
+    <p>
+       <?php echo $inf['curriculo']; ?> 
     </p>
 </div>
+
+
     

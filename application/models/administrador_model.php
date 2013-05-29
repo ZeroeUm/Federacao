@@ -13,7 +13,26 @@ class Administrador_model extends CI_Model
      * @return instrutores para serem colocados em um combobox
      */
     
+    function save_coordenador($id_federado){
+        
+        $dados = array('id_federado'=>$id_federado);
+        $this->db->insert('coordenador',$dados);
     
+        
+    }
+    
+    function save_instrutor($id_federado){
+        
+        $dados = array('id_federado'=>$id_federado);
+        
+        $this->db->insert('instrutor',$dados);
+        $id_instrutor = $this->db->insert_id();
+        
+        $file['id_instrutor'] = $id_instrutor;
+        $file['id_modalidade'] = '1';
+        $file['data_inicio'] = date('Y-m-d');
+        $this->db->insert('instrutor_por_modalidade',$file);
+    }
     
     
     function numero(){
@@ -93,7 +112,9 @@ class Administrador_model extends CI_Model
         
         return $this->db
                         ->select(
-                               "federado.nome AS nome,
+                               "
+                              federado.id_federado ,
+                              federado.nome AS nome,
                               federado.data_nasc AS dtNasc,
                               federado.telefone AS telefone,
                               federado.email AS email,
@@ -387,8 +408,9 @@ class Administrador_model extends CI_Model
 
     public function AtualizarFilial($id, $dados = array())
     {
+        $this->db->where('id_filial',$id);
+        $this->db->update('filial', $dados);
         
-        $this->db->update('filial', $dados, array('id_filial' =>$id));
     }
 
     /*
