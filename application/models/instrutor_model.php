@@ -7,8 +7,8 @@ class Instrutor_model extends CI_Model {
 
 
     function get_login($id_federado) {
-        $this->db->where('id_federado', $id_federado);
-        $this->db->update('login', array('status' => '0'));
+//        $this->db->where('id_federado', $id_federado);
+//        $this->db->update('login', array('status' => '0'));
 
         return $this->db->select('login.login,login.senha,federado.nome,federado.email')
                         ->from('login')
@@ -400,15 +400,15 @@ class Instrutor_model extends CI_Model {
      */
 
     function get_historico($id_federado) {
-       
+
         $faixas = $this->get_faixas($id_federado);
-        
+
         $dados = array();
-        $f = $this->DadosFederado($id_federado); 
-        $dados['0']['federado'] =  $f['0'];
-        foreach ($faixas as $i=>$v){
-            
-            
+        $f = $this->DadosFederado($id_federado);
+        $dados['0']['federado'] = $f['0'];
+        foreach ($faixas as $i => $v) {
+
+
             $sql = "SELECT 
                     prontuario.id_prontuario,
                     prontuario.nota,
@@ -422,21 +422,18 @@ class Instrutor_model extends CI_Model {
                     inner join federado
                     on federado.id_federado = prontuario.id_federado
                     where prontuario.id_federado = '$id_federado' and graduacao.id_graduacao = '{$v['id_graduacao']}'";
-        
-        
-        $dados[$i]['id_graduacao'] = $v['id_graduacao'];  
-        $dados[$i]['nome_faixa'] = $v['faixa'];  
-        $notas =  $this->db->query($sql)->result_array();
-        $dados[$i]['notas'] = $notas;
-        
+
+
+            $dados[$i]['id_graduacao'] = $v['id_graduacao'];
+            $dados[$i]['nome_faixa'] = $v['faixa'];
+            $notas = $this->db->query($sql)->result_array();
+            $dados[$i]['notas'] = $notas;
         }
-        
+
         return $dados;
-        
-        
     }
 
-    function get_faixas($id_federado){
+    function get_faixas($id_federado) {
         $sql = "SELECT 
                     federado.nome,
                     graduacao.faixa,
@@ -452,6 +449,14 @@ class Instrutor_model extends CI_Model {
         return $this->db->query($sql)->result_array();
     }
 
+    function get_filial_do_aluno($id_federado) {
+        $sql = "SELECT instrutor.id_federado as id_instrutor
+                    FROM matricula
+                    join filial using (id_filial)
+                    join instrutor using (id_instrutor) where matricula.id_federado = $id_federado;";
+$dados = $this->db->query($sql)->result_array();
+        return $dados['0']['id_instrutor'];
+    }
 
     function alunos_por_filial($id_filial) {
         $sql = "

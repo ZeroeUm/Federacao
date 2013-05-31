@@ -1,6 +1,9 @@
 
+<?php if(empty($pedidos)){?>
 
+<h2 style="color: red;">Nenhuma solicitação realizada</h2>
 
+<?php }else{?>
 <div class="row-fluid">
     <table class="table table-bordered table-hover">
         <thead>
@@ -24,3 +27,4 @@
         </tbody>
     </table>
 </div>
+<?php } ?>

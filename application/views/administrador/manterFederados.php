@@ -76,6 +76,10 @@ foreach ($instrutores as $instrutor)
     echo form_label("Graduação atual", "faixa");
     echo form_input($faixa);
     echo br();
+   ?>
+    <a href="" id="relembrar" class="btn btn-warning">Relembrar senha</a>
+    <?php
+    
     echo anchor("", "Imprimir Federado", array('class' => 'btn btn-primary', 'id' => 'imprimir'));
     echo nbs(4);
     echo anchor("", "Alterar informações", array('class' => 'btn btn-primary', 'id' => 'alterar'));

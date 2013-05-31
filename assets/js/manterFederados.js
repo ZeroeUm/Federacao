@@ -109,6 +109,7 @@ $(document).ready(function(){
                     $("#nacionalidade").val($('<div/>').html(federado.nacionalidade).text());
                     $("#faixa").val($('<div/>').html(federado.faixa).text());
                     
+                    $("#relembrar").attr("href", "relembrar/"+fed);
                     $("#imprimir").attr("href", "imprimirFederado/"+fed);
                     $("#alterar").attr("href","alterarFederado/"+fed);
                 }

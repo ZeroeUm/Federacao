@@ -67,13 +67,15 @@ class Login extends CI_Controller {
         $this->form_validation->set_rules('usuario', 'Usuário', 'trim|xss_clean|required');
         $this->form_validation->set_rules('senha', 'Senha', 'trim|callback_verificar_banco|xss_clean|required');
 
-                
+             
         if ($this->form_validation->run() == FALSE):
             $this->load->view('login');
         else:
             redirect('home', 'refresh');
         endif;
         
+        
+      
         if($this->session->userdata('autentificado')){
          
             redirect('home', 'refresh');
@@ -83,6 +85,7 @@ class Login extends CI_Controller {
     }
 
     function verificar_banco($senha) {
+      
         if ($this->verificaStatus($this->input->post('usuario'), $senha)):
             return TRUE;
         else:
@@ -92,17 +95,17 @@ class Login extends CI_Controller {
     }
 
     function verificaStatus($usuario, $senha) {
+        
+        
         if ($this->login->verificarStatus($usuario)):
             
-            
-            
+           
             if ($this->login->login($usuario, $senha)):
+              
                 $resultado = $this->login->IDFedereado($usuario, $senha);
-                $dadosUsuario = $this->login->dadosUsuario($resultado[0]['id_federado']);
+              
+                $dadosUsuario = $this->login->dadosUsuario($resultado['0']['id_federado']);
 
-                
-                
-                
                 $primeiro_acesso = $this->login->primeiroAcesso($dadosUsuario['0']['id']);
                 //se for o primeiro acesso cria a sessão de alteração que será verificada na home;
                 if($primeiro_acesso){
@@ -152,6 +155,10 @@ class Login extends CI_Controller {
         $usuario = $this->input->post('federado');
         $dados = array('senha' => $senha,'status'=>'1');
         $this->login->trocarSenha($usuario, $dados);
+        
+        $this->load->library('../controllers/instrutores','instrutores');
+        $this->instrutores->enviarSenha($usuario);
+        
         $this->logoff();
     }
 
