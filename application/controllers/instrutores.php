@@ -83,16 +83,17 @@ class Instrutores extends CI_Controller {
         }
 
         //lista de participantes para o proximo evento 
-        $dados['resultado'] = $this->instrutor->get_status_avaliacao();
+        $dados['resultado'] = $this->instrutor->get_status_avaliacao($this->session->userdata('id'));
 
         //total de alunos do instrutor
         $dados['total_alunos'] = $this->instrutor->total_alunos($this->session->userdata('id'), 'total');
 
+        
         //Carregar data do próximo evento
         $this->load->model('Coordenador_model', 'coordenador');
         @$dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
 
-
+        
         $this->load->view('header');
         $this->load->view('instrutores/index', $dados);
         $this->load->view('footer');
@@ -596,7 +597,7 @@ class Instrutores extends CI_Controller {
 
     function manutencao($id = '1') {
         //lista de participantes para o proximo evento 
-        $dados['resultado'] = $this->instrutor->get_status_avaliacao();
+        $dados['resultado'] = $this->instrutor->get_status_avaliacao($this->session->userdata('id'));
 
         //total de alunos do instrutor
         $dados['total_alunos'] = $this->instrutor->total_alunos($this->session->userdata('id'), 'total');

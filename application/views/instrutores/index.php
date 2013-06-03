@@ -35,9 +35,9 @@
 
                         <?php echo $v['nome']; ?>
                         <?php if ($v['avaliacao'] == '1') { ?>
-                            <a href="<?php base_url() ?>instrutores/remover_evento_graduacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-important">Cancelar Participação</a>
+                            <a href="<?php echo base_url() ?>instrutores/remover_evento_graduacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-important">Cancelar Participação</a>
                         <?php } else { ?>
-                            <a href="<?php base_url() ?>instrutores/confirma_participacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-success">Confirma Participação</a>
+                            <a href="<?php echo base_url() ?>instrutores/confirma_participacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-success">Confirma Participação</a>
 
                         <?php } ?>
                         <br>
@@ -52,7 +52,7 @@
                                 <td style="border: none;"><?php echo $v['nome']; ?></td>
                                 <td style="border: none;"><?php echo $v['data']; ?></td>
                                 <td style="border: none;"><?php echo $v['horario']; ?>º Horário</td>
-                                <td style="border: none;"><a href="<?php base_url() ?>instrutores/remover_pre_avaliacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-important">Remover</a></td>
+                                <td style="border: none;"><a href="<?php echo base_url() ?>instrutores/remover_pre_avaliacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-important">Remover</a></td>
                             </tr>    
                         <?php } ?>
 
@@ -61,7 +61,7 @@
                                 <td style="border: none;"><?php echo $v['nome']; ?></td>
                                 <td style="border: none;">---------</td>
                                 <td style="border: none;">---------</td>
-                                <td style="border: none;"><a href="<?php base_url() ?>instrutores/remover_pre_avaliacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-important">Remover</a></td>
+                                <td style="border: none;"><a href="<?php echo base_url() ?>instrutores/remover_pre_avaliacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-important">Remover</a></td>
 
                             </tr>    
                         <?php } ?>
