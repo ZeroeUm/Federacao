@@ -12,7 +12,6 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
  * @author felipe
  */
 class Funcoes {
-    
     function calcular_idade($data){
       }
     function idade($data_completa){
