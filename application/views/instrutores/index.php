@@ -10,7 +10,7 @@
 
 <?php }elseif ($ultimo_evento['data_evento']< date('Y-m-d')) { ?>
      
-<h3 style="color: red;">Nenhum evento cadastrado por seu coordenador o ultimo evento ocorreu dia <?php echo @$this->funcoes->data($ultimo_evento['data_evento'], 2); ?></h3>
+<h4 style="color: red;">Nenhum evento cadastrado por seu coordenador o ultimo evento ocorreu dia <?php echo @$this->funcoes->data($ultimo_evento['data_evento'], 2); ?></h4>
 
 <?php }else{ ?>
 <div class="row-fluid" style="margin-top: 50px;">

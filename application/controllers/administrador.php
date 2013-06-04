@@ -196,16 +196,18 @@ class administrador extends CI_Controller {
 
 
         $fed = $this->administrador->MntFedDados($federado);
-        $nasc = new DateTime($fed[0]['dtNasc']);
-        $fed[0]['dtNasc'] = $nasc->format('d-m-Y');
-        $hoje = new DateTime('now');
-        $idade = $hoje->diff($nasc)->format("%y");
+        
+        
+        $fed[0]['escolaridade'] =  utf8_decode($fed[0]['escolaridade']);
+        $fed[0]['nome'] =  utf8_decode($fed[0]['nome']);
+        
+        
+        $fed[0]['dtNasc'] = $this->funcoes->data($fed[0]['dtNasc'],1);
+        $idade = $this->funcoes->idade($fed[0]['dtNasc']);
         $fed[0]['idade'] = $idade;
         $resultado = array_map('htmlentities', $fed[0]);
-        foreach ($fed[0] as $f):
-            $f = htmlentities($f, ENT_QUOTES, 'UTF-8');
-        endforeach;
-        echo(json_encode($fed[0]));
+        header('Content-type: application/x-json; charset=utf-8');
+        echo json_encode($resultado);
     }
 
     public function alpha_acent($input) {

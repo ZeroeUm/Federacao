@@ -158,13 +158,10 @@ class Instrutores extends CI_Controller {
         $this->load->model('Instrutor_model', 'instrutor');
         
         $fed = $this->instrutor->MntFedDados($federado);
-        $fed[0]['escolaridade'] =  utf8_decode($fed[0]['escolaridade']);
-        $fed[0]['nome'] =  utf8_decode($fed[0]['nome']);
         
-        $nasc = new DateTime($fed[0]['dtNasc']);
-        $fed[0]['dtNasc'] = $nasc->format('d-m-Y');
-        $hoje = new DateTime('now');
-        $idade = $hoje->diff($nasc)->format("%y");
+        
+        $fed[0]['dtNasc'] = $this->funcoes->data($fed[0]['dtNasc'],1);
+        $idade = $this->funcoes->idade($fed[0]['dtNasc']);
         $fed[0]['idade'] = $idade;
         $resultado = array_map('htmlentities', $fed[0]);
 

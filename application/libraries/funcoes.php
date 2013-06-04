@@ -20,6 +20,21 @@ class Funcoes {
         
     }
 
+    function idade($data_completa){
+        $data = explode('-', $data_completa);
+        
+        if($data_completa < date('d-m-Y')){
+            $idade = date('Y') - $data['2']; 
+        }else{
+            $idade = date('Y') - $data['2']; 
+            $idade = $idade-1;
+        }
+        
+        
+        return $idade;
+    }
+
+
     function tratar_timestamp($data, $tipo=0) {
 //       tipo1 = mostra o horarário
 //       tipo0 = não mostra o horário
