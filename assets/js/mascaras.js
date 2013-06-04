@@ -18,7 +18,7 @@ $('document').ready(function(){
     $('#cpf').setMask('999.999.999-99');
     $('#cep').setMask('99999-999');
     $('#telefone').setMask("(99)9999-9999"); 
-    $('#fax').setMask("(99)9999-9999"); 
+    
     
     
     
