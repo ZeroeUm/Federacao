@@ -247,7 +247,7 @@ echo form_open_multipart("instrutores/novoaluno", $attr);
         ?>
     </div>
 </div>
-<input class="btn btn-primary" type="submit" value="Incluir informaçães">
+<input class="btn btn-success" type="submit" value="Incluir informaçães">
 <?php
     
 echo form_close();

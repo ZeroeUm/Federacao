@@ -205,7 +205,7 @@ function imprimirInformacao(div)
     </div>
 </div>
 <?php
-echo form_button('btnImprimir','Imprimir Informaçaes','id="btnImprimir" onClick="imprimirInformacao(\'content\')" class="btn btn-primary"');
+echo form_button('btnImprimir','Imprimir Informaçaes','id="btnImprimir" onClick="imprimirInformacao(\'content\')" class="btn btn-success"');
 echo form_close();
 echo form_fieldset_close();
 ?>

@@ -94,6 +94,6 @@ $data = explode('-',$Eventos['0']['data_evento']);
     <?php echo $Eventos['0']['descricao'] ?>
     </textarea>
     
-    <input type="submit" value="Salvar" class="btn btn-primary"> 
+    <input type="submit" value="Salvar" class="btn btn-success"> 
 </form>
     </div>

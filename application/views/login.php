@@ -87,7 +87,7 @@ $label = array(
 
                 <div class="">
                     <br>
-                    <input type="submit" class="btn btn-primary" value="Entrar" style="height: 44px;width: 100%"> 
+                    <input type="submit" class="btn btn-success" value="Entrar" style="height: 44px;width: 100%"> 
                     <span style="float: right;text-decoration: underline">
                         <a href="<?php echo base_url(); ?>login/lembrar_senha">Lembrar senha</a>
                     </span>

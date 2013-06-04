@@ -27,7 +27,7 @@
     <div class="row-fluid">
        
         <div class="span1">
-            <input type="submit" class="btn btn-primary" value="Salvar" style="margin-top: 0px;"/>
+            <input type="submit" class="btn btn-success" value="Salvar" style="margin-top: 0px;"/>
         </div>
          <div class="span2">
         <input type="button" class="btn incluir_novo" value="Incluir novo" onclick="incluir_novo()"/>

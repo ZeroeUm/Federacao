@@ -80,6 +80,6 @@
     <?php } ?>
 </table>
 
-<input type="submit" class="btn btn-primary" value="Agendar pré-avaliação">
+<input type="submit" class="btn btn-success" value="Agendar pré-avaliação">
 
 </form>

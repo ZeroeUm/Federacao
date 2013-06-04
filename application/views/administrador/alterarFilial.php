@@ -157,7 +157,7 @@ $label = array(
         </div>
     </div>
     <?php
-    $inBotao = 'id="btnAlterar" class="btn btn-primary"';
+    $inBotao = 'id="btnAlterar" class="btn btn-success"';
     echo form_submit("btnAlterar", "Alterar informações", $inBotao);
     echo form_close();
     echo form_fieldset_close();

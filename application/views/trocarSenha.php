@@ -39,7 +39,7 @@ echo form_open($action, $attributes, $hidden);
     </div>
 </div>
 <?php
-echo form_submit('btnAlterar','Alterar Senha','id="btnAlterar" class="btn btn-primary"');
+echo form_submit('btnAlterar','Alterar Senha','id="btnAlterar" class="btn btn-success"');
 echo form_close();
 echo form_fieldset_close();
 ?>

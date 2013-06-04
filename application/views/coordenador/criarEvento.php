@@ -39,7 +39,7 @@ label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; 
 </style>
 
 <h3>Criar evento</h3>
-<a href="/coordenador/listaEventos" class="pull-right btn btn-primary">Lista de eventos</a>
+<a href="/coordenador/listaEventos" class="pull-right btn btn-success">Lista de eventos</a>
 <div class="span9">
     <form action="<?php echo base_url(); ?>coordenador/criarEvento" method="post" id="form">
 
@@ -80,6 +80,6 @@ label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; 
     
         </textarea>
 
-        <input type="submit" value="Salvar" class="btn btn-primary">
+        <input type="submit" value="Salvar" class="btn btn-success">
     </form>
 </div>

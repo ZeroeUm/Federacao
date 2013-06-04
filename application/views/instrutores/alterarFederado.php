@@ -1,9 +1,19 @@
-<?php header('Content-Type: text/html; charset=utf-8');?>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
 <script type="text/javascript">
     $(function () {
+      
+        $('#alterar_foto').click(function(){
+            tipo = $('.foto').attr("mostrar");
+            if(tipo=='sim'){
+                $('.foto').show('fade',500);
+                $('.foto').attr('mostrar','nao')
+            }else{
+                $('.foto').hide('fade',500);
+                $('.foto').attr('mostrar','sim')
+            }
+            
+        })
+        
         $("#dtNasc").datepicker({
             changeMonth: true,
             changeYear: true,
@@ -40,8 +50,9 @@ $imagem = array(
     "title" => "Foto do federado ".$federado['nome'],
     "class" => "img-polaroid"    
 );
-echo img($imagem);
+echo img($imagem); 
 ?>
+
 <div class="control-group">
     <?php
         echo form_label("Nome Completo", "nome", $label);
@@ -143,10 +154,17 @@ echo img($imagem);
     </div>
 </div>
 <div class="control-group">
+    <div class="controls">
+        <e class="btn btn-inverse" id="alterar_foto">alterar foto</a>
+    </div>
+    
+</div>
+
+<div class="control-group foto" mostrar="sim" style="display: none">
     <?php
         echo form_label("Foto de identificaçao", "foto", $label);
     ?>
-    <div class="controls">
+    <div class="controls" >
         <?php
             $inFoto = 'id="foto" class="span3"';
             echo form_upload("foto", (($federado['caminho_imagem'] == "sem foto")?"":$federado['caminho_imagem']), $inFoto);
@@ -298,7 +316,7 @@ echo form_label("Tamanho da Faixa", "faixa", $label);
         ?>
     </div>
 </div>
-<input class="btn btn-primary" name="btnAlterar" id="btnAlterar" type="submit" value="Alterar informaçaes">
+<input class="btn btn-success" name="btnAlterar" id="btnAlterar" type="submit" value="Alterar informaçaes">
 <?php
 
 echo form_close();

@@ -1,5 +1,5 @@
 <div class="row-fluid">
-    <a href="<?php echo base_url(); ?>instrutores/inscricao" class="btn btn-primary">Inscrever para evento</a>
+    <a href="<?php echo base_url(); ?>instrutores/inscricao" class="btn btn-success">Inscrever para evento</a>
 </div>
 
 <?php if($ultimo_evento['data_evento']=='0000-00-00'){?>

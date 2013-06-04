@@ -60,7 +60,7 @@
             <?php } ?>
                 <br>
             
-                <input type="submit" value="Enviar" class="btn btn-primary" style="height: 50px; width: 100px;" >
+                <input type="submit" value="Enviar" class="btn btn-success" style="height: 50px; width: 100px;" >
            
             </form>
         </div>

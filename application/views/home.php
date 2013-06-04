@@ -3,7 +3,7 @@
   <h1>Tela de teste</h1>
   <p>Tela de teste</p>
   <p>
-    <a class="btn btn-primary btn-large">
+    <a class="btn btn-success btn-large">
       Learn more
     </a>
   </p>

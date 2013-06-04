@@ -64,5 +64,5 @@
 </div>
 
 
-<input type="submit" value="Confirmar Pedido" class="btn btn-primary">
+<input type="submit" value="Confirmar Pedido" class="btn btn-success">
 </form>

@@ -1,9 +1,9 @@
-<?php header('Content-Type: text/html; charset=utf-8'); ?>
+
 <script type="text/javascript" src="<?php echo base_url() . 'assets/js/manterAlunos.js' ?>"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() . 'assets/css/instrutor.css' ?>" />
 
 <?php
-$prop = array('class' => 'btn btn-small btn-primary', 'name' => 'incluirFederado', 'id' => 'incluirFederado');
+$prop = array('class' => 'btn btn-small btn-success', 'name' => 'incluirFederado', 'id' => 'incluirFederado');
 echo anchor("instrutores/incluirFederado", "Incluir Federado", $prop);
 echo br();
 ?>
@@ -28,7 +28,6 @@ echo br();
             <tr>
     <!--<td>Instrutor</td>-->
                
-
 
            <!-- <td>Filial</td>-->
                 <td>

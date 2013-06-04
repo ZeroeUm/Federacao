@@ -1,6 +1,6 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/manterFederados.js"></script>
 <?php
-$prop = array('class' => 'btn btn-primary', 'name' => 'incluirFederado', 'id' => 'incluirFederado');
+$prop = array('class' => 'btn btn-success', 'name' => 'incluirFederado', 'id' => 'incluirFederado');
 
 echo anchor("administrador/incluirFederado", "Incluir Federado", $prop);
 
@@ -80,9 +80,9 @@ foreach ($instrutores as $instrutor)
     <a href="" id="relembrar" class="btn btn-warning">Relembrar senha</a>
     <?php
     
-    echo anchor("", "Imprimir Federado", array('class' => 'btn btn-primary', 'id' => 'imprimir'));
+    echo anchor("", "Imprimir Federado", array('class' => 'btn btn-success', 'id' => 'imprimir'));
     echo nbs(4);
-    echo anchor("", "Alterar informações", array('class' => 'btn btn-primary', 'id' => 'alterar'));
+    echo anchor("", "Alterar informações", array('class' => 'btn btn-success', 'id' => 'alterar'));
 
     echo form_fieldset_close();
     ?>

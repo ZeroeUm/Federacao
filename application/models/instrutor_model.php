@@ -121,6 +121,7 @@ class Instrutor_model extends CI_Model {
                     inner join instrutor
                     on instrutor.id_instrutor = filial.id_instrutor
                     where pre_avaliacao.id_evento = $ultimo_evento and pre_avaliacao.id_status_avaliacao !=1
+                    and instrutor.id_federado = $id_instrutor;
                   ";
 
         $tabela = $this->db->query($sql)->result_array();
@@ -515,33 +516,33 @@ $dados = $this->db->query($sql)->result_array();
         $ultimo_evento = $this->coordenador->getUltimoEvento();
 
         $sql = "
-            SELECT 
-federado.id_federado as id,
-federado.nome,
-filial.nome as filial,
-graduacao.faixa
-FROM 
-federado
-inner join matricula
-on
-
-matricula.id_federado = federado.id_federado
-inner join 
-    filial
-on
-    matricula.id_filial = filial.id_filial
-inner join 
-    graduacao_federado
-on  
-    matricula.id_federado = graduacao_federado.id_federado
-inner join
-    graduacao
-on
-    graduacao_federado.id_graduacao = graduacao.id_graduacao
-where 
-not exists (select pre_avaliacao.id_federado from pre_avaliacao where pre_avaliacao.id_federado = federado.id_federado and pre_avaliacao.id_evento = $ultimo_evento )
-and
-federado.id_tipo_federado = 1";
+           SELECT 
+           federado.id_federado as id,
+           federado.nome,
+           filial.nome as filial,
+           graduacao.faixa
+           FROM 
+           federado
+           inner join matricula
+           on
+           matricula.id_federado = federado.id_federado
+           inner join 
+               filial
+           on
+               matricula.id_filial = filial.id_filial
+           inner join 
+               graduacao_federado
+           on  
+               matricula.id_federado = graduacao_federado.id_federado
+           inner join
+               graduacao
+           on
+               graduacao_federado.id_graduacao = graduacao.id_graduacao
+           where 
+           not exists (select pre_avaliacao.id_federado from pre_avaliacao where pre_avaliacao.id_federado = federado.id_federado and pre_avaliacao.id_evento = $ultimo_evento )
+           and
+           federado.id_tipo_federado = 1
+           and matricula.id_filial = $filial"; 
         return $this->db->query($sql)->result_array();
     }
 

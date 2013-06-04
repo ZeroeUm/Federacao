@@ -269,7 +269,7 @@ echo form_label("UF", "uf", $label);
     ?>
     </div>
 </div>
-<input class="btn btn-primary" name="btnIncluir" id="btnIncluir" type="submit" value="Incluir informaçães">
+<input class="btn btn-success" name="btnIncluir" id="btnIncluir" type="submit" value="Incluir informaçães">
 <?php
 echo form_close();
 echo form_fieldset_close();

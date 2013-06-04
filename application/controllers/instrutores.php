@@ -146,7 +146,7 @@ class Instrutores extends CI_Controller {
         if (!empty($data)) {
             $tmp .= "<option value=''>Selecione o Federado</option>";
             foreach ($data as $row) {
-                $tmp .="<option value ='" . $row->id . "'>" . utf8_encode($row->nome) . "</option>";
+                $tmp .="<option value ='" . $row->id . "'>" . $row->nome . "</option>";
             }
         } else {
             $tmp .="<option value=''>Sem registro para com os parametros informados</option>";
@@ -156,8 +156,11 @@ class Instrutores extends CI_Controller {
 
     function getFederado($federado) {
         $this->load->model('Instrutor_model', 'instrutor');
-        header('Content-type: application/x-json; charset=utf-8');
+        
         $fed = $this->instrutor->MntFedDados($federado);
+        $fed[0]['escolaridade'] =  utf8_decode($fed[0]['escolaridade']);
+        $fed[0]['nome'] =  utf8_decode($fed[0]['nome']);
+        
         $nasc = new DateTime($fed[0]['dtNasc']);
         $fed[0]['dtNasc'] = $nasc->format('d-m-Y');
         $hoje = new DateTime('now');
@@ -165,6 +168,7 @@ class Instrutores extends CI_Controller {
         $fed[0]['idade'] = $idade;
         $resultado = array_map('htmlentities', $fed[0]);
 
+        header('Content-type: application/x-json; charset=utf-8');
         echo utf8_decode(json_encode($resultado));
     }
 
@@ -558,16 +562,20 @@ class Instrutores extends CI_Controller {
 
         $this->load->model('Instrutor_model', 'instrutor');
 
-        header('Content-type: application/x-json; charset=utf-8 ', true);
+       
 
         //   echo (htmlentities(utf8_encode('�,n�o, tr�s')));
 
         $filiais = $this->instrutor->getInscrito($filial);
+        
 
-
-//        print_r($filiais);
         if (!empty($filiais)) {
+             header('Content-type: application/x-json; charset=utf-8 ', true);
+             echo (json_encode($filiais));
+        }else{
+            header('Content-type: application/x-json; charset=utf-8 ', true);
             echo (json_encode($filiais));
+            
         }
     }
 
@@ -630,6 +638,8 @@ class Instrutores extends CI_Controller {
 
     function historico_pessoal($id_federado) {
         $dados['notas'] = $this->instrutor->get_historico($id_federado);
+       
+        
         $this->load->view('header');
         $this->load->view('instrutores/historico_pessoal', $dados);
         $this->load->view('footer');
