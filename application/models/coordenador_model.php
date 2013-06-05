@@ -653,8 +653,7 @@ graduacao_participantes.status_participacao = 1" . $complemento;
         $dados['data']['evento_graduacao']['id_endereco'] = $ultimo;
         $dados['data']['evento_graduacao']['numero_evento'] = $data['1'] . '-' . $data['2'];
         $dados['data']['evento_graduacao']['id_modalidade'] = '1';
-        $this->funcoes->imprimir($dados['data']['evento_graduacao']);
-
+        
 
         if ($this->db->insert('evento_graduacao', $dados['data']['evento_graduacao'])) {
 
