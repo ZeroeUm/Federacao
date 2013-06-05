@@ -1,4 +1,4 @@
-<form action="<?php echo base_url();?>coordenador/salvar_pedido" method="post">
+<form action="<?php echo base_url();?>coordenador/salvar_pedido" method="post" id="form">
 
 <div class="row-fluid">
     <div class="span3">
@@ -51,7 +51,7 @@
             <td><?php echo $v['nome_faixa']; ?></td>
             <td><?php echo $v['tamanho_faixa']; ?></td>
             <td>
-                <input type="text" name="faixa[<?php echo $v['id_graduacao'].'X'.$v['tamanho_faixa']; ?>]" value="<?php echo $v['total']; $cont = $cont+$v['total']; ?>">
+                <input type="text" class="total_faixas" name="faixa[<?php echo $v['id_graduacao'].'X'.$v['tamanho_faixa']; ?>]" value="<?php echo $v['total']; $cont = $cont+$v['total']; ?>">
                 
             </td>
         </tr>
@@ -59,10 +59,41 @@
 </table>
 <div class="row-fluid">
     <div class="span3">
-        Total de faixas para o evento: <?php echo $cont;?>
+        Total de faixas para o evento: <span class="label total_geral"><?php echo $cont;?></span>
     </div>
 </div>
 
 
-<input type="submit" value="Confirmar Pedido" class="btn btn-success">
+<input type="button" value="Confirmar Pedido" class="btn submeter btn-success">
 </form>
+
+<script>
+    $(document).ready(function(){
+        
+        $('#form').mouseover(function(){
+            
+              total = 0;
+        $('.total_faixas').each(function(k,v){
+            total = total + parseInt($(this).val());
+        })
+        $('.total_geral').text(total);
+        });
+        
+        
+        $('.submeter').click(function(){
+            total = 0;
+        $('.total_faixas').each(function(k,v){
+            total = total + parseInt($(this).val());
+        })
+            
+            
+            var confirmado=confirm("O total de faixas solicitada é "+total);
+                    if (confirmado) {
+                      $('#form').submit();
+                    } else {
+                      
+                    }
+        })
+        
+    })
+</script>

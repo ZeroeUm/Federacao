@@ -32,30 +32,31 @@
 
 
 <style>
-
 label { display: block; margin-top: 10px; }
 label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 10px }
-
+i{color: red;}
 </style>
-
+<span style="color: red;float: right;font-size: 12px;">* campos obrigatórios</span>
 <h3>Criar evento</h3>
 <a href="/coordenador/listaEventos" class="pull-right btn btn-success">Lista de eventos</a>
 <div class="span9">
     <form action="<?php echo base_url(); ?>coordenador/criarEvento" method="post" id="form">
 
-        <label>Data do evento</label> 
-        <input type="text" name="data[evento_graduacao][data_evento]" class=" obrigatorio input-block-level" id="datepicker" placeholder="Data do Evento">
-
+        <label>Data do evento<i>*</i></label> 
+        
+        
+        <input type="text" name="data[evento_graduacao][data_evento]" class="obrigatorio input-block-level" required="true" id="datepicker" placeholder="Data do Evento">
+        
 
         <!--<label>Numero do evento</label> 
         <input type="text" name="data[evento_graduacao][numero_evento]" class="obrigatorio input-block-level" placeholder="Numero do evento">-->
 
-        <label>Endereço</label>
+        <label>Endereço<i>*</i></label>
 
-        <input type="text" name="data[endereco][logradouro]" class="input-block-level" placeholder="Endereço">
+        <input type="text" name="data[endereco][logradouro]" required="true" class="input-block-level" placeholder="Endereço">
         <input type="text" name="data[endereco][numero]" class="input-block-level" placeholder="Numero">
 
-        <input type="text" name="data[endereco][cidade]" class="input-block-level" placeholder="Cidade">
+        <input type="text" name="data[endereco][cidade]" required="" class="input-block-level" placeholder="Cidade">
         
         <select name="data[endereco][uf]" class="input-block-level">
             <option value="1">SP</option>

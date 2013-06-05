@@ -11,3 +11,11 @@
     background-color: white;
     border-bottom: 1px solid #424242;
 }
+
+a{
+    color: #5BB75B;
+}
+
+.obrigatorio{
+    color: red;
+}

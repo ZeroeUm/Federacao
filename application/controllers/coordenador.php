@@ -499,20 +499,20 @@ class coordenador extends CI_Controller{
         $this->load->view('footer');
     }
 
-    function modalidade() {
-        $this->load->model('Modalidade_model', 'modalidades');
-        $data['categorias'] = $this->modalidades->get_modalidade();
+    function lista_instrutores(){
+        $this->load->model('administrador_model', 'administrador');
+        $dados['categorias'] = $this->administrador->getFilial();
         $this->load->view('header');
-        $this->load->view('/coordenador/modalidade', $data);
+        $this->load->view('coordenador/lista_instrutores',$dados);
         $this->load->view('footer');
     }
 
-    function professores_modalidade($id_professor = null) {
+    function ajax_professores_filial($id_filial = null) {
 
 
         $this->load->model('Coordenador_model', 'coordenador');
 
-        $data['professor'] = $this->coordenador->get_professores($id_professor);
+        $data['professor'] = $this->coordenador->get_professores($id_filial);
 
         $this->load->view('/coordenador/professores_modalidade', $data);
         return true;

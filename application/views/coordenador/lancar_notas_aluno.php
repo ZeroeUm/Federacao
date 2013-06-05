@@ -162,7 +162,14 @@
             });
             
             if(verificar==0){
-                $('#form').submit();
+                media = $('.result').text();
+                 var confirmado=confirm('A média final do aluno é '+media+" deseja confirmar");
+                    if (confirmado) {
+                      $('#form').submit();
+                    } else {
+                      
+                    }
+               
             }else{
                 alert('O prontúario não pode ser salvo, uma das notas é maior que 10 nem nula')
             }
@@ -193,7 +200,7 @@
             $('.result').text('Informar notas')
         }
 
-        $('input').change(function(){
+    $('form').mousemove(function(){
             total = (
 <?php foreach ($movimentos as $i => $v) { ?>
                 parseFloat($('.faixa_<?php echo $v['id_movimento_faixa'] ?>').val())+

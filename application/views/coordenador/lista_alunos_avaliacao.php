@@ -29,7 +29,19 @@
             }
         })
         
-        
+        $('.submeter').click(function(){
+            valor = 1;
+                $('#selecionados').each(function(k,v){
+                    if(this.checked==false){
+                        valor = 0;    
+                        alert('Nenhum aluno foi selecionado');
+                    }
+                })
+                
+                if(valor==1){
+                    $('#form').submit();
+                }
+        })
         
         
         
@@ -52,9 +64,9 @@
 
 
 <form action="<?php echo base_url(); ?>coordenador/agendar_pre_avaliacao/<?php echo $id_filial;?>" method="post" id="form" >
-<label>Informe a data para pré-avaliação</label>
-<input type="text" id="datepicker" class="input-large" name="pre_avaliacao[data_agendamento]" value="">
-<label>Horário para a pré-avaliação</label>
+    <label>Informe a data para pré-avaliação<span class="obrigatorio">*</span></label>
+    <input type="text" id="datepicker" class="input-large" name="pre_avaliacao[data_agendamento]" placeholder="informe uma data">
+<label>Horário para a pré-avaliação<span class="obrigatorio">*</span></label>
 <select type="text" id="horario" name="pre_avaliacao[horario]">
     <option value="1">Manhã</option>
     <option value="2">Tarde</option>
@@ -73,13 +85,13 @@
     
     <?php foreach ($alunos as $i=>$v){ ?>
     <tr>
-        <td><input type="checkbox" name="pre_avaliacao[id_pre_avaliacao][]" value="<?php echo $v['id_pre_avaliacao'];?>"/></td>
+        <td><input type="checkbox" name="pre_avaliacao[id_pre_avaliacao][]" id="selecionados" value="<?php echo $v['id_pre_avaliacao'];?>"/></td>
         <td><?php echo $v['nome'];?></td>
         <td><?php echo $v['faixa_atual'];?></td>
     </tr>
     <?php } ?>
 </table>
 
-<input type="submit" class="btn btn-success" value="Agendar pré-avaliação">
+<input type="button" class="btn btn-success submeter" value="Agendar pré-avaliação">
 
 </form>
