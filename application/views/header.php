@@ -39,23 +39,23 @@
 
 
 	// Evento de clique do elemento: ul#menu li.parent > a
-	$('ul#menu li.parent > a').click(function() {
+	$('ul#menu li.parent > a').mouseenter(function() {
+	        // Expande ou retrai o elemento ul.sub-menu dentro do elemento pai (ul#menu li.parent)
 		
-                // Expande ou retrai o elemento ul.sub-menu dentro do elemento pai (ul#menu li.parent)
-		$('ul.sub-menu',$(this).parent()).slideToggle('fast');
+        
+        $('ul.sub-menu',$(this).parent()).slideToggle('fast');
+        $('ul.sub-menu',$(this).parent()).addClass('exibida');
 		return false;
                 
-                
 	});
-    
-
         
+    
         });
     </script>
 
 
     <body>
-        <div id="header">
+        <div id="header" >
 
         </div>
         <div id="search">
@@ -63,8 +63,8 @@
         </div>
         <div id="user-nav" class="navbar navbar-inverse">
             <ul class="nav btn-group">
-                <li class="btn btn-inverse"><a title="Trocar senha de acesso" href="<?php echo base_url() ?>login/trocarSenha"><i class="icon icon-user"></i><span class="text">Trocar senha de acesso</span></a></li>
-                <li class="btn btn-inverse"><a title="Logoff do sistema" href="<?php echo base_url() ?>login/logoff"><i class="icon icon-off"></i> <span class="text">Logout</span></a></li>
+                <li class=" "><a title="Logoff do sistema" href="<?php echo base_url() ?>login/logoff"><i class="icon icon-off"></i> <span class="text">Logout</span></a></li><br>
+                <li class=" "><a title="Trocar senha de acesso" href="<?php echo base_url() ?>login/trocarSenha"><i class="icon icon-user"></i><span class="text">Trocar senha</span></a></li>
             </ul>
         </div>
 

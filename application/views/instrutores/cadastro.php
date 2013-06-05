@@ -1,4 +1,9 @@
-
+<style>
+    .controls{
+        max-width: 300px;
+    }
+    
+</style>
 <script type="text/javascript" src="<?php echo base_url() . 'assets/js/manterAlunos.js' ?>"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() . 'assets/css/instrutor.css' ?>" />
 
@@ -50,7 +55,7 @@ echo br();
 
           <!--  <td>Federado</td>-->
                 <td>
-                    <select class="span4" name="federado" id="federado">
+                    <select class="input-block-level" name="federado" id="federado">
                         <option value="">Selecione um Federado</option>
                     </select>
                 </td>
@@ -62,49 +67,49 @@ echo br();
 <?php
 echo form_fieldset("Resultado da pesquisa", array('id' => 'resultado', 'style' => 'display: none'));
 
-$nome = array('id' => 'nomeFederado', 'name' => 'nomeFederado', 'maxlength' => '60', 'size' => '50', 'readonly' => 'readonly', 'class' => 'span3');
+$nome = array('id' => 'nomeFederado', 'name' => 'nomeFederado', 'maxlength' => '60', 'size' => '50', 'readonly' => 'readonly', 'class' => 'input-xlarge');
 echo form_label("Federado", "nomeFederado");
 echo form_input($nome);
 
-$data = array('id' => 'dataNasc', 'name' => 'dataNasc', 'maxlength' => '10', 'size' => '10', 'readonly' => 'readonly');
+$data = array('id' => 'dataNasc', 'name' => 'dataNasc','class'=>'input-xlarge' ,'maxlength' => '10', 'size' => '10', 'readonly' => 'readonly');
 echo form_label("Data de nascimento", "dataNasc");
 echo form_input($data);
 
-$idade = array('id' => 'idade', 'name' => 'idade', 'maxlength' => '3', 'size' => '3', 'readonly' => 'readonly', 'class' => 'input-mini');
+$idade = array('id' => 'idade', 'name' => 'idade', 'maxlength' => '3', 'size' => '3', 'readonly' => 'readonly', 'class' => 'input-xlarge');
 echo form_label("Idade", 'idade');
 echo form_input($idade);
 
-$telefone = array('id' => 'telefone', 'name' => 'telefone', 'maxlength' => '13', 'size' => '13', 'readonly' => 'readonly');
+$telefone = array('id' => 'telefone', 'name' => 'telefone','class'=>'input-xlarge', 'maxlength' => '13', 'size' => '13', 'readonly' => 'readonly');
 echo form_label("Telefone", "telefone");
 echo form_input($telefone);
 
-$email = array('id' => 'email', 'name' => 'email', 'maxlength' => '50', 'size' => '50', 'readonly' => 'readonly', 'class' => 'span3');
+$email = array('id' => 'email', 'name' => 'email', 'maxlength' => '50', 'size' => '50', 'readonly' => 'readonly', 'class' => 'input-xlarge');
 echo form_label("E-mail", "email");
 echo form_input($email);
 
-$celular = array('id' => 'celular', 'name' => 'celular', 'maxlength' => '14', 'size' => '14', 'readonly' => 'readonly');
+$celular = array('id' => 'celular', 'name' => 'celular','class'=>'input-xlarge', 'maxlength' => '14', 'size' => '14', 'readonly' => 'readonly');
 echo form_label("Celular", "celular");
 echo form_input($celular);
 
-$sexo = array('id' => 'sexo', 'name' => 'sexo', 'maxlength' => '1', 'size' => '2', 'readonly' => 'readonly', 'class' => 'input-mini');
+$sexo = array('id' => 'sexo', 'name' => 'sexo', 'maxlength' => '1', 'size' => '2', 'readonly' => 'readonly', 'class' => 'input-xlarge');
 echo form_label("Sexo", "sexo");
 echo form_input($sexo);
 
-$escolaridade = array('id' => 'escolaridade', 'name' => 'escolaridade', 'maxlength' => '30', 'size' => '30', 'readonly' => 'readonly', 'class' => 'span3');
+$escolaridade = array('id' => 'escolaridade', 'name' => 'escolaridade', 'maxlength' => '30', 'size' => '30', 'readonly' => 'readonly', 'class' => 'input-xlarge');
 echo form_label("Escolaridade", 'escolaridade');
 echo form_input($escolaridade);
 
-$nacionalidade = array('id' => 'nacionalidade', 'name' => 'nacionalidade', 'maxlength' => '30', 'size' => '30', 'readonly' => 'readonly', 'class' => 'span3');
+$nacionalidade = array('id' => 'nacionalidade', 'name' => 'nacionalidade', 'maxlength' => '30', 'size' => '30', 'readonly' => 'readonly', 'class' => 'input-xlarge');
 echo form_label("Nacionalidade", "nacionalidade");
 echo form_input($nacionalidade);
 
-$faixa = array('id' => 'faixa', 'name' => 'faixa', 'maxlength' => '30', 'size' => '30', 'readonly' => 'readonly', 'class' => 'span3');
+$faixa = array('id' => 'faixa', 'name' => 'faixa', 'maxlength' => '30', 'size' => '30', 'readonly' => 'readonly', 'class' => 'input-xlarge');
 echo form_label("Graduação atual", "faixa");
 echo form_input($faixa);
 echo br();
 
 ?>
-<a href="" class="senha btn btn-large btn-primary">Reenviar senha</a>
+<a href="" class="senha btn btn-large btn-success">Reenviar senha</a>
 <?
 echo anchor("", "Imprimir Federado", array('class' => 'btn btn-large btn-primary', 'id' => 'imprimir'));
 echo nbs(4);

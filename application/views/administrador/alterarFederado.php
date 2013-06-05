@@ -1,3 +1,9 @@
+<style>
+    .controls{
+        max-width: 300px;
+    }
+    
+</style>
 <script type="text/javascript">
     $(function () {
         $("#dtNasc").datepicker({
@@ -42,7 +48,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $inNome = 'id="nome" class="span3" maxlength="60" required';
+            $inNome = 'id="nome" class="input-block-level" maxlength="60" required';
             echo form_input('nome', set_value('nome', $federado['nome']), $inNome);
             ?>
         </div>
@@ -53,7 +59,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $inFMaterna = 'id="fMaterna" class="span3" maxlength="60"';
+            $inFMaterna = 'id="fMaterna" class="input-block-level" maxlength="60"';
             echo form_input('fMaterna', set_value('fMaterna', $federado['filiacao_materna']), $inFMaterna);
             ?>
         </div>
@@ -64,7 +70,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $inFPaterna = 'id="fPaterna" class="span3" maxlength="60"';
+            $inFPaterna = 'id="fPaterna" class="input-block-level" maxlength="60"';
             echo form_input("fPaterna", set_value('fPaterna', $federado['filiacao_paterna']), $inFPaterna);
             ?>
         </div>
@@ -77,7 +83,7 @@ $label = array(
             <?php
             $opSexo = array("F" => "Feminino", "M" => "Masculino");
             $selSexo = $federado['sexo'];
-            echo form_dropdown("sexo", $opSexo, set_value('sexo', $selSexo), 'id="sexo" class="span2" required');
+            echo form_dropdown("sexo", $opSexo, set_value('sexo', $selSexo), 'id="sexo" class="input-block-level" required');
             ?>
         </div>
     </div>
@@ -87,7 +93,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $inData = 'id="dtNasc" class="span2" maxlength="10" required';
+            $inData = 'id="dtNasc" class="input-block-level" maxlength="10" required';
             echo form_input("dtNasc", set_value('dtNasc', date("d-m-Y", strtotime($federado['data_nasc']))), $inData);
             ?>
         </div>
@@ -98,7 +104,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $inRg = 'id="rg" class="span2" maxlength="12" required';
+            $inRg = 'id="rg" class="input-block-level" maxlength="12" required';
             echo form_input("rg", set_value('rg', $federado['rg']), $inRg);
             ?>
         </div>
@@ -109,7 +115,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $inTelefone = 'id="telefone" class="span2" maxlength="13" required';
+            $inTelefone = 'id="telefone" class="input-block-level" maxlength="13" required';
             echo form_input("telefone", set_value('telefone', $federado['telefone']), $inTelefone);
             ?>
         </div>
@@ -120,7 +126,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $inCelular = 'id="celular" class="span2" maxlength="14" required';
+            $inCelular = 'id="celular" class="input-block-level" maxlength="14" required';
             echo form_input("celular", set_value('celular', $federado['celular']), $inCelular);
             ?>
         </div>
@@ -131,7 +137,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $inEmail = 'id="email" class="span3" maxlength="50" required';
+            $inEmail = 'id="email" class="input-block-level" maxlength="50" required';
             echo form_input("email", set_value('email', $federado['email']), $inEmail);
             ?>
         </div>
@@ -142,7 +148,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $inFoto = 'id="foto" class="span3"';
+            $inFoto = 'id="foto" class="input-block-level"';
             echo form_upload("foto", (($federado['caminho_imagem'] == "sem foto") ? "" : $federado['caminho_imagem']), $inFoto);
             ?>
         </div>
@@ -157,7 +163,7 @@ $label = array(
             foreach ($escolaridade as $esc)
                 $opEscolaridade[$esc['id']] = $esc['descricao'];
             $selEscolaridade = $federado['id_escolaridade'];
-            echo form_dropdown("escolaridade", $opEscolaridade, set_value('escolaridade', $selEscolaridade), 'id="sexo" class="span3" required');
+            echo form_dropdown("escolaridade", $opEscolaridade, set_value('escolaridade', $selEscolaridade), 'id="sexo" class="input-block-level" required');
             ?>
         </div>
     </div>
@@ -172,7 +178,7 @@ $label = array(
             $opTamanho['G'] = "Grande";
             $opTamanho['GG'] = "Extra-grande";
             $selTamanho = $federado['tamanho_faixa'];
-            echo form_dropdown('tamanhoFaixa',$opTamanho,  set_value('tamanhoFaixa',$selTamanho),'id="tamanhoFaixa" class="span3" required');
+            echo form_dropdown('tamanhoFaixa',$opTamanho,  set_value('tamanhoFaixa',$selTamanho),'id="tamanhoFaixa" class="input-block-level" required');
             ?>
         </div>
     </div>
@@ -186,7 +192,7 @@ $label = array(
             foreach ($statusFederado as $sFederado)
                 $opSituacao[$sFederado['id']] = $sFederado['status'];
             $selSituacao = $federado['id_status'];
-            echo form_dropdown("situacao", $opSituacao, set_value('situacao', $selSituacao), 'id="status" class="span2" required');
+            echo form_dropdown("situacao", $opSituacao, set_value('situacao', $selSituacao), 'id="status" class="input-block-level" required');
             ?>
         </div>
     </div>
@@ -200,7 +206,7 @@ $label = array(
             foreach ($nacionalidade as $nac)
                 $opNacionalidade[$nac['id']] = $nac['nacionalidade'];
             $selNacionalidade = $federado['id_nacionalidade'];
-            echo form_dropdown('nacionalidade', $opNacionalidade, set_value('nacionalidade', $selNacionalidade), 'id="nacionalidade" class="span2" required');
+            echo form_dropdown('nacionalidade', $opNacionalidade, set_value('nacionalidade', $selNacionalidade), 'id="nacionalidade" class="input-block-level" required');
             ?>
         </div>
     </div>
@@ -214,7 +220,7 @@ $label = array(
             foreach ($tipo as $t)
                 $opTipo[$t['id']] = $t['tipo'];
             $selTipo = $federado['id_tipo_federado'];
-            echo form_dropdown('tipo', $opTipo, set_value('tipo', $selTipo), 'id="tipo" class="span2" required');
+            echo form_dropdown('tipo', $opTipo, set_value('tipo', $selTipo), 'id="tipo" class="input-block-level" required');
             ?>
         </div>
     </div>
@@ -226,7 +232,7 @@ $label = array(
             <?php
             foreach ($modalidade as $mod)
                 $opModalidade[$mod['id']] = $mod['nome'];
-            echo form_dropdown('modalidade',$opModalidade,set_value('modalidade',1),'id="modalidade" class="span3" required disabled');
+            echo form_dropdown('modalidade',$opModalidade,set_value('modalidade',1),'id="modalidade" class="input-block-level" required disabled');
             ?>
         </div>
     </div>
@@ -248,7 +254,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $inLogradouro = 'id="logradouro" class="span3" maxlength="80" required';
+            $inLogradouro = 'id="logradouro" class="input-block-level" maxlength="80" required';
             echo form_input('logradouro', set_value('logradouro', $endereco['logradouro']), $inLogradouro);
             ?>
         </div>
@@ -259,7 +265,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $inNumero = 'id="numero" class="span2" maxlength="5" required';
+            $inNumero = 'id="numero" class="input-block-level" maxlength="5" required';
             echo form_input('numero', set_value('numero', $endereco['numero']), $inNumero);
             ?>
         </div>
@@ -270,7 +276,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $inComplemento = 'id="compl" class="span3" maxlength="20"';
+            $inComplemento = 'id="compl" class="input-block-level" maxlength="20"';
             echo form_input('compl', $endereco['complemento'], $inComplemento);
             ?>
         </div>
@@ -281,7 +287,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $inBairro = 'id="bairro" class="span3" maxlength="30" required';
+            $inBairro = 'id="bairro" class="input-block-level" maxlength="30" required';
             echo form_input("bairro", set_value('bairro', $endereco['bairro']), $inBairro);
             ?>
         </div>
@@ -292,7 +298,7 @@ $label = array(
         ?>
         <div class="controls">
             <?php
-            $inCidade = 'id="cidade" class="span3" maxlength="30" required';
+            $inCidade = 'id="cidade" class="input-block-level" maxlength="30" required';
             echo form_input("cidade", set_value('cidade', $endereco['cidade']), $inCidade);
             ?>
         </div>
@@ -306,7 +312,7 @@ $label = array(
             $opUF = array();
             foreach ($uf as $estado)
                 $opUF[$estado['id']] = $estado['sigla'];
-            echo form_dropdown('uf', $opUF, set_value('uf', $endereco['uf']), 'id="uf" class="span1" required');
+            echo form_dropdown('uf', $opUF, set_value('uf', $endereco['uf']), 'id="uf" class="input-block-level" required');
             ?>
         </div>
     </div>
