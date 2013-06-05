@@ -26,6 +26,8 @@ $label = array(
     "class" => "control-label"
 );
 ?>
+
+<span class="obrigatorio" style="float: right;font-size: 12px;">* campos obrigatórios</span>
 <div class="alert-error">
     <?php echo validation_errors(); ?>    
 </div>
@@ -42,7 +44,9 @@ echo form_open_multipart("instrutores/incluirFederado", $attr);
         $inNome = 'id="nome" class="input-block-level" maxlength="60" required placeholder="Nome Completo"';
         echo form_input('nome', set_value('nome'), $inNome);
         ?>
+        <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
     </div>
+    
 </div>
 <div class="control-group">
     <?php
@@ -86,6 +90,7 @@ echo form_open_multipart("instrutores/incluirFederado", $attr);
         $inData = 'id="dtNasc" class="input-block-level" maxlength="10" required placeholder="Data de nascimento"';
         echo form_input("dtNasc", set_value('dtNasc'), $inData);
         ?>
+        <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
     </div>
 </div>
 <div class="control-group">
@@ -97,6 +102,7 @@ echo form_open_multipart("instrutores/incluirFederado", $attr);
         $inRg = 'id="rg" class="input-block-level" maxlength="12" required placeholder="RG"';
         echo form_input("rg", set_value('rg'), $inRg);
         ?>
+        <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
     </div>
 </div>
 <div class="control-group">
@@ -108,6 +114,7 @@ echo form_open_multipart("instrutores/incluirFederado", $attr);
         $inTelefone = 'id="telefone" class="input-block-level" maxlength="13" required placeholder="Telefone"';
         echo form_input("telefone", set_value('telefone'), $inTelefone);
         ?>
+        <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
     </div>
 </div>
 <div class="control-group">
@@ -130,6 +137,7 @@ echo form_open_multipart("instrutores/incluirFederado", $attr);
         $inEmail = 'id="email" class="input-block-level" maxlength="50" required placeholder="E-mail"';
         echo form_input("email", set_value('email'), $inEmail);
         ?>
+        <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
     </div>
 </div>
 <div class="control-group">
@@ -215,6 +223,7 @@ echo form_label("Logradouro", "logradouro", $label);
     $inLogradouro = 'id="logradouro" class="input-block-level" maxlength="80" required placeholder="Logradouro"';
     echo form_input('logradouro', set_value('logradouro'), $inLogradouro);
     ?>
+        <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
     </div>
 </div>
 <div class="control-group">
@@ -226,6 +235,7 @@ echo form_label("Numero", "numero", $label);
     $inNumero = 'id="numero" class="input-block-level" maxlength="5" required placeholder="Número"';
     echo form_input('numero', set_value('numero'), $inNumero);
     ?>
+        <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
     </div>
 </div>
 <div class="control-group">
@@ -248,6 +258,7 @@ echo form_label("Bairro", "bairro", $label);
     $inBairro = 'id="bairro" class="input-block-level" maxlength="30" required placeholder="Bairro"';
     echo form_input("bairro", set_value('bairro'), $inBairro);
     ?>
+        <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
     </div>
 </div>
 <div class="control-group">
@@ -259,6 +270,7 @@ echo form_label("Cidade", "cidade", $label);
     $inCidade = 'id="cidade" class="input-block-level" maxlength="30" required placeholder="Cidade"';
     echo form_input("cidade", set_value('cidade'), $inCidade);
     ?>
+        <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
     </div>
 </div>
 <div class="control-group">

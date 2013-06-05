@@ -26,8 +26,6 @@ class Funcoes {
         return $idade;
     }
     function tratar_timestamp($data, $tipo=0) {
-//       tipo1 = mostra o horarário
-//       tipo0 = não mostra o horário
         if ($tipo == 0) {
             $datetime = explode(' ',$data);
             $pre_data = explode('-',$datetime['0']);
