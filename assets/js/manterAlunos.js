@@ -54,8 +54,13 @@ $(document).ready(function(){
                     $("#nacionalidade").val($('<div/>').html(federado.nacionalidade).text());
                     $("#faixa").val($('<div/>').html(federado.faixa).text());
                     
+                   
+                    
                     $("#imprimir").attr("href", "imprimirFederado/"+fed);
                     $("#alterar").attr("href","alterarFederado/"+fed);
+                    
+                     $("#imprimir").addClass('btn btn-success');
+                    $("#alterar").addClass('btn btn-success');
                 }
             })
         }

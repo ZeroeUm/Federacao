@@ -1,10 +1,9 @@
 $('document').ready(function(){
  
     
-    $('#content').click(function(){
-        $('.sub-menu').hide();
-        
-    })     
+    $('ul#menu li.parent').mouseleave(function() {
+        $('.exibida').hide();
+    });
     
     
     

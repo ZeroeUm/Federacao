@@ -117,7 +117,7 @@ $(document).ready(function() {
                     $("<input/>").attr({
                         type: 'submit',
                         name: 'cadastrar',
-                        class: 'btn btn-primary',
+                        class: 'btn btn-success',
                         value: 'Cadastrar Federados',
                         id: 'cad'
 
