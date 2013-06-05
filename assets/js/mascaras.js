@@ -1,5 +1,10 @@
 $('document').ready(function(){
  
+ 
+ 
+    
+ 
+ 
     
     $('ul#menu li.parent').mouseleave(function() {
         $('.exibida').hide();

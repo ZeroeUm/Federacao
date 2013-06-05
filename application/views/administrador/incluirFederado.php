@@ -27,6 +27,8 @@ $label = array(
     "class" => "control-label"
 );
 ?>
+<span class="obrigatorio" style="float: right;font-size: 12px">* campos obrigatórios</span>
+
 <div id="row-fluid">
     <div class="alert-error">
         <?php echo validation_errors(); ?>    
@@ -46,6 +48,7 @@ $label = array(
             $inNome = 'id="nome" class="input-block-level" maxlength="60" required placeholder="Nome Completo"';
             echo form_input('nome', set_value('nome'), $inNome);
             ?>
+             <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
         </div>
     </div>
     <div class="control-group">
@@ -79,6 +82,7 @@ $label = array(
             $opSexo = array("#" => "Escolha uma opção.", "F" => "Feminino", "M" => "Masculino");
             echo form_dropdown("sexo", $opSexo, set_value("sexo", "#"), 'id="sexo" class="input-block-level" required');
             ?>
+            
         </div>
     </div>
     <div class="control-group">
@@ -89,7 +93,7 @@ $label = array(
             <?php
             $inData = 'id="dtNasc" class="input-block-level" maxlength="10" required placeholder="Data de nascimento"';
             echo form_input("dtNasc", set_value('dtNasc'), $inData);
-            ?>
+            ?> <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
         </div>
     </div>
     <div class="control-group">
@@ -100,7 +104,7 @@ $label = array(
             <?php
             $inRg = 'id="rg" class="input-block-level" maxlength="12" required placeholder="RG"';
             echo form_input("rg", set_value('rg'), $inRg);
-            ?>
+            ?> <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
         </div>
     </div>
     <div class="control-group">
@@ -111,7 +115,7 @@ $label = array(
             <?php
             $inTelefone = 'id="telefone" class="input-block-level" maxlength="13" required placeholder="Telefone"';
             echo form_input("telefone", set_value('telefone'), $inTelefone);
-            ?>
+            ?> <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
         </div>
     </div>
     <div class="control-group">
@@ -133,7 +137,7 @@ $label = array(
             <?php
             $inEmail = 'id="email" class="input-block-level" maxlength="50" required placeholder="E-mail"';
             echo form_input("email", set_value('email'), $inEmail);
-            ?>
+            ?> <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
         </div>
     </div>
     <div class="control-group">
@@ -157,7 +161,7 @@ $label = array(
             foreach ($escolaridade as $esc)
                 $opEscolaridade[$esc['id']] = $esc['descricao'];
             echo form_dropdown("escolaridade", $opEscolaridade, set_value('escolaridade', '#'), 'id="sexo" class="input-block-level" required')
-            ?>
+            ?> <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
         </div>
     </div>
     <div class="control-group">
@@ -172,7 +176,7 @@ $label = array(
             $opTamanho['G'] = "Grande";
             $opTamanho['GG'] = "Extra-grande";
             echo form_dropdown('tamanhoFaixa',$opTamanho,  set_value('tamanhoFaixa','#'),'id="tamanhoFaixa" class="input-block-level" required');
-            ?>
+            ?> <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
         </div>
     </div>
     <div class="control-group">
@@ -186,7 +190,7 @@ $label = array(
                 $opNacionalidade[$nac['id']] = $nac['nacionalidade'];
 
             echo form_dropdown('nacionalidade', $opNacionalidade, set_value('nacionalidade', '#'), 'id="nacionalidade" class="input-block-level" required');
-            ?>
+            ?> <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
         </div>
     </div>
     <div class="control-group">
@@ -199,7 +203,7 @@ $label = array(
             foreach ($tipo as $t)
                 $opTipo[$t['id']] = $t['tipo'];
             echo form_dropdown('tipo', $opTipo, set_value('tipo', "#"), 'id="tipo" class="input-block-level" required');
-            ?>
+            ?> <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
         </div>
     </div>
     <div class="control-group">
@@ -211,7 +215,7 @@ $label = array(
             foreach ($modalidade as $mod)
                 $opModalidade[$mod['id']] = $mod['nome'];
             echo form_dropdown('modalidade',$opModalidade,1,'id="modalidade" class="input-block-level" required disabled');
-            ?>
+            ?> <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
         </div>
     </div>
         <div class="control-group">
@@ -224,7 +228,7 @@ $label = array(
             foreach ($filial as $f)
                 $opFilial[$f['id']] = $f['nome'];
             echo form_dropdown('filial',$opFilial,set_value('filial',"#"),'id="filial" class="span4" required');
-            ?>
+            ?> <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
         </div>
     </div>
     <div class="control-group">
@@ -235,7 +239,7 @@ $label = array(
             <?php
             $inLogradouro = 'id="logradouro" class="input-block-level" maxlength="80" required placeholder="Logradouro"';
             echo form_input('logradouro', set_value('logradouro'), $inLogradouro);
-            ?>
+            ?> <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
         </div>
     </div>
     <div class="control-group">
@@ -246,7 +250,7 @@ $label = array(
             <?php
             $inNumero = 'id="numero" class="input-block-level" maxlength="5" required placeholder="Número"';
             echo form_input('numero', set_value('numero'), $inNumero);
-            ?>
+            ?> <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
         </div>
     </div>
     <div class="control-group">
@@ -268,7 +272,7 @@ $label = array(
             <?php
             $inBairro = 'id="bairro" class="input-block-level" maxlength="30" required placeholder="Bairro"';
             echo form_input("bairro", set_value('bairro'), $inBairro);
-            ?>
+            ?> <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
         </div>
     </div>
     <div class="control-group">
@@ -279,8 +283,8 @@ $label = array(
             <?php
             $inCidade = 'id="cidade" class="input-block-level" maxlength="30" required placeholder="Cidade"';
             echo form_input("cidade", set_value('cidade'), $inCidade);
-            ?>
-        </div>
+            ?><i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
+        </div> 
     </div>
     <div class="control-group">
         <?php
@@ -292,7 +296,7 @@ $label = array(
             foreach ($uf as $estado)
                 $opUF[$estado['id']] = $estado['sigla'];
             echo form_dropdown('uf', $opUF, set_value('uf', "#"), 'id="uf" class="input-block-level" required');
-            ?>
+            ?> <i class="obrigatorio" style="float: right;position: absolute;margin-left: 300px;margin-top: -20px;" >*</i>
         </div>
     </div>
     <?php

@@ -27,7 +27,7 @@ $label = array(
 );
 ?>
 
-<span class="obrigatorio" style="float: right;font-size: 12px;">* campos obrigatórios</span>
+<span class="obrigatorio" style="float: right;font-size: 12px">* campos obrigatórios</span>
 <div class="alert-error">
     <?php echo validation_errors(); ?>    
 </div>
