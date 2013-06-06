@@ -60,17 +60,18 @@ $label = array(
 
     <body>
         <div class="topo">
-            <img src="federados/logo.png" width="77" height="77" style="float: right; opacity:0.6;">
+            <img src="federados/logo.png" width="100" height="100" style="position: absolute;margin-left: 80%;margin-top: 30px; opacity:1.6;">
 
         </div>
-
+        <div class="content" style="margin-top: 100px;">
         <div class="logo">
             <img src="federados/logo2.png">
 
 
         </div>
 
-        <div class="login" style="">
+        <div class="login">
+            
             <form action="<?php echo base_url() ?>login" method="post">
                 
                 <div class="">
@@ -103,5 +104,6 @@ $label = array(
             </div>
 
         </div>
+            </div>
     </body>
 </html>
