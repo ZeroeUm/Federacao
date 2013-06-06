@@ -54,16 +54,17 @@ i{color: red;}
         <label>Endereço<i>*</i></label>
 
         <input type="text" name="data[endereco][logradouro]" required="true" class="input-block-level" placeholder="Endereço">
+        <label>Numero</label>
         <input type="text" name="data[endereco][numero]" class="input-block-level" placeholder="Numero">
-
+        <label>Cidade<i>*</i></label>
         <input type="text" name="data[endereco][cidade]" required="" class="input-block-level" placeholder="Cidade">
-        
+        <label>Estado</label>
         <select name="data[endereco][uf]" class="input-block-level">
             <option value="1">SP</option>
         </select>
-
+        <label>Bairro</label>
         <input type="text" name="data[endereco][bairro]" class="input-block-level" placeholder="Bairro">
-
+        <label>Complemento</label>
         <input type="text" name="data[endereco][complemento]" class="input-block-level" placeholder="Complemento">
        
 
@@ -77,7 +78,7 @@ i{color: red;}
         </select>-->
 
         <label>Descrição</label>
-        <textarea name="data[evento_graduacao][descricao]" style="width: 730px;height: 200px;resize: none;">
+        <textarea name="data[evento_graduacao][descricao]" style="width: 730px;height: 150px;resize: none;">
     
         </textarea>
 

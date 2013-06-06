@@ -1,9 +1,14 @@
 $('document').ready(function(){
  
- 
- 
+    mostrar = $('.mensagem_alert').attr('mostrar');
     
- 
+    if(mostrar==''){
+        $('.principal').addClass('pagina');
+    }
+    
+    $('.fechar_alerta').click(function(){
+        $('.pagina').removeClass();
+    })
  
     
     $('ul#menu li.parent').mouseleave(function() {

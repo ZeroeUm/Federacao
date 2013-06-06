@@ -53,8 +53,11 @@
         });
     </script>
 
+    
 
     <body>
+        <div class="principal">
+     
         <div id="header" style="margin-bottom: 2px; ">
         <img src="/federados/logo.png" width="70" height="70" style="opacity:0.3;padding-top: 10px;float: right;">
         </div>
@@ -191,9 +194,12 @@
         </div>
 
         <div id="content" style="min-height:800px;padding-bottom: 50px;">
+            
+           
+            
             <?php if (@$this->session->flashdata('alerta') != '') { ?>
-                <div class="alert alert-success">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>  
+                <div class="alert alert-success mensagem_alert" mostrar="sim">
+                    <button type="button" class="close fechar_alerta" data-dismiss="alert">&times;</button>  
                     <?php echo $this->session->flashdata('alerta'); ?>
                 </div>
             <?php } ?>

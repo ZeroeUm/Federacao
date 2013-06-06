@@ -19,3 +19,17 @@ a{
 .obrigatorio{
     color: red;
 }
+.pagina{
+    background-color: black;
+    opacity: 0.3;
+    
+}
+.mensagem_alert{
+   position: fixed;
+   border: 1px solid;
+   min-height: 300px;
+   min-width: 400px;
+   max-height: 300px;
+   max-height: 200px;
+   width: 300px;
+}
