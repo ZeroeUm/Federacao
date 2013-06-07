@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: 04/06/2013 às 18:24:54
+-- Tempo de Geração: 07/06/2013 às 13:19:47
 -- Versão do Servidor: 5.1.66-0ubuntu0.11.10.3
 -- Versão do PHP: 5.3.6-13ubuntu3.10
 
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `endereco` (
   PRIMARY KEY (`id_endereco`),
   KEY `FK_endereco_tipo_endereco` (`tipo_endereco`),
   KEY `FK_endereco_uf` (`uf`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=117 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=139 ;
 
 --
 -- Extraindo dados da tabela `endereco`
@@ -103,10 +103,20 @@ INSERT INTO `endereco` (`id_endereco`, `logradouro`, `numero`, `complemento`, `b
 (110, 'Rua do logradouro', 151, NULL, 'Teste', 'São Paulo', 1, 1),
 (111, 'Endereco da filiaal', 154, NULL, 'Penha', 'São Paulo', 1, 3),
 (112, 'Endereco da filiaal', 123, 'asdasd', 'tucuruvi', 'São paulo', 1, 1),
-(113, 'Rua dos eventos', 450, '', 'Tucuruvi', 'São Paulo', 1, 3),
-(114, 'Rua dos eventos', 480, '', 'Tucuruvi', 'São paulo', 1, 3),
 (115, 'Rua dos eventos', 150, '', 'Tucuruvi', 'São Paulo', 1, 3),
-(116, 'Rua da academia', 1233, '', 'Penha', 'São Paulo', 1, 1);
+(116, 'Rua da academia', 1233, '', 'Penha', 'São Paulo', 1, 1),
+(117, 'Evento de teste', 0, '', '', 'São Paulo', 1, 3),
+(118, 'Rua dos eventos ', 123, '', 'jaçana', 'São Paulo', 1, 3),
+(121, 'asdasda', 123, '', 'asdasd', 'São Paulo', 4, 1),
+(122, 'Rua da academia', 161, '', 'Penha', 'São Paulo', 4, 1),
+(131, 'Rua da academia', 150, '', 'Penha', 'São Paulo', 1, 1),
+(132, 'Rua da academia', 140, '', 'Bela Vista', 'São Paulo', 1, 1),
+(133, 'Av Paulista 252 - Bela Vista', 161, '', 'Bela ', 'São Paulo', 1, 3),
+(134, 'RUA TOMÉ DE LARA', 123, 'Casa', 'Tucuruvi', 'SÃO PAULO', 1, 3),
+(135, 'Rua Tomé de Lara', 123, '', 'Tucuruvi', 'São Paulo', 1, 3),
+(136, 'Rua da academia', 150, '', 'Centro', 'São Paulo', 1, 1),
+(137, 'Av Paulista', 23, 'Casa', 'Tucuruvi', 'São Paulo', 1, 3),
+(138, 'Rua Tomé de Lara', 123, 'Casa', 'Tucuruvi', 'São Paulo', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -196,16 +206,7 @@ CREATE TABLE IF NOT EXISTS `evento_graduacao` (
   UNIQUE KEY `validacao` (`numero_evento`),
   KEY `FK_evento_graduacao_endereco` (`id_endereco`),
   KEY `FK_evento_graduacao_modalidade` (`id_modalidade`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
-
---
--- Extraindo dados da tabela `evento_graduacao`
---
-
-INSERT INTO `evento_graduacao` (`id_evento`, `numero_evento`, `data_evento`, `id_endereco`, `id_modalidade`, `descricao`) VALUES
-(1, '06-2013', '2013-06-30', 109, 1, 'Evento de graduação agendado para esse dia   \n        '),
-(2, '08-2013', '2013-08-31', 113, 1, 'Dados    \n        '),
-(4, '09-2013', '2013-09-30', 115, 1, 'Evento de graduação para federados    \n        ');
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 -- --------------------------------------------------------
 
@@ -238,7 +239,7 @@ CREATE TABLE IF NOT EXISTS `federado` (
   KEY `FK_federado_nacionalidade` (`id_nacionalidade`),
   KEY `FK_federado_status_federado` (`id_status`),
   KEY `FK_federado_tipo_federado` (`id_tipo_federado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=71 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=85 ;
 
 --
 -- Extraindo dados da tabela `federado`
@@ -251,7 +252,11 @@ INSERT INTO `federado` (`id_federado`, `nome`, `filiacao_materna`, `filiacao_pat
 (67, 'Anakin skywalker', 'Shmi Skywalker', 'Midichlorians', 'M', '1985-05-30', '33.333.333-3', '(11)1111-1111', '(99)99999-9999', 'felipe@chipsetdesenvolvimento.com', 'tkd/1369865174.jpg', 4, 1, 108, 1, 1, 'M'),
 (68, 'Instrutor João', 'não conhecido', 'não conhecido', 'M', '2013-06-30', '11.111.111-1', '(22)2222-2222', '(11)92222-2222', 'contato@dworker.com.br', 'sem foto', 4, 1, 110, 1, 2, 'M'),
 (69, 'Paulo amorim andré', 'não conhecida', 'não conhecida', 'M', '1975-06-07', '77.777.777-7', '(11)1111-1111', '(11)99999-9999', 'contato@dworker.com.br', 'sem foto', 4, 1, 112, 1, 1, 'GG'),
-(70, 'Lidiane Sapim', 'Fernão dias', 'caiçará', 'F', '1990-06-20', '22.333.115-5', '(11)2233-4578', '(11)96882-2555', 'contato@dworker.com.br', 'sem foto', 4, 1, 116, 1, 1, 'M');
+(70, 'Lidiane Sapim', 'Fernão dias', 'caiçará', 'F', '1985-03-23', '22.333.115-5', '(11)2233-4578', '(11)96882-2555', 'contato@dworker.com.br', 'sem foto', 4, 1, 116, 1, 1, 'M'),
+(74, 'Felipe de Oliveira da Silva', 'Não declarada', 'Não declarada', 'M', '1985-06-29', '22.222.222-2', '(11)2737-1907', '(11)96802-0408', 'felipe@chipsetdesenvolvimento.com', 'tkd/1370620070.jpg', 6, 1, 122, 1, 1, 'M'),
+(82, 'Luis inácio', 'não conhecida', NULL, 'M', '1985-11-23', '44.444.444-4', '(22)2222-2222', '(99)99999-9999', 'contato@dworker.com.br', 'sem foto', 1, 1, 131, 1, 1, 'M'),
+(83, 'Paulo Ferreira', 'não conhecida', 'não conhecida', 'M', '1969-12-31', '22.233.311-2', '(11)2223-2221', '(11)22233-5544', 'felipe@dworker.com.br', 'sem foto', 4, 1, 132, 1, 1, 'G'),
+(84, 'Carlos Silveira', 'maria alandina', 'Paulo ribeiro', 'M', '1980-07-29', '77.888.999-8', '(11)3322-1554', '(22)96888-8858', 'contato@dworker.com.br', 'sem foto', 4, 1, 136, 1, 1, 'M');
 
 -- --------------------------------------------------------
 
@@ -355,7 +360,7 @@ CREATE TABLE IF NOT EXISTS `graduacao_federado` (
   `data_emissao` date NOT NULL,
   PRIMARY KEY (`id_graduacao_federado`),
   KEY `FK_federado_graduacao` (`id_federado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=49 ;
 
 --
 -- Extraindo dados da tabela `graduacao_federado`
@@ -365,10 +370,14 @@ INSERT INTO `graduacao_federado` (`id_graduacao_federado`, `id_modalidade`, `id_
 (1, 1, '16', 1, 1, '2000-05-01'),
 (32, 1, '1', 65, 1, '2013-05-29'),
 (33, 1, '1', 66, 1, '2013-05-29'),
-(34, 1, '4', 67, 1, '2013-06-04'),
+(34, 1, '1', 67, 1, '2013-06-07'),
 (35, 1, '1', 68, 1, '2013-06-03'),
-(36, 1, '3', 69, 1, '2013-06-04'),
-(37, 1, '2', 70, 1, '2013-06-04');
+(36, 1, '1', 69, 1, '2013-06-07'),
+(37, 1, '1', 70, 1, '2013-06-07'),
+(41, 1, '1', 74, 1, '2013-06-07'),
+(46, 1, '1', 82, 1, '2013-06-07'),
+(47, 1, '1', 83, 1, '2013-06-06'),
+(48, 1, '1', 84, 1, '2013-06-07');
 
 -- --------------------------------------------------------
 
@@ -385,17 +394,6 @@ CREATE TABLE IF NOT EXISTS `graduacao_participantes` (
   KEY `FK_participante` (`id_federado`),
   KEY `fk_graduacao_participantes_1` (`id_graduacao`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `graduacao_participantes`
---
-
-INSERT INTO `graduacao_participantes` (`id_evento`, `id_federado`, `id_graduacao`, `status_participacao`) VALUES
-(1, 67, 2, 1),
-(2, 69, 2, 1),
-(4, 67, 4, 1),
-(4, 69, 3, 1),
-(4, 70, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -458,7 +456,7 @@ CREATE TABLE IF NOT EXISTS `login` (
   `status` int(1) DEFAULT '0' COMMENT '0 para inativo 1 para ativo\n',
   PRIMARY KEY (`id_login`),
   KEY `FK_login_federado` (`id_federado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
 
 --
 -- Extraindo dados da tabela `login`
@@ -471,7 +469,11 @@ INSERT INTO `login` (`id_login`, `login`, `senha`, `id_federado`, `status`) VALU
 (30, 'askywalker', '1234', 67, 1),
 (31, 'ijoão', '1234', 68, 1),
 (32, 'pamorim', '1234', 69, 1),
-(33, 'lsapim', 'R1ieKwtcCNA', 70, 0);
+(33, 'lsapim', '1234', 70, 0),
+(37, 'fsilva', '1234', 74, 1),
+(42, 'ddaminao', '1234', 82, 0),
+(43, 'pferreira', '1234', 83, 0),
+(44, 'csilveira', '1234', 84, 0);
 
 -- --------------------------------------------------------
 
@@ -513,7 +515,11 @@ INSERT INTO `matricula` (`id_federado`, `id_modalidade`, `id_filial`, `data_matr
 (67, 1, 2, '2013-05-29', '2013-05-29'),
 (68, 1, 1, '2013-06-03', '2013-06-03'),
 (69, 1, 3, '2013-06-03', '2013-06-03'),
-(70, 1, 2, '2013-06-04', '2013-06-04');
+(70, 1, 2, '2013-06-04', '2013-06-04'),
+(74, 1, 2, '2013-06-06', '2013-06-06'),
+(82, 1, 2, '2013-06-06', '2013-06-06'),
+(83, 1, 2, '2013-06-06', '2013-06-06'),
+(84, 1, 3, '2013-06-06', '2013-06-06');
 
 --
 -- Gatilhos `matricula`
@@ -565,7 +571,7 @@ CREATE TABLE IF NOT EXISTS `movimento_faixa` (
   PRIMARY KEY (`id_movimento_faixa`),
   KEY `fk_movimento_faixa_1` (`id_modalidade`),
   KEY `fk_movimento_faixa_2` (`id_graduacao`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=84 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=86 ;
 
 --
 -- Extraindo dados da tabela `movimento_faixa`
@@ -719,18 +725,7 @@ CREATE TABLE IF NOT EXISTS `pedido_faixa` (
   UNIQUE KEY `index4` (`id_evento`,`id_graduacao`,`tamanho`,`quantidade`),
   KEY `fk_pedido_faixa_1` (`id_graduacao`),
   KEY `fk_pedido_faixa_2` (`id_evento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
-
---
--- Extraindo dados da tabela `pedido_faixa`
---
-
-INSERT INTO `pedido_faixa` (`id_pedido_faixa`, `id_evento`, `id_graduacao`, `tamanho`, `quantidade`) VALUES
-(1, 1, 2, 'M', 2),
-(2, 2, 2, 'GG', 2),
-(3, 4, 2, 'M', 3),
-(4, 4, 3, 'GG', 4),
-(5, 4, 4, 'M', 2);
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 -- --------------------------------------------------------
 
@@ -751,20 +746,7 @@ CREATE TABLE IF NOT EXISTS `pre_avaliacao` (
   KEY `fk_pre_avaliacao_2` (`id_federado`),
   KEY `fk_pre_avaliacao_3` (`id_status_avaliacao`),
   KEY `fk_pre_avaliacao_4` (`id_filial`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
-
---
--- Extraindo dados da tabela `pre_avaliacao`
---
-
-INSERT INTO `pre_avaliacao` (`id_pre_avaliacao`, `id_evento`, `id_federado`, `id_status_avaliacao`, `data_agendamento`, `id_filial`, `horario`) VALUES
-(1, 1, 67, 1, '2013-05-31', 2, 3),
-(2, 1, 69, 2, '2013-06-25', 3, 1),
-(3, 2, 67, 2, '2013-06-30', 2, 1),
-(4, 2, 69, 1, '2013-06-26', 3, 1),
-(5, 4, 69, 1, '2013-06-28', 3, 1),
-(6, 4, 67, 1, '2013-06-27', 2, 1),
-(7, 4, 70, 1, '2013-06-19', 2, 1);
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 -- --------------------------------------------------------
 
@@ -776,7 +758,7 @@ CREATE TABLE IF NOT EXISTS `prontuario` (
   `id_prontuario` int(11) NOT NULL AUTO_INCREMENT,
   `id_federado` int(11) DEFAULT NULL,
   `id_evento` int(11) DEFAULT NULL,
-  `ordem` int(11) DEFAULT NULL,
+  `id_graduacao` int(11) DEFAULT NULL,
   `id_movimento_faixa` int(11) DEFAULT NULL,
   `nota` varchar(45) DEFAULT NULL,
   `data` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -785,43 +767,7 @@ CREATE TABLE IF NOT EXISTS `prontuario` (
   KEY `fk_prontuario_1` (`id_movimento_faixa`),
   KEY `fk_prontuario_3` (`id_evento`),
   KEY `fk_prontuario_4` (`id_federado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
-
---
--- Extraindo dados da tabela `prontuario`
---
-
-INSERT INTO `prontuario` (`id_prontuario`, `id_federado`, `id_evento`, `ordem`, `id_movimento_faixa`, `nota`, `data`) VALUES
-(1, 67, 1, NULL, 4, '9', '2013-05-29 22:28:59'),
-(2, 67, 1, NULL, 5, '8', '2013-05-29 22:28:59'),
-(3, 67, 1, NULL, 6, '9', '2013-05-29 22:29:00'),
-(4, 67, 1, NULL, 7, '8', '2013-05-29 22:29:00'),
-(5, 67, 1, NULL, 8, '9', '2013-05-29 22:29:00'),
-(6, 67, 1, NULL, 9, '8', '2013-05-29 22:29:00'),
-(7, 69, 2, NULL, 4, '8', '2013-06-04 18:53:23'),
-(8, 69, 2, NULL, 5, '8', '2013-06-04 18:53:23'),
-(9, 69, 2, NULL, 6, '8', '2013-06-04 18:53:24'),
-(10, 69, 2, NULL, 7, '8', '2013-06-04 18:53:24'),
-(11, 69, 2, NULL, 8, '8', '2013-06-04 18:53:24'),
-(12, 69, 2, NULL, 9, '8', '2013-06-04 18:53:24'),
-(13, 67, 4, NULL, 10, '9.9', '2013-06-04 19:50:44'),
-(14, 67, 4, NULL, 11, '9.9', '2013-06-04 19:50:44'),
-(15, 67, 4, NULL, 12, '9.8', '2013-06-04 19:50:44'),
-(16, 67, 4, NULL, 13, '9.9', '2013-06-04 19:50:44'),
-(17, 67, 4, NULL, 14, '9.9', '2013-06-04 19:50:44'),
-(18, 67, 4, NULL, 15, '9.9', '2013-06-04 19:50:44'),
-(19, 69, 4, NULL, 10, '8', '2013-06-04 19:50:54'),
-(20, 69, 4, NULL, 11, '8', '2013-06-04 19:50:54'),
-(21, 69, 4, NULL, 12, '8', '2013-06-04 19:50:54'),
-(22, 69, 4, NULL, 13, '7', '2013-06-04 19:50:55'),
-(23, 69, 4, NULL, 14, '8', '2013-06-04 19:50:55'),
-(24, 69, 4, NULL, 15, '8', '2013-06-04 19:50:55'),
-(25, 70, 4, NULL, 4, '8', '2013-06-04 20:45:51'),
-(26, 70, 4, NULL, 5, '8', '2013-06-04 20:45:51'),
-(27, 70, 4, NULL, 6, '9', '2013-06-04 20:45:51'),
-(28, 70, 4, NULL, 7, '7', '2013-06-04 20:45:51'),
-(29, 70, 4, NULL, 8, '8', '2013-06-04 20:45:51'),
-(30, 70, 4, NULL, 9, '8', '2013-06-04 20:45:51');
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=85 ;
 
 -- --------------------------------------------------------
 

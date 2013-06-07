@@ -21,7 +21,7 @@
                 <td><?php echo $numero_evento; ?></td>
                 <td><?php echo $this->funcoes->data($data); ?></td>
                 <td><?php echo $total; ?></td>
-                <td><a href="<?php echo base_url();?>administrador/detalhe_pedido/<?php echo $id; ?>" class="btn btn-small">Detalhes</a></td>
+                <td><a href="<?php echo base_url();?>administrador/detalhe_pedido/<?php echo $id; ?>" class="btn btn-success">Detalhes</a></td>
             </tr>
             <?php } ?>
         </tbody>

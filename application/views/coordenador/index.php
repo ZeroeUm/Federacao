@@ -27,6 +27,7 @@
                 <th class="span2">Data</th>
                 <th class="span2">Nome da Filial</th>
                 <th class="span2">Horário da avaliação</th>
+                
 
             </tr>
         </thead>
@@ -36,6 +37,7 @@
                 <td><?php echo $v['data']; ?></td>
                 <td><?php echo $v['nome']; ?></td>
                 <td><?php echo $horario = ($v['horario'] == '1') ? "Manhã" : ($v['horario'] == '2') ? "Tarde" : "Noite" ; ?></td>
+                
             </tr>
         <?php } ?>
     </table>

@@ -31,6 +31,7 @@ class Coordenador_model extends CI_Model {
         $ver = 1;
         foreach ($dados['id_movimento_faixa'] as $i => $v) {
             $salvar['id_movimento_faixa'] = $i;
+            $salvar['id_graduacao'] = $dados['id_graduacao'];
             $salvar['id_federado'] = $dados['id_federado'];
             $salvar['id_evento'] = $dados['id_evento'];
             $salvar['nota'] = $v;
@@ -98,6 +99,7 @@ class Coordenador_model extends CI_Model {
     
     function get_faixas_avaliadas() {
        $ultimo_evento = $this->ultimo_evento();
+       
         $sql = "SELECT 
                         count(pre_avaliacao.id_federado) as total,
                         graduacao.id_graduacao,
@@ -176,6 +178,7 @@ class Coordenador_model extends CI_Model {
                 federado.id_federado,
                 federado.data_nasc,
                 graduacao.faixa,
+                graduacao.id_graduacao,
                 graduacao.ordem,
                 filial.nome as nome_filial,
                 filial.id_filial
@@ -402,7 +405,7 @@ class Coordenador_model extends CI_Model {
         $result = $query->result_array();
         
        if(empty($result)){
-           return $result['0']=array('data_evento'=>'0000-00-00');
+           return $result['0']=array('data_evento'=>'0000-00-00','id_evento'=>'0');
        }else{
         return $result['0'];
        }

@@ -6,11 +6,16 @@
         
 </div>
 <?php }else{ ?>
-<span class="">Nenhum evento cadastrado</span>
+<span class="">Nenhum evento de graduação foi criado.</span>
+<script>
+    $(document).ready(function(){
+        $('.listagem').remove();
+    })
+</script>
 <?php } ?>
 <div class="row-fluid">
     <a class="btn btn-success pull-right" href="/coordenador/criarEvento" style="margin-left: 10px;">Criar Novo evento</a>
-    <a class="btn btn-inverse pull-right" href="/administrador/participantes_aprovados" target="new">Lista de participantes aprovados</a>
+    <a class="btn btn-inverse pull-right listagem" href="/administrador/participantes_aprovados" target="new">Lista de participantes aprovados</a>
 </div>
 
 

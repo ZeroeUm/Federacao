@@ -86,13 +86,19 @@
             total = total + parseInt($(this).val());
         })
             
-            
-            var confirmado=confirm("O total de faixas solicitada é "+total);
-                    if (confirmado) {
-                      $('#form').submit();
-                    } else {
+            if(total=='0'){
+                alert('o total de faixa solicitadas é zero esse pedido não pode ser realizado');
+            }else{
+                    var confirmado=confirm("O total de faixas solicitada é "+total);
+                         if (confirmado) {
+                                $('#form').submit();
+                            } else {
                       
-                    }
+                                    }
+                
+            }
+            
+            
         })
         
     })

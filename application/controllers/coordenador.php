@@ -236,13 +236,18 @@ class coordenador extends CI_Controller{
             
             //Verificar se a média é ideal;
             //
+            
             $media = $this->input->post('media');
             $id_filial = $this->input->post('id_filial');
             $id_pre_avaliacao = $this->input->post('id_pre_avaliacao');
             $status = 0;
+            $dados = $this->input->post();
+            
             if($media>=9.51){
                 $texto=  "Aprovado com faixa extra";
                 $status = 3;
+                $dados['id_graduacao'] = $dados['id_graduacao']+1;
+                
             }elseif ($media >=9) {
                 $texto= "Ótimo";
                 $status = 2;
@@ -260,15 +265,17 @@ class coordenador extends CI_Controller{
                 $status = 0;
             }
             
+            
+            
             if($status==3){
               //salvar as notas no prontuario do aluno
-            $this->coordenador->salvarProntuario($this->input->post());
+            $this->coordenador->salvarProntuario($dados);
             //Atualizar a faixa do aluno
-            $this->coordenador->atualiza_faixa($this->input->post('id_federado'),'2');
+            $this->coordenador->atualiza_faixa($dados['id_federado'],'2');
             //incluir o aluno do evento de graduação
-            $this->coordenador->incluir_em_evento($this->input->post());
+            $this->coordenador->incluir_em_evento($dados);
             //mudar o status do pre-avaliação para aprovado
-            $this->coordenador->result_pre_avaliacao($this->input->post('id_federado'),$this->input->post('id_evento'),'1');
+            $this->coordenador->result_pre_avaliacao($dados['id_federado'],$dados['id_evento'],'1');
             //Enviar email ao aluno informando sobre o evento
             $this->session->set_flashdata('alerta',"Lançamento realizado, status de avaliação = $texto");
             redirect('/coordenador/lancar_nota');
@@ -277,13 +284,13 @@ class coordenador extends CI_Controller{
              if($status==2){
                  
             //salvar as notas no prontuario do aluno
-            $this->coordenador->salvarProntuario($this->input->post());
+            $this->coordenador->salvarProntuario($dados);
             //Atualizar a faixa do aluno
-            $this->coordenador->atualiza_faixa($this->input->post('id_federado'),'1');
+            $this->coordenador->atualiza_faixa($dados['id_federado'],'1');
             //incluir o aluno do evento de graduação
-            $this->coordenador->incluir_em_evento($this->input->post());
+            $this->coordenador->incluir_em_evento($dados);
             //mudar o status do pre-avaliação para aprovado
-            $this->coordenador->result_pre_avaliacao($this->input->post('id_federado'),$this->input->post('id_evento'),'1');
+            $this->coordenador->result_pre_avaliacao($dados['id_federado'],$dados['id_evento'],'1');
             //Enviar email ao aluno informando sobre o evento
             $this->session->set_flashdata('alerta',"Lançamento realizado, status de avaliação = $texto");
             redirect('/coordenador/lancar_nota');     

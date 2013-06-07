@@ -438,10 +438,16 @@ class Instrutor_model extends CI_Model {
      *   ->where(array('federado.id_tipo_federado' => '1', 'filial.id_filial' => $filial, 'federado.id_status' => $status))
      */
 
+    function get_faixas_do_federado(){
+        $sql = "";
+    }
+
+
     function get_historico($id_federado) {
 
         $faixas = $this->get_faixas($id_federado);
 
+        
         $dados = array();
         $f = $this->DadosFederado($id_federado);
         $dados['0']['federado'] = $f['0'];

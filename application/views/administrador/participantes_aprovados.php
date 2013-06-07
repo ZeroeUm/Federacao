@@ -1,3 +1,4 @@
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.css">
 <style>
    
@@ -14,9 +15,14 @@
         </tr>
         
         <tr>
-            <td colspan="3" style="text-align: center; padding: 20px"><h4><?php echo $participantes['0']['faixa']; ?></h4></td>
+            <td colspan="3" style="text-align: center; padding: 20px"><h4><?php echo @$participantes['0']['faixa']; ?></h4></td>
             
         </tr>
+        <?php if(empty($participantes)){?>
+        <tr>
+            <td colspan="3" style="text-align: center;">Nenhum aluno foi aprovado para o evento.</td>
+        </tr>
+        <?php }else{?>
         <?php foreach ($participantes as $i=>$v){ ?>
         <?php if($i=='0'){ $g=$i;}else{$g=$i-1;}; ?>
         
@@ -35,6 +41,7 @@
         
             
         
+        <?php } ?>
         <?php } ?>
     </table>
 

@@ -35,7 +35,7 @@ Lista de eventos
              
              <td><?php echo $v['logradouro']?> - <?php echo $v['numero']?> - <?php echo $v['cidade']?>- <?php echo $v['sigla']?></td>
              <td><a href="<?php echo base_url(); ?>coordenador/removerEvento/<?php echo $v['id_evento']?>" class="btn btn-success">Remover</a> 
-                <?php if($v['data_evento']>date('d-m-Y')){?>
+                <?php if($v['data_evento']>=date('d-m-Y')){?>
                  <a href="<?php echo base_url(); ?>coordenador/editarEvento/<?php echo $v['id_evento']?>" class="btn btn-warning">Editar</a>
                  <?php } ?>
                  <a href="<?php echo base_url(); ?>coordenador/participantes/<?php echo $v['id_evento']?>" class="btn btn-inverse">Participantes</a>

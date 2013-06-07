@@ -77,6 +77,7 @@ class Aluno_model extends CI_Model
 
     public function historicoNotas($aluno)
     {
+        
         $sql = "SELECT
   date_format(evento_graduacao.data_evento,'%d-%m-%Y') as data_aprovacao,
   avg(nota) as media,
@@ -87,7 +88,8 @@ inner join evento_graduacao using(id_evento)
 inner join movimento_faixa using (id_movimento_faixa)
 inner join modalidade
 on modalidade.id_modalidade = movimento_faixa.id_modalidade
-inner join graduacao using (id_graduacao)
+inner join graduacao 
+on movimento_faixa.id_graduacao = graduacao.id_graduacao
 where id_federado = $aluno 
 group by id_evento
 order by evento_graduacao.data_evento DESC;";

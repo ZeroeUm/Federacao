@@ -27,6 +27,8 @@
 
         <div class="span3">
             <?php echo $aluno['0']['faixa']; ?>
+            
+            
         </div>
 
         <div class="span2">
@@ -57,6 +59,7 @@
         </div>
 
         <div class="span3">
+           <input type="hidden" value="<?php echo $aluno['0']['id_graduacao']; ?>" name="id_graduacao"> 
             <input type="hidden" value="<?php echo $ultimo_evento['0']['id_pre_avaliacao']; ?>" name="id_pre_avaliacao">
             <input type="hidden" value="<?php echo $aluno['0']['id_filial']; ?>" name="id_filial">
             <input type="hidden" value="" id="media" name="media">

@@ -63,7 +63,7 @@ class Administrador_model extends CI_Model
         $result = $query->result_array();
         
        if(empty($result)){
-           return $result['0']=array('data_evento'=>'0000-00-00');
+           return $result['0']=array('data_evento'=>'0000-00-00','id_evento'=>'0');
        }else{
         return $result['0'];
        }

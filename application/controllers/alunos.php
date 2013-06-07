@@ -37,7 +37,9 @@ class alunos extends CI_Controller
     function notas()
     {
         $this->load->view('header');
+        
         $aluno = $this->session->userdata('id');
+        
         $dados['historico'] = $this->aluno->historicoNotas($aluno);
         
         $this->load->view('alunos/notas',$dados);
