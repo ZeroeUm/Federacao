@@ -33,11 +33,11 @@
                 <td>
                     <?php foreach ($resultado['aprovados'] as $i => $v) { ?>
 
-                        <?php echo $v['nome']; ?>
+                    <div class="span3" style="padding: 0px;line-height: 1px;"><?php echo $v['nome']; ?></div>
                         <?php if ($v['avaliacao'] == '1') { ?>
-                            <a href="<?php echo base_url() ?>instrutores/remover_evento_graduacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-important">Cancelar Participação</a>
+                    <div class="span1" style="padding: 0px;">        <a href="<?php echo base_url() ?>instrutores/remover_evento_graduacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-important">Cancelar Participação</a></div>
                         <?php } else { ?>
-                            <a href="<?php echo base_url() ?>instrutores/confirma_participacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-success">Confirma Participação</a>
+                    <div class="span1" style="padding: 0px;">        <a href="<?php echo base_url() ?>instrutores/confirma_participacao/<?php echo $v['id']; ?>/<?php echo $ultimo_evento['id_evento']; ?>" class="badge badge-success">Confirma Participação</a></div>
 
                         <?php } ?>
                         <br>

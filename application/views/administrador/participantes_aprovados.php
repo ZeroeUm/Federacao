@@ -9,7 +9,7 @@
     <table class="table table-condensed">
         <tr class="linha" >
             <td  style="padding-bottom: 30px;border-bottom: 1px solid black;">Nome do aluno</td>
-            <td style="border-bottom: 1px solid black;">Graduação</td>
+            <td style="border-bottom: 1px solid black;"></td>
             <td style="border-bottom: 1px solid black;">Média</td>
         </tr>
         

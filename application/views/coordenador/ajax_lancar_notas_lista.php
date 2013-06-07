@@ -19,7 +19,7 @@
         <td><input type="checkbox" name="pre_avaliacao[id_pre_avaliacao][]" value="<?php echo $v['id_pre_avaliacao'];?>"/></td>
         <td><?php echo $v['nome'];?></td>
         <td><?php echo $v['faixa_atual'];?></td>
-        <td><a href="<?php echo base_url(); ?>coordenador/lancar_notas_aluno/<?php echo $v['id_federado'];?>">Lançar notas</a></td>
+        <td><a href="<?php echo base_url(); ?>coordenador/lancar_notas_aluno/<?php echo $v['id_federado'];?>" class="btn btn-success">Lançar notas</a></td>
     </tr>
     <?php } } ?>
 </table>
