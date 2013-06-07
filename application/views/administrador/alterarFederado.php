@@ -1,11 +1,26 @@
 <style>
     .controls{
-        max-width: 300px;
+        max-width: 400px;
     }
     
 </style>
 <script type="text/javascript">
     $(function () {
+        
+         $('#alterar_foto').click(function(){
+            tipo = $('.foto').attr("mostrar");
+            if(tipo=='sim'){
+                $('.foto').show('fade',500);
+                $('.foto').attr('mostrar','nao')
+            }else{
+                $('.foto').hide('fade',500);
+                $('.foto').attr('mostrar','sim')
+            }
+            
+        })
+        
+        
+        
         $("#dtNasc").datepicker({
             changeMonth: true,
             changeYear: true,
@@ -33,15 +48,22 @@ $label = array(
     <?php
     echo validation_errors();
     echo form_fieldset("Alteração de registro de federado");
+    ?>
+    
+    <div style="float: right; margin-right: 150px;">
+    <?php 
     echo form_open_multipart("administrador/alterarFederado/" . $this->uri->segment(3), $attr, $hidden);
     $imagem = array(
         "src" => (($federado['caminho_imagem'] == "sem foto") ? "http://placehold.it/140x140/000000/ffffff&text=%3F" : "federados/fotos/".$federado['caminho_imagem']),
         "alt" => "Foto do federado " . $federado['nome'],
         "title" => "Foto do federado " . $federado['nome'],
-        "class" => "img-polaroid"
+        "class" => "img-polaroid",
+        "width"=>'200',
+        "height"=>'300'
     );
     echo img($imagem);
     ?>
+        </div>
     <div class="control-group">
         <?php
         echo form_label("Nome Completo", "nome", $label);
@@ -143,16 +165,25 @@ $label = array(
         </div>
     </div>
     <div class="control-group">
-        <?php
-        echo form_label("Foto de identificação", "foto", $label);
-        ?>
-        <div class="controls">
-            <?php
-            $inFoto = 'id="foto" class="input-block-level"';
-            echo form_upload("foto", (($federado['caminho_imagem'] == "sem foto") ? "" : $federado['caminho_imagem']), $inFoto);
-            ?>
-        </div>
+    <div class="controls">
+        <e class="btn btn-inverse" id="alterar_foto">alterar foto</a>
     </div>
+    
+</div>
+
+<div class="control-group foto" mostrar="sim" style="display: none">
+    <?php
+        echo form_label("Foto de identificaçao", "foto", $label);
+    ?>
+    <div class="controls" >
+        <?php
+            $inFoto = 'id="foto" class="input-block-level"';
+            echo form_upload("foto", (($federado['caminho_imagem'] == "sem foto")?"":$federado['caminho_imagem']), $inFoto);
+        ?>
+    </div>
+</div>
+    
+    
     <div class="control-group">
         <?php
         echo form_label("Escolaridade", "escolaridade", $label);

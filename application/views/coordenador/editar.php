@@ -37,7 +37,7 @@
 
 label { display: block; margin-top: 10px; }
 label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 10px }
-    
+i{color: red;}    
 </style>
 <?php
 
@@ -48,7 +48,7 @@ $data = explode('-',$Eventos['0']['data_evento']);
 <div class="span9">
     <form action="<?php echo base_url(); ?>coordenador/editarEvento/<?php echo $id;?>" method="post" id="form">
     
-     <label>Data do evento</label> 
+     <label>Data do evento<i>*</i></label> 
      <input type="text" name="data[evento_graduacao][data_evento]" class="input-block-level" id="datepicker" placeholder="Data do Evento" value="<?php echo $data['2']."-".$data['1']."-".$data['0'] ?>">
     
      <input type="hidden" name="data[evento_graduacao][id_evento]"  value="<?php echo $Eventos['0']['id_evento']; ?>">
@@ -61,11 +61,12 @@ $data = explode('-',$Eventos['0']['data_evento']);
     <label>Endereço</label>
     
     <input type="text" name="data[endereco][logradouro]" class="input-block-level" placeholder="Endereço" value="<?php echo $Eventos['0']['logradouro'] ?>">
-    <input type="text" name="data[endereco][cidade]" class="span6" placeholder="Cidade" value="<?php echo $Eventos['0']['cidade'] ?>">
-
-    <input type="text" name="data[endereco][numero]" class="input-small" placeholder="Numero" value="<?php echo $Eventos['0']['numero'] ?>">
-
-    <select name="data[endereco][uf]" class="input-small">
+     <label>Cidade<i>*</i></label> 
+    <input type="text" name="data[endereco][cidade]" class="input-block-level" placeholder="Cidade" value="<?php echo $Eventos['0']['cidade'] ?>">
+     <label>Numero</label> 
+    <input type="text" name="data[endereco][numero]" class="input-block-level" placeholder="Numero" value="<?php echo $Eventos['0']['numero'] ?>">
+     <label>Estado</label> 
+    <select name="data[endereco][uf]" class="input-block-level">
         
          <option value="<?php echo $Eventos['0']['id_estados'];?>"><?php echo $Eventos['0']['sigla'];?></option>
         
@@ -74,9 +75,9 @@ $data = explode('-',$Eventos['0']['data_evento']);
         <?php } ?>
         
     </select>
-    
+     <label>Bairro</label> 
     <input type="text" name="data[endereco][bairro]" class="input-block-level" placeholder="Bairro" value="<?php echo $Eventos['0']['bairro'] ?>">
-   
+    <label>Complemento</label> 
     <input type="text" name="data[endereco][complemento]" class="input-block-level" placeholder="Complemento" value="<?php echo $Eventos['0']['complemento'] ?>">
     
         
@@ -90,7 +91,7 @@ $data = explode('-',$Eventos['0']['data_evento']);
     </select>-->
     
     <label>Descrição</label>
-    <textarea name="data[evento_graduacao][descricao]" style="width: 730px;height: 200px;resize: none;">
+    <textarea name="data[evento_graduacao][descricao]" style="width: 730px;height: 150px;resize: none;">
     <?php echo $Eventos['0']['descricao'] ?>
     </textarea>
     

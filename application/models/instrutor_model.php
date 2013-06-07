@@ -5,17 +5,35 @@ class Instrutor_model extends CI_Model {
     //SELECT federado.nome FROM federado INNER
     // JOIN filial WHERE federado.registro = filial.instrutor
 
+    function get_ultimo_endereco(){
+        $sql = "SELECT MAX( id_endereco ) FROM  `endereco`";
+        $dados =  $this->db->query($sql)->result_array();
+    
+        
+        return $dados['0']['MAX( id_endereco )'];
+        
+    }
+    
+    
+    function get_ultimo_federado(){
+        $sql = "SELECT MAX( id_federado ) FROM  `federado`";
+        $dados =  $this->db->query($sql)->result_array();
+    
+        
+        return $dados['0']['MAX( id_federado )'];
+        
+    }
 
     function get_login($id_federado) {
-//        $this->db->where('id_federado', $id_federado);
-//        $this->db->update('login', array('status' => '0'));
 
-        return $this->db->select('login.login,login.senha,federado.nome,federado.email')
+        $dados =  $this->db->select('login.login,login.senha,federado.nome,federado.email')
                         ->from('login')
                         ->join('federado', 'federado.id_federado = login.id_federado', 'inner')
                         ->where(array('federado.id_federado' => $id_federado))
                         ->get()
                         ->result_array();
+        
+        return $dados;
     }
 
     function pre_avaliacao($dados) {

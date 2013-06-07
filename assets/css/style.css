@@ -21,15 +21,40 @@ a{
 }
 .pagina{
     background-color: black;
-    opacity: 0.3;
+    opacity: 0.1;
+    
     
 }
 .mensagem_alert{
-   position: fixed;
+   position: absolute;
+   z-index: 999999;
+    color: #468847;
+    background-color: #DFF0D8;
+    padding: 8px 35px 8px 14px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    border: 1px solid #FBEED5;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
    border: 1px solid;
-   min-height: 300px;
-   min-width: 400px;
-   max-height: 300px;
-   max-height: 200px;
+   min-height: 150px;
+   min-width: 300px;
+   
    width: 300px;
+   margin: 150px auto auto 450px;
+   
+}
+
+.mensagem_alert p{
+    padding: 50px;
+    font-size: 16px;
+   vertical-align: middle;
+   text-align: center;
+}
+.table{
+    margin-top: 20px;
+}
+.table th {
+    font-size: 12px;
+    padding: 7px;
 }

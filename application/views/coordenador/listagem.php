@@ -6,7 +6,7 @@
 
 <?php if(empty($faixas)){?>
 
-<h3 style="color: red;text-align: center;">Todos os alunos para o evento acima já foram avaliados</h3>
+<h3 style="color: red;text-align: center;">0 - Alunos não avaliados</h3>
 
 <?php }else{ ?>
 

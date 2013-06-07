@@ -123,10 +123,10 @@ class coordenador extends CI_Controller{
     function certificado($id_federado,$id_graduacao){
                
         //Validação - Verificar se o usuario logado é o coordenador
-        
+        $dados['federado'] = $this->coordenador->get_aluno_faixa($id_federado);
         //validação - Verificar se o aluno já possui nota para a graduacao
         
-                $this->load->view('coordenador/certificado');
+                $this->load->view('coordenador/certificado',$dados);
                
     }
     

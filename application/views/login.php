@@ -80,7 +80,7 @@ $label = array(
 
                 <div class="">
 
-                    <div class=""><input type="password" placeholder="Senha" class="input-large" name="senha"  style="height: 44px;width: 100%;"></div>
+                    <div class=""><input type="password" placeholder="Senha" class="input-large" name="senha"  style="height: 44px;width: 100%;" maxlength="10"></div>
                 </div>
 
 

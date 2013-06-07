@@ -88,12 +88,12 @@ class Instrutores extends CI_Controller {
         //total de alunos do instrutor
         $dados['total_alunos'] = $this->instrutor->total_alunos($this->session->userdata('id'), 'total');
 
-        
+
         //Carregar data do próximo evento
         $this->load->model('Coordenador_model', 'coordenador');
         @$dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
 
-        
+
         $this->load->view('header');
         $this->load->view('instrutores/index', $dados);
         $this->load->view('footer');
@@ -155,22 +155,26 @@ class Instrutores extends CI_Controller {
     }
 
     function getFederado($federado) {
-        $this->load->model('Instrutor_model', 'instrutor');
         
+
         $fed = $this->instrutor->MntFedDados($federado);
+
+
+        $fed[0]['nome'] = utf8_decode($fed[0]['nome']);
+        $fed[0]['escolaridade'] = utf8_decode($fed[0]['escolaridade']);
         
-        
-        $fed[0]['dtNasc'] = $this->funcoes->data($fed[0]['dtNasc'],1);
+        $fed[0]['dtNasc'] = $this->funcoes->data($fed[0]['dtNasc'], 1);
         $idade = $this->funcoes->idade($fed[0]['dtNasc']);
         $fed[0]['idade'] = $idade;
         $resultado = array_map('htmlentities', $fed[0]);
 
+        
         header('Content-type: application/x-json; charset=utf-8');
         echo utf8_decode(json_encode($resultado));
     }
 
     function imprimirFederado($federado) {
-        $this->load->model('Instrutor_model', 'instrutor');
+        
         $this->load->view('header');
         $dados['instrutor'] = $this->instrutor->ImprimirDadosFederado($federado);
         $this->load->view('instrutores/imprimirFederado', $dados);
@@ -197,7 +201,7 @@ class Instrutores extends CI_Controller {
         $this->form_validation->set_rules('uf', 'UF do endereço', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->load->model('Instrutor_model', 'instrutor');
+             
             $this->load->view('header');
             $dados['nacionalidade'] = $this->instrutor->getNacionalidade();
             $dados['escolaridade'] = $this->instrutor->getEscolaridade();
@@ -259,8 +263,8 @@ class Instrutores extends CI_Controller {
         $config['upload_path'] = './federados/fotos/tkd/';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = '1024';
-        $config['max_width'] = '400';
-        $config['max_height'] = '500';
+        $config['max_width'] = '1400';
+        $config['max_height'] = '1500';
         $config['overwrite'] = TRUE;
         $config['remove_spaces'] = TRUE;
         $config['encrypt_name'] = FALSE;
@@ -282,22 +286,11 @@ class Instrutores extends CI_Controller {
 
     function salvarFederado($dados, $foto = NULL) {
 
-        $this->load->model('Instrutor_model', 'instrutor');
+         
         $endereco = array();
         $federado = array();
 
-        $endereco['logradouro'] = $this->input->post('logradouro');
-        $endereco['numero'] = $this->input->post('numero');
-        $endereco['complemento'] = $this->input->post('compl');
-        $endereco['tipo_endereco'] = 1;
-        $endereco['bairro'] = $this->input->post('bairro');
-        $endereco['cidade'] = $this->input->post('cidade');
-        $endereco['uf'] = $this->input->post('uf');
-
-        $this->instrutor->InserirEndereco($endereco);
-
-
-        $federado['id_endereco'] = $this->db->insert_id();
+        
         $federado['nome'] = $this->input->post('nome');
         $federado['filiacao_materna'] = ($this->input->post('fMaterna') ? $this->input->post('fMaterna') : NULL);
         $federado['filiacao_paterna'] = ($this->input->post('fPaterna') ? $this->input->post('fPaterna') : NULL);
@@ -314,77 +307,102 @@ class Instrutores extends CI_Controller {
         $federado['caminho_imagem'] = (isset($foto) ? "tkd/" . $foto : "sem foto");
 
 
+        $endereco['logradouro'] = $this->input->post('logradouro');
+        $endereco['numero'] = $this->input->post('numero');
+        $endereco['complemento'] = $this->input->post('compl');
+        $endereco['tipo_endereco'] = 1;
+        $endereco['bairro'] = $this->input->post('bairro');
+        $endereco['cidade'] = $this->input->post('cidade');
+        $endereco['uf'] = $this->input->post('uf');
 
+        
+        $this->instrutor->InserirEndereco($endereco);
+        
+        
+        $federado['id_endereco'] = $this->instrutor->get_ultimo_endereco(); 
+        
+        
         $this->instrutor->InserirFederado($federado);
 
+        
 
+        $novoFederado = $this->instrutor->get_ultimo_federado();
 
-        $novoFederado = $this->db->insert_id();
-
+        
+        
         $this->matricularFederado($novoFederado, $this->input->post('filial'), '1');
 
-        $this->criarLogin($novoFederado, $federado['nome']);
+        
+        $this->criarLogin($novoFederado,$federado['nome'] );
 
+        
         $this->enviarSenha($novoFederado);
-
+        
         $dados['id_federado'] = $novoFederado;
         $dados['federado'] = $federado['nome'];
+        
         $this->load->view('header');
         $this->load->view('instrutores/sucessoinclusaoFederado', $dados);
         $this->load->view('footer');
     }
 
-    function enviarSenha($id_federado, $relembrar = null) {
+    function enviarSenha($id_federado, $relembrar=null) {
 
+        
         $dados = $this->instrutor->get_login($id_federado);
+        
 
-       
         if (empty($dados)) {
-            $this->session->set_flashdata('aviso', 'Operação ilegal realizada erro 404 -  usuário não encontrado');
-            redirect('/login/erro');
-        }
-        extract($dados['0']);
+            $this->session->set_flashdata('aviso', 'Não foi possivel enviar a senha do aluno');
+        
+            die('não tem acesso');
+            
+        } else {
+            
+            
+            extract($dados['0']);
 
+            
 
+            $this->load->library('email');
+            $this->email->from('elder.f.silva@gmail.com', 'Felipe');
+            $this->email->to($email);
+            $this->email->subject('Acesso ao sistema FEPAMI');
 
-        $this->load->library('email');
-        $this->email->from('elder.f.silva@gmail.com', 'Felipe');
-        $this->email->to($email);
-        $this->email->subject('Acesso ao sistema FEPAMI');
-
-        if ($this->uri->segment(2) == 'trocarSenha') {
-            $mensagem = "<p>Caro Aluno(a) {$nome} </p>
+            if ($this->uri->segment(2) == 'trocarSenha') {
+                $mensagem = "<p>Caro Aluno(a) {$nome} </p>
                   <p>A alteração da sua senha foi realizada com sucesso</p>
                   <p>segue abaixo informações de acesso.</p>
                   <p>Login: {$login}</p>
                   <p>Senha: {$senha}</p>
                   <p>ATENÇÃO: ao realizar seu primeiro acesso será obrigatório a troca de senha</p>";
-        } else {
-            $mensagem = "<p>Caro Aluno(a) {$nome} </p>
+            } else {
+                $mensagem = "<p>Caro Aluno(a) {$nome} </p>
                   <p>Seu cadastro de acesso ao sistema FEPAMI foi realizado</p>
                   <p>segue abaixo informações de acesso.</p>
                   <p>Login: {$login}</p>
                   <p>Senha: {$senha}</p>
                   <p>ATENÇÃO: ao realizar seu primeiro acesso será obrigatório a troca de senha</p>";
-        }
-
-        $this->email->message($mensagem);
-        if ($this->email->send()) {
-
-         
-            if ($relembrar != null) {
-                $this->session->set_flashdata('alerta', 'Email re-enviado com os dados de acesso para o aluno');
-                redirect('/instrutores');
             }
-        } else {
-            $this->session->set_flashdata('aviso', 'Não foi possivel enviar um email com os dados de acesso');
-        };
+
+            $this->email->message($mensagem);
+            if ($this->email->send()) {
+
+
+                if ($relembrar != null) {
+                    $this->session->set_flashdata('alerta', 'Email re-enviado com os dados de acesso para o aluno');
+                    redirect('/instrutores');
+                }
+            } else {
+                $this->session->set_flashdata('aviso', 'Não foi possivel enviar um email com os dados de acesso');
+            };
+        }
     }
 
     function atualizarFederado($dados, $foto = NULL) {
 
 
-        $this->load->model('Instrutor_model', 'instrutor');
+         
         $endereco = array();
         $federado = array();
 
@@ -423,7 +441,8 @@ class Instrutores extends CI_Controller {
 
     function matricularFederado($federado, $filial, $modalidade) {
 
-        $this->load->model('Instrutor_model', 'instrutor');
+        
+         
         $matricula = array();
         $matricula['id_federado'] = $federado;
         $matricula['id_modalidade'] = $modalidade;
@@ -448,7 +467,7 @@ class Instrutores extends CI_Controller {
     }
 
     function alterarMatricula($federado, $filial, $modalidade) {
-        $this->load->model('Instrutor_model', 'instrutor');
+         
         $matricula = array();
         $matricula['id_federado'] = $federado;
         $matricula['id_modalidade'] = $modalidade;
@@ -459,7 +478,7 @@ class Instrutores extends CI_Controller {
     }
 
     function criarLogin($federado, $nome) {
-        $this->load->model('Instrutor_model', 'instrutor');
+         
         $login = array();
         $login['id_federado'] = $federado;
         $login['login'] = strtolower($this->gerarLogin($nome));
@@ -557,22 +576,21 @@ class Instrutores extends CI_Controller {
 
     function getInscrito($filial) {
 
-        $this->load->model('Instrutor_model', 'instrutor');
+         
 
-       
+
 
         //   echo (htmlentities(utf8_encode('�,n�o, tr�s')));
 
         $filiais = $this->instrutor->getInscrito($filial);
-        
+
 
         if (!empty($filiais)) {
-             header('Content-type: application/x-json; charset=utf-8 ', true);
-             echo (json_encode($filiais));
-        }else{
             header('Content-type: application/x-json; charset=utf-8 ', true);
             echo (json_encode($filiais));
-            
+        } else {
+            header('Content-type: application/x-json; charset=utf-8 ', true);
+            echo (json_encode($filiais));
         }
     }
 
@@ -635,8 +653,8 @@ class Instrutores extends CI_Controller {
 
     function historico_pessoal($id_federado) {
         $dados['notas'] = $this->instrutor->get_historico($id_federado);
-       
-        
+
+
         $this->load->view('header');
         $this->load->view('instrutores/historico_pessoal', $dados);
         $this->load->view('footer');

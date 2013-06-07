@@ -1,6 +1,6 @@
 <style>
     .controls{
-        max-width: 300px;
+        max-width: 400px;
     }
     
 </style>
@@ -48,15 +48,22 @@ $label = array(
 </div>
 <?php
 echo form_fieldset("Alteração de registro de federado");
-echo form_open_multipart("instrutores/alterarFederado/".$this->uri->segment(3), $attr, $hidden);
+?>
+
+
+<div style="float: right; margin-right: 150px;">
+<?php echo form_open_multipart("instrutores/alterarFederado/".$this->uri->segment(3), $attr, $hidden);
 $imagem = array(
     "src" => (($federado['caminho_imagem'] == "sem foto")?"http://placehold.it/140x140/000000/ffffff&text=sem%20foto":'federados/fotos/'.$federado['caminho_imagem']),
     "alt" => "Foto do federado ".$federado['nome'],
     "title" => "Foto do federado ".$federado['nome'],
-    "class" => "img-polaroid"    
+    "class" => "img-polaroid",
+    "width"=>'200',
+    "height"=>'300'
 );
 echo img($imagem); 
 ?>
+</div>
 
 <div class="control-group">
     <?php

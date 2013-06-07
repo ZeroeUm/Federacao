@@ -56,6 +56,12 @@
     
 
     <body>
+        <?php if (@$this->session->flashdata('alerta') != '') { ?>
+                <div class="mensagem_alert" mostrar="sim">
+                    <button type="button" class="close fechar_alerta" data-dismiss="alert">&times;</button>  
+                    <p><?php echo $this->session->flashdata('alerta'); ?></p>
+                </div>
+            <?php } ?>
         <div class="principal">
      
         <div id="header" style="margin-bottom: 2px; ">
@@ -79,9 +85,10 @@
             </div>    
             <a href="#" class="visible-phone"><i class="icon icon-home"></i> Menu oculto</a>
             <ul style="display: block; ">
-                <li >
-                    <a href="#"><span>Nome: <?php echo $this->session->userdata('nome'); ?></span></a> 
-                    <a href="#"><span>Categoria: <?php echo $this->session->userdata('modalidade') ?></span></a> 
+                <li style="color: #AAA;padding: 10px;font-size: 16px;">
+                    <span>Nome: <?php echo $this->session->userdata('nome'); ?></span>
+                    <br>
+                    <span>Categoria: <?php echo $this->session->userdata('modalidade') ?></span>
 
                 </li>
 
@@ -193,16 +200,8 @@
 
         </div>
 
-        <div id="content" style="min-height:800px;padding-bottom: 50px;">
+        <div id="content" style="min-height:900px;padding-bottom: 50px;">
             
-           
-            
-            <?php if (@$this->session->flashdata('alerta') != '') { ?>
-                <div class="alert alert-success mensagem_alert" mostrar="sim">
-                    <button type="button" class="close fechar_alerta" data-dismiss="alert">&times;</button>  
-                    <?php echo $this->session->flashdata('alerta'); ?>
-                </div>
-            <?php } ?>
             <ul class="breadcrumb">
                 <li><a href="/">Pagina inicial</a> <span class="divider">/</span></li>
                 <li><a href="/<?php echo $this->uri->segment(1); ?>/"><?php echo ucfirst($this->uri->segment(1)); ?></a> <span class="divider">/</span></li>

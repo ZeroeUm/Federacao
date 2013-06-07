@@ -44,7 +44,7 @@ Relação de participantes
             
             <?php if(!empty($faixa)){?>
         <td>        
-        <a href="/coordenador/certificado/<?php echo $i['id_federado'];?>/<?php echo $faixa ?>" target="new" class="btn btn-small">Imprimir Certificado</a>
+        <a href="/coordenador/certificado/<?php echo $i['id_federado'];?>/<?php echo $faixa ?>" target="new" class="btn btn-success btn-small">Imprimir Certificado</a>
         </td>       
      <?php } ?>
             

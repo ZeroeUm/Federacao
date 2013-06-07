@@ -2,9 +2,10 @@ $('document').ready(function(){
  
     mostrar = $('.mensagem_alert').attr('mostrar');
     
-    if(mostrar==''){
+    if(mostrar=='sim'){
         $('.principal').addClass('pagina');
     }
+    
     
     $('.fechar_alerta').click(function(){
         $('.pagina').removeClass();

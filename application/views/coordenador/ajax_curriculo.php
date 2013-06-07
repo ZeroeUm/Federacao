@@ -30,7 +30,7 @@
             <input type="submit" class="btn btn-success" value="Salvar" style="margin-top: 0px;"/>
         </div>
          <div class="span2">
-        <input type="button" class="btn incluir_novo" value="Incluir novo" onclick="incluir_novo()"/>
+             <input type="button" class="btn incluir_novo"  value="Incluir novo" onclick="incluir_novo()"/>
         </div>
     </div>
 </form>
@@ -38,7 +38,7 @@
 <script>
     function incluir_novo(){
         
-        $('.novo_campo').append('<input type="text" name="descricao[]" class="input-large" /><br>');
+        $('.novo_campo').append('<input type="text" name="descricao[]" class="input-large" required="true" /><br>');
     }
     function remover_campo(id){
          $.ajax({
