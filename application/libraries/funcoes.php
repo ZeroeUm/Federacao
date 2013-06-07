@@ -17,7 +17,6 @@ class Funcoes {
 
     function subtrair_data($date, $days) {
         $data = explode('-', $date);
-        
         $thisyear = $data['0'];
         $thismonth = $data['1'];
         $thisday = $data['2'];
