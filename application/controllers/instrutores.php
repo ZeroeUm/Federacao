@@ -597,7 +597,7 @@ class Instrutores extends CI_Controller {
     function confirmar() {
         $this->load->view('header');
 
-
+        
 
         if ($this->input->post('nodeCheck')) {
 

@@ -5,10 +5,18 @@
         color: red;
     }
 </style>
+<?php 
+$data = $ultimo_evento['data_evento'];
+
+$data =  $this->funcoes->subtrair_data($data,'7');
+?>
 <script>
   $(document).ready(function(){
+      
+        data_limite = '<?php echo $data;?>';
         $( "#datepicker" ).datepicker({
             minDate: new Date(),
+            maxDate: new Date(data_limite) ,
             dateFormat:'dd-mm-yy'
         }).attr("readonly",1);
         

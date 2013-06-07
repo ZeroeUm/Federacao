@@ -367,7 +367,7 @@ class coordenador extends CI_Controller{
             };   
             
             }
-        
+                $dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
                 $dados['id_filial'] = $id_filial;
                 $dados['alunos'] = $this->coordenador->getPreAvaliar($id_filial);
                 $this->load->view('header');
