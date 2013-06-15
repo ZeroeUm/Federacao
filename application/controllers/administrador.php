@@ -7,10 +7,12 @@
  */
 class administrador extends CI_Controller {
 
+    
     function __construct() {
         parent::__construct();
         $this->checar_sessao();
         $this->load->model('Administrador_model', 'administrador');
+        $this->load->model('Instrutor_model', 'instrutor');
     }
 
     function relembrar($id_usuario){
@@ -18,6 +20,15 @@ class administrador extends CI_Controller {
     }
 
 
+    
+    function participantes_aprovados() {
+        $dados['evento'] = $this->administrador->ultimo_evento();
+        $dados['participantes']= $this->administrador->participantes_aprovados();
+        
+        $this->load->view('/administrador/participantes_aprovados',$dados);
+    }
+    
+    
     function enviarSenha($id_federado, $relembrar = null) {
 
         $dados = $this->administrador->get_login($id_federado);
@@ -185,16 +196,18 @@ class administrador extends CI_Controller {
 
 
         $fed = $this->administrador->MntFedDados($federado);
-        $nasc = new DateTime($fed[0]['dtNasc']);
-        $fed[0]['dtNasc'] = $nasc->format('d-m-Y');
-        $hoje = new DateTime('now');
-        $idade = $hoje->diff($nasc)->format("%y");
+        
+        
+        $fed[0]['escolaridade'] =  utf8_decode($fed[0]['escolaridade']);
+        $fed[0]['nome'] =  utf8_decode($fed[0]['nome']);
+        
+        
+        $fed[0]['dtNasc'] = $this->funcoes->data($fed[0]['dtNasc'],1);
+        $idade = $this->funcoes->idade($fed[0]['dtNasc']);
         $fed[0]['idade'] = $idade;
         $resultado = array_map('htmlentities', $fed[0]);
-        foreach ($fed[0] as $f):
-            $f = htmlentities($f, ENT_QUOTES, 'UTF-8');
-        endforeach;
-        echo(json_encode($fed[0]));
+        header('Content-type: application/x-json; charset=utf-8');
+        echo json_encode($resultado);
     }
 
     public function alpha_acent($input) {
@@ -676,22 +689,8 @@ class administrador extends CI_Controller {
     }
 
     function getHistorico($federado) {
-        header('Content-type: text/html; charset=UTF-8');
-        $this->load->model('Administrador_model', 'administrador');
-        $historico = $this->administrador->getHistoricoNotas($federado);
-
-        if (!empty($historico)) {
-            foreach ($historico as $evento):
-                echo ("Data do evento: " . date("d-m-Y", strtotime($evento['data_evento'])));
-                echo ("<br />");
-                echo ("Modalidade: " . $evento['modalidade']);
-                echo ("<hr />");
-                include_once($evento['arquivo']);
-                echo ("<br />");
-            endforeach;
-        }
-        else
-            echo ("Não foi encontrado nenhum registro do federado escolhido.<br/>Verifique se o federado já realizou alguma graduação na federação Paulista de Artes Marciais Interestilos.");
+        $dados['notas'] = $this->instrutor->get_historico($federado);
+        $this->load->view('instrutores/historico_pessoal', $dados);
     }
 
     function filiais() {

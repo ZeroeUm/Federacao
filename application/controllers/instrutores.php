@@ -83,16 +83,17 @@ class Instrutores extends CI_Controller {
         }
 
         //lista de participantes para o proximo evento 
-        $dados['resultado'] = $this->instrutor->get_status_avaliacao();
+        $dados['resultado'] = $this->instrutor->get_status_avaliacao($this->session->userdata('id'));
 
         //total de alunos do instrutor
         $dados['total_alunos'] = $this->instrutor->total_alunos($this->session->userdata('id'), 'total');
 
+        
         //Carregar data do próximo evento
         $this->load->model('Coordenador_model', 'coordenador');
         @$dados['ultimo_evento'] = $this->coordenador->ultimo_evento();
 
-
+        
         $this->load->view('header');
         $this->load->view('instrutores/index', $dados);
         $this->load->view('footer');
@@ -155,17 +156,17 @@ class Instrutores extends CI_Controller {
 
     function getFederado($federado) {
         $this->load->model('Instrutor_model', 'instrutor');
-        header('Content-type: application/x-json; charset=utf-8');
-        $fed = $this->instrutor->MntFedDados($federado);
-        $nasc = new DateTime($fed[0]['dtNasc']);
-        $fed[0]['dtNasc'] = $nasc->format('d-m-Y');
-        $hoje = new DateTime('now');
-        $idade = $hoje->diff($nasc)->format("%y");
-        $fed[0]['idade'] = $idade;
-        $fed[0]['nome'] = htmlentities($fed[0]['nome'], ENT_QUOTES, 'UTF-8');
-        $fed[0]['nacionalidade'] = htmlentities($fed[0]['nacionalidade'],ENT_QUOTES,'UTF-8');
         
-        echo json_encode($fed[0]);
+        $fed = $this->instrutor->MntFedDados($federado);
+        
+        
+        $fed[0]['dtNasc'] = $this->funcoes->data($fed[0]['dtNasc'],1);
+        $idade = $this->funcoes->idade($fed[0]['dtNasc']);
+        $fed[0]['idade'] = $idade;
+        $resultado = array_map('htmlentities', $fed[0]);
+
+        header('Content-type: application/x-json; charset=utf-8');
+        echo utf8_decode(json_encode($resultado));
     }
 
     function imprimirFederado($federado) {
@@ -558,16 +559,20 @@ class Instrutores extends CI_Controller {
 
         $this->load->model('Instrutor_model', 'instrutor');
 
-        header('Content-type: application/x-json; charset=utf-8 ', true);
+       
 
         //   echo (htmlentities(utf8_encode('�,n�o, tr�s')));
 
         $filiais = $this->instrutor->getInscrito($filial);
+        
 
-
-//        print_r($filiais);
         if (!empty($filiais)) {
+             header('Content-type: application/x-json; charset=utf-8 ', true);
+             echo (json_encode($filiais));
+        }else{
+            header('Content-type: application/x-json; charset=utf-8 ', true);
             echo (json_encode($filiais));
+            
         }
     }
 
@@ -597,7 +602,7 @@ class Instrutores extends CI_Controller {
 
     function manutencao($id = '1') {
         //lista de participantes para o proximo evento 
-        $dados['resultado'] = $this->instrutor->get_status_avaliacao();
+        $dados['resultado'] = $this->instrutor->get_status_avaliacao($this->session->userdata('id'));
 
         //total de alunos do instrutor
         $dados['total_alunos'] = $this->instrutor->total_alunos($this->session->userdata('id'), 'total');
@@ -630,6 +635,8 @@ class Instrutores extends CI_Controller {
 
     function historico_pessoal($id_federado) {
         $dados['notas'] = $this->instrutor->get_historico($id_federado);
+       
+        
         $this->load->view('header');
         $this->load->view('instrutores/historico_pessoal', $dados);
         $this->load->view('footer');

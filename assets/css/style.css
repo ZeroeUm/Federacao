@@ -1,3 +1,21 @@
 .perfil li{
     font-size: 5px;
 }
+
+.breadcrumb a{
+    color: #5bb75b;
+}
+.breadcrumb{
+    margin-top: -20px;
+    
+    background-color: white;
+    border-bottom: 1px solid #424242;
+}
+
+a{
+    color: #5BB75B;
+}
+
+.obrigatorio{
+    color: red;
+}

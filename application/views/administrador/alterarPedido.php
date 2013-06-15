@@ -67,9 +67,9 @@ echo form_open('administrador/atualizarPedido/' . $this->uri->segment(3), 'class
 <div class="row-fluid">
     <div class="span3 offset8">
         <?php
-        echo anchor('administrador/pedidos', 'Voltar', 'class="btn btn-primary"'); 
+        echo anchor('administrador/pedidos', 'Voltar', 'class="btn btn-success"'); 
         echo nbs(4);
-        echo form_submit("btnAlterar", "Alterar informações", 'class="btn btn-primary"');
+        echo form_submit("btnAlterar", "Alterar informações", 'class="btn btn-success"');
         ?>
     </div>
 </div>

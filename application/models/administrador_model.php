@@ -6,6 +6,7 @@ class Administrador_model extends CI_Model
     function __construct()
     {
         parent::__construct();
+        
     }
 
     // metódos para Manter dados de Federados
@@ -13,6 +14,62 @@ class Administrador_model extends CI_Model
      * @return instrutores para serem colocados em um combobox
      */
     
+    function participantes_aprovados() {
+        
+   
+    $ultimo_evento = $this->ultimo_evento();
+      
+    
+        $sql = "SELECT 
+        federado.id_federado,
+        federado.nome,
+        federado.email,
+        federado.telefone,
+        graduacao_federado.id_graduacao,
+        graduacao_participantes.id_evento,
+        graduacao.faixa,
+        graduacao.cor
+        FROM graduacao_participantes
+        inner join graduacao_federado 
+        on graduacao_federado.id_federado= graduacao_participantes.id_federado
+        inner join federado
+        on federado.id_federado = graduacao_participantes.id_federado
+        inner join graduacao
+        on graduacao.id_graduacao = graduacao_federado.id_graduacao
+        where graduacao_participantes.id_evento = {$ultimo_evento['id_evento']}
+        and
+        graduacao_participantes.status_participacao = 1
+        order by graduacao_federado.id_graduacao";
+        $query = $this->db->query($sql);
+        $dados = $query->result_array();
+        
+        
+        foreach ($dados as $i=>$v){
+        
+            $id_federado = $v['id_federado'];
+            $this->load->model('aluno_model','alunos');
+            $dados[$i]['media'] = $this->alunos->historicoNotas($id_federado); 
+            
+        }  
+        
+        
+        return $dados;
+     }
+     
+     
+     function ultimo_evento() {
+        $sql = "select * from evento_graduacao order by data_evento DESC";
+        $query = $this->db->query($sql);
+        $result = $query->result_array();
+        
+       if(empty($result)){
+           return $result['0']=array('data_evento'=>'0000-00-00');
+       }else{
+        return $result['0'];
+       }
+    }
+     
+     
     function save_coordenador($id_federado){
         
         $dados = array('id_federado'=>$id_federado);
@@ -447,20 +504,7 @@ class Administrador_model extends CI_Model
                         ->result_array();
     }
 
-    public function getHistoricoNotas($federado)
-    {
-        return 0;
-//        return  $this->db
-//                        ->select('prontuario.arquivo,evento_graduacao.data_evento,modalidade.nome as modalidade')
-//                        ->from('prontuario')
-//                        ->join('evento_graduacao', 'prontuario.id_evento = evento_graduacao.id_evento', 'join')
-//                        ->join('modalidade', 'evento_graduacao.id_modalidade = modalidade.id_modalidade', 'join')
-//                        ->where('prontuario.id_federado', $federado)
-//                        ->order_by('evento_graduacao.id_modalidade', 'asc')
-//                        ->order_by('evento_graduacao.data_evento', 'desc')
-//                        ->get()
-//                        ->result_array();
-    }
+    
 
     public function malaDireta()
     {

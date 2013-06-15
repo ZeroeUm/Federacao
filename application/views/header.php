@@ -39,37 +39,38 @@
 
 
 	// Evento de clique do elemento: ul#menu li.parent > a
-	$('ul#menu li.parent > a').click(function() {
+	$('ul#menu li.parent > a').mouseenter(function() {
+	        // Expande ou retrai o elemento ul.sub-menu dentro do elemento pai (ul#menu li.parent)
 		
-                // Expande ou retrai o elemento ul.sub-menu dentro do elemento pai (ul#menu li.parent)
-		$('ul.sub-menu',$(this).parent()).slideToggle('fast');
+        
+        $('ul.sub-menu',$(this).parent()).slideToggle('fast');
+        $('ul.sub-menu',$(this).parent()).addClass('exibida');
 		return false;
                 
-                
 	});
-    
-
         
+    
         });
     </script>
 
 
     <body>
-        <div id="header">
-
+        <div id="header" style="margin-bottom: 2px; ">
+        <img src="/federados/logo.png" width="70" height="70" style="opacity:0.3;padding-top: 10px;float: right;">
         </div>
-        <div id="search">
-
-        </div>
-        <div id="user-nav" class="navbar navbar-inverse">
+        <div id="user-nav" class="navbar navbar-inverse" style="margin-right: 50px;">
+             
             <ul class="nav btn-group">
-                <li class="btn btn-inverse"><a title="Trocar senha de acesso" href="<?php echo base_url() ?>login/trocarSenha"><i class="icon icon-user"></i><span class="text">Trocar senha de acesso</span></a></li>
-                <li class="btn btn-inverse"><a title="Logoff do sistema" href="<?php echo base_url() ?>login/logoff"><i class="icon icon-off"></i> <span class="text">Logout</span></a></li>
+                <li class=" "><a title="Logoff do sistema"  href="<?php echo base_url() ?>login/logoff"><i class="icon icon-off"></i> <span class="text">Logout</span></a></li><br>
+                <li class=" "><a title="Trocar senha de acesso" href="<?php echo base_url() ?>login/trocarSenha"><i class="icon  icon-user"></i><span class="text">Trocar senha</span></a></li>
             </ul>
+                       
+
         </div>
 
+    
         <!--sideBar-->
-        <div id="sidebar" style="position: absolute">
+        <div id="sidebar" style="position: absolute;margin-top: -30px;">
             <div style="width: 150px;height: 230px;">
                 <img width="140px" heigth="190px" src="<?php echo base_url() . (($this->session->userdata('foto') != "sem foto") ? "federados/fotos/" . $this->session->userdata('foto') : "federados/default.gif") ?>" class="img-polaroid" style="margin: 20px;z-index: 1000;float: left">
             </div>    
@@ -150,7 +151,7 @@
                             <a href="#" title="">Filiais <i class="icon-forward pull-right" style="padding-right: 10px;"></i></a>
                             <ul class="sub-menu">
                                 <li><a href="<?php echo site_url(); ?>administrador/filiais" title="">Cadastrar nova filial</a></li>
-                                <li><a href="<?php echo site_url(); ?>coordenador/modalidade" title="">Lista de instrutores</a></li>
+                                <li><a href="<?php echo site_url(); ?>coordenador/lista_instrutores" title="">Lista de instrutores</a></li>
                             </ul>
                         </li>
                         

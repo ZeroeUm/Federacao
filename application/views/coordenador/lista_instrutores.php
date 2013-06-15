@@ -6,7 +6,7 @@
        
        $.ajax({
             type:"POST",
-            url:"professores_modalidade/"+id,
+            url:"/coordenador/ajax_professores_filial/"+id,
             data:id,
             datatype:"html",
             success: function(data)
@@ -22,11 +22,11 @@
     })
 </script>
 
-
-Informe uma modalidade: 
+Informe uma filial:<br> 
 <select class="selec_modalidade">
  <?php foreach ($categorias as $r=>$d){?>
-    <option name="id_modalidade" value="<?php echo $d['id_modalidade'] ?>"><?php echo $d['nome'] ;?></option>
+    
+    <option name="id_modalidade" value="<?php echo $d['id'] ?>"> <?php echo $d['nome'] ;?></option>
 <?php } ?> 
 </select>
 

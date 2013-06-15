@@ -1,10 +1,6 @@
 
 
 <div class="accordion" id="accordion2">
-  
-    
-    <h3>Aluno(a): <?php echo $notas['0']['federado']['nome']; ?></h3>
-    
     
     <?php if(empty($notas['0']['nome_faixa'])){?>
     <h3 style="color: red;">Nenhuma nota lançada</h3>

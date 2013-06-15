@@ -3,7 +3,7 @@
 /* 2013-01-24
  * @author HUmberto
  */
-$prop = array('class' => 'btn btn-primary', 'name' => 'incluirFilial', 'id' => 'incluirFilial');
+$prop = array('class' => 'btn btn-success', 'name' => 'incluirFilial', 'id' => 'incluirFilial');
 
 echo anchor("administrador/incluirFilial", "Incluir Filial", $prop);
 ?>
@@ -133,9 +133,9 @@ echo form_label("UF", 'uf');
 echo form_input($uf);
 
 echo br();
-echo anchor("", "Imprimir Filial", array('class' => 'btn btn-primary', 'id' => 'imprimir'));
+echo anchor("", "Imprimir Filial", array('class' => 'btn btn-success', 'id' => 'imprimir'));
 echo nbs(4);
-echo anchor("", "Alterar Filial", array('class' => 'btn btn-primary', 'id' => 'alterar'));
+echo anchor("", "Alterar Filial", array('class' => 'btn btn-success', 'id' => 'alterar'));
 echo form_fieldset_close();
 ?>
 </div>

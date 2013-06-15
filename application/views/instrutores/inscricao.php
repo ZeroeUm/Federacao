@@ -1,9 +1,5 @@
 <script type="text/javascript" src="<?php echo base_url() . 'assets/js/increverFederado.js' ?>"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() . 'assets/css/instrutor.css' ?>" />
-
-
-<?php header("setRequestHeader('Content-Type','application/xmlHttp.setRequestHeader('encoding','utf8_encode')", true) ?>
-
 <?php if($evento['data_evento']=='0000-00-00'){;?>
 
 <h2 style="color: red;">Nenhum evento cadastrado</h2>

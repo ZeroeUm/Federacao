@@ -93,7 +93,7 @@ class Instrutor_model extends CI_Model {
         return $this->db->query($sql)->result_array();
     }
 
-    function get_status_avaliacao() {
+    function get_status_avaliacao($id_instrutor=null) {
 
 
         $this->load->model('Coordenador_model', 'coordenador');
@@ -108,13 +108,26 @@ class Instrutor_model extends CI_Model {
                     pre_avaliacao.horario,
                     pre_avaliacao.id_status_avaliacao as avaliacao
                     FROM pre_avaliacao
-                    inner join graduacao_federado using (id_federado)
-                    inner join federado using (id_federado)
-                    inner join graduacao using (id_graduacao)
-                 where pre_avaliacao.id_evento = $ultimo_evento and pre_avaliacao.id_status_avaliacao !=1";
+                    inner join graduacao_federado 
+                    on graduacao_federado.id_federado = pre_avaliacao.id_federado
+                    inner join federado 
+                    on graduacao_federado.id_federado = federado.id_federado
+                    inner join graduacao 
+                    on graduacao.id_graduacao = graduacao_federado.id_graduacao
+                    inner join matricula
+                    on matricula.id_federado = federado.id_federado
+                    inner join filial
+                    on filial.id_filial = matricula.id_filial
+                    inner join instrutor
+                    on instrutor.id_instrutor = filial.id_instrutor
+                    where pre_avaliacao.id_evento = $ultimo_evento and pre_avaliacao.id_status_avaliacao !=1
+                    and instrutor.id_federado = $id_instrutor;
+                  ";
 
         $tabela = $this->db->query($sql)->result_array();
 
+        
+        
         $dados['reprovados'] = array();
         $dados['aguardando'] = array();
         $dados['nao_agendado'] = array();
@@ -150,9 +163,16 @@ class Instrutor_model extends CI_Model {
                             on federado.id_federado = graduacao_participantes.id_federado
                             inner join graduacao_federado 
                             on graduacao_federado.id_federado = graduacao_participantes.id_federado
+                            inner join matricula
+                            on matricula.id_federado = federado.id_federado
+                            inner join filial
+                            on filial.id_filial = matricula.id_filial
+                            inner join instrutor
+                            on instrutor.id_instrutor = filial.id_instrutor
                             inner join graduacao
                             on graduacao.id_graduacao = graduacao_participantes.id_graduacao
-                            where graduacao_participantes.id_evento = $ultimo_evento;";
+                            where graduacao_participantes.id_evento = $ultimo_evento
+                            and instrutor.id_federado = $id_instrutor;";
         $dados['aprovados'] = $this->db->query($sql_aprovados)->result_array();
 
 
@@ -161,7 +181,8 @@ class Instrutor_model extends CI_Model {
         if (empty($tabela) && empty($dados['aprovados']) && empty($dados['reprovados']) && empty($dados['nao_agendado']) && empty($dados['aguardando'])) {
             $dados['exibir'] = 0;
         }
-
+        
+        
         return $dados;
     }
 
@@ -495,33 +516,33 @@ $dados = $this->db->query($sql)->result_array();
         $ultimo_evento = $this->coordenador->getUltimoEvento();
 
         $sql = "
-            SELECT 
-federado.id_federado as id,
-federado.nome,
-filial.nome as filial,
-graduacao.faixa
-FROM 
-federado
-inner join matricula
-on
-
-matricula.id_federado = federado.id_federado
-inner join 
-    filial
-on
-    matricula.id_filial = filial.id_filial
-inner join 
-    graduacao_federado
-on  
-    matricula.id_federado = graduacao_federado.id_federado
-inner join
-    graduacao
-on
-    graduacao_federado.id_graduacao = graduacao.id_graduacao
-where 
-not exists (select pre_avaliacao.id_federado from pre_avaliacao where pre_avaliacao.id_federado = federado.id_federado and pre_avaliacao.id_evento = $ultimo_evento )
-and
-federado.id_tipo_federado = 1";
+           SELECT 
+           federado.id_federado as id,
+           federado.nome,
+           filial.nome as filial,
+           graduacao.faixa
+           FROM 
+           federado
+           inner join matricula
+           on
+           matricula.id_federado = federado.id_federado
+           inner join 
+               filial
+           on
+               matricula.id_filial = filial.id_filial
+           inner join 
+               graduacao_federado
+           on  
+               matricula.id_federado = graduacao_federado.id_federado
+           inner join
+               graduacao
+           on
+               graduacao_federado.id_graduacao = graduacao.id_graduacao
+           where 
+           not exists (select pre_avaliacao.id_federado from pre_avaliacao where pre_avaliacao.id_federado = federado.id_federado and pre_avaliacao.id_evento = $ultimo_evento )
+           and
+           federado.id_tipo_federado = 1
+           and matricula.id_filial = $filial"; 
         return $this->db->query($sql)->result_array();
     }
     

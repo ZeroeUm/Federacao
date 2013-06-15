@@ -153,6 +153,8 @@ class Coordenador_model extends CI_Model {
         
     }
 
+    
+    
     function movimentos($faixa) {
         $sql = "select
                     movimento_faixa.nome_movimento,
@@ -651,8 +653,7 @@ graduacao_participantes.status_participacao = 1" . $complemento;
         $dados['data']['evento_graduacao']['id_endereco'] = $ultimo;
         $dados['data']['evento_graduacao']['numero_evento'] = $data['1'] . '-' . $data['2'];
         $dados['data']['evento_graduacao']['id_modalidade'] = '1';
-        $this->funcoes->imprimir($dados['data']['evento_graduacao']);
-
+        
 
         if ($this->db->insert('evento_graduacao', $dados['data']['evento_graduacao'])) {
 
@@ -727,7 +728,7 @@ graduacao_participantes.status_participacao = 1" . $complemento;
                 ->join('instrutor', 'instrutor.id_instrutor = instrutor_por_modalidade.id_instrutor')
                 ->join('federado', 'federado.id_federado = instrutor.id_federado')
                 ->join('filial', 'filial.id_instrutor = instrutor.id_instrutor')
-                ->where("instrutor_por_modalidade.id_modalidade", $id)
+                ->where("filial.id_filial", $id)
                 ->get();
 
         return $query->result_array();

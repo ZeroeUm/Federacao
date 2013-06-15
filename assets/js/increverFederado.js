@@ -22,13 +22,15 @@ $(document).ready(function() {
                 datatype: 'json',
                 success: function(federado)
                 {
-                    if (federado === null) {
+                    
+                 
+                    if (federado=="") {
                         $("#resultado").hide();
                         $("#formulario").empty();
-                        $("#mensagem").show("slow").html('<h3> Desculpe, sem Resultado para esta pesquisa.<h3>');
+                        $("#mensagem").show("slow").html('<h3> Nenhum aluno pendente de inscrição para essa filial.<h3>');
 
-                    }
-                    if (federado !== null) {
+                    }else{
+                    
                         // alert("yes");
                         $("#mensagem").hide();
                         $("#formulario").empty();
@@ -115,7 +117,7 @@ $(document).ready(function() {
                     $("<input/>").attr({
                         type: 'submit',
                         name: 'cadastrar',
-                        class: 'btn btn-primary',
+                        class: 'btn btn-success',
                         value: 'Cadastrar Federados',
                         id: 'cad'
 

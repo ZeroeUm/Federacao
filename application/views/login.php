@@ -53,25 +53,26 @@ $label = array(
             background-image: -o-linear-gradient(top, #3F3F3F 0%, #222 100%);
             background-image: linear-gradient(top, #3F3F3F 0%, #222 100%);
             border-bottom: 1px solid #555;
-            height: 78px;
+            height: 77px;
            
         }
     </style>
 
     <body>
         <div class="topo">
+            <img src="federados/logo.png" width="77" height="77" style="float: right; opacity:0.6;">
 
         </div>
 
         <div class="logo">
             <img src="federados/logo2.png">
 
+
         </div>
 
         <div class="login" style="">
-
             <form action="<?php echo base_url() ?>login" method="post">
-
+                
                 <div class="">
 
                     <div class=""><input type="text" placeholder="Usuário "class="input-large" name="usuario" style="height: 44px;width: 100%;"></div>
@@ -87,7 +88,7 @@ $label = array(
 
                 <div class="">
                     <br>
-                    <input type="submit" class="btn btn-primary" value="Entrar" style="height: 44px;width: 100%"> 
+                    <input type="submit" class="btn btn-success" value="Entrar" style="height: 44px;width: 100%"> 
                     <span style="float: right;text-decoration: underline">
                         <a href="<?php echo base_url(); ?>login/lembrar_senha">Lembrar senha</a>
                     </span>
