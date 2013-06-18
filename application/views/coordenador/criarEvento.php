@@ -48,7 +48,7 @@
 
 
         <input type="text" name="data[evento_graduacao][data_evento]" nome="Data" required="true" class="obrigatorio input-block-level" required="true" id="datepicker" placeholder="Data do Evento">
-
+        
 
         <!--<label>Numero do evento</label> 
         <input type="text" name="data[evento_graduacao][numero_evento]" class="obrigatorio input-block-level" placeholder="Numero do evento">-->

@@ -41,7 +41,7 @@ $label = array(
             width: 300px;
             margin:50px auto 0px 60%;
             text-align: left;
-            padding: 60px;
+            padding: 45px;
         }
         .topo{
             box-shadow: 0 1px 0 #333;
@@ -56,11 +56,26 @@ $label = array(
             height: 77px;
            
         }
+        .rodape{
+           box-shadow: 0 1px 0 #333;
+            background-color: #333;
+            background-image: -webkit-gradient(linear, 0 0%, 0 100%, from(#3F3F3F), to(#222));
+            background-image: -webkit-linear-gradient(top, #3F3F3F 0%, #222 100%);
+            background-image: -moz-linear-gradient(top, #3F3F3F 0%, #222 100%);
+            background-image: -ms-linear-gradient(top, #3F3F3F 0%, #222 100%);
+            background-image: -o-linear-gradient(top, #3F3F3F 0%, #222 100%);
+            background-image: linear-gradient(top, #3F3F3F 0%, #222 100%);
+            border-bottom: 1px solid #555;
+            height: 77px; 
+            position:absolute;
+            bottom:0;
+            width:100%;
+        }
     </style>
 
     <body>
         <div class="topo">
-            <img src="federados/logo.png" width="100" height="100" style="position: absolute;margin-left: 80%;margin-top: 30px; opacity:1.6;">
+            <img src="federados/logo.png" width="160" height="160" style="position: absolute;margin-left: 80%;margin-top: 10px; opacity:1.6;">
 
         </div>
         <div class="content" style="margin-top: 100px;">
@@ -105,5 +120,8 @@ $label = array(
 
         </div>
             </div>
+        <div class="rodape">
+            
+        </div>
     </body>
 </html>

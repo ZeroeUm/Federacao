@@ -21,7 +21,21 @@
             font-size: 15px;
             font-weight: bold;
         }
-        
+        .rodape{
+           box-shadow: 0 1px 0 #333;
+            background-color: #333;
+            background-image: -webkit-gradient(linear, 0 0%, 0 100%, from(#3F3F3F), to(#222));
+            background-image: -webkit-linear-gradient(top, #3F3F3F 0%, #222 100%);
+            background-image: -moz-linear-gradient(top, #3F3F3F 0%, #222 100%);
+            background-image: -ms-linear-gradient(top, #3F3F3F 0%, #222 100%);
+            background-image: -o-linear-gradient(top, #3F3F3F 0%, #222 100%);
+            background-image: linear-gradient(top, #3F3F3F 0%, #222 100%);
+            border-bottom: 1px solid #555;
+            height: 77px; 
+            position:absolute;
+            bottom:0;
+            width:100%;
+        }
         .topo{
             box-shadow: 0 1px 0 #333;
             background-color: #333;
@@ -63,6 +77,9 @@
                 <input type="submit" value="Enviar" class="btn btn-success" style="height: 50px; width: 100px;" >
            
             </form>
+        </div>
+        <div class="rodape">
+            
         </div>
     </body>
 </html>

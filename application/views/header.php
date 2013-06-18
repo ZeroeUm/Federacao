@@ -65,9 +65,9 @@
         <div class="principal">
      
         <div id="header" style="margin-bottom: 2px; ">
-        <img src="/federados/logo.png" width="70" height="70" style="opacity:0.3;padding-top: 10px;float: right;">
+        <img src="/federados/logo0.png" width="180" height="70" style="opacity:0.3;padding-top: 10px;float: right;">
         </div>
-        <div id="user-nav" class="navbar navbar-inverse" style="margin-right: 50px;">
+        <div id="user-nav" class="navbar navbar-inverse" style="margin-right: 150px;">
              
             <ul class="nav btn-group">
                 <li class=" "><a title="Logoff do sistema"  href="<?php echo base_url() ?>login/logoff"><i class="icon icon-off"></i> <span class="text">Logout</span></a></li><br>

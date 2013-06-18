@@ -26,7 +26,6 @@ class Funcoes {
 
     function idade($data_completa) {
         $data = explode('-', $data_completa);
-
         if ($data_completa < date('d-m-Y')) {
             $idade = date('Y') - $data['2'];
         } else {
