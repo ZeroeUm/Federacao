@@ -18,7 +18,7 @@
 $producao = $_SERVER ['SERVER_NAME'];
 
 
-$config['base_url'] = "http://".$producao;
+$config['base_url'] = "http://localhost/Federacao/";
 
 /*
 |--------------------------------------------------------------------------
@@ -229,7 +229,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = 'key';
+$config['encryption_key'] = '1e2n3c5r7y11p13t17i19o23n29k31e37y39';
 
 /*
 |--------------------------------------------------------------------------

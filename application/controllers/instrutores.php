@@ -10,67 +10,84 @@
  *
  * @author Marcos
  */
-class Instrutores extends CI_Controller {
+class Instrutores extends CI_Controller
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
         $this->load->model('Instrutor_model', 'instrutor');
         $this->checar_sessao();
     }
 
-    function checar_sessao() {
+    function checar_sessao()
+    {
         if (!$this->session->userdata('autentificado'))
             redirect('login', 'refresh');
     }
 
-    function remover_pre_avaliacao($id_federado, $id_evento) {
+    function remover_pre_avaliacao($id_federado, $id_evento)
+    {
 
         $remover = $this->instrutor->remover_pre_avalicacao($id_federado, $id_evento);
-        if ($remover) {
+        if ($remover)
+        {
             $this->session->set_flashdata('alerta', "Removido com sucesso");
 
             redirect('/instrutores/');
-        } else {
+        }
+        else
+        {
             $this->session->set_flashdata('alerta', "Não foi possivel remover");
 
             redirect('/instrutores/');
         }
     }
 
-    function confirma_participacao($id_federado, $id_evento) {
+    function confirma_participacao($id_federado, $id_evento)
+    {
 
         $remover = $this->instrutor->confirma_participacao($id_federado, $id_evento);
 
-        if ($remover) {
+        if ($remover)
+        {
             $this->session->set_flashdata('alerta', "Confirmado com sucesso");
 
             redirect('/instrutores/');
-        } else {
+        }
+        else
+        {
             $this->session->set_flashdata('alerta', "Não foi possivel confirmar");
 
             redirect('/instrutores/');
         }
     }
 
-    function remover_evento_graduacao($id_federado, $id_evento) {
+    function remover_evento_graduacao($id_federado, $id_evento)
+    {
 
         $remover = $this->instrutor->remover_evento_graduacao($id_federado, $id_evento);
 
-        if ($remover) {
+        if ($remover)
+        {
             $this->session->set_flashdata('alerta', "Removido com sucesso");
 
             redirect('/instrutores/');
-        } else {
+        }
+        else
+        {
             $this->session->set_flashdata('alerta', "Não foi possivel remover");
 
             redirect('/instrutores/');
         }
     }
 
-    function index() {
+    function index()
+    {
 
         $tipo = $this->session->userdata('tipo');
-        switch ($tipo) {
+        switch ($tipo)
+        {
             case '1';
                 redirect('/alunos');
                 break;
@@ -99,7 +116,8 @@ class Instrutores extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function cadastro() {
+    function cadastro()
+    {
         $this->load->model('Instrutor_model');
         $tema["filial"] = $this->instrutor->getFilial($this->session->userdata('id'));
         $this->load->view('header');
@@ -107,81 +125,102 @@ class Instrutores extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function getFilial($id) {
+    function getFilial($id)
+    {
         $tmp = '';
         $data = $this->instrutor->getFilial($id);
-        if ($id == null) {
+        if ($id == null)
+        {
             $tmp .= "<option value=''>Selecione a Filial</option>";
-        } else if (!empty($data)) {
+        }
+        else if (!empty($data))
+        {
             $tmp .= "<option value=''>Selecione uma Filial</option>";
-            foreach ($data as $row) {
+            foreach ($data as $row)
+            {
                 $tmp .= "<option value='" . $row->id . "'>" . utf8_encode($row->nome) . "</option>";
             }
-        } else {
+        }
+        else
+        {
             $tmp .= "<option value=''>Sem registro para esta Filial</option>";
         }
 
         die($tmp);
     }
 
-    function getStatus($id) {
-        if ($id != null || !empty($id)) {
+    function getStatus($id)
+    {
+        if ($id != null || !empty($id))
+        {
             $tmp = '';
             $data = $this->instrutor->getStatus();
         }
-        if (!empty($data)) {
+        if (!empty($data))
+        {
             $tmp .= "<option value=''>Selecione o Status</option>";
-            foreach ($data as $row) {
+            foreach ($data as $row)
+            {
                 $tmp .="<option value ='" . $row->id . "'>" . $row->status . "</option>";
             }
-        } else {
+        }
+        else
+        {
             $tmp .="<option value=''>Selecione o Status</option>";
         }
         die($tmp);
     }
 
-    function getAluno($filial, $status) {
+    function getAluno($filial, $status)
+    {
         $tmp = '';
         $data = $this->instrutor->getAluno($filial, $status);
-        if (!empty($data)) {
+        if (!empty($data))
+        {
             $tmp .= "<option value=''>Selecione o Federado</option>";
-            foreach ($data as $row) {
+            foreach ($data as $row)
+            {
                 $tmp .="<option value ='" . $row->id . "'>" . $row->nome . "</option>";
             }
-        } else {
+        }
+        else
+        {
             $tmp .="<option value=''>Sem registro para com os parametros informados</option>";
         }
         die($tmp);
     }
 
-    function getFederado($federado) {
-        
+    function getFederado($federado)
+    {
+
 
         $fed = $this->instrutor->MntFedDados($federado);
 
 
         $fed[0]['nome'] = utf8_decode($fed[0]['nome']);
         $fed[0]['escolaridade'] = utf8_decode($fed[0]['escolaridade']);
-        
+
         $fed[0]['dtNasc'] = $this->funcoes->data($fed[0]['dtNasc'], 1);
         $idade = $this->funcoes->idade($fed[0]['dtNasc']);
         $fed[0]['idade'] = $idade;
         $resultado = array_map('htmlentities', $fed[0]);
 
-        
+
         header('Content-type: application/x-json; charset=utf-8');
         echo utf8_decode(json_encode($resultado));
     }
 
-    function imprimirFederado($federado) {
-        
+    function imprimirFederado($federado)
+    {
+
         $this->load->view('header');
         $dados['instrutor'] = $this->instrutor->ImprimirDadosFederado($federado);
         $this->load->view('instrutores/imprimirFederado', $dados);
         $this->load->view('footer');
     }
 
-    function incluirFederado() {
+    function incluirFederado()
+    {
         $this->form_validation->set_rules('nome', 'Nome', 'required|alpha_acent|trim');
         $this->form_validation->set_rules('fMaterna', 'Filiação Materna', 'alpha_acent|trim');
         $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'alpha_acent|trim');
@@ -200,8 +239,9 @@ class Instrutores extends CI_Controller {
         $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|alpha_acent|trim');
         $this->form_validation->set_rules('uf', 'UF do endereço', 'required');
 
-        if ($this->form_validation->run() == FALSE) {
-             
+        if ($this->form_validation->run() == FALSE)
+        {
+
             $this->load->view('header');
             $dados['nacionalidade'] = $this->instrutor->getNacionalidade();
             $dados['escolaridade'] = $this->instrutor->getEscolaridade();
@@ -210,13 +250,16 @@ class Instrutores extends CI_Controller {
             $dados["filial"] = $this->instrutor->getFilial($this->session->userdata('id'));
             $this->load->view('instrutores/incluirFederado', $dados);
             $this->load->view('footer');
-        } else {
+        }
+        else
+        {
 
             $this->fotoFederado(0);
         }
     }
 
-    function alterarFederado($federado) {
+    function alterarFederado($federado)
+    {
         $this->form_validation->set_rules('nome', 'Nome', 'required|alpha_acent|trim');
         $this->form_validation->set_rules('fMaterna', 'Filiação Materna', 'alpha_acent|trim');
         $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'alpha_acent|trim');
@@ -236,7 +279,8 @@ class Instrutores extends CI_Controller {
         $this->form_validation->set_rules('uf', 'UF do endereço', 'required');
 
 
-        if ($this->form_validation->run() == FALSE) {
+        if ($this->form_validation->run() == FALSE)
+        {
             $this->load->view('header');
             $dados['federado'] = $this->instrutor->DadosFederado($federado);
             $endereco = $dados['federado'][0]['id_endereco'];
@@ -250,12 +294,15 @@ class Instrutores extends CI_Controller {
             $dados["filial"] = $this->instrutor->getFilial($dados['id_instrutor']);
             $this->load->view('instrutores/alterarFederado', $dados);
             $this->load->view('footer');
-        } else {
+        }
+        else
+        {
             $this->fotoFederado(1);
         }
     }
 
-    function fotoFederado($op) {
+    function fotoFederado($op)
+    {
 
         $path_info = ((isset($_FILES)) ? pathinfo($_FILES["foto"]["name"]) : NULL);
         $extensao = ((isset($path_info['extension'])) ? $path_info['extension'] : NULL);
@@ -273,24 +320,28 @@ class Instrutores extends CI_Controller {
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
 
-        if (!$this->upload->do_upload("foto")) {
+        if (!$this->upload->do_upload("foto"))
+        {
 
             $dados = array('error' => $this->upload->display_errors('<div class="alert-error"><b>', '</b></div>'));
             (($op) ? $this->atualizarFederado($dados) : $this->salvarFederado($dados));
-        } else {
+        }
+        else
+        {
 
             $dados = array('upload_foto' => $this->upload->data());
             (($op) ? $this->atualizarFederado($dados, $config['file_name']) : $this->salvarFederado($dados, $config['file_name']));
         }
     }
 
-    function salvarFederado($dados, $foto = NULL) {
+    function salvarFederado($dados, $foto = NULL)
+    {
 
-         
+
         $endereco = array();
         $federado = array();
 
-        
+
         $federado['nome'] = $this->input->post('nome');
         $federado['filiacao_materna'] = ($this->input->post('fMaterna') ? $this->input->post('fMaterna') : NULL);
         $federado['filiacao_paterna'] = ($this->input->post('fPaterna') ? $this->input->post('fPaterna') : NULL);
@@ -315,68 +366,66 @@ class Instrutores extends CI_Controller {
         $endereco['cidade'] = $this->input->post('cidade');
         $endereco['uf'] = $this->input->post('uf');
 
-        
+
         $this->instrutor->InserirEndereco($endereco);
-        
-        
-        $federado['id_endereco'] = $this->instrutor->get_ultimo_endereco(); 
-        
-        
+
+
+        $federado['id_endereco'] = $this->instrutor->get_ultimo_endereco();
+
+
         $this->instrutor->InserirFederado($federado);
 
-        
+
 
         $novoFederado = $this->instrutor->get_ultimo_federado();
 
-        
-        
+
+
         $this->matricularFederado($novoFederado, $this->input->post('filial'), '1');
 
-        
-        $this->criarLogin($novoFederado,$federado['nome'] );
 
-        
+        $this->criarLogin($novoFederado, $federado['nome']);
+
+
         $this->enviarSenha($novoFederado);
-        
+
         $dados['id_federado'] = $novoFederado;
         $dados['federado'] = $federado['nome'];
-        
+
         $this->load->view('header');
         $this->load->view('instrutores/sucessoinclusaoFederado', $dados);
         $this->load->view('footer');
     }
 
-    function enviarSenha($id_federado, $relembrar=null) {
-
-        
+    function enviarSenha($id_federado, $relembrar = null)
+    {
         $dados = $this->instrutor->get_login($id_federado);
-        
 
-        if (empty($dados)) {
+        if (empty($dados))
+        {
             $this->session->set_flashdata('aviso', 'Não foi possivel enviar a senha do aluno');
-        
             die('não tem acesso');
-            
-        } else {
-            
-            
+        }
+        else
+        {
             extract($dados['0']);
-
-            
 
             $this->load->library('email');
             $this->email->from('elder.f.silva@gmail.com', 'Felipe');
             $this->email->to($email);
             $this->email->subject('Acesso ao sistema FEPAMI');
 
-            if ($this->uri->segment(2) == 'trocarSenha') {
+            if ($this->uri->segment(2) == 'trocarSenha')
+            {
                 $mensagem = "<p>Caro Aluno(a) {$nome} </p>
                   <p>A alteração da sua senha foi realizada com sucesso</p>
                   <p>segue abaixo informações de acesso.</p>
                   <p>Login: {$login}</p>
                   <p>Senha: {$senha}</p>
                   <p>ATENÇÃO: ao realizar seu primeiro acesso será obrigatório a troca de senha</p>";
-            } else {
+            }
+            else
+            {
                 $mensagem = "<p>Caro Aluno(a) {$nome} </p>
                   <p>Seu cadastro de acesso ao sistema FEPAMI foi realizado</p>
                   <p>segue abaixo informações de acesso.</p>
@@ -386,23 +435,24 @@ class Instrutores extends CI_Controller {
             }
 
             $this->email->message($mensagem);
-            if ($this->email->send()) {
-
-
-                if ($relembrar != null) {
+            if ($this->email->send())
+            {
+                if ($relembrar != null)
+                {
                     $this->session->set_flashdata('alerta', 'Email re-enviado com os dados de acesso para o aluno');
                     redirect('/instrutores');
                 }
-            } else {
+            }
+            else
+            {
                 $this->session->set_flashdata('aviso', 'Não foi possivel enviar um email com os dados de acesso');
             };
         }
     }
 
-    function atualizarFederado($dados, $foto = NULL) {
+    function atualizarFederado($dados, $foto = NULL)
+    {
 
-
-         
         $endereco = array();
         $federado = array();
 
@@ -439,10 +489,8 @@ class Instrutores extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function matricularFederado($federado, $filial, $modalidade) {
-
-        
-         
+    function matricularFederado($federado, $filial, $modalidade)
+    {
         $matricula = array();
         $matricula['id_federado'] = $federado;
         $matricula['id_modalidade'] = $modalidade;
@@ -455,8 +503,8 @@ class Instrutores extends CI_Controller {
         $this->instrutor->matricularFederado($matricula);
     }
 
-    function gerarGraduacao($federado, $modalidade) {
-
+    function gerarGraduacao($federado, $modalidade)
+    {
         $primeiraFaixa = '1';
         $graduacao['id_modalidade'] = $modalidade;
         $graduacao['id_graduacao'] = $primeiraFaixa;
@@ -466,8 +514,9 @@ class Instrutores extends CI_Controller {
         $this->instrutor->gerarGraduacao($graduacao);
     }
 
-    function alterarMatricula($federado, $filial, $modalidade) {
-         
+    function alterarMatricula($federado, $filial, $modalidade)
+    {
+
         $matricula = array();
         $matricula['id_federado'] = $federado;
         $matricula['id_modalidade'] = $modalidade;
@@ -477,8 +526,8 @@ class Instrutores extends CI_Controller {
         $this->instrutor->alterarMatricula($federado, $modalidade, $matricula);
     }
 
-    function criarLogin($federado, $nome) {
-         
+    function criarLogin($federado, $nome)
+    {
         $login = array();
         $login['id_federado'] = $federado;
         $login['login'] = strtolower($this->gerarLogin($nome));
@@ -487,7 +536,8 @@ class Instrutores extends CI_Controller {
         $this->instrutor->criarLogin($login);
     }
 
-    function gerarLogin($nome) {
+    function gerarLogin($nome)
+    {
         $arrNome = explode(" ", $nome);
         $retorno = substr($arrNome[0], 0, 1);
         $retorno .= end($arrNome);
@@ -496,7 +546,8 @@ class Instrutores extends CI_Controller {
         return $retorno;
     }
 
-    function gerarSenha($tamanho = 10, $maiusculas = true, $numeros = true) {
+    function gerarSenha($tamanho = 10, $maiusculas = true, $numeros = true)
+    {
         $lmin = 'abcdefghijkmnopqrstuvwxyz';
         $lmai = 'ABCDEFGHJKLMNOPQRSTUVWXYZ';
         $num = '0123456789';
@@ -545,7 +596,8 @@ class Instrutores extends CI_Controller {
 //        die($tmp);
 //    }
 
-    function inscricao() {
+    function inscricao()
+    {
         $this->load->model('Instrutor_model');
         $this->load->model('Coordenador_model', 'coordenador');
 
@@ -557,58 +609,60 @@ class Instrutores extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function getFiliais($id) {
+    function getFiliais($id)
+    {
         $tmp = '';
         $data = $this->instrutor->getFilial($id);
-        if ($id == null) {
+        if ($id == null)
+        {
             $tmp .= "<option value='' >Selecione a Filial</option>";
-        } else if (!empty($data)) {
+        }
+        else if (!empty($data))
+        {
             $tmp .= "<option value=''>Selecione uma Filial</option>";
-            foreach ($data as $row) {
+            foreach ($data as $row)
+            {
                 $tmp .= "<option value='" . $row->id . "'>" . utf8_encode($row->nome) . "</option>";
             }
-        } else {
+        }
+        else
+        {
             $tmp .= "<option value=''>Sem registro para esta Filial</option>";
         }
 
         die($tmp);
     }
 
-    function getInscrito($filial) {
-
-         
-
-
-
-        //   echo (htmlentities(utf8_encode('�,n�o, tr�s')));
-
+    function getInscrito($filial)
+    {
         $filiais = $this->instrutor->getInscrito($filial);
 
-
-        if (!empty($filiais)) {
+        if (!empty($filiais))
+        {
             header('Content-type: application/x-json; charset=utf-8 ', true);
             echo (json_encode($filiais));
-        } else {
+        }
+        else
+        {
             header('Content-type: application/x-json; charset=utf-8 ', true);
             echo (json_encode($filiais));
         }
     }
 
-    function confirmar() {
+    function confirmar()
+    {
         $this->load->view('header');
 
-        
-
-        if ($this->input->post('nodeCheck')) {
-
-
+        if ($this->input->post('nodeCheck'))
+        {
             //salvar alunos na tabela pre-avaliação
             $this->instrutor->pre_avaliacao($this->input->post());
 
-
             $dados['msg'] = 'Inclusão de Federados no Evento realizada com sucesso.<br />';
             $dados['status'] = true;
-        } else {
+        }
+        else
+        {
             $dados['status'] = false;
             $dados['msg'] = 'Nenhum Federado foi selecionado para inclusão no evento' . '<br/>' . 'Favor Selecionar um ou mais Federado.<br />';
         }
@@ -618,7 +672,8 @@ class Instrutores extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function manutencao($id = '1') {
+    function manutencao($id = '1')
+    {
         //lista de participantes para o proximo evento 
         $dados['resultado'] = $this->instrutor->get_status_avaliacao($this->session->userdata('id'));
 
@@ -635,7 +690,8 @@ class Instrutores extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function evento() {
+    function evento()
+    {
         $id = $this->session->userdata('id');
         $dados["filial"] = $this->instrutor->getFilial($id);
         $this->load->view('header');
@@ -643,17 +699,15 @@ class Instrutores extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function ajax_listar_alunos($filial) {
-
-
-
+    function ajax_listar_alunos($filial)
+    {
         $dados['alunos'] = $this->instrutor->alunos_por_filial($filial);
         $this->load->view('instrutores/lista_dos_alunos', $dados);
     }
 
-    function historico_pessoal($id_federado) {
+    function historico_pessoal($id_federado)
+    {
         $dados['notas'] = $this->instrutor->get_historico($id_federado);
-
 
         $this->load->view('header');
         $this->load->view('instrutores/historico_pessoal', $dados);

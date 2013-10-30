@@ -12,10 +12,9 @@ class Login_model extends CI_Model
     {
         parent::__construct();
     }
-    
-    
-    
-    public function get_email($email){
+
+    public function get_email($email)
+    {
         $sql = "SELECT nome,email,login.senha 
                 FROM 
                 federado
@@ -23,11 +22,10 @@ class Login_model extends CI_Model
                 where email like  '$email'";
         return $this->db->query($sql)->result_array();
     }
-    
 
     public function login($usuario, $senha)
     {
-        
+
         $query = $this->db
                         ->select('id_federado')
                         ->from('login')
@@ -35,15 +33,15 @@ class Login_model extends CI_Model
                         ->where('senha', $senha)
                         ->limit(1)
                         ->get();
-$ret = $query->num_rows();
+        $ret = $query->num_rows();
+        
         if ($ret == 1)
             return TRUE;
         else
-          
             return FALSE;
     }
-    
-    public function IDFedereado($usuario,$senha)
+
+    public function IDFedereado($usuario, $senha)
     {
         return $this->db
                         ->select('id_federado')
@@ -55,24 +53,21 @@ $ret = $query->num_rows();
                         ->result_array();
     }
 
-    function primeiroAcesso($id){
-        
+    function primeiroAcesso($id)
+    {
         $sql = "SELECT status FROM login where id_federado = $id";
         $dados = $this->db->query($sql)->result_array();
-        
-        if($dados['0']['status']=='0'){
-            return true;
-        }else{
-            return false;
-        }
-        
-    }
 
+        if ($dados['0']['status'] == '0')
+            return true;
+        else
+            return false;
+    }
 
     public function dadosUsuario($id)
     {
         return $this->db
-                    ->select('
+                        ->select('
                                 federado.id_federado AS id, 
                                 federado.nome, 
                                 federado.caminho_imagem AS foto, 
@@ -82,42 +77,37 @@ $ret = $query->num_rows();
                                 graduacao.id_graduacao AS faixa,
                                 graduacao.faixa AS nomeFaixa
                             ')
-                    ->from('federado')
-                    ->join('matricula','federado.id_federado = matricula.id_federado','inner')
-                    ->join('modalidade','matricula.id_modalidade = modalidade.id_modalidade','inner')
-                    ->join('graduacao_federado','federado.id_federado = graduacao_federado.id_federado','inner')
-                    ->join('graduacao','graduacao_federado.id_graduacao = graduacao.id_graduacao','inner')
-                    ->where('federado.id_federado', $id)
-                    ->where("graduacao_federado.status",1)
-                    ->get()
-                    ->result_array();
-    }
-    
-    public function verificarStatus($usuario)
-    {
-        
-        
-        $query = $this->db
-                        ->select('federado.id_status as situacao')
-                        ->from('login')
-                        ->join('federado','login.id_federado = federado.id_federado','inner')
-                        ->where('login.login',$usuario)
+                        ->from('federado')
+                        ->join('matricula', 'federado.id_federado = matricula.id_federado', 'inner')
+                        ->join('modalidade', 'matricula.id_modalidade = modalidade.id_modalidade', 'inner')
+                        ->join('graduacao_federado', 'federado.id_federado = graduacao_federado.id_federado', 'inner')
+                        ->join('graduacao', 'graduacao_federado.id_graduacao = graduacao.id_graduacao', 'inner')
+                        ->where('federado.id_federado', $id)
+                        ->where("graduacao_federado.status", 1)
                         ->get()
                         ->result_array();
-        
-        
-        if(@$query['0']['situacao'] == '0'):
+    }
+
+    public function verificarStatus($usuario)
+    {
+        $query = $this->db
+                ->select('federado.id_status as situacao')
+                ->from('login')
+                ->join('federado', 'login.id_federado = federado.id_federado', 'inner')
+                ->where('login.login', $usuario)
+                ->get()
+                ->result_array();
+        if (@$query['0']['situacao'] == '2'):
             return FALSE;
         else:
             return TRUE;
         endif;
-        
     }
-    
-    public function trocarSenha($usuario,$dados)
+
+    public function trocarSenha($usuario, $dados)
     {
-       
-        $this->db->update('login',$dados,array('id_federado' => $usuario));
+
+        $this->db->update('login', $dados, array('id_federado' => $usuario));
     }
 
 }

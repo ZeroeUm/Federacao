@@ -5,34 +5,36 @@
  *
  * @author Humberto
  */
-class administrador extends CI_Controller {
+class administrador extends CI_Controller
+{
 
-    
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
         $this->checar_sessao();
         $this->load->model('Administrador_model', 'administrador');
         $this->load->model('Instrutor_model', 'instrutor');
     }
 
-    function relembrar($id_usuario){
-        $this->enviarSenha($id_usuario,'1');
+    function relembrar($id_usuario)
+    {
+        $this->enviarSenha($id_usuario, '1');
     }
 
-
-    
-    function participantes_aprovados() {
+    function participantes_aprovados()
+    {
         $dados['evento'] = $this->administrador->ultimo_evento();
-        $dados['participantes']= $this->administrador->participantes_aprovados();
-        
-        $this->load->view('/administrador/participantes_aprovados',$dados);
+        $dados['participantes'] = $this->administrador->participantes_aprovados();
+
+        $this->load->view('/administrador/participantes_aprovados', $dados);
     }
-    
-    
-    function enviarSenha($id_federado, $relembrar = null) {
+
+    function enviarSenha($id_federado, $relembrar = null)
+    {
 
         $dados = $this->administrador->get_login($id_federado);
-        if (empty($dados)) {
+        if (empty($dados))
+        {
             $this->session->set_flashdata('aviso', 'Operação ilegal realizada erro 404 -  usuário não encontrado');
             redirect('/login/erro');
         }
@@ -44,14 +46,17 @@ class administrador extends CI_Controller {
         $this->email->to($email);
         $this->email->subject('Acesso ao sistema FEPAMI');
 
-        if ($relembrar != null) {
+        if ($relembrar != null)
+        {
             $mensagem = "<p>Caro Aluno(a) {$nome} </p>
                   <p>A alteração da sua senha foi realizada com sucesso</p>
                   <p>segue abaixo informações de acesso.</p>
                   <p>Login: {$login}</p>
                   <p>Senha: {$senha}</p>
                   <p>ATENÇÃO: ao realizar seu primeiro acesso será obrigatório a troca de senha</p>";
-        } else {
+        }
+        else
+        {
             $mensagem = "<p>Caro Aluno(a) {$nome} </p>
                   <p>Seu cadastro de acesso ao sistema FEPAMI foi realizado</p>
                   <p>segue abaixo informações de acesso.</p>
@@ -61,21 +66,27 @@ class administrador extends CI_Controller {
         }
 
         $this->email->message($mensagem);
-        if ($this->email->send()) {
+        if ($this->email->send())
+        {
 
-            if ($relembrar != null) {
+            if ($relembrar != null)
+            {
                 $this->session->set_flashdata('alerta', 'Email re-enviado com os dados de acesso para o aluno');
                 redirect('/instrutores');
             }
-        } else {
+        }
+        else
+        {
             $this->session->set_flashdata('aviso', 'Não foi possivel enviar um email com os dados de acesso');
         };
     }
 
-    function index() {
+    function index()
+    {
 
         $tipo = $this->session->userdata('tipo');
-        switch ($tipo) {
+        switch ($tipo)
+        {
             case '1';
                 redirect('/alunos');
                 break;
@@ -95,12 +106,14 @@ class administrador extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function checar_sessao() {
+    function checar_sessao()
+    {
         if (!$this->session->userdata('autentificado'))
             redirect('login', 'refresh');
     }
 
-    function notificacoes() {
+    function notificacoes()
+    {
         $this->form_validation->set_rules('assunto', 'Assunto', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('txtNotificacao', 'Notificação', 'required|trim');
         if ($this->form_validation->run() == FALSE):
@@ -112,7 +125,8 @@ class administrador extends CI_Controller {
         endif;
     }
 
-    function enviarNotificacoes() {
+    function enviarNotificacoes()
+    {
         $this->load->library('email');
         $this->load->model('Administrador_model', 'administrador');
         $this->load->view('header');
@@ -138,13 +152,15 @@ class administrador extends CI_Controller {
         $assunto = $this->input->post('assunto');
         $mensagem = htmlentities($this->input->post('txtNotificacao'), ENT_QUOTES, 'UTF-8');
 
-        foreach ($listaEmails as $destinatario) {
+        foreach ($listaEmails as $destinatario)
+        {
             $this->email->clear();
             $this->email->to($destinatario['email']);
             $this->email->from($emailOrigem, $nomeOrigem);
             $this->email->subject($assunto);
             $this->email->message($mensagem);
-            if (!$this->email->send()) {
+            if (!$this->email->send())
+            {
                 $dados['erros'][] = $destinatario['nome'];
             }
         }
@@ -152,7 +168,8 @@ class administrador extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function federados() {
+    function federados()
+    {
         $this->load->model('Administrador_model', 'administrador');
         $this->load->view('header');
         $dados['instrutores'] = $this->administrador->MntFedInstrutor();
@@ -160,30 +177,40 @@ class administrador extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function getFiliais($instrutor) {
+    function getFiliais($instrutor)
+    {
         $this->load->model('Administrador_model', 'administrador');
         header('Content-Type: application/x-json; charset=utf-8');
         $filiais = $this->administrador->MntFedFilial($instrutor);
-        if (!empty($filiais)) {
-            for ($i = 0; $i < count($filiais); $i++) {
+        if (!empty($filiais))
+        {
+            for ($i = 0; $i < count($filiais); $i++)
+            {
                 $filiais[$i]["nome"] = htmlentities($filiais[$i]["nome"], ENT_QUOTES, 'UTF-8');
             }
-        } else {
+        }
+        else
+        {
             $filiais[0]['id'] = "";
             $filiais[0]['nome'] = htmlentities("Não foi encontrada filial para esse instrutor.", ENT_QUOTES, 'UTF-8');
         }
         echo(json_encode($filiais));
     }
 
-    function getFederados($filial, $status) {
+    function getFederados($filial, $status)
+    {
         $this->load->model('Administrador_model', 'administrador');
 
         $federados = $this->administrador->MntFedFederado($filial, $status);
-        if (!empty($federados)) {
-            for ($i = 0; $i < count($federados); $i++) {
+        if (!empty($federados))
+        {
+            for ($i = 0; $i < count($federados); $i++)
+            {
                 $federados[$i]["nome"] = htmlentities($federados[$i]["nome"], ENT_QUOTES, 'UTF-8');
             }
-        } else {
+        }
+        else
+        {
             $federados[0]["id"] = "";
             $federados[0]["nome"] = htmlentities("Não foram encontrados federados nessa filial com essa situação.", ENT_QUOTES, 'UTF-8');
         }
@@ -192,25 +219,24 @@ class administrador extends CI_Controller {
         echo(json_encode($federados));
     }
 
-    function getFederado($federado) {
-
-
+    function getFederado($federado)
+    {
         $fed = $this->administrador->MntFedDados($federado);
-        
-        
-        $fed[0]['escolaridade'] =  utf8_decode($fed[0]['escolaridade']);
-        $fed[0]['nome'] =  utf8_decode($fed[0]['nome']);
-        
-        
-        $fed[0]['dtNasc'] = $this->funcoes->data($fed[0]['dtNasc'],1);
+
+        $fed[0]['escolaridade'] = utf8_decode($fed[0]['escolaridade']);
+        $fed[0]['nome'] = utf8_decode($fed[0]['nome']);
+
+        $fed[0]['dtNasc'] = $this->funcoes->data($fed[0]['dtNasc'], 1);
         $idade = $this->funcoes->idade($fed[0]['dtNasc']);
         $fed[0]['idade'] = $idade;
         $resultado = array_map('htmlentities', $fed[0]);
+        
         header('Content-type: application/x-json; charset=utf-8');
         echo json_encode($resultado);
     }
 
-    public function alpha_acent($input) {
+    public function alpha_acent($input)
+    {
         if (preg_match("/^[A-Za-záàãâéêíóôõúç\s]+$/", $input)):
             return true;
         else:
@@ -219,7 +245,8 @@ class administrador extends CI_Controller {
         endif;
     }
 
-    public function complemento($input) {
+    public function complemento($input)
+    {
         if (preg_match("/^[A-Za-z\s\d]+$/", $input) || ($input == "")):
             return true;
         else:
@@ -228,8 +255,9 @@ class administrador extends CI_Controller {
         endif;
     }
 
-    public function filiacao($input) {
-        if ((preg_match("/^[A-Za-záàãâéêíóôõú\s]+$/", $input)) || $input == ""):
+    public function filiacao($input)
+    {
+        if ((preg_match("/^[A-Za-záàãâéêíóôõúç\s]+$/", $input)) || $input == ""):
             return true;
         else:
             $this->form_validation->set_message('filiacao', "O campo %s deve conter somente letras e letras acentuadas da língua portuguesa.");
@@ -237,7 +265,8 @@ class administrador extends CI_Controller {
         endif;
     }
 
-    public function telephone($input) {
+    public function telephone($input)
+    {
         if (preg_match("/^\(?\d{2}\)?\d{4}-?\d{4}$/", $input))://formato (11)3940-1294, sem espaço
             return true;
         else:
@@ -246,7 +275,8 @@ class administrador extends CI_Controller {
         endif;
     }
 
-    public function celular($input) {
+    public function celular($input)
+    {
         if (preg_match("/^\(?\d{2}\)?[9]?\d{4}-?\d{4}$/", $input)):
             return true;
         else:
@@ -255,7 +285,8 @@ class administrador extends CI_Controller {
         endif;
     }
 
-    public function rg($input) {
+    public function rg($input)
+    {
         if (preg_match("/^\d{2}\.\d{3}\.\d{3}\-\d{1}|[X]$/", $input)):
             return true;
         else:
@@ -264,7 +295,8 @@ class administrador extends CI_Controller {
         endif;
     }
 
-    public function cnpj($input) {
+    public function cnpj($input)
+    {
         if (preg_match("/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/", $input)):
             return true;
         else:
@@ -273,7 +305,8 @@ class administrador extends CI_Controller {
         endif;
     }
 
-    public function combo($input) {
+    public function combo($input)
+    {
         if ($input == "#"):
             $this->form_validation->set_message('combo', 'No campo com opções de %s deve ser selecionada uma opção.');
             return FALSE;
@@ -282,7 +315,8 @@ class administrador extends CI_Controller {
         endif;
     }
 
-    function alterarFederado($federado) {
+    function alterarFederado($federado)
+    {
         $this->form_validation->set_rules('nome', 'Nome', 'required|callback_alpha_acent|trim|xss_clean');
         $this->form_validation->set_rules('fMaterna', 'Filiação Materna', 'callback_filiacao|xss_clean');
         $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'callback_filiacao|xss_clean');
@@ -306,7 +340,8 @@ class administrador extends CI_Controller {
         $this->form_validation->set_rules('uf', 'UF do endereço', 'required|callback_combo');
 
 
-        if ($this->form_validation->run() == FALSE) {
+        if ($this->form_validation->run() == FALSE)
+        {
             $this->load->model('Administrador_model', 'administrador');
             $this->load->view('header');
 
@@ -324,12 +359,15 @@ class administrador extends CI_Controller {
 
             $this->load->view('administrador/alterarFederado', $dados);
             $this->load->view('footer');
-        } else {
+        }
+        else
+        {
             $this->fotoFederado(1);
         }
     }
 
-    function fotoFederado($op) {
+    function fotoFederado($op)
+    {
 
 
         $path_info = ((isset($_FILES)) ? pathinfo($_FILES["foto"]["name"]) : NULL);
@@ -349,16 +387,20 @@ class administrador extends CI_Controller {
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
 
-        if (!$this->upload->do_upload("foto")) {
+        if (!$this->upload->do_upload("foto"))
+        {
             $dados = array('error' => $this->upload->display_errors('<div class="alert-error"><b>', '</b></div>'));
             (($op) ? $this->atualizarFederado($dados) : $this->salvarFederado($dados));
-        } else {
+        }
+        else
+        {
             $dados = array('upload_foto' => $this->upload->data());
             (($op) ? $this->atualizarFederado($dados, $config['file_name']) : $this->salvarFederado($dados, $config['file_name']));
         }
     }
 
-    function atualizarFederado($dados, $foto = NULL) {
+    function atualizarFederado($dados, $foto = NULL)
+    {
         $this->load->model('Administrador_model', 'administrador');
         $endereco = array();
         $federado = array();
@@ -398,7 +440,8 @@ class administrador extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function matricularFederado($federado, $filial, $modalidade) {
+    function matricularFederado($federado, $filial, $modalidade)
+    {
         $this->load->model('Administrador_model', 'administrador');
         $matricula = array();
         $matricula['id_federado'] = $federado;
@@ -410,7 +453,8 @@ class administrador extends CI_Controller {
         $this->administrador->matricularFederado($matricula);
     }
 
-    function gerarGraduacao($federado, $modalidade) {
+    function gerarGraduacao($federado, $modalidade)
+    {
         $this->load->model('Administrador_model', 'administrador');
         $primeiraFaixa = '1';
         $graduacao['id_modalidade'] = $modalidade;
@@ -421,7 +465,8 @@ class administrador extends CI_Controller {
         $this->administrador->gerarGraduacao($graduacao);
     }
 
-    function alterarMatricula($federado, $filial, $modalidade) {
+    function alterarMatricula($federado, $filial, $modalidade)
+    {
         $this->load->model('Administrador_model', 'administrador');
         $matricula = array();
         $matricula['id_federado'] = $federado;
@@ -432,7 +477,8 @@ class administrador extends CI_Controller {
         $this->administrador->alterarMatricula($federado, $modalidade, $matricula);
     }
 
-    function criarLogin($federado, $nome) {
+    function criarLogin($federado, $nome)
+    {
         $this->load->model('Administrador_model', 'administrador');
         $login = array();
         $login['id_federado'] = $federado;
@@ -441,7 +487,8 @@ class administrador extends CI_Controller {
         $this->administrador->criarLogin($login);
     }
 
-    function gerarLogin($nome) {
+    function gerarLogin($nome)
+    {
         $arrNome = explode(" ", $nome);
         $retorno = substr($arrNome[0], 0, 1);
         $retorno .= end($arrNome);
@@ -450,7 +497,8 @@ class administrador extends CI_Controller {
         return $retorno;
     }
 
-    function gerarSenha($tamanho = 10, $maiusculas = true, $numeros = true) {
+    function gerarSenha($tamanho = 10, $maiusculas = true, $numeros = true)
+    {
         $lmin = 'abcdefghijkmnopqrstuvwxyz';
         $lmai = 'ABCDEFGHJKLMNOPQRSTUVWXYZ';
         $num = '0123456789';
@@ -474,7 +522,8 @@ class administrador extends CI_Controller {
         return $retorno;
     }
 
-    function incluirFederado() {
+    function incluirFederado()
+    {
         $this->form_validation->set_rules('nome', 'Nome', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('fMaterna', 'Filiação Materna', 'callback_filiacao|xss_clean');
         $this->form_validation->set_rules('fPaterna', 'Filiação Paterna', 'callback_filiacao|xss_clean');
@@ -496,7 +545,8 @@ class administrador extends CI_Controller {
         $this->form_validation->set_rules('cidade', 'Cidade do endereço', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('uf', 'UF do endereço', 'required|callback_combo');
 
-        if ($this->form_validation->run() == FALSE) {
+        if ($this->form_validation->run() == FALSE)
+        {
             $this->load->model('Administrador_model', 'administrador');
             $this->load->view('header');
             $dados['nacionalidade'] = $this->administrador->getNacionalidade();
@@ -509,12 +559,15 @@ class administrador extends CI_Controller {
             $dados['modalidade'] = $this->administrador->GetModalidades();
             $this->load->view('administrador/incluirFederado', $dados);
             $this->load->view('footer');
-        } else {
+        }
+        else
+        {
             $this->fotoFederado(0);
         }
     }
 
-    function salvarFederado($dados, $foto = NULL) {
+    function salvarFederado($dados, $foto = NULL)
+    {
         $this->load->model('Administrador_model', 'administrador');
         $endereco = array();
         $federado = array();
@@ -553,10 +606,13 @@ class administrador extends CI_Controller {
         $this->matricularFederado($novoFederado, $this->input->post('filial'), 1);
         $this->criarLogin($novoFederado, $federado['nome']);
 
-        if ($federado['id_tipo_federado'] == '2') {
+        if ($federado['id_tipo_federado'] == '2')
+        {
             //criar instrutor
             $this->administrador->save_instrutor($novoFederado);
-        } elseif ($federado['id_tipo_federado'] == '3') {
+        }
+        elseif ($federado['id_tipo_federado'] == '3')
+        {
             echo $novoFederado;
             //criar coordenador   
             $this->administrador->save_coordenador($novoFederado);
@@ -574,7 +630,8 @@ class administrador extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function imprimirFederado($federado) {
+    function imprimirFederado($federado)
+    {
         $this->load->model('administrador_model', 'administrador');
         $this->load->view('header');
         $dados['federado'] = $this->administrador->ImprimirDadosFederado($federado);
@@ -582,7 +639,8 @@ class administrador extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function pedidos() {
+    function pedidos()
+    {
         $this->load->model('administrador_model', 'administrador');
         $dados['pedidos'] = $this->administrador->get_pedidos_faixa();
 
@@ -591,7 +649,8 @@ class administrador extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function detalhe_pedido($id_evento) {
+    function detalhe_pedido($id_evento)
+    {
         $this->load->model('administrador_model', 'administrador');
         $dados['detalhes'] = $this->administrador->detalhes_de_pedido_faixa($id_evento);
 
@@ -600,7 +659,8 @@ class administrador extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function alterarPedido($id) {
+    function alterarPedido($id)
+    {
         $this->load->model('administrador_model', 'administrador');
         $dados['modalidade'] = $this->administrador->GetModalidades();
         $dados['taekwondo'] = $this->administrador->itensModalidade(1);
@@ -611,7 +671,8 @@ class administrador extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function atualizarPedido($pedido) {
+    function atualizarPedido($pedido)
+    {
         $this->load->model('Administrador_model', 'administrador');
         $post = $this->input->post();
 
@@ -664,15 +725,20 @@ class administrador extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function itensModalidade($id) {
+    function itensModalidade($id)
+    {
         $this->load->model('Administrador_model', 'administrador');
         header('Content-type: application/x-json; charset=utf-8');
         $itens = $this->administrador->itensModalidade($id);
-        if (!empty($itens)) {
-            for ($i = 0; $i < count($itens); $i++) {
+        if (!empty($itens))
+        {
+            for ($i = 0; $i < count($itens); $i++)
+            {
                 $itens[$i]['descricao'] = htmlentities($itens[$i]['descricao'], ENT_QUOTES, 'UTF-8');
             }
-        } else {
+        }
+        else
+        {
             $itens[0]['id'] = "";
             $itens[0]['descricao'] = htmlentities('Não foram encontrados itens para a modalidade escolhida.', ENT_QUOTES, 'UTF-8');
         }
@@ -680,7 +746,8 @@ class administrador extends CI_Controller {
         echo(json_encode($itens));
     }
 
-    function historico() {
+    function historico()
+    {
         $this->load->model('administrador_model', 'administrador');
         $this->load->view('header');
         $dados['instrutores'] = $this->administrador->MntFedInstrutor();
@@ -688,12 +755,14 @@ class administrador extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function getHistorico($federado) {
+    function getHistorico($federado)
+    {
         $dados['notas'] = $this->instrutor->get_historico($federado);
         $this->load->view('instrutores/historico_pessoal', $dados);
     }
 
-    function filiais() {
+    function filiais()
+    {
         $this->load->model('administrador_model', 'administrador');
         $this->load->view('header');
         $dados['filiais'] = $this->administrador->MntFilial();
@@ -701,7 +770,8 @@ class administrador extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function getFilial($filial) {
+    function getFilial($filial)
+    {
         $this->load->model('Administrador_model', 'administrador');
         $filial = $this->administrador->MntFilialDados($filial);
         header('Content-type: application/x-json; charset=utf-8');
@@ -712,16 +782,20 @@ class administrador extends CI_Controller {
         echo(json_encode($filial[0]));
     }
 
-    function modalidades() {
+    function modalidades()
+    {
         $this->load->model('Administrador_model', 'administrador');
         $modalidade = $this->administrador->GetModalidades();
 
         header('Content-type: application/x-json; charset=utf-8');
 
-        if (!empty($modalidade)) {
+        if (!empty($modalidade))
+        {
             for ($i = 0; $i < count($modalidade); $i++)
                 $modalidade[$i]['nome'] = htmlentities($modalidade[$i]['nome'], ENT_QUOTES, 'UTF-8');
-        } else {
+        }
+        else
+        {
             $modalidade[0]['id'] = "";
             $modalidade[0]['nome'] = htmlentities("Não foram encontradas as modalidades, verifique a conexão com o banco.", ENT_QUOTES, 'UTF-8');
         }
@@ -729,25 +803,28 @@ class administrador extends CI_Controller {
         echo(json_encode($modalidade));
     }
 
-    function getFilialModalidade($modalidade) {
+    function getFilialModalidade($modalidade)
+    {
         $this->load->model('Administrador_model', 'administrador');
         $filiais = $this->administrador->getFiliaisModalidade($modalidade);
         header('Content-type: application/x-json; charset=utf-8');
         if (!empty($filiais))
             for ($i = 0; $i < count($filiais); $i++)
                 $filiais[$i]['nome'] = htmlentities($filiais[$i]['nome'], ENT_QUOTES, 'UTF-8');
-        else {
+        else
+        {
             $filiais[0]['id'] = "";
             $filiais[0]['nome'] = htmlentities("Não foram encontradas filiais para essa modalidade, verifique a conexão com o banco.", ENT_QUOTES, 'UTF-8');
         }
         echo (json_encode($filiais));
     }
 
-    function alterarFilial($filial) {
+    function alterarFilial($filial)
+    {
         $this->form_validation->set_rules('nome', 'Nome da Filial', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('cnpj', 'Número de CNPJ', 'required|cnpj');
         $this->form_validation->set_rules('telefone', 'Telefone da filial', 'telephone|trim');
-        
+
         $this->form_validation->set_rules('email', 'E-mail', 'required|valid_email|trim');
         $this->form_validation->set_rules('representante', 'Representante', 'callback_alpha_acent|trim');
         $this->form_validation->set_rules('instrutor', 'Instrutor', 'required|callback_combo');
@@ -758,7 +835,8 @@ class administrador extends CI_Controller {
         $this->form_validation->set_rules('cidade', 'Cidade', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('uf', 'UF', 'required|callback_combo');
 
-        if ($this->form_validation->run() == FALSE) {
+        if ($this->form_validation->run() == FALSE)
+        {
             $this->load->model('Administrador_model', 'administrador');
             $this->load->view('header');
             $dados['filial'] = $this->administrador->AlterarDadoasFilial($filial);
@@ -769,12 +847,15 @@ class administrador extends CI_Controller {
             $dados['instrutor'] = $this->administrador->MntFedInstrutor();
             $this->load->view("administrador/alterarFilial", $dados);
             $this->load->view("footer");
-        } else {
+        }
+        else
+        {
             $this->atualizaFilial($filial);
         }
     }
 
-    function atualizaFilial($id_filial) {
+    function atualizaFilial($id_filial)
+    {
         $this->load->model("Administrador_model", "administrador");
         $filial = array();
         $endereco = array();
@@ -795,8 +876,8 @@ class administrador extends CI_Controller {
         $filial['representante'] = (($this->input->post('representante')) ? $this->input->post('representante') : NULL);
         $filial['id_instrutor'] = $this->input->post('instrutor');
         $filial['email'] = $this->input->post('email');
-        
-        $this->administrador->AtualizarFilial($id_filial,$filial);
+
+        $this->administrador->AtualizarFilial($id_filial, $filial);
 
         $dados['filial'] = $filial['nome'];
         $this->load->view('header');
@@ -804,7 +885,8 @@ class administrador extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function imprimirFilial($filial) {
+    function imprimirFilial($filial)
+    {
         $this->load->model("Administrador_model", "administrador");
         $dados['filial'] = $this->administrador->MntFilialDados($filial);
         $dados['modalidade'] = $this->administrador->getModalidades();
@@ -814,11 +896,12 @@ class administrador extends CI_Controller {
         $this->load->view("footer");
     }
 
-    function incluirFilial() {
+    function incluirFilial()
+    {
         $this->form_validation->set_rules('nome', 'Nome da Filial', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('cnpj', 'número de CNPJ', 'required|cnpj');
         $this->form_validation->set_rules('telefone', 'Telefone da filial', 'required|callback_telephone|trim');
-        
+
         $this->form_validation->set_rules('email', 'E-mail', 'required|valid_email|trim');
         $this->form_validation->set_rules('representante', 'Representante', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('instrutor', 'Instrutor', 'required|callback_combo');
@@ -829,7 +912,8 @@ class administrador extends CI_Controller {
         $this->form_validation->set_rules('cidade', 'Cidade', 'required|callback_alpha_acent|trim');
         $this->form_validation->set_rules('uf', 'UF', 'required|callback_combo');
 
-        if ($this->form_validation->run() == FALSE) {
+        if ($this->form_validation->run() == FALSE)
+        {
             $this->load->model("Administrador_model", "administrador");
             $this->load->view("header");
             $dados['modalidade'] = $this->administrador->getModalidades();
@@ -837,12 +921,15 @@ class administrador extends CI_Controller {
             $dados['instrutores'] = $this->administrador->MntFedInstrutor();
             $this->load->view("administrador/incluirFilial", $dados);
             $this->load->view("footer");
-        } else {
+        }
+        else
+        {
             $this->salvarFilial();
         }
     }
 
-    function salvarFilial() {
+    function salvarFilial()
+    {
         $this->load->model("Administrador_model", "administrador");
         $filial = array();
         $endereco = array();
@@ -876,7 +963,8 @@ class administrador extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function maladireta() {
+    function maladireta()
+    {
         $this->load->model('administrador_model', 'administrador');
         $this->load->view('header');
         $dados['mensagem'] = $this->administrador->malaDireta();
@@ -884,7 +972,8 @@ class administrador extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function inserirMensagem() {
+    function inserirMensagem()
+    {
         $this->load->model('administrador_model', 'administrador');
         $dados['mensagem'] = htmlentities($this->input->post('mensagem'), ENT_QUOTES, 'UTF-8');
         $this->administrador->inserirMaladireta($dados);
@@ -894,7 +983,8 @@ class administrador extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function alterarMensagem() {
+    function alterarMensagem()
+    {
         $this->load->model('administrador_model', 'administrador');
         $dados['mensagem'] = htmlentities($this->input->post('mensagem'), ENT_QUOTES, 'UTF-8');
         $this->administrador->alterarMalaDireta($this->input->post('id'), $dados);

@@ -6,20 +6,20 @@ class Administrador_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-        
     }
 
     // metódos para Manter dados de Federados
     /*
      * @return instrutores para serem colocados em um combobox
      */
-    
-    function participantes_aprovados() {
-        
-   
-    $ultimo_evento = $this->ultimo_evento();
-      
-    
+
+    function participantes_aprovados()
+    {
+
+
+        $ultimo_evento = $this->ultimo_evento();
+
+
         $sql = "SELECT 
         federado.id_federado,
         federado.nome,
@@ -42,76 +42,75 @@ class Administrador_model extends CI_Model
         order by graduacao_federado.id_graduacao";
         $query = $this->db->query($sql);
         $dados = $query->result_array();
-        
-        
-        foreach ($dados as $i=>$v){
-        
+
+
+        foreach ($dados as $i => $v)
+        {
+
             $id_federado = $v['id_federado'];
-            $this->load->model('aluno_model','alunos');
-            $dados[$i]['media'] = $this->alunos->historicoNotas($id_federado); 
-            
-        }  
-        
-        
+            $this->load->model('aluno_model', 'alunos');
+            $dados[$i]['media'] = $this->alunos->historicoNotas($id_federado);
+        }
+
+
         return $dados;
-     }
-     
-     
-     function ultimo_evento() {
+    }
+
+    function ultimo_evento()
+    {
         $sql = "select * from evento_graduacao order by data_evento DESC";
         $query = $this->db->query($sql);
         $result = $query->result_array();
-        
-       if(empty($result)){
-           return $result['0']=array('data_evento'=>'0000-00-00','id_evento'=>'0');
-       }else{
-        return $result['0'];
-       }
+
+        if (empty($result))
+        {
+            return $result['0'] = array('data_evento' => '0000-00-00', 'id_evento' => '0');
+        }
+        else
+        {
+            return $result['0'];
+        }
     }
-     
-     
-    function save_coordenador($id_federado){
-        
-        $dados = array('id_federado'=>$id_federado);
-        $this->db->insert('coordenador',$dados);
-    
-        
+
+    function save_coordenador($id_federado)
+    {
+
+        $dados = array('id_federado' => $id_federado);
+        $this->db->insert('coordenador', $dados);
     }
-    
-    function save_instrutor($id_federado){
-        
-        $dados = array('id_federado'=>$id_federado);
-        
-        $this->db->insert('instrutor',$dados);
+
+    function save_instrutor($id_federado)
+    {
+
+        $dados = array('id_federado' => $id_federado);
+
+        $this->db->insert('instrutor', $dados);
         $id_instrutor = $this->db->insert_id();
-        
+
         $file['id_instrutor'] = $id_instrutor;
         $file['id_modalidade'] = '1';
         $file['data_inicio'] = date('Y-m-d');
-        $this->db->insert('instrutor_por_modalidade',$file);
+        $this->db->insert('instrutor_por_modalidade', $file);
     }
-    
-    
-    function numero(){
-        
+
+    function numero()
+    {
+
         $alunos = array();
-        
+
         $sql_aluno = "SELECT count(id_federado)as total FROM federado where id_tipo_federado = 1;";
         $sql_instrutor = "SELECT count(id_federado)as total FROM federado where id_tipo_federado = 2;";
         $sql_coordenador = "SELECT count(id_federado)as total FROM federado where id_tipo_federado = 3;";
         $sql_filiais = "SELECT count(id_filial)as total FROM filial;";
-        
+
         $alunos['alunos'] = $this->db->query($sql_aluno)->result_array();
         $alunos['instrutores'] = $this->db->query($sql_instrutor)->result_array();
         $alunos['filiais'] = $this->db->query($sql_filiais)->result_array();
-        
-        
+
+
         return $alunos;
     }
-    
-    
-    
-    
+
     public function MntFedInstrutor()
     {
         return $this->db
@@ -146,7 +145,7 @@ class Administrador_model extends CI_Model
 
     public function MntFedFederado($filial, $status)
     {
-        
+
         return $this->db
                         ->select("federado.id_federado as id, federado.nome")
                         ->from("federado")
@@ -165,11 +164,11 @@ class Administrador_model extends CI_Model
 
     public function MntFedDados($federado)
     {
-        
-        
+
+
         return $this->db
                         ->select(
-                               "
+                                "
                               federado.id_federado ,
                               federado.nome AS nome,
                               federado.data_nasc AS dtNasc,
@@ -185,7 +184,7 @@ class Administrador_model extends CI_Model
                         ->join("escolaridade", "federado.id_escolaridade = escolaridade.id", "inner")
                         ->join("nacionalidade", "federado.id_nacionalidade = nacionalidade.id", "inner")
                         ->join("graduacao_federado", "federado.id_federado = graduacao_federado.id_federado", "inner")
-                        ->join("graduacao","graduacao_federado.id_graduacao = graduacao.id_graduacao", "inner")
+                        ->join("graduacao", "graduacao_federado.id_graduacao = graduacao.id_graduacao", "inner")
                         ->where("federado.id_federado", $federado)
                         ->where("graduacao_federado.status", 1)
                         ->get()
@@ -203,8 +202,8 @@ class Administrador_model extends CI_Model
         return $this->db
                         ->select("*,matricula.id_filial as filial,matricula.id_modalidade as modalidade")
                         ->from("federado")
-                        ->join("matricula",'federado.id_federado = matricula.id_federado')
-                        ->where("federado.id_federado",$federado)
+                        ->join("matricula", 'federado.id_federado = matricula.id_federado')
+                        ->where("federado.id_federado", $federado)
                         ->get()
                         ->result_array();
     }
@@ -330,15 +329,18 @@ class Administrador_model extends CI_Model
             $this->db->where("id_tipo_federado", 1);
             $this->db->or_where("id_tipo_federado", 2);
             $this->db->or_where("id_tipo_federado", 3);
-        } else if ($criterio == 5)
+        }
+        else if ($criterio == 5)
         {
             $this->db->where("id_tipo_federado", 1);
             $this->db->or_where("id_tipo_federado", 2);
-        } else if ($criterio == 6)
+        }
+        else if ($criterio == 6)
         {
             $this->db->where("id_tipo_federado", 1);
             $this->db->or_where("id_tipo_federado", 3);
-        } else if ($criterio == 7)
+        }
+        else if ($criterio == 7)
         {
             $this->db->where("id_tipo_federado", 2);
             $this->db->or_where("id_tipo_federado", 3);
@@ -465,9 +467,8 @@ class Administrador_model extends CI_Model
 
     public function AtualizarFilial($id, $dados = array())
     {
-        $this->db->where('id_filial',$id);
+        $this->db->where('id_filial', $id);
         $this->db->update('filial', $dados);
-        
     }
 
     /*
@@ -492,19 +493,17 @@ class Administrador_model extends CI_Model
                         ->get()
                         ->result_array();
     }
-    
+
     public function getFiliaisModalidade($modalidade)
     {
         return $this->db
                         ->select('id_filial as id, nome')
                         ->from('filial')
-                        ->where('id_modalidade',$modalidade)
-                        ->order_by('nome','asc')
+                        ->where('id_modalidade', $modalidade)
+                        ->order_by('nome', 'asc')
                         ->get()
                         ->result_array();
     }
-
-    
 
     public function malaDireta()
     {
@@ -525,8 +524,9 @@ class Administrador_model extends CI_Model
         $this->db->update('mala-direta', $dados, array('id' => $id));
     }
 
-    public function detalhes_de_pedido_faixa($id_evento){
-                $sql = "SELECT 
+    public function detalhes_de_pedido_faixa($id_evento)
+    {
+        $sql = "SELECT 
                         graduacao.faixa,
                         pedido_faixa.tamanho,
                         pedido_faixa.quantidade
@@ -535,12 +535,12 @@ class Administrador_model extends CI_Model
                         join graduacao using (id_graduacao)
                         where pedido_faixa.id_evento = $id_evento
                         order by graduacao.id_graduacao;";
-         return $this->db->query($sql)->result_array();
+        return $this->db->query($sql)->result_array();
     }
 
-
-    public function get_pedidos_faixa(){
-        $sql  = "SELECT 
+    public function get_pedidos_faixa()
+    {
+        $sql = "SELECT 
                 evento_graduacao.id_evento as id,
                 sum(quantidade) as total,
                 evento_graduacao.data_evento as data,
@@ -552,166 +552,168 @@ class Administrador_model extends CI_Model
         return $this->db->query($sql)->result_array();
     }
 
-
-    public function trocarStatusPedido($id,$novoStatus)
+    public function trocarStatusPedido($id, $novoStatus)
     {
-        $this->db->update('pedido',array('status' => $novoStatus), array('id' => $id));
+        $this->db->update('pedido', array('status' => $novoStatus), array('id' => $id));
     }
-    
-    public function pedidos($limite,$comeco)
+
+    public function pedidos($limite, $comeco)
     {
-        $this->db->order_by("data_pedido","desc");
-        $this->db->limit($limite,$comeco);
+        $this->db->order_by("data_pedido", "desc");
+        $this->db->limit($limite, $comeco);
         $query = $this->db
-                        ->select('pedido.id_pedido as id,pedido.data_pedido as data,pedido.status,federado.nome as responsavel,fornecedor.nome as fornecedor,status_pedido.descricao as situacao')
-                        ->from('pedido')
-                        ->join('coordenador','pedido.id_responsavel = coordenador.id_coordenador','join')
-                        ->join('federado','coordenador.id_federado = federado.id_federado','join')
-                        ->join('fornecedor','pedido.fornecedor = fornecedor.id_fornecedor','join')
-                        ->join('status_pedido','pedido.status = status_pedido.id','join')
-                        ->get();
-        
-        if($query->num_rows() > 0):
-            foreach($query->result() as $row):
+                ->select('pedido.id_pedido as id,pedido.data_pedido as data,pedido.status,federado.nome as responsavel,fornecedor.nome as fornecedor,status_pedido.descricao as situacao')
+                ->from('pedido')
+                ->join('coordenador', 'pedido.id_responsavel = coordenador.id_coordenador', 'join')
+                ->join('federado', 'coordenador.id_federado = federado.id_federado', 'join')
+                ->join('fornecedor', 'pedido.fornecedor = fornecedor.id_fornecedor', 'join')
+                ->join('status_pedido', 'pedido.status = status_pedido.id', 'join')
+                ->get();
+
+        if ($query->num_rows() > 0):
+            foreach ($query->result() as $row):
                 $dados[] = $row;
             endforeach;
             return $dados;
         endif;
         return false;
     }
-    
+
     public function informacoesPedido($id)
     {
         return $this->db
                         ->select('itens_pedido.tamanho,itens_pedido.quantidade,item.id_item,item.id_modalidade,itens_pedido.numero,pedido.status')
                         ->from('itens_pedido')
-                        ->join('pedido','itens_pedido.id_pedido = pedido.id_pedido','join')
-                        ->join('item','itens_pedido.id_item = item.id_item','join')
-                        ->where('itens_pedido.id_pedido',$id)
-                        ->order_by('itens_pedido.numero','asc')
+                        ->join('pedido', 'itens_pedido.id_pedido = pedido.id_pedido', 'join')
+                        ->join('item', 'itens_pedido.id_item = item.id_item', 'join')
+                        ->where('itens_pedido.id_pedido', $id)
+                        ->order_by('itens_pedido.numero', 'asc')
                         ->get()
                         ->result_array();
     }
-    
+
     public function itensModalidade($modalidade)
     {
         return $this->db
                         ->select('item.id_item as id,item.descricao')
                         ->from('item')
-                        ->where('item.id_modalidade',$modalidade)
-                        ->order_by('item.id_item','asc')
+                        ->where('item.id_modalidade', $modalidade)
+                        ->order_by('item.id_item', 'asc')
                         ->get()
                         ->result_array();
     }
-    
+
     public function ultimoItem($pedido)
     {
         return $this->db
-                        ->select_max('numero','ultimo')
+                        ->select_max('numero', 'ultimo')
                         ->from('itens_pedido')
-                        ->where('id_pedido',$pedido)
+                        ->where('id_pedido', $pedido)
                         ->get()
                         ->result_array();
     }
-    
-    public function deletarItemPedido($pedido,$item)
+
+    public function deletarItemPedido($pedido, $item)
     {
-        $this->db->where('id_pedido',$pedido);
-        $this->db->where('numero',$item);
+        $this->db->where('id_pedido', $pedido);
+        $this->db->where('numero', $item);
         $this->db->delete('itens_pedido');
     }
-    
-    public function alterarItemPedido($pedido,$item,$dados = array())
+
+    public function alterarItemPedido($pedido, $item, $dados = array())
     {
-        $this->db->where('id_pedido',$pedido);
-        $this->db->where('numero',$item);
-        $this->db->update('itens_pedido',$dados);
+        $this->db->where('id_pedido', $pedido);
+        $this->db->where('numero', $item);
+        $this->db->update('itens_pedido', $dados);
     }
-    
+
     public function inserirItemPedido($dados = array())
     {
-        $this->db->insert('itens_pedido',$dados);
+        $this->db->insert('itens_pedido', $dados);
     }
-    
+
     public function statusPedidos()
     {
         return $this->db
                         ->select('id, descricao')
                         ->from('status_pedido')
-                        ->order_by('id','asc')
+                        ->order_by('id', 'asc')
                         ->get()
                         ->result_array();
     }
-    
-    public function alterarStatusPedido($id,$dados = array())
+
+    public function alterarStatusPedido($id, $dados = array())
     {
-        $this->db->update('pedido',$dados,array('id_pedido' => $id));
+        $this->db->update('pedido', $dados, array('id_pedido' => $id));
     }
-    
+
     public function matricularFederado($dados = array())
     {
-        $this->db->insert('matricula',$dados);
+        $this->db->insert('matricula', $dados);
     }
-    
-    public function alterarMatricula($federado,$modalidade,$dados = array())
+
+    public function alterarMatricula($federado, $modalidade, $dados = array())
     {
-        $this->db->update('matricula',$dados,array('id_federado' => $federado,'id_modalidade' => $modalidade));
+        $this->db->update('matricula', $dados, array('id_federado' => $federado, 'id_modalidade' => $modalidade));
     }
-    
+
     public function criarLogin($dados = array())
     {
-        $this->db->insert('login',$dados);
+        $this->db->insert('login', $dados);
     }
-    
-    public function alterarLogin($id,$dados = array())
+
+    public function alterarLogin($id, $dados = array())
     {
-        $this->update('login',$dados,array('id_login' => $id));
+        $this->update('login', $dados, array('id_login' => $id));
     }
-    
-    function getPrimeiraFaixa($modalidade)   {
-        
-        $dados =  $this->db
-                        ->select('id_graduacao')
-                        ->from('graduacao')
-                        ->where('id_modalidade',$modalidade)
-                        ->where('ordem','1')
-                        ->get()
-                        ->result_array();
+
+    function getPrimeiraFaixa($modalidade)
+    {
+
+        $dados = $this->db
+                ->select('id_graduacao')
+                ->from('graduacao')
+                ->where('id_modalidade', $modalidade)
+                ->where('ordem', '1')
+                ->get()
+                ->result_array();
         echo $this->db->last_query();
-                return $dados;
+        return $dados;
     }
-    
-     function get_login($id_federado){
-        $this->db->where('id_federado',$id_federado);
-        $this->db->update('login',array('status'=>'0'));
-        
+
+    function get_login($id_federado)
+    {
+        $this->db->where('id_federado', $id_federado);
+        $this->db->update('login', array('status' => '0'));
+
         return $this->db->select('login.login,login.senha,federado.nome,federado.email')
                         ->from('login')
                         ->join('federado', 'federado.id_federado = login.id_federado', 'inner')
                         ->where(array('federado.id_federado' => $id_federado))
                         ->get()
                         ->result_array();
-        
     }
-    
-    function gerarGraduacao($dados){
-         $this->db->insert('graduacao_federado', $dados);
-          }
-    
+
+    function gerarGraduacao($dados)
+    {
+        $this->db->insert('graduacao_federado', $dados);
+    }
+
     public function primeiraFaixa($dados = array())
     {
-        $this->db->insert('graduacao_federado',$dados);
+        $this->db->insert('graduacao_federado', $dados);
     }
-    
+
     public function getFilial()
     {
         return $this->db
                         ->select('id_filial as id, nome')
                         ->from('filial')
-                        ->order_by('nome','asc')
+                        ->order_by('nome', 'asc')
                         ->get()
                         ->result_array();
-                        
     }
+
 }
+
 ?>

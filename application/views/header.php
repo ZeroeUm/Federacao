@@ -65,7 +65,7 @@
         <div class="principal">
      
         <div id="header" style="margin-bottom: 2px; ">
-        <img src="/federados/logo0.png" width="180" height="70" style="opacity:0.3;padding-top: 10px;float: right;">
+        <img src="<?php echo base_url() ?>federados/logo0.png" width="180" height="70" style="opacity:0.3;padding-top: 10px;float: right;">
         </div>
         <div id="user-nav" class="navbar navbar-inverse" style="margin-right: 150px;">
              

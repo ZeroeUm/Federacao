@@ -5,33 +5,33 @@
  * @author Humberto
  */
 
-class Login extends CI_Controller {
+class Login extends CI_Controller
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
         $this->load->model("Login_model", 'login', TRUE);
     }
 
-    
-    function erro(){
-        
+    function erro()
+    {
         $this->load->view('header');
         $this->load->view('erro');
         $this->load->view('footer');
     }
 
-
-    function lembrar_senha() {
-
-
-        if ($this->input->post()) {
+    function lembrar_senha()
+    {
+        if ($this->input->post())
+        {
 
             $email = $this->input->post('email');
-            
-            if($email==''){
-               $this->session->set_flashdata('alerta', 'Nenhum email foi informado');
-                redirect('/login/lembrar_senha'); 
-                
+
+            if ($email == '')
+            {
+                $this->session->set_flashdata('alerta', 'Nenhum email foi informado');
+                redirect('/login/lembrar_senha');
             }
             //Localizar email
             $dados = $this->login->get_email($email);
@@ -40,7 +40,7 @@ class Login extends CI_Controller {
             $this->load->library('email');
             $this->email->from('elder.f.silva@gmail.com', 'Felipe');
             $this->email->to('felipe@chipsetdesenvolvimento.com');
-            $this->email->subject('Assunto');
+            $this->email->subject('Solicitação de senha de acesso ao sistema');
 
             $mensagem = "Olá,<strong> {$dados['0']['nome']}</strong><br>
                       Sua solicitação de senha foi realizada.
@@ -49,43 +49,44 @@ class Login extends CI_Controller {
                       <strong>Usuário:</strong> {$dados['0']['nome']}<br>
                       <strong>Senha:</strong> {$dados['0']['senha']}";
             $this->email->message($mensagem);
-            if ($this->email->send()) {
-                $this->session->set_flashdata('alerta', 'um email enviado com sua senha');
+            if ($this->email->send())
+            {
+                $this->session->set_flashdata('alerta', 'Senha de acesso ao sistema foi enviada.');
                 redirect('/login/lembrar_senha');
-            } else {
+            }
+            else
+            {
                 $this->session->set_flashdata('alerta', 'Não foi possível reenviar sua senha, contate seu instrutor.');
                 redirect('/login/lembrar_senha');
             };
-        }else{
+        }
+        else
+        {
             $this->load->view('lembrar_senha');
         }
-
-        
     }
 
-    function index() {
+    function index()
+    {
+
         $this->form_validation->set_rules('usuario', 'Usuário', 'trim|xss_clean|required');
         $this->form_validation->set_rules('senha', 'Senha', 'trim|callback_verificar_banco|xss_clean|required');
 
-             
         if ($this->form_validation->run() == FALSE):
             $this->load->view('login');
         else:
             redirect('home', 'refresh');
         endif;
-        
-        
-      
-        if($this->session->userdata('autentificado')){
-         
+
+        if ($this->session->userdata('autentificado'))
+        {
             redirect('home', 'refresh');
-        
-            
         }
     }
 
-    function verificar_banco($senha) {
-      
+    function verificar_banco($senha)
+    {
+
         if ($this->verificaStatus($this->input->post('usuario'), $senha)):
             return TRUE;
         else:
@@ -94,27 +95,27 @@ class Login extends CI_Controller {
         endif;
     }
 
-    function verificaStatus($usuario, $senha) {
-        
-        
+    function verificaStatus($usuario, $senha)
+    {
         if ($this->login->verificarStatus($usuario)):
-            
-           
+
             if ($this->login->login($usuario, $senha)):
-              
                 $resultado = $this->login->IDFedereado($usuario, $senha);
-              
+
                 $dadosUsuario = $this->login->dadosUsuario($resultado['0']['id_federado']);
 
                 $primeiro_acesso = $this->login->primeiroAcesso($dadosUsuario['0']['id']);
                 //se for o primeiro acesso cria a sessão de alteração que será verificada na home;
-                if($primeiro_acesso){
-                    $this->session->set_userdata('primeiro','0');
-                }else{
-                    $this->session->set_userdata('primeiro','1');
+                if ($primeiro_acesso)
+                {
+                    $this->session->set_userdata('primeiro', '0');
+                }
+                else
+                {
+                    $this->session->set_userdata('primeiro', '1');
                 };
-                
-                
+
+
                 $this->session->set_userdata($dadosUsuario[0]);
                 $this->session->set_userdata('autentificado', TRUE);
                 return TRUE;
@@ -128,16 +129,18 @@ class Login extends CI_Controller {
         endif;
     }
 
-    function logoff() {
+    function logoff()
+    {
         if ($this->session->userdata('autentificado'))
             $this->session->sess_destroy();
         redirect('login', 'refresh');
     }
 
-    function trocarSenha() {
-        
+    function trocarSenha()
+    {
+
         $usuario = $this->session->userdata('id');
-        
+
         $this->form_validation->set_rules('novaSenha', 'Nova senha', 'trim|max_length[10]|xss_clean|required');
         $this->form_validation->set_rules('confirmar', 'Confirmação de senha', 'trim|max_length[10]|matches[novaSenha]|xss_clean|required');
         if ($this->form_validation->run() == FALSE):
@@ -150,15 +153,16 @@ class Login extends CI_Controller {
         endif;
     }
 
-    function trocar() {
+    function trocar()
+    {
         $senha = $this->input->post('novaSenha');
         $usuario = $this->input->post('federado');
-        $dados = array('senha' => $senha,'status'=>'1');
+        $dados = array('senha' => $senha, 'status' => '1');
         $this->login->trocarSenha($usuario, $dados);
-        
-        $this->load->library('../controllers/instrutores','instrutores');
+
+        $this->load->library('../controllers/instrutores', 'instrutores');
         $this->instrutores->enviarSenha($usuario);
-        
+
         $this->logoff();
     }
 
